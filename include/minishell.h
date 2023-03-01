@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:01:06 by johmatos          #+#    #+#             */
-/*   Updated: 2023/02/28 22:34:46 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/03/01 00:40:38 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ enum e_tokens {
 	AMPERSEND,
 	D_AMPERSEND,
 	PIPE,
-	D_PIPE
-} e_tokens;
+	D_PIPE,
+	WORD
+} ;
 
 typedef struct s_tokens	t_tokens;
 
