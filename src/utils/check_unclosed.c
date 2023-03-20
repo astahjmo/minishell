@@ -1,24 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_unclosed.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 14:03:44 by johmatos          #+#    #+#             */
-/*   Updated: 2023/03/17 21:43:48 by johmatos         ###   ########.fr       */
+/*   Created: 2023/03/14 21:38:21 by johmatos          #+#    #+#             */
+/*   Updated: 2023/03/14 22:39:51 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char *argv[], char *envp[])
+int check_unclosed_quotes(char *line,char *delimiter)
 {
-	t_databus data;
-	init_signal();
-	data.env_buff = envp;
-	data.stream = NULL;
-	data.type_stream = 0;
-	wait_input(data);
+	int	credit;
+	char *range;
+	char *cursor;
+
+	credit = 0;
+	cursor = ft_strnstr(line, delimiter,ft_strlen(line));
+	if (cursor != NULL)
+	{
+		credit++;
+		cursor++;
+		while (*cursor != '\0' || cursor != NULL)
+		{
+			cursor = ft_strnstr(cursor, delimiter, ft_strlen(cursor));
+			if (cursor == NULL)
+				break ;
+			cursor++;
+			credit++;
+		}
+	}
+	if (credit % 2 != 0)
+		return (1);
 	return (0);
 }

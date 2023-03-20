@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_signal.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 14:03:44 by johmatos          #+#    #+#             */
-/*   Updated: 2023/03/17 21:43:48 by johmatos         ###   ########.fr       */
+/*   Created: 2023/03/11 15:59:11 by johmatos          #+#    #+#             */
+/*   Updated: 2023/03/16 20:10:37 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void define_handle(int sig)
 {
-	t_databus data;
-	init_signal();
-	data.env_buff = envp;
-	data.stream = NULL;
-	data.type_stream = 0;
-	wait_input(data);
-	return (0);
+	if (sig != SIGINT)
+		return ;
+	ft_printf("\n");
+	rl_on_new_line();
+	rl_replace_line ("", 0);
+	rl_redisplay();
+}
+
+void init_signal()
+{
+	struct sigaction sa_sig;
+
+	sa_sig.sa_handler = define_handle;
+	sa_sig.sa_flags = 0;
+	sigemptyset(&sa_sig.sa_mask);
+	sigaddset(&sa_sig.sa_mask, SIGINT);
+	sigaction(SIGINT, &sa_sig, NULL);
 }
