@@ -6,11 +6,11 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:25:36 by johmatos          #+#    #+#             */
-/*   Updated: 2023/02/08 19:44:35 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/03/17 21:43:21 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 static char	*get_user_env(void)
 {

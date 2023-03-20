@@ -1,8 +1,11 @@
 NAME = minishell
-VPATH= ./src ./src/parser ./src/prompt
+VPATH= ./src ./src/parser ./src/prompt ./src/signals ./src/here_doc ./src/utils
 CC = gcc
-CFLAGS = -g3
-SOURCES = main.c display.c wait_input.c analysis.c
+CFLAGS = -g3 -std=gnu18 -pg
+SOURCES = main.c wait_input.c scanner.c get_token.c\
+		  heredoc.c check_unclosed.c display.c \
+		  init_signal.c clear_bimatrix.c
+
 BUILDDIR = ./build/
 INCLUDE = ./include
 LIB = libft.a
@@ -41,6 +44,6 @@ clean:
 fclean: clean
 	@echo "$(MSGRM) removing build dir and executable"
 	@make --no-print-directory -C ./lib fclean
-	@rm $(NAME)
+	@if test -f $(NAME); then rm -f $(NAME); fi
 
 re: fclean all
