@@ -6,13 +6,13 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 15:59:11 by johmatos          #+#    #+#             */
-/*   Updated: 2023/03/16 20:10:37 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/03/24 15:51:08 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void define_handle(int sig)
+void	define_handle(int sig)
 {
 	if (sig != SIGINT)
 		return ;
@@ -22,9 +22,9 @@ void define_handle(int sig)
 	rl_redisplay();
 }
 
-void init_signal()
+void	init_signal(void)
 {
-	struct sigaction sa_sig;
+	struct sigaction	sa_sig;
 
 	sa_sig.sa_handler = define_handle;
 	sa_sig.sa_flags = 0;

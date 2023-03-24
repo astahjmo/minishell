@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:03:44 by johmatos          #+#    #+#             */
-/*   Updated: 2023/03/17 21:43:48 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/03/24 15:45:27 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	t_databus data;
+	t_databus	data;
+
 	init_signal();
 	data.env_buff = envp;
 	data.stream = NULL;

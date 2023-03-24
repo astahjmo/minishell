@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 00:23:34 by johmatos          #+#    #+#             */
-/*   Updated: 2022/12/13 12:48:33 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:05:28 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ void	ft_putnbr_fd(int n, int fd);
 
 // BONUS
 t_node	*ft_lstlast(t_node *lst);
-t_node *ft_lstnew(void* content);
-t_node	*ft_lstmap(t_node *lst, void *(*f)(void *),void (*del)(void *));
+t_node	*ft_lstnew(void *content);
+t_node	*ft_lstmap(t_node *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_lstsize(t_node *lst);
 void	ft_lstiter(t_node *lst, void (*f)(void *));
 void	ft_lstclear(t_node **lst, void (*del)(void*));
