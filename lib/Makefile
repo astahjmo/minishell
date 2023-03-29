@@ -6,7 +6,7 @@
 #    By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/30 16:11:43 by johmatos          #+#    #+#              #
-#    Updated: 2022/12/12 17:22:08 by johmatos         ###   ########.fr        #
+#    Updated: 2023/03/29 12:54:21 by johmatos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,20 @@ SOURCES := ft_atoi.c ft_isalnum.c ft_isalpha.c \
 		   ft_lstnew.c ft_lstnew.c ft_lstadd_front.c \
 		   ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
 		   ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
-		   ft_lstmap.c
+		   ft_lstmap.c ft_interpol.c
 
+RCol='\e[0m'
+Bla='\e[0;30m'
+Red='\e[0;31m'
+Gre='\e[0;32m'
+el='\e[0;33m'
+Blu='\e[0;34m'
+Pur='\e[0;35m'
+Cya='\e[0;36m'
+Whi='\e[0;37m'
+
+MSGBUILD="[$(Gre)+$(RCol)]"
+MSGRM="[$(Red)-$(RCol)]"
 OBJS := $(addprefix $(BUILDDIR), $(SOURCES:.c=.o))
 
 ifdef DEBUG
@@ -43,14 +55,16 @@ endif
 all: $(LIB)
 
 $(LIB): $(OBJS)
-	ar -rcs $@ $(OBJS)
+	@echo "${MSGBUILD} Building $@"
+	@ar -rcs $@ $(OBJS)
 
 $(BUILDDIR)%.o: %.c
-	test -d $(BUILDDIR) || mkdir $(BUILDDIR)
-	$(CC) $(CFLAGS) -I./include -c $< -o $@
+	@echo "${MSGBUILD} building $@"
+	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
+	@$(CC) $(CFLAGS) -I./include -c $< -o $@
 
 clean:
-	rm -rf $(BUILDDIR)
+	@rm -rf $(BUILDDIR)
 
 fclean: clean
-	rm -rf $(LIB)
+	@rm -rf $(LIB)
