@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 00:23:34 by johmatos          #+#    #+#             */
-/*   Updated: 2023/03/24 16:05:28 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/03/29 12:53:05 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ typedef struct s_stack{
 // Io
 int		ft_printf(const char *str, ...);
 int		fparser(const char *s, va_list ap);
-int		fmt_to_decimal(int nbr);
-int		fmt_to_udecimal(unsigned int nbr);
-int		fmt_to_char(char s);
+int		fmt_to_decimal(int nbr); int		fmt_to_udecimal(unsigned int nbr); int		fmt_to_char(char s);
 int		fmt_to_string(char *s);
 int		fmt_to_hex(unsigned int nb, int is_upper);
 int		fmt_to_pointer(void *pointer);
@@ -73,6 +71,7 @@ int		ft_toupper(int c);
 
 // STR
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+char *	ft_interpol(char *pattern, ...);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char *s1, char *set);
 char	**ft_split(char const *s, char c);
