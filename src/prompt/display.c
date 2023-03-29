@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:25:36 by johmatos          #+#    #+#             */
-/*   Updated: 2023/03/17 21:43:21 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:29:27 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,9 @@ static char	*format_prompt(char *name, char *path)
 
 	path = format_path(path);
 	len = ft_strlen(name) + 1;
-	prompt = ft_calloc(1, ft_strlen(name) + ft_strlen(path + 1) + PREFIX_LEN);
-	prompt[0] = '[';
-	ft_strlcat(prompt, name, len + 1);
-	prompt[len] = ']';
-	prompt[++len] = ' ';
-	prompt[++len] = '-';
-	prompt[++len] = ' ';
-	prompt[++len] = '[';
-	ft_strlcat(prompt, path, ft_strlen(prompt) + len + PREFIX_LEN + 1);
-	len = ft_strlen(prompt);
-	prompt[len] = ']';
-	prompt[++len] = ':';
-	prompt[++len] = ' ';
-	prompt[++len] = '\0';
+	prompt = ft_interpol("[%s] - [%s]-> ", name, path);
 	free(path);
+
 	return (prompt);
 }
 
