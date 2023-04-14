@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:01:06 by johmatos          #+#    #+#             */
-/*   Updated: 2023/03/17 23:30:42 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:06:01 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,14 @@ enum e_inputii {
 	I_IOFILE
 };
 
+enum e_state {
+	e_quote,
+	e_token,
+	e_blank,
+	e_redirect,
+	e_operator
+};
+
 typedef struct s_data {
 	enum e_inputii	type_stream;
 	char			*stream;
@@ -84,7 +92,7 @@ extern void				init_signal(void);
 extern void				bscanner(t_databus data);
 extern char				*here_doc(char	*line, char *quote);
 extern int				check_unclosed_quotes(char *line, char *delimiter);
-extern t_tokens			get_token(char *lexeme);
 extern void				scanner(t_databus data);
+extern char				ft_interpol_wrapper(char *pattern, ...);
 
 #endif // !

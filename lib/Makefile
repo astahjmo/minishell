@@ -6,7 +6,7 @@
 #    By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/30 16:11:43 by johmatos          #+#    #+#              #
-#    Updated: 2023/03/29 12:54:21 by johmatos         ###   ########.fr        #
+#    Updated: 2023/04/10 20:13:15 by johmatos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SOURCES := ft_atoi.c ft_isalnum.c ft_isalpha.c \
 		   ft_lstnew.c ft_lstnew.c ft_lstadd_front.c \
 		   ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
 		   ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
-		   ft_lstmap.c ft_interpol.c
+		   ft_lstmap.c ft_interpol.c ft_isspace.c
 
 RCol='\e[0m'
 Bla='\e[0;30m'
