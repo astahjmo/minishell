@@ -1,8 +1,8 @@
 NAME = minishell
 VPATH= ./src ./src/parser ./src/prompt ./src/signals ./src/here_doc ./src/utils
 CC = gcc
-CFLAGS = -g3 -std=gnu18 -pg
-SOURCES = main.c wait_input.c scanner.c get_token.c\
+CFLAGS = -g3 -std=gnu18
+SOURCES = main.c wait_input.c scanner.c \
 		  heredoc.c check_unclosed.c display.c \
 		  init_signal.c clear_bimatrix.c
 

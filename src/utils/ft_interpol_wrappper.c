@@ -1,36 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_token.c                                        :+:      :+:    :+:   */
+/*   ft_interpol_wrappper.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/17 21:11:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/03/24 15:47:34 by johmatos         ###   ########.fr       */
+/*   Created: 2023/04/12 19:09:36 by johmatos          #+#    #+#             */
+/*   Updated: 2023/04/12 19:14:50 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	get_type(char *lexeme, char *type)
+char	*ft_interpol_wrappper(char *pattern, ...)
 {
-	char	**aux;
-	int		idx;
-
-	idx = -1;
-	aux = ft_split(type, ' ');
-	while (aux[++idx] != NULL)
-		if (ft_strncmp(lexeme, aux[idx],
-				ft_strlen(lexeme) + ft_strlen(aux[idx])) == 0)
-			return (idx);
-	return (-1);
-}
-
-t_tokens	get_token(char *lexeme)
-{
-	t_tokens	token;
-
-	token.type = get_type(lexeme, TOKENS);
-	token.word = lexeme;
-	return (token);
+	char	*str;
+	va_list	args;
+	str = ft_interpol(pattern, args);
 }

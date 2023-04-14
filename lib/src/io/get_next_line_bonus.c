@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 21:14:16 by johmatos          #+#    #+#             */
-/*   Updated: 2022/10/30 13:30:49 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:00:53 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,13 @@ char	*shift_left(char *buffer)
 	}
 	while (buffer[shift] && buffer[shift] != '\n')
 		shift++;
-	new_buffer = malloc(ft_strlen(buffer) + 1);
+	new_buffer = malloc(sizeof(char) * ft_strlen(buffer) + 1);
 	if (!new_buffer)
 		return (NULL);
 	while (buffer[shift])
 		new_buffer[++count] = buffer[++shift];
 	new_buffer[++count] = '\0';
 	free (buffer);
-	buffer = NULL;
 	return (new_buffer);
 }
 
