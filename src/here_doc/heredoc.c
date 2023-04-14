@@ -6,11 +6,12 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:37:17 by johmatos          #+#    #+#             */
-/*   Updated: 2023/04/14 19:47:17 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/04/14 20:09:39 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
 static void	child_execute(int fd[], char *delimiter)
 {
