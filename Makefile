@@ -1,7 +1,7 @@
 NAME = minishell
 VPATH= ./src ./src/parser ./src/prompt ./src/signals ./src/here_doc ./src/utils
 CC = gcc
-CFLAGS = -g3 -std=gnu18
+CFLAGS = -g -std=gnu18
 SOURCES = main.c wait_input.c scanner.c \
 		  heredoc.c check_unclosed.c display.c \
 		  init_signal.c clear_bimatrix.c
@@ -33,7 +33,7 @@ $(NAME): $(OBJS)
 	@echo "$(MSGBUILD) $@ program has created"
 $(BUILDDIR)%.o: %.c
 	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
-	@$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INCLUDE) -I./lib/include -c $< -o $@
 	@echo "$(MSGBUILD) building: $@"
 
 clean:

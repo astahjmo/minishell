@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:17:45 by johmatos          #+#    #+#             */
-/*   Updated: 2023/04/14 19:38:25 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:32:51 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	wait_input(t_databus data)
 		data.stream = get_next_line(0);
 		if (data.stream == NULL)
 			exit(0);
-		if (check_unclosed_quotes(data.stream, "\"") 
+		if (check_unclosed_quotes(data.stream, "\"")
 			|| check_unclosed_quotes(data.stream, "\'"))
 		{
 			here = here_doc(data.stream, "\"");

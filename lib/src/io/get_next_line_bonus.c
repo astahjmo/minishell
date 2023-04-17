@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 21:14:16 by johmatos          #+#    #+#             */
-/*   Updated: 2023/04/14 19:00:53 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:31:13 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@ char	*shift_left(char *buffer)
 	count = -1;
 	if (!buffer)
 		return (NULL);
-	if (!*buffer)
-	{
-		free (buffer);
-		buffer = NULL;
-		return (buffer);
-	}
 	while (buffer[shift] && buffer[shift] != '\n')
 		shift++;
 	new_buffer = malloc(sizeof(char) * ft_strlen(buffer) + 1);
@@ -37,6 +31,7 @@ char	*shift_left(char *buffer)
 		new_buffer[++count] = buffer[++shift];
 	new_buffer[++count] = '\0';
 	free (buffer);
+	free(new_buffer);
 	return (new_buffer);
 }
 
@@ -95,20 +90,21 @@ char	*buffer_handler(char *buffer, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[MAX_FD];
-	char		*line;
+	char	*buffer;
+	char	*line;
 
+	buffer = NULL;
 	line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd > MAX_FD)
 		return (NULL);
-	buffer[fd] = buffer_handler(buffer[fd], fd);
-	line = get_linex(buffer[fd]);
-	buffer[fd] = shift_left(buffer[fd]);
-	if (!buffer[fd])
+	buffer = buffer_handler(buffer, fd);
+	line = get_linex(buffer);
+	buffer = shift_left(buffer);
+	if (!buffer)
 	{
-		free (buffer[fd]);
-		buffer[fd] = NULL;
-		return (buffer[fd]);
+		free (buffer);
+		buffer = NULL;
+		return (buffer);
 	}
 	return (line);
 }
