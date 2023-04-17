@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 00:23:34 by johmatos          #+#    #+#             */
-/*   Updated: 2023/04/12 21:12:36 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:31:34 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		ft_toupper(int c);
 
 // STR
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char *	ft_interpol(char *pattern, ...);
+char	*ft_interpol(char *pattern, ...);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char *s1, char *set);
 char	**ft_split(char const *s, char c);
