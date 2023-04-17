@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:37:17 by johmatos          #+#    #+#             */
-/*   Updated: 2023/04/17 18:29:12 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:51:09 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	child_execute(int fd[], char *delimiter)
 	exit(1);
 }
 
+//TODO: Make the read process dynamic
 char	*main_process(int fd[], pid_t pid, char *line)
 {
 	int		status;
