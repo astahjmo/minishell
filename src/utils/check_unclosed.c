@@ -6,13 +6,12 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 21:38:21 by johmatos          #+#    #+#             */
-/*   Updated: 2023/04/10 20:40:09 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/04/14 22:35:42 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// TODO:fix strnstr accessing adrress not mapped
 int	check_unclosed_quotes(char *line, char *delimiter)
 {
 	int		credit;
