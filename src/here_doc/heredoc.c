@@ -6,11 +6,12 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:37:17 by johmatos          #+#    #+#             */
-/*   Updated: 2023/04/14 20:09:39 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:26:04 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
 #include <unistd.h>
 
 static void	child_execute(int fd[], char *delimiter)
@@ -50,7 +51,7 @@ char	*main_process(int fd[], pid_t pid, char *line)
 	memset(buff, 0, 1000);
 	waitpid(pid, &status, 0);
 	read(fd[0], buff, 1024);
-	str = ft_interpol("%s%s", line, buff);
+	str = ft_interpol("%sn%s", line, buff);
 	close(fd[0]);
 	return (str);
 }
