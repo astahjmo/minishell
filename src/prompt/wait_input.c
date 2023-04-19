@@ -6,11 +6,15 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:17:45 by johmatos          #+#    #+#             */
-/*   Updated: 2023/04/17 18:32:51 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/04/19 19:36:00 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
+#include <readline/history.h>
+#include <readline/readline.h>
+#include <stdlib.h>
 
 int	wait_input(t_databus data)
 {
@@ -19,18 +23,17 @@ int	wait_input(t_databus data)
 
 	while (TRUE)
 	{
-		ft_printf("prompt: ");
-		data.stream = get_next_line(0);
+		prompt = get_prompt();
+		data.stream = readline(prompt);
 		if (data.stream == NULL)
 			exit(0);
-		if (check_unclosed_quotes(data.stream, "\"")
-			|| check_unclosed_quotes(data.stream, "\'"))
-		{
-			here = here_doc(data.stream, "\"");
-			data.type_stream = I_HERE_DOC;
-		}
+		if (check_unclosed_quotes(data.stream, "\'") ||
+				check_unclosed_quotes(data.stream, "\""))
+			ft_printf("Bad usage: unclosed quotes\n");
 		else
 			data.type_stream = I_COMMAND_LINE;
+		handler_quotes(data.stream);
+		add_history(data.stream);
 		free(data.stream);
 	}
 	return (1);
