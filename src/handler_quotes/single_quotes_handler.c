@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wait_input.c                                       :+:      :+:    :+:   */
+/*   single_quotes_handler.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfilipe- <lfilipe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 14:17:45 by johmatos          #+#    #+#             */
-/*   Updated: 2023/04/19 20:05:34 by lfilipe-         ###   ########.fr       */
+/*   Created: 2023/04/19 20:03:27 by lfilipe-          #+#    #+#             */
+/*   Updated: 2023/04/19 20:59:08 by lfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,22 @@
 #include <readline/readline.h>
 #include <stdlib.h>
 
-int	wait_input(t_databus data)
+void	single_quotes_handler(t_databus line)
 {
-	char	*prompt;
-	char	*here;
+	int		i;
+	int		j;
+	int	line_size;
+	//char	*string;
 
-	while (TRUE)
+	line_size = ft_strlen(line);
+	i = 0;
+	j = 0;
+
+	while(i < (line_size + 1))
 	{
-		prompt = get_prompt();
-		data.stream = readline(prompt);
-		if (data.stream == NULL)
-			exit(0);
-		if (check_unclosed_quotes(data.stream, "\'") ||
-				check_unclosed_quotes(data.stream, "\""))
-			ft_printf("Bad usage: unclosed quotes\n");
-		else
-			data.type_stream = I_COMMAND_LINE;
-		single_quotes_handler(data.stream);
-		add_history(data.stream);
-		free(data.stream);
+		if (line[i] != '\'')
+			line[j++] = line[i];
+		i++;
 	}
-	return (1);
+	line[j] = '\0';
 }
