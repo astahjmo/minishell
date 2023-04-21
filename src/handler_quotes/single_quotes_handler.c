@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_quotes_handler.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lfilipe- <lfilipe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loe <loe@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 20:03:27 by lfilipe-          #+#    #+#             */
-/*   Updated: 2023/04/19 20:59:08 by lfilipe-         ###   ########.fr       */
+/*   Updated: 2023/04/21 14:30:25 by loe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <readline/readline.h>
 #include <stdlib.h>
 
-void	single_quotes_handler(t_databus line)
+void	single_quotes_handler(char *line)
 {
 	int		i;
 	int		j;
@@ -34,4 +34,5 @@ void	single_quotes_handler(t_databus line)
 		i++;
 	}
 	line[j] = '\0';
+	printf("%s\n", line);
 }

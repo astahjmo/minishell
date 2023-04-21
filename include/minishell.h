@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: loe <loe@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:01:06 by johmatos          #+#    #+#             */
-/*   Updated: 2023/04/12 19:06:01 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/04/21 14:23:43 by loe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ extern char				*here_doc(char	*line, char *quote);
 extern int				check_unclosed_quotes(char *line, char *delimiter);
 extern void				scanner(t_databus data);
 extern char				ft_interpol_wrapper(char *pattern, ...);
+extern void				single_quotes_handler(char *line);
 
 #endif // !
