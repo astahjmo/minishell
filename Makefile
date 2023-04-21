@@ -1,10 +1,11 @@
 NAME = minishell
-VPATH= ./src ./src/parser ./src/prompt ./src/signals ./src/here_doc ./src/utils
+VPATH= ./src ./src/parser ./src/prompt ./src/signals ./src/here_doc ./src/utils ./src/handler_quotes
 CC = gcc
 CFLAGS = -g -std=gnu18
 SOURCES = main.c wait_input.c scanner.c \
 		  heredoc.c check_unclosed.c display.c \
-		  init_signal.c clear_bimatrix.c
+		  init_signal.c clear_bimatrix.c \
+		  single_quotes_handler.c
 
 BUILDDIR = ./build/
 INCLUDE = ./include
