@@ -5,3 +5,6 @@ compile_commands.json
 .cache/
 .vscode/
 .nfs*
+lib*/*
+src/readline/*
+minishell
