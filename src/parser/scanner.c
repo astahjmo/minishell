@@ -6,47 +6,40 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:17:14 by johmatos          #+#    #+#             */
-/*   Updated: 2023/04/17 18:32:31 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/10 05:33:00 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "global.h"
+#include "libft.h"
 #include "minishell.h"
 
-static int	get_token(char *stream, int *offset)
+t_node	*create_token(char *line)
 {
-	char	**token_list;
-	int		idx;
+	t_node			*node;
+	t_fn_node_apply	**parsers;
+	int				count;
 
-	idx = 0;
-	token_list = ft_split(TOKENS, ' ');
-	while (token_list[idx] != NULL)
-	{
-		if (ft_strncmp(stream,
-				token_list[idx],
-				ft_strlen(token_list[idx])) == 0)
-		{
-			*offset += ft_strlen(token_list[idx]);
-			return (idx);
-		}
-		idx++;
-	}
-	clear_bimatrix(token_list);
-	return (-1);
+	node = NULL;
+	parsers = init_parser();
+	count = 0;
+	while (count < 3 && node == NULL && parsers[count] != NULL)
+		node = parsers[count++](line);
+	return (node);
 }
 
-void	scanner(t_databus data)
+void	tokenizer(t_databus data)
 {
-	char	*cursor;
-	char	**tokens;
-	int		idx;
-	int		token;
+	int			state;
+	int			token;
+	t_node		*node;
 
-	cursor = data.stream;
-	idx = 0;
-	while (data.stream[idx] != '\0')
-	{
-		token = get_token(data.stream, &idx);
-		if (token == -1)
-			idx++;
-	}
+	state = 0;
+	token = 0;
+	if (string_is_equal(data.stream, ' '))
+		string_eat_until(&data.stream, " ");
+	if (string_is_equal(data.stream, '#'))
+		string_eat_all(&data.stream, '\n');
+	if (*data.stream != '\0' && data.stream != NULL)
+	node = create_token(data.stream);
 }

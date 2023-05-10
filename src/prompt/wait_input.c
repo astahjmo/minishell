@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loe <loe@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:17:45 by johmatos          #+#    #+#             */
-/*   Updated: 2023/04/21 14:13:20 by loe              ###   ########.fr       */
+/*   Updated: 2023/05/10 00:45:20 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,20 @@ int	wait_input(t_databus data)
 	{
 		prompt = get_prompt();
 		data.stream = readline(prompt);
-		if (data.stream == NULL)
+		if (!data.stream)
+		{
+			ft_printf("\n");
+			free(data.stream);
+			free(prompt);
 			exit(0);
-		if (check_unclosed_quotes(data.stream, "\'") ||
-				check_unclosed_quotes(data.stream, "\""))
-			ft_printf("Bad usage: unclosed quotes\n");
-		else
-			data.type_stream = I_COMMAND_LINE;
-		single_quotes_handler(data.stream);
-		add_history(data.stream);
+		}
+		else if (data.stream)
+		{
+			tokenizer(data);
+			add_history(data.stream);
+		}
 		free(data.stream);
+		free(prompt);
 	}
 	return (1);
 }
