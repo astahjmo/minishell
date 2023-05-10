@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:15:00 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/10 05:19:36 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/10 05:36:42 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ t_node	*tokenizer_operator(char *str)
 	if (token == -1)
 		return (NULL);
 	node = malloc(sizeof(t_node));
-	return (token);
+	return (node);
 }
