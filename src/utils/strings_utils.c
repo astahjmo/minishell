@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:16:20 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/10 05:21:40 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/10 02:31:41 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,26 @@ void	string_eat_all(char **word, char hungry)
 t_bool	string_is_equal(char *string, char find)
 {
 	return (*string == find);
+}
+
+void	string_eat_at_next_token(char **word)
+{
+	
+	char *line;
+
+	line = *word;
+
+	if (get_token(line) != -1)
+	{
+		while (line && *line != '\0'
+			&& get_token(line) != -1)
+			line++;
+	}
+	else
+	{
+		while (line && *line != '\0'
+			&& get_token(line) == -1)
+			line++;
+	}
+	*word = line;
 }

@@ -6,7 +6,8 @@ SOURCES = main.c wait_input.c scanner.c \
 		  heredoc.c check_unclosed.c display.c \
 		  init_signal.c clear_bimatrix.c \
 		  single_quotes_handler.c find_token.c strings_utils.c\
-		  tokenizer_operator.c init_parsers.c linked_list.c
+		  tokenizer_operator.c init_parsers.c linked_list.c \
+			tokenizer_string.c
 
 BUILDDIR = ./build/
 INCLUDE = ./include

@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:01:06 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/10 05:57:58 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/10 04:33:47 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ t_node					*tokenizer_operator(char *list);
 t_fn_node_apply			**init_parser(void);
 t_node					*ft_last_node(t_node *head);
 t_node					*ft_node_new();
+t_node 					*tokenizer_string(char *line);
 void					ft_add_back(t_node *back, t_node *node);
 void					ft_addfront(t_node *node, t_node *front);
+void					string_eat_at_next_token(char **wordt);
 #endif // !

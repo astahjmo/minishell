@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:17:14 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/10 05:33:00 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/10 04:22:37 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,16 @@ void	tokenizer(t_databus data)
 
 	state = 0;
 	token = 0;
-	if (string_is_equal(data.stream, ' '))
-		string_eat_until(&data.stream, " ");
-	if (string_is_equal(data.stream, '#'))
-		string_eat_all(&data.stream, '\n');
-	if (*data.stream != '\0' && data.stream != NULL)
-	node = create_token(data.stream);
+	while (data.stream && *data.stream != '\0' && g_table[state][token] != -1)
+	{
+		if (string_is_equal(data.stream, ' '))
+			string_eat_until(&data.stream, " ");
+		if (string_is_equal(data.stream, '#'))
+			string_eat_all(&data.stream, '\n');
+		node = create_token(data.stream);
+		token = node->token - 1;
+		state = g_table[state][token];
+		ft_printf("STRING: %s\nToken: %d\n State: %d\ntable: %d\n", data.stream, token,state, g_table[state][token]);
+		string_eat_at_next_token(&data.stream);
+	}
 }
