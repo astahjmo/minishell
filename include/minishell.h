@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:01:06 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/10 05:31:49 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/10 05:57:58 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ typedef struct s_data {
 
 typedef struct s_node {
 	enum e_tokens	token;
+	char			*data;
 	t_node			*next;
+	t_node			*head;
+	t_node			*back;
 }					t_node;
 
 typedef struct b_bus {
@@ -95,10 +98,14 @@ extern void				scanner(t_databus data);
 extern char				ft_interpol_wrapper(char *pattern, ...);
 extern void				single_quotes_handler(char *line);
 void					tokenizer(t_databus data);
-t_tokens				get_token(char *find);
-void					string_eat_until(char **word, char *until);
-t_bool					string_is_equal(char *string, char find);
 void					string_eat_all(char **word, char hungry);
+void					string_eat_until(char **word, char *until);
+t_tokens				get_token(char *find);
+t_bool					string_is_equal(char *string, char find);
 t_node					*tokenizer_operator(char *list);
 t_fn_node_apply			**init_parser(void);
+t_node					*ft_last_node(t_node *head);
+t_node					*ft_node_new();
+void					ft_add_back(t_node *back, t_node *node);
+void					ft_addfront(t_node *node, t_node *front);
 #endif // !
