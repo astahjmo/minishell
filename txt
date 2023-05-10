@@ -1,0 +1,20 @@
+total 7076
+drwxrwxr-x  8 coder coder    4096 May  8 21:38 .
+drwxr-xr-x 18 coder coder    4096 Mar 24 16:00 ..
+drwxrwx---  3 coder coder    4096 Mar 17 21:45 .cache
+drwxrwxr-x  8 coder coder    4096 May  8 02:48 .git
+-rw-rw-r--  1 coder coder      99 May  7 21:55 .gitignore
+-rw-rw-r--  1 coder coder       0 May  8 17:25 EOF
+-rw-rw-r--  1 coder coder    1244 Apr 24 07:07 Makefile
+-rw-rw-r--  1 coder coder    1090 Mar 27 22:36 README.md
+-rw-rw-r--  1 coder coder       0 May  8 21:19 a
+-rw-r--r--  1 coder coder     948 May  8 18:25 a.c
+-rwxrwxr-x  1 coder coder   16952 May  8 18:25 a.out
+drwxrwxr-x  2 coder coder    4096 May  8 21:38 build
+-rw-rw-r--  1 coder coder    2425 May  8 21:38 compile_commands.json
+drwxr-xr-x  2 coder coder    4096 May  8 20:42 include
+drwxrwxr-x  6 coder coder    4096 May  7 21:57 lib
+-rwxrwxr-x  1 coder coder   38592 May  8 21:38 minishell
+drwxr-xr-x 10 coder coder    4096 Apr 21 16:44 src
+-rw-rw-r--  1 coder coder       0 May  8 21:38 txt
+-rw-------  1 coder coder 7127040 Apr 12 21:43 vgcore.2609

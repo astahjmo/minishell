@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   single_quotes_handler.c                            :+:      :+:    :+:   */
+/*   strings_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/19 20:03:27 by lfilipe-          #+#    #+#             */
-/*   Updated: 2023/05/10 05:22:29 by johmatos         ###   ########.fr       */
+/*   Created: 2023/05/09 23:16:20 by johmatos          #+#    #+#             */
+/*   Updated: 2023/05/10 05:21:40 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
-#include <readline/history.h>
-#include <readline/readline.h>
-#include <stdlib.h>
 
-void	single_quotes_handler(char *line)
+void	string_eat_until(char **word, char *until)
 {
-	int		i;
-	int		j;
-	int		line_size;
+	char	*line;
 
-	line_size = ft_strlen(line);
-	i = 0;
-	j = 0;
-	while (i < (line_size + 1))
-	{
-		if (line[i] != '\'')
-			line[j++] = line[i];
-		i++;
-	}
-	line[j] = '\0';
-	printf("%s\n", line);
+	line = *word;
+	while (ft_strncmp(line, until, ft_strlen(until)) == 0)
+		line++;
+	*word = line;
+}
+
+void	string_eat_all(char **word, char hungry)
+{
+	char	*line;
+
+	line = *word;
+	while (*line == hungry)
+		line++;
+	*word = line;
+}
+
+t_bool	string_is_equal(char *string, char find)
+{
+	return (*string == find);
 }

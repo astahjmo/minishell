@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loe <loe@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:01:06 by johmatos          #+#    #+#             */
-/*   Updated: 2023/04/21 14:23:43 by loe              ###   ########.fr       */
+/*   Updated: 2023/05/10 05:31:49 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,26 @@
 # include <errno.h>
 # include <signal.h>
 # define PREFIX_LEN 30
-# define TOKENS "< > << >> || && | &"
+# define TOKENS "<< >> || && | & < >"
 # define BUILTINS "echo cd pwd export unset env exit"
 # define TRUE 1
 # define FALSE 0
 
-typedef struct s_tokens	t_tokens;
-typedef struct s_tree	t_ast;
+typedef struct s_node	t_node;
 typedef struct s_data	t_databus;
-enum e_tokens {
-	T_INPUT_REDIR,
-	T_OUT_REDIR,
-	T_O_OUT_REDIR,
+typedef t_node			*t_fn_node_apply(char*);
+
+typedef enum e_tokens{
 	T_HERE_DOC,
+	T_O_OUT_REDIR,
 	T_OR_LOGIC,
 	T_AND_LOGIC,
 	T_PIPE,
 	T_FOREGROUND,
+	T_INPUT_REDIR,
+	T_OUT_REDIR,
 	T_WORD
-};
+}			t_tokens;
 
 enum e_inputii {
 	I_COMMAND_LINE,
@@ -59,29 +60,27 @@ enum e_state {
 	e_operator
 };
 
+typedef enum e_bool{
+	true,
+	false
+}		t_bool;
+
 typedef struct s_data {
 	enum e_inputii	type_stream;
 	char			*stream;
 	char			**env_buff;
 }					t_databus;
 
-typedef struct s_tokens {
-	enum e_tokens	type;
-	char			*word;
-}					t_tokens;
-
-typedef struct s_tree {
+typedef struct s_node {
 	enum e_tokens	token;
-	void			*left;
-	void			*right;
-}					t_ast;
+	t_node			*next;
+}					t_node;
 
 typedef struct b_bus {
 	enum e_inputii	input_state;
 	void			*stream;
 }					t_bus;
 
-typedef int				t_bool;
 typedef char			**t_lexeme;
 
 extern int				wait_input(t_databus data);
@@ -95,5 +94,11 @@ extern int				check_unclosed_quotes(char *line, char *delimiter);
 extern void				scanner(t_databus data);
 extern char				ft_interpol_wrapper(char *pattern, ...);
 extern void				single_quotes_handler(char *line);
-
+void					tokenizer(t_databus data);
+t_tokens				get_token(char *find);
+void					string_eat_until(char **word, char *until);
+t_bool					string_is_equal(char *string, char find);
+void					string_eat_all(char **word, char hungry);
+t_node					*tokenizer_operator(char *list);
+t_fn_node_apply			**init_parser(void);
 #endif // !

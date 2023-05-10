@@ -6,7 +6,7 @@
 #    By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/30 16:11:43 by johmatos          #+#    #+#              #
-#    Updated: 2023/04/10 20:13:15 by johmatos         ###   ########.fr        #
+#    Updated: 2023/05/09 04:08:32 by johmatos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ VPATH	:= ./src/io/ ./src/utils/ ./src/memory/ ./src/string/
 BUILDDIR := objs/
 INCLUDE := /include
 CC := cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -g -Wall -Werror -Wextra
 SOURCES := ft_atoi.c ft_isalnum.c ft_isalpha.c \
 		   ft_isascii.c ft_isdigit.c ft_isprint.c \
 		   ft_ithex.c ft_itoa.c ft_ubase.c ft_split.c \
