@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 05:41:48 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/10 06:01:50 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/13 00:36:07 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,24 @@ t_node	*ft_node_new(void)
 	t_node	*node;
 
 	node = malloc(sizeof(t_node));
-
 	node->back = NULL;
-	node->head = NULL;
 	node->data = NULL;
 	node->next = NULL;
 	node->token = -1;
-
 	return (node);
 }
+
 t_node	*ft_last_node(t_node *head)
 {
-	t_node *cursor;
+	t_node	*cursor;
 
 	cursor = head;
-
 	while (cursor->next != NULL)
 		cursor = cursor->next;
 	return (cursor);
 }
 
-void	 ft_addfront(t_node *old, t_node *new)
+void	ft_addfront(t_node *old, t_node *new)
 {
 	t_node	temp;
 
