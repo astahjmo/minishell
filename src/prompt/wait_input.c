@@ -6,15 +6,11 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:17:45 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/10 00:45:20 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/12 02:09:36 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include <readline/history.h>
-#include <readline/readline.h>
-#include <stdlib.h>
 
 int	wait_input(t_databus data)
 {
@@ -35,6 +31,8 @@ int	wait_input(t_databus data)
 		else if (data.stream)
 		{
 			tokenizer(data);
+			sintax_analysis(data.cmds->head);
+			free_cmds(data.cmds);
 			add_history(data.stream);
 		}
 		free(data.stream);
