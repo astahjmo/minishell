@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:01:06 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/10 04:33:47 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/13 00:30:18 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,26 @@
 # define BUILTINS "echo cd pwd export unset env exit"
 # define TRUE 1
 # define FALSE 0
+# define ARR_MAX_BUFF 1024
+# define INVALID -1
 
 typedef struct s_node	t_node;
 typedef struct s_data	t_databus;
 typedef t_node			*t_fn_node_apply(char*);
+typedef short int		t_bool;
+typedef struct s_env	t_env;
 
 typedef enum e_tokens{
-	T_HERE_DOC,
-	T_O_OUT_REDIR,
-	T_OR_LOGIC,
-	T_AND_LOGIC,
-	T_PIPE,
-	T_FOREGROUND,
-	T_INPUT_REDIR,
-	T_OUT_REDIR,
-	T_WORD
+	T_INITIAL = 0,
+	T_HERE_DOC = 1,
+	T_O_OUT_REDIR = 2,
+	T_OR_LOGIC = 3,
+	T_AND_LOGIC = 4,
+	T_PIPE = 5,
+	T_FOREGROUND = 6,
+	T_INPUT_REDIR = 7,
+	T_OUT_REDIR = 8,
+	T_WORD = 9
 }			t_tokens;
 
 enum e_inputii {
@@ -60,22 +65,34 @@ enum e_state {
 	e_operator
 };
 
-typedef enum e_bool{
-	true,
-	false
-}		t_bool;
+typedef struct s_env{
+	char	*key[NAME_MAX];
+	char	*value;
+	t_env	*next;
+}				t_env;
+
+typedef struct s_infoenv{
+	int		colision;
+	t_env	*bucket[ARR_MAX_BUFF];
+}				t_infoenv;
+
+typedef struct s_cmds {
+	int			exit_code;
+	t_node		*head;
+}				t_cmds;
 
 typedef struct s_data {
 	enum e_inputii	type_stream;
 	char			*stream;
-	char			**env_buff;
+	t_infoenv		*env;
+	t_cmds			*cmds;
 }					t_databus;
 
 typedef struct s_node {
 	enum e_tokens	token;
 	char			*data;
+	int				length;
 	t_node			*next;
-	t_node			*head;
 	t_node			*back;
 }					t_node;
 
@@ -105,9 +122,12 @@ t_bool					string_is_equal(char *string, char find);
 t_node					*tokenizer_operator(char *list);
 t_fn_node_apply			**init_parser(void);
 t_node					*ft_last_node(t_node *head);
-t_node					*ft_node_new();
-t_node 					*tokenizer_string(char *line);
+t_node					*ft_node_new(void);
+t_node					*tokenizer_string(char *line);
 void					ft_add_back(t_node *back, t_node *node);
 void					ft_addfront(t_node *node, t_node *front);
 void					string_eat_at_next_token(char **wordt);
+void					main_setup_hook(t_databus *data);
+void					sintax_analysis(t_node *head);
+void					free_cmds(t_cmds *cmds);
 #endif // !

@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_parsers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 14:03:44 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/13 00:36:35 by johmatos         ###   ########.fr       */
+/*   Created: 2023/05/10 00:14:17 by johmatos          #+#    #+#             */
+/*   Updated: 2023/05/10 01:31:22 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char *argv[], char *envp[])
+t_fn_node_apply	**init_parser(void)
 {
-	t_databus	data;
+	static t_fn_node_apply	*fns[4] = {
+		&tokenizer_operator,
+		&tokenizer_string,
+		NULL
+	};
 
-	init_signal();
-	main_setup_hook(&data);
-	wait_input(data);
-	return (0);
+	return (fns);
 }

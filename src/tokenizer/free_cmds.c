@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 14:03:44 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/13 00:36:35 by johmatos         ###   ########.fr       */
+/*   Created: 2023/05/12 01:55:29 by johmatos          #+#    #+#             */
+/*   Updated: 2023/05/12 02:13:42 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void	free_cmds(t_cmds *cmds)
 {
-	t_databus	data;
+	t_node	*node;
 
-	init_signal();
-	main_setup_hook(&data);
-	wait_input(data);
-	return (0);
+	node = cmds->head;
+    while (node->next != NULL)
+    {
+        node = node->next;
+        free(node->back);
+    }
+	free(node);
+	cmds->head = NULL;
 }
