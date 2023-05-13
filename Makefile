@@ -1,3 +1,4 @@
+SHELL = /usr/bin/bash
 NAME = minishell
 VPATH= ./src ./src/parser ./src/prompt ./src/signals ./src/here_doc ./src/utils ./src/handler_quotes ./src/tokenizer ./src/syntax
 CC = gcc

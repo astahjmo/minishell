@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 01:19:40 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/13 00:35:41 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:11:07 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	sintax_analysis(t_node *head)
 
 	cursor = head;
 	state = T_INITIAL;
-	while (state != -1)
+	while (cursor && state != -1)
 	{
 		token = cursor->token;
 		state = g_machine[state][token];

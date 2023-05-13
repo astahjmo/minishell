@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:53:05 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/12 03:04:48 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:20:20 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,16 @@ t_tokens	get_token(char *line)
 	beggin = TOKENS;
 	end = TOKENS;
 	token = -1;
-	idx = 0;
+	idx = 1;
 	while (token == -1 && *beggin != '\0')
 	{
 		while (*end != ' ' && *end != '\0')
 			end++;
-		if (*beggin && *beggin != '\0' && ft_strncmp(line, beggin, end - beggin) == 0)
+		if (*beggin && *beggin != '\0'
+			&& ft_strncmp(line, beggin, end - beggin) == 0)
 			return (idx);
 		while (*end == ' ' && *end != '\0')
-		  end++;
+			end++;
 		beggin = end;
 		idx++;
 	}
