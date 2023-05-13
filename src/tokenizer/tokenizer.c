@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:17:14 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/12 01:53:48 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:44:56 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ t_node	*create_token(char *line)
 		node = parsers[count++](line);
 	return (node);
 }
+
 void	add_token_to_list(t_node *token, t_cmds *list)
 {
-	if (token ==  NULL)
+	if (token == NULL)
 		return ;
 	if (list->head == NULL)
 		list->head = token;

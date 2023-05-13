@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 01:55:29 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/12 02:13:42 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:40:05 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 void	free_cmds(t_cmds *cmds)
 {
 	t_node	*node;
+	t_node	*tmp;
 
 	node = cmds->head;
-    while (node->next != NULL)
-    {
-        node = node->next;
-        free(node->back);
-    }
+	while (node->next != NULL)
+	{
+		node = node->next;
+		tmp = node->back;
+		free(tmp);
+	}
 	free(node);
 	cmds->head = NULL;
 }

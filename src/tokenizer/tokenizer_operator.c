@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:15:00 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/12 19:26:46 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:09:53 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_node	*tokenizer_operator(char *str)
 		return (NULL);
 	node = ft_node_new();
 	node->token = token;
+	node->next = NULL;
 	node->length = 0;
 	return (node);
 }
