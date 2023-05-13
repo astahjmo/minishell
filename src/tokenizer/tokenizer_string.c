@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:22:27 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/12 19:09:41 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/13 02:48:02 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ t_node	*tokenizer_string(char *line)
 	t_node		*node;
 
 	delimiter = line;
-	while (delimiter && *delimiter != '\0'
+	while (delimiter != NULL && *delimiter != '\0'
 		&& get_token(delimiter) == -1)
 		delimiter++;
+	node = ft_node_new();
 	node->token = T_WORD;
 	node->data = line;
 	node->length = delimiter - line;
 	node->next = NULL;
+	node->back = NULL;
 	return (node);
 }

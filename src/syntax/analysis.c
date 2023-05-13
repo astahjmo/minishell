@@ -6,10 +6,11 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 01:19:40 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/12 19:11:07 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/13 04:58:20 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 #include "global.h"
 
@@ -27,4 +28,9 @@ void	sintax_analysis(t_node *head)
 		state = g_machine[state][token];
 		cursor = cursor->next;
 	}
+
+	if (state != -1 && cursor == NULL)
+		ft_printf("acabo");
+	else
+		ft_printf("syntax");
 }
