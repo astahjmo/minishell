@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:17:14 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/12 18:44:56 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:23:28 by astaroth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,8 @@ void	add_token_to_list(t_node *token, t_cmds *list)
 
 void	tokenizer(t_databus data)
 {
-	int			state;
-	int			token;
 	t_node		*node;
 
-	state = 0;
-	token = 0;
 	while (data.stream && *data.stream != '\0')
 	{
 		if (string_is_equal(data.stream, ' '))

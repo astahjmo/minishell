@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:16:20 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/12 02:33:09 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:39:16 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,18 @@ t_bool	string_is_equal(char *string, char find)
 
 void	string_eat_at_next_token(char **word)
 {
-	
-	char *line;
+	char	*line;
 
 	line = *word;
-
 	if (get_token(line) == -1)
 	{
 		while (line && *line != '\0'
-			&& get_token(line) == -1)
+			&& get_token(line) == T_INVALID)
 			line++;
 	}
 	else
 	{
-		while (line && *line != '\0' && get_token(line) != -1)
+		while (line && *line != '\0' && get_token(line) != T_INVALID)
 		{
 			if (get_token(line) <= 3)
 				line++;

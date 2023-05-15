@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_cmds.c                                        :+:      :+:    :+:   */
+/*   lexer_strings.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/12 01:55:29 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/15 11:40:32 by astaroth         ###   ########.fr       */
+/*   Created: 2023/05/15 15:04:31 by astaroth          #+#    #+#             */
+/*   Updated: 2023/05/15 15:11:31 by astaroth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_cmds(t_cmds *cmds)
+char	*get_token_string(t_tokens token)
 {
-	t_node	*node;
-	t_node	*tmp;
+	static char	*strings[9] = {
+		"invalid",
+		"<<", ">>",
+		"||",
+		"&&",
+		"|",
+		"&",
+		"<",
+		">"
+	};
 
-	node = cmds->head;
-	while (node->next != NULL)
-	{
-		node = node->next;
-		tmp = node->back;
-		free(tmp);
-	}
-	free(node);
-	cmds->head = NULL;
+	return (strings[token]);
 }

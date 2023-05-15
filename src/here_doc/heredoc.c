@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 05:31:29 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/10 05:31:31 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:36:00 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*main_process(int fd[], pid_t pid, char *line)
 
 	close(fd[1]);
 	waitpid(pid, &status, 0);
-	memset(buff, 0, 1024);
+	ft_memset(buff, 0, 1024);
 	read(fd[0], buff, 1024);
 	str = ft_interpol("%s%s", line, buff);
 	close(fd[0]);

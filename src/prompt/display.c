@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:25:36 by johmatos          #+#    #+#             */
-/*   Updated: 2023/03/29 22:59:44 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:36:31 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static char	*get_user_env(void)
 static char	*format_path(char *pwd)
 {
 	char	**arr;
-	char	*aux;
 	char	*folder;
 	int		len;
 
@@ -43,10 +42,8 @@ static char	*format_path(char *pwd)
 static char	*format_prompt(char *name, char *path)
 {
 	char	*prompt;
-	int		len;
 
 	path = format_path(path);
-	len = ft_strlen(name) + 1;
 	prompt = ft_interpol("[%s] - [%s]-> ", name, path);
 	free(path);
 	return (prompt);

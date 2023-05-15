@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_cmds.c                                        :+:      :+:    :+:   */
+/*   init_recipes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/12 01:55:29 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/15 11:40:32 by astaroth         ###   ########.fr       */
+/*   Created: 2023/05/15 13:12:12 by astaroth          #+#    #+#             */
+/*   Updated: 2023/05/15 14:36:37 by astaroth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_cmds(t_cmds *cmds)
+t_recipes	**init_recipes(void)
 {
-	t_node	*node;
-	t_node	*tmp;
+	static t_recipes	*recipes[4] = {
+		&get_word_recipe,
+		&get_operator_recipe,
+		NULL
+	};
 
-	node = cmds->head;
-	while (node->next != NULL)
-	{
-		node = node->next;
-		tmp = node->back;
-		free(tmp);
-	}
-	free(node);
-	cmds->head = NULL;
+	return (recipes);
 }
