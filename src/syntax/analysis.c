@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 15:58:34 by astaroth          #+#    #+#             */
-/*   Updated: 2023/05/15 16:06:58 by astaroth         ###   ########.fr       */
+/*   Created: 2023/05/15 16:10:41 by astaroth          #+#    #+#             */
+/*   Updated: 2023/05/15 16:11:02 by astaroth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "global.h"
 
 static int	is_valid(t_tokens next)
 {
@@ -74,4 +73,3 @@ void	sintax_analysis(t_node *head)
 		ft_printf("Unexpected token: %s\n", get_token_string(state));
 	else
 		ft_printf("Deu certoa krlh");
-}

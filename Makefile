@@ -1,4 +1,3 @@
-SHELL = /usr/bin/bash
 NAME = minishell
 VPATH= ./src ./src/parser ./src/prompt ./src/signals ./src/here_doc ./src/utils ./src/handler_quotes ./src/tokenizer ./src/syntax
 CC = gcc
@@ -12,9 +11,11 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  recipeOperator.c init_recipes.c lexer_strings.c
 
 BUILDDIR = ./build/
+LINCLUDE= ./lib/include
 INCLUDE = ./include
 LIB = libft.a
 OBJS = $(addprefix $(BUILDDIR), $(SOURCES:.c=.o))
+#./build/asdasjdi.o
 
 RCol='\e[0m'
 Bla='\e[0;30m'
@@ -26,28 +27,29 @@ Pur='\e[0;35m'
 Cya='\e[0;36m'
 Whi='\e[0;37m'
 
-MSGBUILD="[$(Gre)+$(RCol)]"
-MSGRM="[$(Red)-$(RCol)]"
+MSGBUILD="[$(el)+$(RCol)]"
+MSGRM="[$(Pur)-$(RCol)]"
 
-all: $(NAME)
+all: $(NAME) #minihsell
 
-$(NAME): $(OBJS)
-	@echo "$(MSGBUILD) Building lib"
+$(NAME): $(OBJS) 
+	@echo "$(MSGBUILD) Building: $(LIB)"
 	@make --no-print-directory -C ./lib
 	@$(CC) $(CFLAGS) -I$(INCLUDE) $(OBJS) -Llib -lft -lreadline -o $@
-	@echo "$(MSGBUILD) $@ program has created"
+	@echo "$(MSGBUILD) program $@ has created"
+
 $(BUILDDIR)%.o: %.c
 	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
-	@$(CC) $(CFLAGS) -I$(INCLUDE) -I./lib/include -c $< -o $@
-	@echo "$(MSGBUILD) building: $@"
+	@$(CC) $(CFLAGS) -I$(INCLUDE) -I$(LINCLUDE) -c $< -o $@
+	@echo "$(MSGBUILD) Building: $@"
 
 clean:
-	@echo "$(MSGRM) removing build dir "
+	@echo "$(MSGRM) removing $(BUILDDIR) dir "
 	@make --no-print-directory -C ./lib clean
 	@rm -rf $(BUILDDIR)
 
 fclean: clean
-	@echo "$(MSGRM) removing build dir and executable"
+	@echo "$(MSGRM) removing $(BUILDDIR) dir and $(NAME) bin"
 	@make --no-print-directory -C ./lib fclean
 	@if test -f $(NAME); then rm -f $(NAME); fi
 
