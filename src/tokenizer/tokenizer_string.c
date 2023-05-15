@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_string.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/10 01:22:27 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/13 17:40:56 by johmatos         ###   ########.fr       */
+/*   Created: 2023/05/15 16:11:15 by astaroth          #+#    #+#             */
+/*   Updated: 2023/05/15 16:11:19 by astaroth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_node	*tokenizer_string(char *line)
 	t_node		*node;
 
 	delimiter = line;
-	while (delimiter && *delimiter != '\0'
+	while (delimiter != NULL && *delimiter != '\0'
 		&& get_token(delimiter) == -1)
 		delimiter++;
 	node = ft_node_new();
@@ -27,5 +27,6 @@ t_node	*tokenizer_string(char *line)
 	node->data = line;
 	node->length = delimiter - line;
 	node->next = NULL;
+	node->back = NULL;
 	return (node);
 }
