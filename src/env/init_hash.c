@@ -1,41 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wait_input.c                                       :+:      :+:    :+:   */
+/*   init_hash.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 14:17:45 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/15 16:15:48 by astaroth         ###   ########.fr       */
+/*   Created: 2023/05/15 17:03:21 by astaroth          #+#    #+#             */
+/*   Updated: 2023/05/15 18:04:24 by astaroth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	wait_input(t_databus data)
+t_infoenv	*init_hash(void)
 {
-	char	*prompt;
-
-	while (TRUE)
-	{
-		prompt = get_prompt();
-		data.stream = readline(prompt);
-		if (!data.stream)
-		{
-			ft_printf("\n");
-			free(data.stream);
-			free(prompt);
-			exit(0);
-		}
-		else if (data.stream)
-		{
-			tokenizer(data);
-			if (!sintax_analysis(data.cmds->head))
-				free_cmds(data.cmds);
-			add_history(data.stream);
-		}
-		free(data.stream);
-		free(prompt);
-	}
-	return (1);
+	
 }

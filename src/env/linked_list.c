@@ -5,28 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/10 05:41:48 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/15 17:49:28 by astaroth         ###   ########.fr       */
+/*   Created: 2023/05/15 16:42:42 by astaroth          #+#    #+#             */
+/*   Updated: 2023/05/15 16:43:31 by astaroth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdlib.h>
 
-void	ft_add_back(t_node *old_node, t_node *new)
+void	ft_add_env_back(t_node *node, t_node *new)
 {
 	t_node	*temp;
 
-	if (!old_node)
+	if (!node)
 		return ;
-	temp = old_node->next;
+	temp = node->next;
 	new->next = temp;
-	old_node->next = new;
-	new->back = old_node;
+	node->next = new;
+	new->back = node;
 	return ;
 }
 
-t_node	*ft_node_new(void)
+t_node	*ft_env_new(void)
 {
 	t_node	*node;
 
@@ -38,7 +37,7 @@ t_node	*ft_node_new(void)
 	return (node);
 }
 
-t_node	*ft_last_node(t_node *head)
+t_node	*ft_last_env(t_node *head)
 {
 	t_node	*cursor;
 
