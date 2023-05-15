@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_operator.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:15:00 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/12 19:09:53 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:19:49 by astaroth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

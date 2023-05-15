@@ -2,13 +2,14 @@ SHELL = /usr/bin/bash
 NAME = minishell
 VPATH= ./src ./src/parser ./src/prompt ./src/signals ./src/here_doc ./src/utils ./src/handler_quotes ./src/tokenizer ./src/syntax
 CC = gcc
-CFLAGS = -g -std=gnu18
+CFLAGS = -g -std=gnu18 -Wall -Wextra -Werror
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  heredoc.c check_unclosed.c display.c \
 		  init_signal.c clear_bimatrix.c \
 		  single_quotes_handler.c find_token.c strings_utils.c\
 		  tokenizer_operator.c init_parsers.c linked_list.c \
-		  tokenizer_string.c analysis.c free_cmds.c
+		  tokenizer_string.c analysis.c free_cmds.c recipeWord.c \
+		  recipeOperator.c init_recipes.c lexer_strings.c
 
 BUILDDIR = ./build/
 INCLUDE = ./include
