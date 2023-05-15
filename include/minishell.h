@@ -6,7 +6,7 @@
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:01:06 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/15 15:12:30 by astaroth         ###   ########.fr       */
+/*   Updated: 2023/05/15 18:08:54 by astaroth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,6 @@ enum e_inputii {
 	I_IOFILE
 };
 
-enum e_state {
-	e_quote,
-	e_token,
-	e_blank,
-	e_redirect,
-	e_operator
-};
-
 typedef struct s_env{
 	char	*key[NAME_MAX];
 	char	*value;
@@ -103,8 +95,6 @@ typedef struct b_bus {
 	void			*stream;
 }					t_bus;
 
-typedef char			**t_lexeme;
-
 extern int				wait_input(t_databus data);
 extern char				*get_prompt(void);
 extern void				clear_bimatrix(char **arr);
@@ -132,8 +122,8 @@ void					ft_add_back(t_node *back, t_node *node);
 void					ft_addfront(t_node *node, t_node *front);
 void					string_eat_at_next_token(char **wordt);
 void					main_setup_hook(t_databus *data);
-void					sintax_analysis(t_node *head);
 void					free_cmds(t_cmds *cmds);
 int						get_operator_recipe(t_tokens token);
 char					*get_token_string(t_tokens token);
+int						sintax_analysis(t_node *head);
 #endif // !

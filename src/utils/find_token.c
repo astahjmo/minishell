@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:53:05 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/13 17:37:23 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:33:42 by astaroth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_tokens	get_token(char *line)
 	end = TOKENS;
 	token = -1;
 	idx = 1;
-	while (token == (t_tokens)-1 && *beggin != '\0')
+	while (token == -1 && *beggin != '\0')
 	{
 		while (*end != ' ' && *end != '\0')
 			end++;

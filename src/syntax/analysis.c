@@ -6,7 +6,7 @@
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:10:41 by astaroth          #+#    #+#             */
-/*   Updated: 2023/05/15 16:11:02 by astaroth         ###   ########.fr       */
+/*   Updated: 2023/05/15 18:04:44 by astaroth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	get_next_state(t_tokens state, t_node *next)
 	return (status);
 }
 
-void	sintax_analysis(t_node *head)
+int	sintax_analysis(t_node *head)
 {
 	t_tokens	state;
 	int			progress;	
@@ -70,6 +70,8 @@ void	sintax_analysis(t_node *head)
 		cursor = cursor->next;
 	}
 	if (progress == -1)
-		ft_printf("Unexpected token: %s\n", get_token_string(state));
+		ft_printf("Error: %s", get_token_string(state));
 	else
-		ft_printf("Deu certoa krlh");
+		ft_printf("Passou");
+	return (0);
+}
