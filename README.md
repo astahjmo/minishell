@@ -31,9 +31,9 @@ state | '<<' | '>>' | '||' | '&&' | '|' | '&' | '<' | '>' | WORD
 ```
 ## TODO
 
-[x]Display a prompt when waiting for a new command
+[x] Display a prompt when waiting for a new command
 
-[x]Have a working history
+[x] Have a working history
 
 [x] Not use more than one global variable. Think about it. You will have to explain
 
@@ -46,11 +46,11 @@ subject such as \ (backslash) or ; (semicolon).
 
 characters in the quoted sequence.
 
-[x]ctrl-C displays a new prompt on a new line.
+[x] ctrl-C displays a new prompt on a new line.
 
-[x]ctrl-D exits the shell.
+[x] ctrl-D exits the shell.
 
-[x]ctrl-\ does nothing.
+[x] ctrl-\ does nothing.
 
 [] Search and launch the right executable (based on the PATH variable or using a
 
@@ -70,7 +70,7 @@ connected to the input of the next command via a pipe.
 
 should expand to their values.
 
-[]Your shell must implement the following builtins:
+[] Your shell must implement the following builtins:
 
 - [] echo with option -n
 
