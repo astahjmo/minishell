@@ -6,7 +6,7 @@
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:30:04 by astaroth          #+#    #+#             */
-/*   Updated: 2023/05/16 15:30:15 by astaroth         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:11:00 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <errno.h>
 # include <signal.h>
 # define PREFIX_LEN 30
-# define TOKENS "<< >> || && | & < >"
+# define TOKENS "<< >> || && | & < > $("
 # define BUILTINS "echo cd pwd export unset env exit"
 # define TRUE 1
 # define FALSE 0
@@ -50,7 +50,8 @@ typedef enum e_tokens{
 	T_FOREGROUND = 6,
 	T_INPUT_REDIR = 7,
 	T_OUT_REDIR = 8,
-	T_WORD = 9,
+	T_SUBSHELL = 9,
+	T_WORD = 10,
 	T_INVALID = -1
 }			t_tokens;
 

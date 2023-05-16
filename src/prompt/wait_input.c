@@ -6,7 +6,7 @@
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:17:45 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/15 16:15:48 by astaroth         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:40:50 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	wait_input(t_databus data)
 		else if (data.stream)
 		{
 			tokenizer(data);
+			add_history(data.stream);
 			if (!sintax_analysis(data.cmds->head))
 				free_cmds(data.cmds);
-			add_history(data.stream);
 		}
 		free(data.stream);
 		free(prompt);

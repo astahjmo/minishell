@@ -23,6 +23,16 @@ void	string_eat_until(char **word, char *until)
 	*word = line;
 }
 
+void	string_eat_at(char **word, char at)
+{
+	char	*line;
+
+	line = *word;
+	while (*line != at)
+		line++;
+	*word = line;
+}
+
 void	string_eat_all(char **word, char hungry)
 {
 	char	*line;
@@ -53,7 +63,9 @@ void	string_eat_at_next_token(char **word)
 	{
 		while (line && *line != '\0' && get_token(line) != T_INVALID)
 		{
-			if (get_token(line) <= 3)
+			if (get_token(line) == T_SUBSHELL)
+				string_eat_at(&line, ')');
+			else if (get_token(line) <= 3)
 				line++;
 			line++;
 			break ;
