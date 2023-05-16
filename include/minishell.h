@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 11:01:06 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/15 18:08:54 by astaroth         ###   ########.fr       */
+/*   Created: 2023/05/16 15:30:04 by astaroth          #+#    #+#             */
+/*   Updated: 2023/05/16 15:30:15 by astaroth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
 # define BUILTINS "echo cd pwd export unset env exit"
 # define TRUE 1
 # define FALSE 0
-# define ARR_MAX_BUFF 1024
+# define ARR_MAX_BUFF (int)1e4
+# define PRIME 373
 
 typedef struct s_node	t_node;
 typedef struct s_data	t_databus;
@@ -60,14 +61,14 @@ enum e_inputii {
 };
 
 typedef struct s_env{
-	char	*key[NAME_MAX];
 	char	*value;
 	t_env	*next;
 }				t_env;
 
 typedef struct s_infoenv{
-	int		colision;
-	t_env	*bucket[ARR_MAX_BUFF];
+	int			colision;
+	long long	count;
+	t_env		**bucket;
 }				t_infoenv;
 
 typedef struct s_cmds {
@@ -126,4 +127,11 @@ void					free_cmds(t_cmds *cmds);
 int						get_operator_recipe(t_tokens token);
 char					*get_token_string(t_tokens token);
 int						sintax_analysis(t_node *head);
+void					ft_add_env_back(t_env *node, t_env *new);
+t_env					*ft_env_new(void);
+t_env					*ft_last_env(t_env *head);
+void					*init_environ(char *envp[], t_infoenv *environ);
+long long int			hash_map(char *string);
+void					free_env(t_infoenv *env);
+void					ft_print_env(t_infoenv *env);
 #endif // !
