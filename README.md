@@ -31,57 +31,44 @@ state | '<<' | '>>' | '||' | '&&' | '|' | '&' | '<' | '>' | WORD
 ```
 ## TODO
 
-[x]Display a prompt when waiting for a new command
+- [x] Display a prompt when waiting for a new command
 
-[x]Have a working history
+- [x] Have a working history
 
-[x] Not use more than one global variable. Think about it. You will have to explain
+- [x] Not use more than one global variable. Think about it. You will have to explain its purpose
 
-its purpose
-[x] Not interpret unclosed quotes or special characters which are not required by the
+- [x] Not interpret unclosed quotes or special characters which are not required by the subject such as \ (backslash) or ; (semicolon).
 
-subject such as \ (backslash) or ; (semicolon).
+- [x] Handle ’ (single quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence.
 
-[x] Handle ’ (single quote) which should prevent the shell from interpreting the meta-
+- [x] ctrl-C displays a new prompt on a new line.
 
-characters in the quoted sequence.
+- [x] ctrl-D exits the shell.
 
-[x]ctrl-C displays a new prompt on a new line.
+- [x] ctrl-\ does nothing.
 
-[x]ctrl-D exits the shell.
+- [ ] Search and launch the right executable (based on the PATH variable or using a relative or an absolute path
 
-[x]ctrl-\ does nothing.
+- [ ] Handle " (double quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence except for $ (dollar sign).
 
-[] Search and launch the right executable (based on the PATH variable or using a
+### Implement redirections:
 
-relative or an absolute path
+- [ ] Implement pipes (| character). The output of each command in the pipeline is connected to the input of the next command via a pipe.
 
-[] Handle " (double quote) which should prevent the shell from interpreting the meta-
+- [ ] Handle environment variables ($ followed by a sequence of characters) which should expand to their values.
 
-characters in the quoted sequence except for $ (dollar sign).
+### Your shell must implement the following builtins:
 
-[] Implement redirections:
+- [ ] echo with option -n
 
-[] Implement pipes (| character). The output of each command in the pipeline is
+- [ ] cd with only a relative or absolute path
 
-connected to the input of the next command via a pipe.
+- [ ] pwd with no options
 
-[] Handle environment variables ($ followed by a sequence of characters) which
+- [ ] export with no options
 
-should expand to their values.
+- [ ] unset with no options
 
-[]Your shell must implement the following builtins:
+- [ ] env with no options or arguments
 
-- [] echo with option -n
-
-- [] cd with only a relative or absolute path
-
-- [] pwd with no options
-
-- [] export with no options
-
-- [] unset with no options
-
-- [] env with no options or arguments
-
-- [] exit with no options
+- [ ] exit with no options
