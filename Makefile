@@ -1,5 +1,10 @@
 NAME = minishell
-VPATH= ./src ./src/parser ./src/prompt ./src/signals ./src/here_doc ./src/utils ./src/handler_quotes ./src/tokenizer ./src/syntax
+VPATH= ./src \
+./src/parser ./src/prompt ./src/signals \
+ ./src/here_doc ./src/utils \
+ ./src/handler_quotes \
+ ./src/tokenizer \
+ ./src/syntax ./src/env ./src
 CC = gcc
 CFLAGS = -g -std=gnu18 -Wall -Wextra -Werror
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
@@ -8,14 +13,14 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  single_quotes_handler.c find_token.c strings_utils.c\
 		  tokenizer_operator.c init_parsers.c linked_list.c \
 		  tokenizer_string.c analysis.c free_cmds.c recipeWord.c \
-		  recipeOperator.c init_recipes.c lexer_strings.c
+		  recipeOperator.c init_recipes.c lexer_strings.c init_hash.c \
+		  hash_function.c env_linked_list.c
 
 BUILDDIR = ./build/
 LINCLUDE= ./lib/include
 INCLUDE = ./include
 LIB = libft.a
 OBJS = $(addprefix $(BUILDDIR), $(SOURCES:.c=.o))
-#./build/asdasjdi.o
 
 RCol='\e[0m'
 Bla='\e[0;30m'
@@ -30,7 +35,7 @@ Whi='\e[0;37m'
 MSGBUILD="[$(el)+$(RCol)]"
 MSGRM="[$(Pur)-$(RCol)]"
 
-all: $(NAME) #minihsell
+all: $(NAME)
 
 $(NAME): $(OBJS) 
 	@echo "$(MSGBUILD) Building: $(LIB)"
