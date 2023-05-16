@@ -6,7 +6,7 @@
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 05:31:29 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/15 16:40:01 by astaroth         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:15:50 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char	*here_doc(char	*line, char *quote)
 	pid_t	pid;
 	char	*str;
 
+	str = NULL;
+	pid = 0;
 	if (pipe(fd) < 0)
 	{
 		perror("pipe error");

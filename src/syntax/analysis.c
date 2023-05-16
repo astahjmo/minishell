@@ -22,7 +22,7 @@ static int	is_valid(t_tokens next)
 
 static int	is_operator(t_tokens token)
 {
-	return (token > T_INITIAL && token <= T_OUT_REDIR);
+	return (token > T_INITIAL && token <= T_SUBSHELL);
 }
 
 static int	get_next_state(t_tokens state, t_node *next)
@@ -70,8 +70,8 @@ int	sintax_analysis(t_node *head)
 		cursor = cursor->next;
 	}
 	if (progress == -1)
-		ft_printf("Error: %s", get_token_string(state));
+		ft_printf("Error: %s\n", get_token_string(state));
 	else
-		ft_printf("Passou");
+		ft_printf("Passou\n");
 	return (0);
 }
