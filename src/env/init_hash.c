@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_hash.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:03:21 by astaroth          #+#    #+#             */
-/*   Updated: 2023/05/16 15:28:09 by astaroth         ###   ########.fr       */
+/*   Updated: 2023/05/20 06:28:16 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_env	*init_env(char *str)
 	return (environ);
 }
 
-static t_env	**get_bucket(void)
+t_env	**get_bucket(void)
 {
 	static t_env	*bucket[ARR_MAX_BUFF] = {NULL};
 

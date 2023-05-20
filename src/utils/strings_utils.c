@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strings_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:16:20 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/13 17:39:16 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/20 06:18:08 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	string_eat_at(char **word, char at)
 	line = *word;
 	while (*line != at)
 		line++;
+	line++;
 	*word = line;
 }
 
@@ -51,25 +52,29 @@ t_bool	string_is_equal(char *string, char find)
 void	string_eat_at_next_token(char **word)
 {
 	char	*line;
+	char	*temp;
 
 	line = *word;
+	temp = line + 1;
 	if (get_token(line) == -1)
 	{
-		while (line && *line != '\0'
-			&& get_token(line) == T_INVALID)
-			line++;
+		if (*line == '\'' || *line == '"')
+			string_eat_at(&temp, *line);
+		else
+			while (temp && * temp != '\0' && *temp != ' '
+			&& get_token(temp) == -1 && get_expansion(temp) == -1)
+				temp++;
+	*word = temp;
 	}
 	else
 	{
 		while (line && *line != '\0' && get_token(line) != T_INVALID)
 		{
-			if (get_token(line) == T_SUBSHELL)
-				string_eat_at(&line, ')');
-			else if (get_token(line) <= 3)
+			if (get_token(line) <= 3)
 				line++;
 			line++;
 			break ;
 		}
+		*word = line;
 	}
-	*word = line;
 }

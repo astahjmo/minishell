@@ -14,7 +14,7 @@
 
 char	*get_token_string(t_tokens token)
 {
-	static char	*strings[9] = {
+	static char	*strings[10] = {
 		"invalid",
 		"<<", ">>",
 		"||",
@@ -22,7 +22,8 @@ char	*get_token_string(t_tokens token)
 		"|",
 		"&",
 		"<",
-		">"
+		">",
+		"$"
 	};
 
 	return (strings[token]);

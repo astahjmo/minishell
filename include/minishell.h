@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:30:04 by astaroth          #+#    #+#             */
-/*   Updated: 2023/05/16 18:11:00 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/20 07:18:58 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@
 # include <errno.h>
 # include <signal.h>
 # define PREFIX_LEN 30
-# define TOKENS "<< >> || && | & < > $("
 # define BUILTINS "echo cd pwd export unset env exit"
 # define TRUE 1
 # define FALSE 0
 # define ARR_MAX_BUFF (int)1e4
 # define PRIME 373
+# define DOLLAR '$'
+# define SQUOTE '\''
+# define DQUOTE '"'
 
 typedef struct s_node	t_node;
 typedef struct s_data	t_databus;
@@ -50,8 +52,7 @@ typedef enum e_tokens{
 	T_FOREGROUND = 6,
 	T_INPUT_REDIR = 7,
 	T_OUT_REDIR = 8,
-	T_SUBSHELL = 9,
-	T_WORD = 10,
+	T_WORD = 9,
 	T_INVALID = -1
 }			t_tokens;
 
@@ -110,8 +111,9 @@ extern int				check_unclosed_quotes(char *line, char *delimiter);
 extern void				scanner(t_databus data);
 extern char				ft_interpol_wrapper(char *pattern, ...);
 extern t_tokens			get_word_recipe(t_tokens state);
-extern void				single_quotes_handler(char *line);
+char					*handler_quotes(char *line);
 void					tokenizer(t_databus data);
+char					*single_quotes_handler(char *line,int *acc);
 void					string_eat_all(char **word, char hungry);
 void					string_eat_until(char **word, char *until);
 t_tokens				get_token(char *find);
@@ -125,7 +127,7 @@ void					ft_addfront(t_node *node, t_node *front);
 void					string_eat_at_next_token(char **wordt);
 void					main_setup_hook(t_databus *data);
 void					free_cmds(t_cmds *cmds);
-int						get_operator_recipe(t_tokens token);
+int						get_operator_recipe(t_tokens);
 char					*get_token_string(t_tokens token);
 int						sintax_analysis(t_node *head);
 void					ft_add_env_back(t_env *node, t_env *new);
@@ -133,6 +135,11 @@ t_env					*ft_env_new(void);
 t_env					*ft_last_env(t_env *head);
 void					*init_environ(char *envp[], t_infoenv *environ);
 long long int			hash_map(char *string);
+void					string_eat_at(char **word, char at);
 void					free_env(t_infoenv *env);
 void					ft_print_env(t_infoenv *env);
+t_tokens				get_expansion(char *line);
+char					*get_env(char *env);
+t_env					**get_bucket(void);
+char					*trim_key(char *key);
 #endif // !

@@ -6,7 +6,7 @@
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:10:41 by astaroth          #+#    #+#             */
-/*   Updated: 2023/05/15 18:04:44 by astaroth         ###   ########.fr       */
+/*   Updated: 2023/05/18 16:14:31 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	is_valid(t_tokens next)
 
 static int	is_operator(t_tokens token)
 {
-	return (token > T_INITIAL && token <= T_SUBSHELL);
+	return (token > T_INITIAL && token <= T_OUT_REDIR);
 }
 
 static int	get_next_state(t_tokens state, t_node *next)
