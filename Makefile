@@ -10,11 +10,13 @@ CFLAGS = -g -std=gnu18 -Wall -Wextra -Werror
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  heredoc.c check_unclosed.c display.c \
 		  init_signal.c clear_bimatrix.c \
-		  single_quotes_handler.c find_token.c strings_utils.c\
+		  find_token.c strings_utils.c\
 		  tokenizer_operator.c init_parsers.c linked_list.c \
 		  tokenizer_string.c analysis.c free_cmds.c recipeWord.c \
 		  recipeOperator.c init_recipes.c lexer_strings.c init_hash.c \
-		  hash_function.c env_linked_list.c
+		  hash_function.c env_linked_list.c expansions_utils.c \
+		  env_utils.c
+		
 
 BUILDDIR = ./build/
 LINCLUDE= ./lib/include
