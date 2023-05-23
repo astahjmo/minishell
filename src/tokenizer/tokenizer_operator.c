@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_operator.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:15:00 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/15 11:19:49 by astaroth         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:45:32 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
-#include <stdlib.h>
 
 t_node	*tokenizer_operator(char *str)
 {

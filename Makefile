@@ -15,7 +15,7 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  tokenizer_string.c analysis.c free_cmds.c recipeWord.c \
 		  recipeOperator.c init_recipes.c lexer_strings.c init_hash.c \
 		  hash_function.c env_linked_list.c expansions_utils.c \
-		  env_utils.c
+		  env_utils.c handler_expansions.c
 		
 
 BUILDDIR = ./build/

@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:11:15 by astaroth          #+#    #+#             */
-/*   Updated: 2023/05/20 07:34:04 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:51:09 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,13 @@ t_node	*handler_double_quotes(char *cursor)
 {
 	char	*final;
 	char	*str;
-	char	*start;
-	char	*sub;
-	char	*key;
+	char	*join;
 	t_node	*node;
 
-	start = cursor;
-	sub = NULL;
 	final = ft_strchr(++cursor, '"');
-	while (cursor != final && get_expansion(cursor) == -1)
-		cursor++;
-	if (get_expansion(cursor) != -1)
-		sub = ft_substr(start, 0, cursor - start);
-	key = trim_key(cursor);
-	str = ft_interpol("%s%s%s", sub, get_env(key));
-	node = init_node(str);
+	str = ft_substr(cursor, 0, final - cursor);
+	join = expand_dolar(str);
+	node = init_node(join);
 	return (node);
 }
 
@@ -75,10 +67,9 @@ t_node	*handler_single_quotes(char *cursor)
 t_node	*tokenizer_string(char *line)
 {
 	char		*cursor;
-	
+	t_node		*node;
 
 	cursor = line;
-	node = NULL;
 	if (!cursor)
 		return (NULL);
 	if (*line == '\'') 

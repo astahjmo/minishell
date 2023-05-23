@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:30:04 by astaroth          #+#    #+#             */
-/*   Updated: 2023/05/20 07:18:58 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:50:41 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,4 +142,5 @@ t_tokens				get_expansion(char *line);
 char					*get_env(char *env);
 t_env					**get_bucket(void);
 char					*trim_key(char *key);
+char				*expand_dolar(char *line);
 #endif // !
