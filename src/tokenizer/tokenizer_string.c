@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:11:15 by astaroth          #+#    #+#             */
-/*   Updated: 2023/05/23 17:51:09 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/05/25 19:34:430 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,22 @@ t_node	*handler_double_quotes(char *cursor)
 	char	*final;
 	char	*str;
 	char	*join;
+	char	*dollar;
+	char	*another;
 	t_node	*node;
 
-	final = ft_strchr(++cursor, '"');
+	join = NULL;
+	final = ft_strchr(++cursor, '\"');
 	str = ft_substr(cursor, 0, final - cursor);
-	join = expand_dolar(str);
-	node = init_node(join);
+	dollar = ft_strchr(cursor, '$');
+	if (dollar)
+		join = expand_dolar(str);
+	another = ft_calloc(ft_strlen(str),ft_strlen(join));
+	ft_strlcat(another, str, dollar - cursor);
+	while (*dollar != ' ' && *dollar != '"' && *dollar != '\0')
+		dollar++;
+	ft_strlcat(another, join, ft_strlen(join));
+	node = init_node(another);
 	return (node);
 }
 
