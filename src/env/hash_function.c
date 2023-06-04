@@ -6,7 +6,7 @@
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:43:44 by astaroth          #+#    #+#             */
-/*   Updated: 2023/05/16 15:28:33 by astaroth         ###   ########.fr       */
+/*   Updated: 2023/06/04 06:01:31 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ long long int	hash_map(char *string)
 	long long	hashing;
 	long long	pow;
 	int			count;
-	static int	module = 1e4;
+	static int	module = 1e3;
 
 	count = 0;
 	pow = 1;
