@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansions_utils.c                                 :+:      :+:    :+:   */
+/*   ft_strjoinfree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/20 06:51:53 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/20 07:17:38 by johmatos         ###   ########.fr       */
+/*   Created: 2023/05/29 17:05:07 by johmatos          #+#    #+#             */
+/*   Updated: 2023/05/29 17:07:11 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-char	*trim_key(char *key)
+char	*ft_strjoin_free(char *s1, char *s2)
 {
-	int		acc;
-	char	*env;
+	char	*str;
 
-	acc = 0;
-	while(key[acc] != ' ' && key[acc] != '\0')
-		acc++;
-	env = ft_substr(key, 0 , acc);
-	return (env);
+	str = ft_strjoin(s1,s2);
+	free(s1);
+	free(s2);
+	return (str);
 }
-
-// start -> $PATH
-//				  ^
-//				 end

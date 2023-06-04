@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:30:04 by astaroth          #+#    #+#             */
-/*   Updated: 2023/05/23 17:50:41 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/04 06:10:15 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define BUILTINS "echo cd pwd export unset env exit"
 # define TRUE 1
 # define FALSE 0
-# define ARR_MAX_BUFF (int)1e4
+# define ARR_MAX_BUFF (int)1e3
 # define PRIME 373
 # define DOLLAR '$'
 # define SQUOTE '\''
@@ -88,9 +88,7 @@ typedef struct s_data {
 typedef struct s_node {
 	enum e_tokens	token;
 	char			*data;
-	int				length;
 	t_node			*next;
-	t_node			*back;
 }					t_node;
 
 typedef struct b_bus {
@@ -142,5 +140,6 @@ t_tokens				get_expansion(char *line);
 char					*get_env(char *env);
 t_env					**get_bucket(void);
 char					*trim_key(char *key);
-char				*expand_dolar(char *line);
+char					*expand_dolar(char *line);
+char					*ft_strjoin_free(char *s1, char *s2);
 #endif // !
