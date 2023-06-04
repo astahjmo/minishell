@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:53:05 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/04 07:36:11 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/04 08:29:26 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,13 @@ t_tokens	get_token(char *line)
 	int			total_lexems;
 	t_tokens	lexem;
 	char		**lexems;
-	static int	ctx = 0;
 
 	idx = 0;
 	lexem = T_INVALID;
-	ctx++;
 	lexems = get_lexemes();
 	total_lexems = 8;
 	while (idx < total_lexems && lexem == T_INVALID && line && *line)
 	{
-		ft_printf("Context[%d] - %s\n", ctx, line);
 		if (ft_strncmp(line, lexems[idx], ft_strlen(lexems[idx]) + 1) == 0)
 			lexem = idx + 1;
 		idx++;
