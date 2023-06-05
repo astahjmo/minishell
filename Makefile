@@ -24,15 +24,15 @@ INCLUDE = ./include
 LIB = libft.a
 OBJS = $(addprefix $(BUILDDIR), $(SOURCES:.c=.o))
 
-RCol='\e[0m'
-Bla='\e[0;30m'
-Red='\e[0;31m'
-Gre='\e[0;32m'
-el='\e[0;33m'
-Blu='\e[0;34m'
-Pur='\e[0;35m'
-Cya='\e[0;36m'
-Whi='\e[0;37m'
+RCol='\033[0m'    # Reset (sem cor)
+Bla='\033[0;30m'  # Preto
+Red='\033[0;31m'  # Vermelho
+Gre='\033[0;32m'  # Verde
+Yel='\033[0;33m'  # Amarelo
+Blu='\033[0;34m'  # Azul
+Pur='\033[0;35m'  # Roxo
+Cya='\033[0;36m'  # Ciano
+Whi='\033[0;37m'
 
 MSGBUILD="[$(el)+$(RCol)]"
 MSGRM="[$(Pur)-$(RCol)]"
