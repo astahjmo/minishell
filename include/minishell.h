@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:30:04 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/04 06:10:15 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/05 18:50:10 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ extern char				ft_interpol_wrapper(char *pattern, ...);
 extern t_tokens			get_word_recipe(t_tokens state);
 char					*handler_quotes(char *line);
 void					tokenizer(t_databus data);
-char					*single_quotes_handler(char *line,int *acc);
+char					*single_quotes_handler(char *line, int *acc);
 void					string_eat_all(char **word, char hungry);
 void					string_eat_until(char **word, char *until);
 t_tokens				get_token(char *find);
@@ -125,7 +125,7 @@ void					ft_addfront(t_node *node, t_node *front);
 void					string_eat_at_next_token(char **wordt);
 void					main_setup_hook(t_databus *data);
 void					free_cmds(t_cmds *cmds);
-int						get_operator_recipe(t_tokens);
+int						get_operator_recipe(t_tokens token);
 char					*get_token_string(t_tokens token);
 int						sintax_analysis(t_node *head);
 void					ft_add_env_back(t_env *node, t_env *new);

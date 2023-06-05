@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:03:44 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/04 07:38:22 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/05 18:45:33 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_databus	data;
 
-	//init_signal();
+	init_signal();
 	main_setup_hook(&data);
-	//init_environ(envp, data.env);
+	init_environ(envp, data.env);
 	wait_input(data);
 	return (0);
 	argc = (int)argc;

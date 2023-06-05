@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:53:05 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/04 08:29:26 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/05 18:48:47 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static char	**get_lexemes(void)
 
 	return (lexems);
 }
+
 static char	**get_expansion_lexes(void)
 {
 	static char	*expansions[3] = {
@@ -53,7 +54,8 @@ t_tokens	get_expansion(char *line)
 	total_expansions = 3;
 	while (idx < total_expansions && expansion == T_INVALID)
 	{
-		if (ft_strncmp(line, expansions[idx], ft_strlen(expansions[idx]) + 1) == 0)
+		if (ft_strncmp(line, expansions[idx],
+				ft_strlen(expansions[idx]) + 1) == 0)
 			expansion = idx + 1;
 		idx++;
 	}
@@ -73,7 +75,8 @@ t_tokens	get_token(char *line)
 	total_lexems = 8;
 	while (idx < total_lexems && lexem == T_INVALID && line && *line)
 	{
-		if (ft_strncmp(line, lexems[idx], ft_strlen(lexems[idx]) + 1) == 0)
+		if (ft_strncmp(line, lexems[idx],
+				ft_strlen(lexems[idx]) + 1) == 0)
 			lexem = idx + 1;
 		idx++;
 	}

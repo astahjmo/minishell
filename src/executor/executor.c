@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/29 18:30:34 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/05 18:51:18 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	executor(t_databus data)
 {
-	
+	return ;
 }
