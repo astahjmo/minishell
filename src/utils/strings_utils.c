@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:16:20 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/05 18:54:28 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:07:56 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,21 @@ void	string_eat_all(char **word, char hungry)
 	*word = line;
 }
 
+void	eat_token(char **word)
+{
+	char	*line;
+
+	line = *word;
+	while (line && *line != '\0' && get_token(line) != T_INVALID)
+	{
+		if (get_token(line) <= 3)
+			line++;
+		line++;
+		break ;
+	}
+	*word = line;
+}
+
 void	string_eat_at_next_token(char **word)
 {
 	char	*line;
@@ -62,17 +77,5 @@ void	string_eat_at_next_token(char **word)
 	*word = temp;
 	}
 	else
-		eat_token(&line, &word);
-}
-
-static void	eat_token(char **line, char **word)
-{
-	while (line && *line != '\0' && get_token(line) != T_INVALID)
-	{
-		if (get_token(line) <= 3)
-			line++;
-		line++;
-		break ;
-	}
-	*word = line;
+		eat_token(word);
 }

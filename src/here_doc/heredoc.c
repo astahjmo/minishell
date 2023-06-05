@@ -6,13 +6,13 @@
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 05:31:29 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/05 18:55:24 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:00:38 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	child_execute(int fd[], char *delimiter)
+void	child_execute(int fd[], char *delimiter)
 {
 	char	*switcher;
 	char	*tmp;
@@ -55,4 +55,7 @@ char	*main_process(int fd[], pid_t pid, char *line)
 
 char	*here_doc(char	*line, char *quote)
 {
+	line = (char *)line;
+	quote = (char *)quote;
+	return (NULL);
 }

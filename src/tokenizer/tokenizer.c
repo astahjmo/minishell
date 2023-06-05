@@ -6,7 +6,7 @@
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:17:14 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/04 06:59:35 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:07:03 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	tokenizer(t_databus data)
 	cursor = data.stream;
 	while (cursor && *data.stream != '\0')
 	{
-		if (string_is_equal(cursor, ' '))
+		if (*cursor == ' ')
 			string_eat_until(&cursor, " ");
-		if (string_is_equal(cursor, '#'))
+		if (*cursor == '#')
 			string_eat_all(&cursor, '\n');
 		if (*cursor == '\0')
 			return ;
