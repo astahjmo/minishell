@@ -6,7 +6,7 @@
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 05:31:29 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/16 18:15:50 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/05 18:55:24 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,30 +55,4 @@ char	*main_process(int fd[], pid_t pid, char *line)
 
 char	*here_doc(char	*line, char *quote)
 {
-	int		fd[2];
-	pid_t	pid;
-	char	*str;
-
-	str = NULL;
-	pid = 0;
-	if (pipe(fd) < 0)
-	{
-		perror("pipe error");
-		exit(EXIT_FAILURE);
-	}
-	pid = fork();
-	if (pid < 0)
-	{
-		perror("error");
-		exit(EXIT_FAILURE);
-	}
-	else if (pid == 0)
-	{
-		free(line);
-		child_execute(fd, quote);
-	}
-	else
-		str = main_process(fd, pid, line);
-	free(str);
-	return (str);
 }
