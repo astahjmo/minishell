@@ -6,7 +6,7 @@
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:17:45 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/18 20:50:39 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:29:53 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ int	wait_input(t_databus data)
 		{
 			tokenizer(data);
 			add_history(data.stream);
-			if (!sintax_analysis(data.cmds->head))
-				free_cmds(data.cmds);
+			if (sintax_analysis(data.cmds->head))
+				ft_printf("Sintax invalida :C");
+			free_cmds(data.cmds);
 		}
 		free(data.stream);
 		free(prompt);

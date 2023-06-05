@@ -6,7 +6,7 @@
 /*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 01:55:29 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/04 06:26:38 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:50:10 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	free_cmds(t_cmds *cmds)
 		if (tmp->data)
 			free(tmp->data);
 		free(tmp);
+		tmp = NULL;
 	}
-	if (node)
-		free(node);
+	free(node);
+	cmds->head = NULL;
 }
