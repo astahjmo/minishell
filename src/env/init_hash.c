@@ -19,8 +19,8 @@ static inline void	set_key_and_value(char *environ, char key[NAME], char value[V
 	len = 0;
 	while (environ[len] != '=')
 		len++;
-	ft_strlcpy(key, environ, ++len);
-	ft_strlcpy(value, &environ[len], ft_strlen(&environ[len]) + 1);
+	ft_strlcpy(key, environ, len);
+	ft_strlcpy(value, environ, ft_strlen(environ + 3));
 }
 
 static t_env	*init_env(char value[ENVARVALUE_LENGTH])
@@ -39,7 +39,7 @@ t_env	**get_bucket(void)
 	return (bucket);
 }
 
-static inline void	insert_env_on_table(t_infoenv *environ, t_env *env, lli pos)
+static inline void	insert_env_on_table(t_infoenv *environ, t_env *env, t_lli pos)
 {
 	environ->bucket[pos] = env;
 	environ->count++;

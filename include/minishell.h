@@ -34,11 +34,11 @@
 # define SQUOTE '\''
 # define DQUOTE '"'
 # define ENVARNAME_LENGTH 1024
-# define ENVARVALUE_LENGTH 32767
+# define ENVARVALUE_LENGTH 2731728
 # define NAME 1024
 # define VALUE 32767
 
-typedef long long int 	lli;
+typedef long long int	t_lli;
 typedef struct s_node	t_node;
 typedef struct s_data	t_databus;
 typedef t_node			*t_fn_node_apply(char *);
@@ -71,7 +71,6 @@ enum					e_inputii
 
 typedef struct s_env
 {
-	char				key[ENVARNAME_LENGTH];
 	char				value[ENVARVALUE_LENGTH];
 	t_env				*next;
 }						t_env;
