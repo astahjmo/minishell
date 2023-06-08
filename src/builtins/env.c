@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 14:03:44 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/05 18:45:33 by johmatos         ###   ########.fr       */
+/*   Created: 2023/06/08 16:40:10 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/08 16:40:10 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void	env_cmd(t_infoenv *env)
 {
-	t_databus	data;
+	int		i;
+	t_env	**tmp;
 
-	(void)argc;
-	(void)argv;
-	init_signal();
-	main_setup_hook(&data);
-	init_environ(envp, data.env);
-	repl(data);
-	return (0);
+	i = -1;
+	while (++i < 1e4)
+	{
+		if (env->bucket[i] == NULL)
+			continue ;
+		tmp = &env->bucket[i];
+		while (tmp)
+		{
+			printf("%s=%s\n", tmp[i]->key, tmp[i]->value);
+			tmp = &(*tmp)->next;
+		}
+	}
 }

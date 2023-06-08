@@ -12,25 +12,23 @@
 
 #include "minishell.h"
 
-static char	*get_key(char *environ)
+static inline void	set_key_and_value(char *environ, char key[NAME], char value[VALUE])
 {
-	char	*key;
-	int		len;
+	int	len;
 
 	len = 0;
 	while (environ[len] != '=')
 		len++;
-	key = malloc(len + 1 * sizeof(char));
-	ft_strlcpy(key, environ, len + 1);
-	return (key);
+	ft_strlcpy(key, environ, ++len);
+	ft_strlcpy(value, &environ[len], ft_strlen(&environ[len]) + 1);
 }
 
-static t_env	*init_env(char *str)
+static t_env	*init_env(char value[ENVARVALUE_LENGTH])
 {
 	t_env		*environ;
 
 	environ = ft_env_new();
-	environ->value = str;
+	ft_strlcpy(environ->value, value, ft_strlen(value) + 1);
 	return (environ);
 }
 
@@ -41,8 +39,7 @@ t_env	**get_bucket(void)
 	return (bucket);
 }
 
-static void	insert_env_on_table(t_infoenv *environ, t_env *env,
-			long long int pos)
+static inline void	insert_env_on_table(t_infoenv *environ, t_env *env, lli pos)
 {
 	environ->bucket[pos] = env;
 	environ->count++;
@@ -52,21 +49,19 @@ void	*init_environ(char *envp[], t_infoenv *environ)
 {
 	int				count;
 	t_env			*env;
-	char			*key;
-	char			*value;
+	char			key[ENVARNAME_LENGTH];
+	char			value[ENVARVALUE_LENGTH];
 	long long int	pos;
 
 	count = 0;
 	environ->bucket = get_bucket();
 	while (envp[count] != NULL)
 	{
-		key = get_key(envp[count]);
-		value = ft_strdup(envp[count]);
+		set_key_and_value(envp[count], key, value);
 		env = init_env(value);
 		pos = hash_map(key);
 		insert_env_on_table(environ, env, pos);
 		count++;
-		free(key);
 	}
 	return (NULL);
 }
