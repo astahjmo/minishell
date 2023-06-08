@@ -96,7 +96,7 @@ typedef struct b_bus {
 	void			*stream;
 }					t_bus;
 
-extern int				wait_input(t_databus data);
+extern int				repl(t_databus data);
 extern char				*get_prompt(void);
 extern void				clear_bimatrix(char **arr);
 extern void				line_analysis(char *line);

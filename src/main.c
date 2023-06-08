@@ -19,7 +19,7 @@ int	main(int argc, char *argv[], char *envp[])
 	init_signal();
 	main_setup_hook(&data);
 	init_environ(envp, data.env);
-	wait_input(data);
+	repl(data);
 	return (0);
 	argc = (int)argc;
 	argv = (char **)argv;
