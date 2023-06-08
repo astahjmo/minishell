@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	wait_input(t_databus data)
+int	repl(t_databus data)
 {
 	char	*prompt;
 
