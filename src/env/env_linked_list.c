@@ -28,7 +28,6 @@ t_env	*ft_env_new(void)
 	t_env	*env;
 
 	env = malloc(sizeof(t_env));
-	env->value = NULL;
 	env->next = NULL;
 	return (env);
 }

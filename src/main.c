@@ -16,12 +16,11 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_databus	data;
 
+	(void)argc;
+	(void)argv;
 	init_signal();
 	main_setup_hook(&data);
 	init_environ(envp, data.env);
 	wait_input(data);
 	return (0);
-	argc = (int)argc;
-	argv = (char **)argv;
-	envp = (char **)envp;
 }

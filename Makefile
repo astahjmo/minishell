@@ -4,7 +4,8 @@ VPATH = ./src \
  		./src/here_doc ./src/utils \
  		./src/handler_quotes \
  		./src/tokenizer \
- 		./src/syntax ./src/env ./src
+ 		./src/syntax ./src/env ./src \
+		./src/builtins ./src/executor
 CFLAGS = -g -std=gnu18 -Wall -Wextra -Werror
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  heredoc.c check_unclosed.c display.c \
@@ -14,7 +15,8 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  tokenizer_string.c analysis.c free_cmds.c recipeWord.c \
 		  recipeOperator.c init_recipes.c lexer_strings.c init_hash.c \
 		  hash_function.c env_linked_list.c \
-		  env_utils.c ft_strjoinfree.c
+		  env_utils.c ft_strjoinfree.c \
+		  env.c executor.c
 
 BUILDDIR = ./build/
 LINCLUDE= ./lib/include
