@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:30:04 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/05 18:50:10 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:48:34 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 # define MINISHELL_H
 
 # include "../lib/include/libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <linux/limits.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-# include <stdio.h>
-# include <string.h>
-# include <unistd.h>
 # include <errno.h>
+# include <linux/limits.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/wait.h>
+# include <unistd.h>
 # define PREFIX_LEN 30
 # define BUILTINS "echo cd pwd export unset env exit"
 # define TRUE 1
@@ -33,16 +33,22 @@
 # define DOLLAR '$'
 # define SQUOTE '\''
 # define DQUOTE '"'
+# define ENVARNAME_LENGTH 1024
+# define ENVARVALUE_LENGTH 32767
+# define NAME 1024
+# define VALUE 32767
 
+typedef long long int 	lli;
 typedef struct s_node	t_node;
 typedef struct s_data	t_databus;
-typedef t_node			*t_fn_node_apply(char*);
+typedef t_node			*t_fn_node_apply(char *);
 typedef short int		t_bool;
 typedef struct s_env	t_env;
 typedef enum e_tokens	t_tokens;
 typedef int				t_recipes(t_tokens);
 
-typedef enum e_tokens{
+typedef enum e_tokens
+{
 	T_INITIAL = 0,
 	T_HERE_DOC = 1,
 	T_O_OUT_REDIR = 2,
@@ -54,47 +60,56 @@ typedef enum e_tokens{
 	T_OUT_REDIR = 8,
 	T_WORD = 9,
 	T_INVALID = -1
-}			t_tokens;
+}						t_tokens;
 
-enum e_inputii {
+enum					e_inputii
+{
 	I_COMMAND_LINE,
 	I_HERE_DOC,
 	I_IOFILE
 };
 
-typedef struct s_env{
-	char	*value;
-	t_env	*next;
-}				t_env;
+typedef struct s_env
+{
+	char				key[ENVARNAME_LENGTH];
+	char				value[ENVARVALUE_LENGTH];
+	t_env				*next;
+}						t_env;
 
-typedef struct s_infoenv{
-	int			colision;
-	long long	count;
-	t_env		**bucket;
-}				t_infoenv;
+typedef struct s_infoenv
+{
+	int					colision;
+	long long			count;
+	t_env				**bucket;
+}						t_infoenv;
 
-typedef struct s_cmds {
-	int			exit_code;
-	t_node		*head;
-}				t_cmds;
+typedef struct s_cmds
+{
+	int					exit_code;
+	t_node				*head;
+}						t_cmds;
 
-typedef struct s_data {
-	enum e_inputii	type_stream;
-	char			*stream;
-	t_infoenv		*env;
-	t_cmds			*cmds;
-}					t_databus;
+typedef struct s_data
+{
+	enum e_inputii		type_stream;
+	char				*stream;
+	t_infoenv			*env;
+	t_cmds				*cmds;
+	char				**pure_envp;
+}						t_databus;
 
-typedef struct s_node {
-	enum e_tokens	token;
-	char			*data;
-	t_node			*next;
-}					t_node;
+typedef struct s_node
+{
+	enum e_tokens		token;
+	char				*data;
+	t_node				*next;
+}						t_node;
 
-typedef struct b_bus {
-	enum e_inputii	input_state;
-	void			*stream;
-}					t_bus;
+typedef struct b_bus
+{
+	enum e_inputii		input_state;
+	void				*stream;
+}						t_bus;
 
 extern int				repl(t_databus data);
 extern char				*get_prompt(void);
@@ -104,7 +119,7 @@ extern void				init_signal(void);
 t_fn_node_apply			**init_parser(void);
 t_recipes				**init_recipes(void);
 extern void				bscanner(t_databus data);
-extern char				*here_doc(char	*line, char *quote);
+extern char				*here_doc(char *line, char *quote);
 extern int				check_unclosed_quotes(char *line, char *delimiter);
 extern void				scanner(t_databus data);
 extern char				ft_interpol_wrapper(char *pattern, ...);
@@ -142,4 +157,6 @@ t_env					**get_bucket(void);
 char					*trim_key(char *key);
 char					*expand_dolar(char *line);
 char					*ft_strjoin_free(char *s1, char *s2);
+void					executor(t_databus data);
+void					env_cmd(t_infoenv *env);
 #endif // !
