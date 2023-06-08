@@ -9,3 +9,4 @@ lib*/*
 src/readline/*
 minishell
 tags
+*.supp
