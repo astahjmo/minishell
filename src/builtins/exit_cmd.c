@@ -1,26 +1,22 @@
 /* ************************************************************************** */
-// if_is_envcmd(data);
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   exit_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 16:40:10 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/08 19:58:04 by johmatos         ###   ########.fr       */
+/*   Created: 2023/06/09 14:31:33 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/09 14:35:04 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	env_cmd(char env[ENV_NUMB][ENV_SIZE], int number_of_envs)
+void exit_cmd(t_databus *data, char *prompt)
 {
-	int	i;
-
-	i = -1;
-	while (++i < number_of_envs)
-	{
-		ft_putstr_fd(env[i], 1);
-		ft_putchar_fd('\n', 1);
-	}
+	ft_putstr_fd("exit\n", 1);
+	free_cmds(data->cmds);
+	free(data->stream);
+	free(prompt);
+	exit(0);
 }
