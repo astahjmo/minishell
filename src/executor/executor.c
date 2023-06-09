@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-void	executor(t_databus *data, char *prompt)
+void	executor(t_databus *data)
 {
 	if (!ft_strncmp(data->stream, "exit\n", 4))
-		exit_cmd(data, prompt);
+		exit_cmd(data);
 	else if (!ft_strncmp(data->stream, "env\n", 3))
 		env_cmd(data->env, data->number_of_envs);
 	return ;
