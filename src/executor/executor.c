@@ -6,14 +6,15 @@
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/08 19:59:43 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/09 14:32:24 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	executor(t_databus data)
+void	executor(t_databus *data, char *prompt)
 {
-	data = (t_databus)data;
+	if (!ft_strncmp(data->stream, "exit\n", 4))
+		exit_cmd(data, prompt);
 	return ;
 }

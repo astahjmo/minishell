@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:30:04 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/08 16:48:34 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/09 14:34:06 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@
 # define DOLLAR '$'
 # define SQUOTE '\''
 # define DQUOTE '"'
-# define ENV_NUMB 400
-# define ENV_SIZE 1024
+# define ENV_NAME_SZ 2048
 
 typedef long long int	t_lli;
 typedef struct s_node	t_node;
@@ -77,7 +76,7 @@ typedef struct s_data
 {
 	enum e_inputii		type_stream;
 	char				*stream;
-	char				env[ENV_NUMB][ENV_SIZE];
+	char				*env[ENV_NAME_SZ];
 	t_cmds				*cmds;
 }						t_databus;
 
@@ -137,6 +136,7 @@ t_env					**get_bucket(void);
 char					*trim_key(char *key);
 char					*expand_dolar(char *line);
 char					*ft_strjoin_free(char *s1, char *s2);
-void					executor(t_databus data);
-void					init_env(char env[ENV_NUMB][ENV_SIZE], char **envp);
+void					executor(t_databus *data, char *prompt);
+void					init_env(char *env[ENV_NAME_SZ], char **envp);
+void 					exit_cmd(t_databus *data, char *prompt);
 #endif // !
