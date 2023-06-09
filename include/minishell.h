@@ -144,7 +144,6 @@ void					env_cmd(char *env[ENV_NAME_SZ], int number_of_envs);
 char					**get_lexemes(void);
 char					**get_builtins(void);
 char					**get_expansion_lexes(void);
-void 					exit_cmd(t_databus *data, char *prompt);
 void					init_env(char *env[ENV_NAME_SZ], char **envp,
 							t_databus *data);
 void					free_env(char *envp[ENV_NAME_SZ], int number_of_envs);
