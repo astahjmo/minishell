@@ -10,75 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 
-static char	**get_lexemes(void)
-{
-	static char	*lexems[9] = {
-		"<<", // 0
-		">>", // 1
-		"||", // 2
-		"&&", // 3
-		"|", // 4
-		"&", // 5
-		"<", // 6
-		">", // 7
-		NULL, // 8
-	};
-
-	return (lexems);
-}
-
-static char	**get_expansion_lexes(void)
-{
-	static char	*expansions[3] = {
-		"$",
-		"~",
-		"."
-	};
-
-	return (expansions);
-}
-
-t_tokens	get_expansion(char *line)
+t_tokens	get_set(char *line, int set_limits, char **set)
 {
 	int			idx;
-	int			total_expansions;
 	t_tokens	expansion;
-	char		**expansions;
 
 	idx = 0;
 	expansion = T_INVALID;
-	expansions = get_expansion_lexes();
-	total_expansions = 3;
-	while (idx < total_expansions && expansion == T_INVALID)
+	while (idx < set_limits && expansion == T_INVALID)
 	{
-		if (ft_strncmp(line, expansions[idx],
-				ft_strlen(expansions[idx]) + 1) == 0)
+		if (ft_strncmp(line, set[idx],
+				ft_strlen(set[idx]) + 1) == 0)
 			expansion = idx + 1;
 		idx++;
 	}
 	return (expansion);
 }
 
+t_tokens	get_expansion(char *line)
+{
+	return (get_set(line, 3, get_expansion_lexes()));
+}
+
 t_tokens	get_token(char *line)
 {
-	int			idx;
-	int			total_lexems;
-	t_tokens	lexem;
-	char		**lexems;
-
-	idx = 0;
-	lexem = T_INVALID;
-	lexems = get_lexemes();
-	total_lexems = 8;
-	while (idx < total_lexems && lexem == T_INVALID && line && *line)
-	{
-		if (ft_strncmp(line, lexems[idx],
-				ft_strlen(lexems[idx]) + 1) == 0)
-			lexem = idx + 1;
-		idx++;
-	}
-	return (lexem);
+	return (get_set(line, 8, get_lexemes()));
 }
