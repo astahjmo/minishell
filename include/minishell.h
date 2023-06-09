@@ -34,6 +34,7 @@
 # define SQUOTE '\''
 # define DQUOTE '"'
 # define ENV_NAME_SZ 2048
+# define BUFF_OVERFLOW_PROTECTION 100000
 
 typedef long long int	t_lli;
 typedef struct s_node	t_node;
@@ -79,6 +80,7 @@ typedef struct s_data
 	char				*stream;
 	char				*env[ENV_NAME_SZ];
 	t_cmds				*cmds;
+	char				*prompt;
 }						t_databus;
 
 typedef struct s_node
@@ -137,11 +139,16 @@ t_env					**get_bucket(void);
 char					*trim_key(char *key);
 char					*expand_dolar(char *line);
 char					*ft_strjoin_free(char *s1, char *s2);
-void					executor(t_databus *data, char *prompt);
-void					init_env(char *env[ENV_NAME_SZ], char **envp, t_databus data);
+void					executor(t_databus *data);
 void					env_cmd(char *env[ENV_NAME_SZ], int number_of_envs);
 char					**get_lexemes(void);
 char					**get_builtins(void);
 char					**get_expansion_lexes(void);
 void 					exit_cmd(t_databus *data, char *prompt);
+void					init_env(char *env[ENV_NAME_SZ], char **envp,
+							t_databus *data);
+void					free_env(char *envp[ENV_NAME_SZ], int number_of_envs);
+void					free_all(t_databus *data);
+void					exit_cmd(t_databus *data);
+
 #endif // !
