@@ -14,7 +14,6 @@
 
 void	free_all(t_databus *data)
 {
-	ft_putstr_fd("exit\n", 1);
 	free_cmds(data->cmds);
 	free(data->cmds);
 	free(data->stream);
@@ -25,6 +24,7 @@ void	free_all(t_databus *data)
 
 void	exit_cmd(t_databus *data)
 {
+	ft_putstr_fd("exit\n", 1);
 	free_all(data);
 	exit(0);
 }
