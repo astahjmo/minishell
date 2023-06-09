@@ -12,19 +12,6 @@
 
 #include "minishell.h"
 
-static void	print_env(t_infoenv *info)
-{
-	long int	a;
-
-	a = 0;
-	while (a < 1e4)
-	{
-		if (info->bucket[a])
-			ft_printf("%s\n", info->bucket[a]->value);
-		a++;
-	}
-}
-
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_databus	data;
@@ -33,8 +20,7 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argv;
 	init_signal();
 	main_setup_hook(&data);
-	init_environ(envp, data.env);
-	print_env(data.env);
+	init_env(data.env, envp);
 	repl(data);
 	return (0);
 }

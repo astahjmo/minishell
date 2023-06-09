@@ -14,7 +14,6 @@
 
 void	executor(t_databus data)
 {
-	//if_is_envcmd(data);
 	data = (t_databus)data;
 	return ;
 }

@@ -33,10 +33,8 @@
 # define DOLLAR '$'
 # define SQUOTE '\''
 # define DQUOTE '"'
-# define ENVARNAME_LENGTH 1024
-# define ENVARVALUE_LENGTH 2731728
-# define NAME 1024
-# define VALUE 32767
+# define ENV_NUMB 400
+# define ENV_SIZE 1024
 
 typedef long long int	t_lli;
 typedef struct s_node	t_node;
@@ -69,19 +67,6 @@ enum					e_inputii
 	I_IOFILE
 };
 
-typedef struct s_env
-{
-	char				value[ENVARVALUE_LENGTH];
-	t_env				*next;
-}						t_env;
-
-typedef struct s_infoenv
-{
-	int					colision;
-	long long			count;
-	t_env				**bucket;
-}						t_infoenv;
-
 typedef struct s_cmds
 {
 	int					exit_code;
@@ -92,9 +77,8 @@ typedef struct s_data
 {
 	enum e_inputii		type_stream;
 	char				*stream;
-	t_infoenv			*env;
+	char				env[ENV_NUMB][ENV_SIZE];
 	t_cmds				*cmds;
-	char				**pure_envp;
 }						t_databus;
 
 typedef struct s_node
@@ -145,11 +129,8 @@ int						sintax_analysis(t_node *head);
 void					ft_add_env_back(t_env *node, t_env *new);
 t_env					*ft_env_new(void);
 t_env					*ft_last_env(t_env *head);
-void					*init_environ(char *envp[], t_infoenv *environ);
 long long int			hash_map(char *string);
 void					string_eat_at(char **word, char at);
-void					free_env(t_infoenv *env);
-void					ft_print_env(t_infoenv *env);
 t_tokens				get_expansion(char *line);
 char					*get_env(char *env);
 t_env					**get_bucket(void);
@@ -157,5 +138,5 @@ char					*trim_key(char *key);
 char					*expand_dolar(char *line);
 char					*ft_strjoin_free(char *s1, char *s2);
 void					executor(t_databus data);
-void					env_cmd(t_infoenv *env);
+void					init_env(char env[ENV_NUMB][ENV_SIZE], char **envp);
 #endif // !
