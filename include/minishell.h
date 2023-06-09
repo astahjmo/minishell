@@ -34,6 +34,7 @@
 # define SQUOTE '\''
 # define DQUOTE '"'
 # define ENV_NAME_SZ 2048
+# define BUFF_OVERFLOW_PROTECTION 100000
 
 typedef long long int	t_lli;
 typedef struct s_node	t_node;
@@ -141,4 +142,5 @@ void					executor(t_databus *data, char *prompt);
 void					init_env(char *env[ENV_NAME_SZ], char **envp, t_databus data);
 void					env_cmd(char *env[ENV_NAME_SZ], int number_of_envs);
 void 					exit_cmd(t_databus *data, char *prompt);
+void					free_env(char *envp[ENV_NAME_SZ], int number_of_envs); 
 #endif // !
