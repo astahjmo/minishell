@@ -12,28 +12,30 @@
 
 #include "minishell.h"
 
-void	init_env(char *env[ENV_NAME_SZ], char **envp, t_databus data)
+void	init_env(char *env[ENV_NAME_SZ], char **envp, t_databus *data)
 {
 	int	i;
 
 	i = -1;
-	data.number_of_envs = 0;
-	while (envp[data.number_of_envs] != NULL)
-		data.number_of_envs++;
-	if (data.number_of_envs < BUFF_OVERFLOW_PROTECTION)
-		while (++i < data.number_of_envs)
+	data->number_of_envs = 0;
+	while (envp[data->number_of_envs] != NULL)
+		data->number_of_envs++;
+	if (data->number_of_envs < BUFF_OVERFLOW_PROTECTION)
+	{
+		while (++i < data->number_of_envs)
 		{
 			env[i] = ft_strdup(envp[i]);
 			if (env[i] == NULL)
 				break ;
 		}
+	}
 }
 
-void	free_env(char *envp[ENV_NAME_SZ], int number_of_envs)
+void	free_env(char *env[ENV_NAME_SZ], int number_of_envs)
 {
 	int	i;
 
 	i = -1;
 	while (++i < number_of_envs)
-		free(envp[i]);
+		free(env[i]);
 }
