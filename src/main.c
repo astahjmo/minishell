@@ -20,7 +20,7 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argv;
 	init_signal();
 	main_setup_hook(&data);
-	init_env(data.env, envp);
+	init_env(data.env, envp, data);
 	repl(data);
 	return (0);
 }
