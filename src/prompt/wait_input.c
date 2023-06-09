@@ -23,7 +23,7 @@ static inline void	if_stream_is_null(char *stream, char *prompt)
 	}
 }
 
-static inline void	if_stream_not_null(t_databus data, char *prompt)
+static inline void	if_stream_not_null(t_databus data)
 {
 	if (data.stream)
 	{
@@ -32,7 +32,7 @@ static inline void	if_stream_not_null(t_databus data, char *prompt)
 		if (sintax_analysis(data.cmds->head))
 			ft_printf("Sintax invalida :C");
 		else
-			executor(&data, prompt);
+			executor(&data);
 		free_cmds(data.cmds);
 	}
 }
@@ -44,9 +44,10 @@ int	repl(t_databus data)
 	while (TRUE)
 	{
 		prompt = get_prompt();
+		data.prompt = prompt;
 		data.stream = readline(prompt);
 		if_stream_is_null(data.stream, prompt);
-		if_stream_not_null(data, prompt);
+		if_stream_not_null(data);
 		free(data.stream);
 		free(prompt);
 	}
