@@ -12,16 +12,15 @@
 
 #include "minishell.h"
 
-void	init_env(char *env[ENV_NAME_SZ], char **envp)
+void	init_env(char *env[ENV_NAME_SZ], char **envp, t_databus data)
 {
 	int	i;
-	int	number_of_envs;
 
 	i = -1;
-	number_of_envs = 0;
-	while (envp[number_of_envs] != NULL)
-		number_of_envs++;
+	data.number_of_envs = 0;
+	while (envp[data.number_of_envs] != NULL)
+		data.number_of_envs++;
 	i = -1;
-	while (++i < number_of_envs)
+	while (++i < data.number_of_envs)
 		env[i] = ft_strdup(envp[i]);
 }

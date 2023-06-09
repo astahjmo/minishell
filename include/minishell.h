@@ -74,6 +74,7 @@ typedef struct s_cmds
 
 typedef struct s_data
 {
+	int					number_of_envs;
 	enum e_inputii		type_stream;
 	char				*stream;
 	char				*env[ENV_NAME_SZ];
@@ -137,6 +138,7 @@ char					*trim_key(char *key);
 char					*expand_dolar(char *line);
 char					*ft_strjoin_free(char *s1, char *s2);
 void					executor(t_databus *data, char *prompt);
-void					init_env(char *env[ENV_NAME_SZ], char **envp);
+void					init_env(char *env[ENV_NAME_SZ], char **envp, t_databus data);
+void					env_cmd(char *env[ENV_NAME_SZ], int number_of_envs);
 void 					exit_cmd(t_databus *data, char *prompt);
 #endif // !
