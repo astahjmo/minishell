@@ -48,7 +48,6 @@ int	repl(t_databus data)
 		if_stream_is_null(data.stream, prompt);
 		if_stream_not_null(data, prompt);
 		free(data.stream);
-		free_env(data.env, data.number_of_envs);
 		free(prompt);
 	}
 	return (1);
