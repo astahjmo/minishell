@@ -12,19 +12,11 @@
 
 #include "minishell.h"
 
-static void	initialize_env(t_infoenv *env)
-{
-	env->count = 0;
-	env->colision = 0;
-}
-
 void	main_setup_hook(t_databus *data)
 {
 	data->stream = NULL;
 	data->type_stream = 0;
 	data->cmds = malloc(sizeof(t_cmds));
-	data->env = malloc(sizeof(t_infoenv));
-	initialize_env(data->env);
 	data->cmds->head = NULL;
 	data->cmds->exit_code = 0;
 }

@@ -13,10 +13,11 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  find_token.c strings_utils.c\
 		  tokenizer_operator.c init_parsers.c linked_list.c \
 		  tokenizer_string.c analysis.c free_cmds.c recipeWord.c \
-		  recipeOperator.c init_recipes.c lexer_strings.c init_hash.c \
-		  hash_function.c env_linked_list.c \
-		  env_utils.c ft_strjoinfree.c \
-		  env.c executor.c
+		  recipeOperator.c init_recipes.c lexer_strings.c \
+		  ft_strjoinfree.c \
+		  env.c executor.c \
+		  init_env.c
+	
 
 BUILDDIR = ./build/
 LINCLUDE= ./lib/include
