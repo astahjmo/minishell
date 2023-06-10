@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:30:04 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/10 17:51:17 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:59:51 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,8 @@ char					*trim_key(char *key);
 char					*expand_dolar(char *line);
 char					*ft_strjoin_free(char *s1, char *s2);
 void					executor(t_databus *data);
-void					env_cmd(char *env[ENV_CONTENT_SZ], int number_of_envs);
+void					env_builtin(char *env[ENV_CONTENT_SZ],
+							int number_of_envs);
 char					**get_lexemes(void);
 char					**get_builtins(void);
 char					**get_expansion_lexes(void);
@@ -148,8 +149,8 @@ void					init_env(char *env[ENV_CONTENT_SZ], char **envp,
 							t_databus *data);
 void					free_env(char *envp[ENV_CONTENT_SZ],
 							int number_of_envs);
-void					export_cmd(t_databus *data, char *new_env);
+void					export_builtin(t_databus *data, char *new_env);
 void					free_all(t_databus *data);
-void					exit_cmd(t_databus *data);
+void					exit_builtin(t_databus *data);
 
 #endif // !
