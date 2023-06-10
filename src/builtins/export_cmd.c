@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   export_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 14:03:44 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/05 18:45:33 by johmatos         ###   ########.fr       */
+/*   Created: 2023/06/10 17:44:31 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/10 17:50:25 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void	export_cmd(t_databus *data, char *new_env)
 {
-	t_databus	data;
-
-	(void)argc;
-	(void)argv;
-	init_signal();
-	main_setup_hook(&data);
-	init_env(data.env, envp, &data);
-	repl(&data);
-	return (0);
+	if (++data->number_of_envs < HEAP_OVERFLOW_PROTECTION)
+		data->env[data->number_of_envs - 1] = ft_strdup(new_env);
 }

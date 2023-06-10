@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:30:04 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/10 17:14:39 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/10 17:51:17 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct b_bus
 	void				*stream;
 }						t_bus;
 
-extern int				repl(t_databus data);
+int						repl(t_databus *data);
 extern char				*get_prompt(void);
 extern void				clear_bimatrix(char **arr);
 extern void				line_analysis(char *line);
@@ -146,8 +146,9 @@ char					**get_builtins(void);
 char					**get_expansion_lexes(void);
 void					init_env(char *env[ENV_CONTENT_SZ], char **envp,
 							t_databus *data);
-void	free_env(char *envp[ENV_CONTENT_SZ],
-				int number_of_envs);
+void					free_env(char *envp[ENV_CONTENT_SZ],
+							int number_of_envs);
+void					export_cmd(t_databus *data, char *new_env);
 void					free_all(t_databus *data);
 void					exit_cmd(t_databus *data);
 
