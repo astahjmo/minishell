@@ -132,11 +132,10 @@ int						sintax_analysis(t_node *head);
 void					ft_add_env_back(t_env *node, t_env *new);
 t_env					*ft_env_new(void);
 t_env					*ft_last_env(t_env *head);
-long long int			hash_map(char *string);
 void					string_eat_at(char **word, char at);
 t_tokens				get_expansion(char *line);
-char					*get_env(char *env);
-t_env					**get_bucket(void);
+void					get_env_content(t_databus *data, char *content,
+							char *name);
 char					*trim_key(char *key);
 char					*expand_dolar(char *line);
 char					*ft_strjoin_free(char *s1, char *s2);
@@ -147,8 +146,8 @@ char					**get_builtins(void);
 char					**get_expansion_lexes(void);
 void					init_env(char *env[ENV_CONTENT_SZ], char **envp,
 							t_databus *data);
-void					free_env(char *envp[ENV_CONTENT_SZ],
-							int number_of_envs);
+void	free_env(char *envp[ENV_CONTENT_SZ],
+				int number_of_envs);
 void					free_all(t_databus *data);
 void					exit_cmd(t_databus *data);
 
