@@ -12,13 +12,12 @@
 
 #include "minishell.h"
 
-static inline void	if_stream_is_null(char *stream, char *prompt)
+static inline void	if_stream_is_null(t_databus *data)
 {
-	if (!stream)
+	if (!data->stream)
 	{
 		ft_printf("\n");
-		free(stream);
-		free(prompt);
+		free_all(data);
 		exit(0);
 	}
 }
@@ -46,7 +45,7 @@ int	repl(t_databus data)
 		prompt = get_prompt();
 		data.prompt = prompt;
 		data.stream = readline(prompt);
-		if_stream_is_null(data.stream, prompt);
+		if_stream_is_null(&data);
 		if_stream_not_null(data);
 		free(data.stream);
 		free(prompt);

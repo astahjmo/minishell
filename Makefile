@@ -35,7 +35,7 @@ Pur='\033[0;35m'  # Roxo
 Cya='\033[0;36m'  # Ciano
 Whi='\033[0;37m'
 
-MSGBUILD="[$(el)+$(RCol)]"
+MSGBUILD="[$(Yel)+$(RCol)]"
 MSGRM="[$(Pur)-$(RCol)]"
 
 all: $(NAME)
