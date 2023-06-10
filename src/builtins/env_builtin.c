@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_cmd.c                                       :+:      :+:    :+:   */
+/*   env_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 17:44:31 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/10 17:50:25 by vcedraz-         ###   ########.fr       */
+/*   Created: 2023/06/09 16:26:54 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/09 16:26:54 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	export_cmd(t_databus *data, char *new_env)
+void	env_builtin(char *env[ENV_CONTENT_SZ], int number_of_envs)
 {
-	if (++data->number_of_envs < HEAP_OVERFLOW_PROTECTION)
-		data->env[data->number_of_envs - 1] = ft_strdup(new_env);
+	int	i;
+
+	i = -1;
+	while (++i < number_of_envs)
+	{
+		ft_putstr_fd(env[i], 1);
+		ft_putchar_fd('\n', 1);
+	}
 }
