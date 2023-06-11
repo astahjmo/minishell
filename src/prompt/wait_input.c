@@ -22,32 +22,32 @@ static inline void	if_stream_is_null(t_databus *data)
 	}
 }
 
-static inline void	if_stream_not_null(t_databus data)
+static inline void	if_stream_not_null(t_databus *data)
 {
-	if (data.stream)
+	if (data->stream)
 	{
-		tokenizer(data);
-		add_history(data.stream);
-		if (sintax_analysis(data.cmds->head))
+		tokenizer(*data);
+		add_history(data->stream);
+		if (sintax_analysis(data->cmds->head))
 			ft_printf("Sintax invalida :C");
 		else
-			executor(&data);
-		free_cmds(data.cmds);
+			executor(data);
+		free_cmds(data->cmds);
 	}
 }
 
-int	repl(t_databus data)
+int	repl(t_databus *data)
 {
 	char	*prompt;
 
 	while (TRUE)
 	{
 		prompt = get_prompt();
-		data.prompt = prompt;
-		data.stream = readline(prompt);
-		if_stream_is_null(&data);
+		data->prompt = prompt;
+		data->stream = readline(prompt);
+		if_stream_is_null(data);
 		if_stream_not_null(data);
-		free(data.stream);
+		free(data->stream);
 		free(prompt);
 	}
 	return (1);
