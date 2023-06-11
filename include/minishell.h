@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:30:04 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/09 14:34:06 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/10 17:14:39 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@
 # define DOLLAR '$'
 # define SQUOTE '\''
 # define DQUOTE '"'
-# define ENV_NAME_SZ 2048
-# define BUFF_OVERFLOW_PROTECTION 100000
+# define ENV_CONTENT_SZ 32367
+# define ENV_NAME_SZ 1024
+# define HEAP_OVERFLOW_PROTECTION 100000
 
 typedef long long int	t_lli;
 typedef struct s_node	t_node;
@@ -78,7 +79,7 @@ typedef struct s_data
 	int					number_of_envs;
 	enum e_inputii		type_stream;
 	char				*stream;
-	char				*env[ENV_NAME_SZ];
+	char				*env[ENV_CONTENT_SZ];
 	t_cmds				*cmds;
 	char				*prompt;
 }						t_databus;
@@ -131,22 +132,22 @@ int						sintax_analysis(t_node *head);
 void					ft_add_env_back(t_env *node, t_env *new);
 t_env					*ft_env_new(void);
 t_env					*ft_last_env(t_env *head);
-long long int			hash_map(char *string);
 void					string_eat_at(char **word, char at);
 t_tokens				get_expansion(char *line);
-char					*get_env(char *env);
-t_env					**get_bucket(void);
+void					get_env_content(t_databus *data, char *content,
+							char *name);
 char					*trim_key(char *key);
 char					*expand_dolar(char *line);
 char					*ft_strjoin_free(char *s1, char *s2);
 void					executor(t_databus *data);
-void					env_cmd(char *env[ENV_NAME_SZ], int number_of_envs);
+void					env_cmd(char *env[ENV_CONTENT_SZ], int number_of_envs);
 char					**get_lexemes(void);
 char					**get_builtins(void);
 char					**get_expansion_lexes(void);
-void					init_env(char *env[ENV_NAME_SZ], char **envp,
+void					init_env(char *env[ENV_CONTENT_SZ], char **envp,
 							t_databus *data);
-void					free_env(char *envp[ENV_NAME_SZ], int number_of_envs);
+void	free_env(char *envp[ENV_CONTENT_SZ],
+				int number_of_envs);
 void					free_all(t_databus *data);
 void					exit_cmd(t_databus *data);
 
