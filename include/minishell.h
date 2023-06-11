@@ -128,7 +128,7 @@ void					main_setup_hook(t_databus *data);
 void					free_cmds(t_cmds *cmds);
 int						get_operator_recipe(t_tokens token);
 char					*get_token_string(t_tokens token);
-int						sintax_analysis(t_node *head);
+int						is_valid_syntax(t_node *head);
 void					ft_add_env_back(t_env *node, t_env *new);
 t_env					*ft_env_new(void);
 t_env					*ft_last_env(t_env *head);
@@ -149,8 +149,9 @@ void					init_env(char *env[ENV_CONTENT_SZ], char **envp,
 							t_databus *data);
 void					free_env(char *envp[ENV_CONTENT_SZ],
 							int number_of_envs);
-void					export_builtin(t_databus *data, char *new_env);
 void					free_all(t_databus *data);
 void					exit_builtin(t_databus *data);
+void					export_builtin(t_databus *data, char *new_env);
+void					unset_builtin(t_databus *data, char *env_to_unset);
 
 #endif // !

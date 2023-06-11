@@ -28,9 +28,7 @@ static inline void	if_stream_not_null(t_databus *data)
 	{
 		tokenizer(*data);
 		add_history(data->stream);
-		if (sintax_analysis(data->cmds->head))
-			ft_printf("Sintax invalida :C");
-		else
+		if (is_valid_syntax(data->cmds->head))
 			executor(data);
 		free_cmds(data->cmds);
 	}
