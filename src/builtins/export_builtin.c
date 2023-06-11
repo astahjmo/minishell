@@ -12,8 +12,6 @@
 
 #include "minishell.h"
 
-static int	is_valid_env_name(char *name_value);
-
 void	export_builtin(t_databus *data, char *new_env)
 {
 	if (!is_valid_env_name(new_env))
@@ -30,7 +28,7 @@ void	export_builtin(t_databus *data, char *new_env)
 	}
 }
 
-static int	is_valid_env_name(char *name_value)
+int	is_valid_env_name(char *name_value)
 {
 	if (!ft_isalpha(*name_value) && *name_value != '_')
 		return (0);

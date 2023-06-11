@@ -19,8 +19,11 @@ void	env_builtin(char *env[ENV_CONTENT_SZ], int number_of_envs)
 	i = -1;
 	while (++i < number_of_envs)
 	{
-		ft_putstr_fd(env[i], 1);
-		ft_putchar_fd('\n', 1);
+		if (env[i])
+		{
+			ft_putstr_fd(env[i], 1);
+			ft_putchar_fd('\n', 1);
+		}
 	}
 }
 
@@ -31,8 +34,11 @@ void	alt_env_builtin(char *env[ENV_CONTENT_SZ], int number_of_envs)
 	i = -1;
 	while (++i < number_of_envs)
 	{
-		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(env[i], 1);
-		ft_putchar_fd('\n', 1);
+		if (env[i])
+		{
+			ft_putstr_fd("declare -x ", 1);
+			ft_putstr_fd(env[i], 1);
+			ft_putchar_fd('\n', 1);
+		}
 	}
 }

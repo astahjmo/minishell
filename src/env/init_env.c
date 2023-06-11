@@ -37,5 +37,6 @@ void	free_env(char *env[ENV_CONTENT_SZ], int number_of_envs)
 
 	i = -1;
 	while (++i < number_of_envs)
-		free(env[i]);
+		if (env[i])
+			free(env[i]);
 }
