@@ -15,7 +15,8 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  tokenizer_string.c analysis.c free_cmds.c recipeWord.c \
 		  recipeOperator.c init_recipes.c lexer_strings.c \
 		  ft_strjoinfree.c get_env_content.c \
-		  env_cmd.c exit_cmd.c executor.c export_cmd.c \
+		  env_builtin.c exit_builtin.c executor.c export_builtin.c \
+		  unset_builtin.c \
 		  init_env.c init_statics.c \
 	
 
