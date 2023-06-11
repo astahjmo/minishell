@@ -1,30 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_cmd.c                                         :+:      :+:    :+:   */
+/*   env_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 14:31:33 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/09 14:35:04 by vcedraz-         ###   ########.fr       */
+/*   Created: 2023/06/09 16:26:54 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/09 16:26:54 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_all(t_databus *data)
+void	env_builtin(char *env[ENV_CONTENT_SZ], int number_of_envs)
 {
-	free_cmds(data->cmds);
-	free(data->cmds);
-	free(data->stream);
-	free_env(data->env, data->number_of_envs);
-	free(data->prompt);
-	rl_clear_history();
+	int	i;
+
+	i = -1;
+	while (++i < number_of_envs)
+	{
+		if (env[i])
+		{
+			ft_putstr_fd(env[i], 1);
+			ft_putchar_fd('\n', 1);
+		}
+	}
 }
 
-void	exit_cmd(t_databus *data)
+void	alt_env_builtin(char *env[ENV_CONTENT_SZ], int number_of_envs)
 {
-	ft_putstr_fd("exit\n", 1);
-	free_all(data);
-	exit(0);
+	int	i;
+
+	i = -1;
+	while (++i < number_of_envs)
+	{
+		if (env[i])
+		{
+			ft_putstr_fd("declare -x ", 1);
+			ft_putstr_fd(env[i], 1);
+			ft_putchar_fd('\n', 1);
+		}
+	}
 }

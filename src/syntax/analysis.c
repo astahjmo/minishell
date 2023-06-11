@@ -54,7 +54,7 @@ static int	get_next_state(t_tokens state, t_node *next)
 	return (status);
 }
 
-int	sintax_analysis(t_node *head)
+int	is_valid_syntax(t_node *head)
 {
 	t_tokens	state;
 	int			progress;	
@@ -70,8 +70,11 @@ int	sintax_analysis(t_node *head)
 		cursor = cursor->next;
 	}
 	if (progress == -1)
+	{
 		ft_printf("Error: %s\n", get_token_string(state));
+		return (0);
+	}
 	else
-		ft_printf("Passou\n");
+		return (1);
 	return (0);
 }
