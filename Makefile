@@ -6,7 +6,7 @@ VPATH = ./src \
  		./src/tokenizer \
  		./src/syntax ./src/env ./src \
 		./src/builtins ./src/executor
-CFLAGS = -g -std=gnu18 -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  heredoc.c check_unclosed.c display.c \
 		  init_signal.c clear_bimatrix.c \

@@ -22,8 +22,11 @@ void	unset_builtin(t_databus *data, char *env_to_unset)
 	if (!len)
 		return ;
 	while (++i < data->number_of_envs)
-		if (data->env[i] && !ft_strncmp(data->env[i], env_to_unset, len))
-			break ;
+	{
+		if (data->env[i] && data->env[i][len] == '=')
+			if (!ft_strncmp(data->env[i], env_to_unset, len))
+				break ;
+	}
 	if (i == data->number_of_envs)
 		return ;
 	free(data->env[i]);
