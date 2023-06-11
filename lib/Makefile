@@ -31,17 +31,17 @@ SOURCES := ft_atoi.c ft_isalnum.c ft_isalpha.c \
 		   get_next_line_utils_bonus.c parser.c \
 		   ft_interpol.c
 
-RCol='\e[0m'
-Bla='\e[0;30m'
-Red='\e[0;31m'
-Gre='\e[0;32m'
-el='\e[0;33m'
-Blu='\e[0;34m'
-Pur='\e[0;35m'
-Cya='\e[0;36m'
-Whi='\e[0;37m'
+RCol='\033[0m'
+Bla='\033[0;30m'
+Red='\033[0;31m'
+Gre='\033[0;32m'
+Yel='\033[0;33m'
+Blu='\033[0;34m'
+Pur='\033[0;35m'
+Cya='\033[0;36m'
+Whi='\033[0;37m'
 
-MSGBUILD="[$(Gre)+$(RCol)]"
+MSGBUILD="[$(Yel)+$(RCol)]"
 MSGRM="[$(Red)-$(RCol)]"
 OBJS := $(addprefix $(BUILDDIR), $(SOURCES:.c=.o))
 
@@ -52,11 +52,10 @@ endif
 all: $(LIB)
 
 $(LIB): $(OBJS)
-	@echo "${MSGBUILD} Building $@"
 	@ar -rcs $@ $(OBJS)
 
 $(BUILDDIR)%.o: %.c
-	@echo "${MSGBUILD} building $@"
+	@printf " $(MSGBUILD) (libft): building $@                                                                     \r"
 	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
 	@$(CC) $(CFLAGS) -I./include -c $< -o $@
 

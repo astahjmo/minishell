@@ -6,7 +6,7 @@ VPATH = ./src \
  		./src/tokenizer \
  		./src/syntax ./src/env ./src \
 		./src/builtins ./src/executor
-CFLAGS = -g -std=gnu18 -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  heredoc.c check_unclosed.c display.c \
 		  init_signal.c clear_bimatrix.c \
@@ -28,14 +28,14 @@ OBJS = $(addprefix $(BUILDDIR), $(SOURCES:.c=.o))
 RCol='\033[0m'    # Reset (sem cor)
 Bla='\033[0;30m'  # Preto
 Red='\033[0;31m'  # Vermelho
-Gre='\033[0;32m'  # Verde
+Gre='\033[1;32m'  # Verde
 Yel='\033[0;33m'  # Amarelo
 Blu='\033[0;34m'  # Azul
 Pur='\033[0;35m'  # Roxo
 Cya='\033[0;36m'  # Ciano
 Whi='\033[0;37m'
 
-MSGBUILD="[$(Yel)+$(RCol)]"
+MSGBUILD="[$(Gre)+$(RCol)]"
 MSGRM="[$(Pur)-$(RCol)]"
 
 all: $(NAME)
