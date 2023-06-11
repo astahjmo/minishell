@@ -155,5 +155,6 @@ void					export_builtin(t_databus *data, char *new_env);
 void					unset_builtin(t_databus *data, char *env_to_unset);
 void					alt_env_builtin(char *env[ENV_CONTENT_SZ],
 							int number_of_envs);
+int						is_valid_env_name(char *name_value);
 
 #endif // !

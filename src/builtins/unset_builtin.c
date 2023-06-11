@@ -15,13 +15,17 @@
 void	unset_builtin(t_databus *data, char *env_to_unset)
 {
 	int	len;
+	int	i;
 
+	i = -1;
 	len = ft_strlen(env_to_unset);
 	if (!len)
 		return ;
-	if (!ft_strncmp(data->env[data->number_of_envs - 1], env_to_unset, len + 1))
+	while (++i < data->number_of_envs)
+		if (data->env[i] && !ft_strncmp(data->env[i], env_to_unset, len))
+			break ;
+	if (i == data->number_of_envs)
 		return ;
-	free(data->env[data->number_of_envs - 1]);
-	data->env[data->number_of_envs - 1] = NULL;
-	data->number_of_envs--;
+	free(data->env[i]);
+	data->env[i] = NULL;
 }
