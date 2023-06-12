@@ -35,7 +35,7 @@ RCol='\033[0m'
 Bla='\033[0;30m'
 Red='\033[0;31m'
 Gre='\033[0;32m'
-Yel='\033[0;33m'
+Yel='\033[1;33m'
 Blu='\033[0;34m'
 Pur='\033[0;35m'
 Cya='\033[0;36m'
@@ -53,9 +53,10 @@ all: $(LIB)
 
 $(LIB): $(OBJS)
 	@ar -rcs $@ $(OBJS)
+	@printf " $(MSGBUILD) (libft): ok                                                                                                       \n"
 
 $(BUILDDIR)%.o: %.c
-	@printf " $(MSGBUILD) (libft): building $@                                                                     \r"
+	@printf " $(MSGBUILD) (libft): building $@                                                                               \r"
 	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
 	@$(CC) $(CFLAGS) -I./include -c $< -o $@
 
