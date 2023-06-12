@@ -12,11 +12,13 @@
 
 #include "minishell.h"
 
-void	init_env(char *env[ENV_CONTENT_SZ], char **envp, t_databus *data)
+void	init_env(t_databus *data)
 {
 	int	i;
+	char **envp;
 
 	i = -1;
+	envp = data->envp;
 	data->number_of_envs = 0;
 	while (envp[data->number_of_envs] != NULL)
 		data->number_of_envs++;
@@ -24,19 +26,19 @@ void	init_env(char *env[ENV_CONTENT_SZ], char **envp, t_databus *data)
 	{
 		while (++i < data->number_of_envs)
 		{
-			env[i] = ft_strdup(envp[i]);
-			if (env[i] == NULL)
+			data->env[i] = ft_strdup(envp[i]);
+			if (data->env[i] == NULL)
 				break ;
 		}
 	}
 }
 
-void	free_env(char *env[ENV_CONTENT_SZ], int number_of_envs)
+void	free_env(t_databus *data)
 {
 	int	i;
 
 	i = -1;
-	while (++i < number_of_envs)
-		if (env[i])
-			free(env[i]);
+	while (++i < data->number_of_envs)
+		if (data->env[i])
+			free(data->env[i]);
 }

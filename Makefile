@@ -6,7 +6,7 @@ VPATH = ./src \
  		./src/tokenizer \
  		./src/syntax ./src/env ./src \
 		./src/builtins ./src/executor
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  heredoc.c check_unclosed.c display.c \
 		  init_signal.c clear_bimatrix.c \
@@ -20,7 +20,7 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  init_env.c init_statics.c \
 	
 
-BUILDDIR = ./build/
+BUILDDIR = ./objs/
 LINCLUDE= ./lib/include
 INCLUDE = ./include
 LIB = libft.a
@@ -36,7 +36,7 @@ Pur='\033[0;35m'
 Cya='\033[0;36m'
 Whi='\033[0;37m'
 
-MSGBUILD="[$(Yel)+$(RCol)]"
+MSGBUILD="[$(Gre)+$(RCol)]"
 MSGRM="[$(Red)-$(RCol)]"
 
 all: $(NAME)
@@ -47,7 +47,7 @@ $(NAME): $(OBJS)
 	@printf "$(MSGBUILD) $@: Program has been created!                                                          \n"
 
 $(BUILDDIR)%.o: %.c
-	@printf "$(MSGBUILD) $(NAME): building $@                                                                               \r"
+	@printf "$(MSGBUILD) $(NAME): building $@                                                                   \r"
 	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -I$(LINCLUDE) -c $< -o $@
 

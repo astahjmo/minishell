@@ -12,32 +12,32 @@
 
 #include "minishell.h"
 
-void	env_builtin(char *env[ENV_CONTENT_SZ], int number_of_envs)
+void	env_builtin(t_databus *d)
 {
 	int	i;
 
 	i = -1;
-	while (++i < number_of_envs)
+	while (++i < d->number_of_envs)
 	{
-		if (env[i])
+		if (d->env[i])
 		{
-			ft_putstr_fd(env[i], 1);
+			ft_putstr_fd(d->env[i], 1);
 			ft_putchar_fd('\n', 1);
 		}
 	}
 }
 
-void	alt_env_builtin(char *env[ENV_CONTENT_SZ], int number_of_envs)
+void	alt_env_builtin(t_databus *data)
 {
 	int	i;
 
 	i = -1;
-	while (++i < number_of_envs)
+	while (++i < data->number_of_envs)
 	{
-		if (env[i])
+		if (data->env[i])
 		{
 			ft_putstr_fd("declare -x ", 1);
-			ft_putstr_fd(env[i], 1);
+			ft_putstr_fd(data->env[i], 1);
 			ft_putchar_fd('\n', 1);
 		}
 	}
