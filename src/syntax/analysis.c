@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:10:41 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/12 15:18:08 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/13 00:43:32 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	is_valid_syntax(t_node *head)
 		cursor = cursor->next;
 	}
 	if (progress != -1)
-		return (0);
+		return (TRUE);
 	ft_printf("Error: %s\n", get_token_string(state));
-	return (1);
+	return (FALSE);
 }
