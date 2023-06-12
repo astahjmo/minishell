@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:10:41 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/12 15:15:23 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:18:08 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	get_next_state(t_tokens state, t_node *next)
 int	is_valid_syntax(t_node *head)
 {
 	t_tokens	state;
-	int			progress;	
+	int			progress;
 	t_node		*cursor;
 
 	state = T_INITIAL;
