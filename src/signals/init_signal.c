@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 15:59:11 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/07 21:59:07 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:15:12 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ void	init_signal(void)
 	sa_sig.sa_flags = 0;
 	sigemptyset(&sa_sig.sa_mask);
 	sigaddset(&sa_sig.sa_mask, SIGINT);
+	sigaddset(&sa_sig.sa_mask, SIGQUIT);
 	sigaction(SIGINT, &sa_sig, NULL);
+	sigaction(SIGQUIT, &sa_sig, NULL);
 }
