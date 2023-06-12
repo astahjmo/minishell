@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/30 16:11:43 by johmatos          #+#    #+#              #
-#    Updated: 2023/05/10 05:39:39 by johmatos         ###   ########.fr        #
+#    Updated: 2023/06/12 16:56:58 by johmatos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,10 +53,10 @@ all: $(LIB)
 
 $(LIB): $(OBJS)
 	@ar -rcs $@ $(OBJS)
-	@printf " $(MSGBUILD) (libft): ok                                                                                                       \n"
+	@printf "$(MSGBUILD) (libft): ok                                                                                                       \n"
 
 $(BUILDDIR)%.o: %.c
-	@printf " $(MSGBUILD) (libft): building $@                                                                               \r"
+	@printf "$(MSGBUILD) (libft): building $@                                                                               \r"
 	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
 	@$(CC) $(CFLAGS) -I./include -c $< -o $@
 
