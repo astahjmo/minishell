@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 15:59:11 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/12 16:15:12 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:51:30 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@ void	define_handle(int sig)
 
 void	init_signal(void)
 {
-	struct sigaction	sa_sig;
+	struct sigaction	sa_sigint;
+	struct sigaction	sa_sigquit;
 
-	sa_sig.sa_handler = define_handle;
-	sa_sig.sa_flags = 0;
-	sigemptyset(&sa_sig.sa_mask);
-	sigaddset(&sa_sig.sa_mask, SIGINT);
-	sigaddset(&sa_sig.sa_mask, SIGQUIT);
-	sigaction(SIGINT, &sa_sig, NULL);
-	sigaction(SIGQUIT, &sa_sig, NULL);
+	sa_sigquit.sa_handler = SIG_IGN;
+	sa_sigquit.sa_flags = SA_RESTART;
+	sigemptyset(&sa_sigquit.sa_mask);
+	sa_sigint.sa_handler = define_handle;
+	sa_sigint.sa_flags = SA_RESTART;
+	sigaddset(&sa_sigint.sa_mask, SIGINT);
+	sigaction(SIGINT, &sa_sigint, NULL);
+	sigaction(SIGQUIT, &sa_sigquit, NULL);
 }
