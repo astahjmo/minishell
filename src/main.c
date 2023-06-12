@@ -18,9 +18,10 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void)argc;
 	(void)argv;
+	data.envp = envp;
 	init_signal();
 	main_setup_hook(&data);
-	init_env(data.env, envp, &data);
+	init_env(&data);
 	repl(&data);
 	return (0);
 }
