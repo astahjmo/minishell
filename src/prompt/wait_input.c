@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:17:45 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/08 16:32:45 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/12 18:05:18 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static inline void	if_stream_is_null(t_databus *data)
 
 static inline void	if_stream_not_null(t_databus *data)
 {
+	if (*data->stream == '\0')
+		return ;
 	if (data->stream)
 	{
 		tokenizer(*data);
