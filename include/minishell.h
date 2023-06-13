@@ -37,7 +37,6 @@
 # define ENV_NAME_SZ 1024
 # define HEAP_OVERFLOW_PROTECTION 100000
 
-typedef long long int	t_lli;
 typedef struct s_node	t_node;
 typedef struct s_data	t_databus;
 typedef t_node			*t_fn_node_apply(char *);
@@ -45,6 +44,10 @@ typedef short int		t_bool;
 typedef struct s_env	t_env;
 typedef enum e_tokens	t_tokens;
 typedef int				t_recipes(t_tokens);
+
+// aliases to longer types
+typedef long long int	t_lli;
+typedef t_databus 		t_dt;
 
 typedef enum e_tokens
 {
@@ -82,6 +85,9 @@ typedef struct s_data
 	char				*env[ENV_CONTENT_SZ];
 	t_cmds				*cmds;
 	char				*prompt;
+	char				*env_to_unset;
+	char				*new_env;
+	char				**envp;
 }						t_databus;
 
 typedef struct s_node
@@ -134,27 +140,22 @@ t_env					*ft_env_new(void);
 t_env					*ft_last_env(t_env *head);
 void					string_eat_at(char **word, char at);
 t_tokens				get_expansion(char *line);
-void					get_env_content(t_databus *data, char *content,
-							char *name);
+void					get_env_content(t_dt *d, char *content, char *name);
 char					*trim_key(char *key);
 char					*expand_dolar(char *line);
 char					*ft_strjoin_free(char *s1, char *s2);
 void					executor(t_databus *data);
-void					env_builtin(char *env[ENV_CONTENT_SZ],
-							int number_of_envs);
 char					**get_lexemes(void);
 char					**get_builtins(void);
 char					**get_expansion_lexes(void);
-void					init_env(char *env[ENV_CONTENT_SZ], char **envp,
-							t_databus *data);
-void					free_env(char *envp[ENV_CONTENT_SZ],
-							int number_of_envs);
+void					init_env(t_databus *data);
+void					free_env(t_databus *data);
 void					free_all(t_databus *data);
+void					env_builtin(t_databus *data);
 void					exit_builtin(t_databus *data);
-void					export_builtin(t_databus *data, char *new_env);
-void					unset_builtin(t_databus *data, char *env_to_unset);
-void					alt_env_builtin(char *env[ENV_CONTENT_SZ],
-							int number_of_envs);
+void					export_builtin(t_databus *data);
+void					unset_builtin(t_databus *data);
+void					alt_env_builtin(t_databus *data);
 int						is_valid_env_name(char *name_value);
 
 #endif // !

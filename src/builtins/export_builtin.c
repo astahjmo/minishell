@@ -12,8 +12,11 @@
 
 #include "minishell.h"
 
-void	export_builtin(t_databus *data, char *new_env)
+void	export_builtin(t_databus *data)
 {
+	char *new_env;
+
+	new_env = data->cmds->head->next->data;
 	if (!is_valid_env_name(new_env))
 	{
 		printf("minishell: export: `%s': not a valid identifier\n", new_env);

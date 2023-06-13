@@ -17,7 +17,7 @@ void	free_all(t_databus *data)
 	free_cmds(data->cmds);
 	free(data->cmds);
 	free(data->stream);
-	free_env(data->env, data->number_of_envs);
+	free_env(data);
 	free(data->prompt);
 	rl_clear_history();
 }
