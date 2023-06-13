@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/13 17:18:32 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:50:04 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	executor(t_databus *data)
 	exec = get_built_func();
 	builtin = is_builtin(cmd);
 	if (builtin != -1)
-		exec[is_builtin(cmd) - 1](data);
+		exec[builtin - 1](data);
 	return ;
 }
