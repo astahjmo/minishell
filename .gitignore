@@ -10,3 +10,4 @@ src/readline/*
 minishell
 tags
 *.supp
+objs/
