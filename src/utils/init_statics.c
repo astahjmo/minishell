@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 23:14:39 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/09 23:15:49 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/13 16:52:17 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,12 @@ char	**get_lexemes(void)
 
 char	**get_builtins(void)
 {
-	static char	*builtins[8] = {
-		"echo",
-		"cd",
-		"pwd",
-		"export",
-		"unset",
-		"env",
+	static char	*builtins[7] = {
 		"exit",
+		"env",
+		"export",
+		"define",
+		"unset",
 		NULL
 	};
 
@@ -54,4 +52,18 @@ char	**get_expansion_lexes(void)
 	};
 
 	return (expansions);
+}
+
+t_fn_built_exec	**get_built_func(void)
+{
+	static t_fn_built_exec	*fns[7] = {
+		exit_builtin,
+		env_builtin,
+		export_builtin,
+		alt_env_builtin,
+		unset_builtin,
+		NULL,
+	};
+
+	return (fns);
 }

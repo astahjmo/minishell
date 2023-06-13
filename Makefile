@@ -6,7 +6,7 @@ VPATH = ./src \
  		./src/tokenizer \
  		./src/syntax ./src/env ./src \
 		./src/builtins ./src/executor
-CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -g -Wall -Wextra -Werror
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  heredoc.c check_unclosed.c display.c \
 		  init_signal.c clear_bimatrix.c \
@@ -41,7 +41,7 @@ MSGRM="[$(Red)-$(RCol)]"
 
 all: $(NAME)
 
-$(NAME): $(OBJS) 
+$(NAME): $(OBJS)
 	@make --no-print-directory -C ./lib
 	@$(CC) $(CFLAGS) -I$(INCLUDE) $(OBJS) -Llib -lft -lreadline -o $@
 	@printf "$(MSGBUILD) $@: Program has been created!                                                          \n"

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   find_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:53:05 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/05 18:48:47 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/13 16:36:14 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_tokens	get_set(char *line, int set_limits, char **set)
+static t_tokens	get_set(char *line, int set_limits, char **set)
 {
 	int			idx;
 	t_tokens	expansion;
@@ -37,4 +37,9 @@ t_tokens	get_expansion(char *line)
 t_tokens	get_token(char *line)
 {
 	return (get_set(line, 8, get_lexemes()));
+}
+
+t_tokens	is_builtin(char *cmd)
+{
+	return (get_set(cmd, 5, get_builtins()));
 }
