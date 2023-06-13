@@ -33,9 +33,8 @@
 # define DOLLAR '$'
 # define SQUOTE '\''
 # define DQUOTE '"'
-# define ENV_CONTENT_SZ 32367
-# define ENV_NAME_SZ 1024
-# define HEAP_OVERFLOW_PROTECTION 100000
+# define ENVS_LIMIT 2048
+# define STR_LIMIT 512
 
 typedef struct s_node	t_node;
 typedef struct s_data	t_databus;
@@ -82,7 +81,7 @@ typedef struct s_data
 	int					number_of_envs;
 	enum e_inputii		type_stream;
 	char				*stream;
-	char				*env[ENV_CONTENT_SZ];
+	char				env[ENVS_LIMIT][STR_LIMIT];
 	t_cmds				*cmds;
 	char				*prompt;
 	char				*env_to_unset;
