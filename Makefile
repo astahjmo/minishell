@@ -6,7 +6,7 @@ VPATH = ./src \
  		./src/tokenizer \
  		./src/syntax ./src/env ./src \
 		./src/builtins ./src/executor
-CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -g -Wall -Wextra -Werror
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  heredoc.c check_unclosed.c display.c \
 		  init_signal.c clear_bimatrix.c \
@@ -42,6 +42,7 @@ MSGRM="[$(Red)-$(RCol)]"
 all: $(NAME)
 
 $(NAME): $(OBJS) 
+	@make --no-print-directory supp
 	@make --no-print-directory -C ./lib
 	@$(CC) $(CFLAGS) -I$(INCLUDE) $(OBJS) -Llib -lft -lreadline -o $@
 	@printf "$(MSGBUILD) $@: Program has been created!                                                          \n"
@@ -51,12 +52,48 @@ $(BUILDDIR)%.o: %.c
 	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -I$(LINCLUDE) -c $< -o $@
 
+supp:
+	@printf "{\n\
+        <Readline>\n\
+        Memcheck:Leak\n\
+        match-leak-kinds: reachable\n\
+        ...\n\
+        fun:readline\n\
+        ...\n\
+    }\n\
+    {\n\
+        <Readline>\n\
+        Memcheck:Leak\n\
+        match-leak-kinds: definite\n\
+        fun:malloc\n\
+        fun:xmalloc\n\
+        fun:rl_add_undo\n\
+        fun:rl_insert_text\n\
+        fun:_rl_insert_char\n\
+        fun:rl_insert\n\
+        fun:_rl_dispatch_subseq\n\
+        fun:readline_internal_char\n\
+        fun:readline\n\
+        ...\n\
+    }\n\
+    {\n\
+        <AddHistory>\n\
+        Memcheck:Leak\n\
+        match-leak-kinds: reachable\n\
+        fun:malloc\n\
+        fun:xmalloc\n\
+        fun:add_history\n\
+        ...\n\
+    }\n" > readline.supp
+
+
 clean:
 	@echo "$(MSGRM) removing $(BUILDDIR) dir "
 	@make --no-print-directory -C ./lib clean
 	@rm -rf $(BUILDDIR)
 
 fclean: clean
+	@rm -f readline.supp
 	@echo "$(MSGRM) removing $(BUILDDIR) dir and $(NAME) bin"
 	@make --no-print-directory -C ./lib fclean
 	@if test -f $(NAME); then rm -f $(NAME); fi
