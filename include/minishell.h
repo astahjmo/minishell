@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:30:04 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/10 18:59:51 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:42:28 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef int				t_recipes(t_tokens);
 
 // aliases to longer types
 typedef long long int	t_lli;
-typedef t_databus 		t_dt;
+typedef t_databus		t_dt;
 
 typedef enum e_tokens
 {

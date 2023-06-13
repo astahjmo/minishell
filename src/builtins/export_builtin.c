@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_cmd.c                                       :+:      :+:    :+:   */
+/*   export_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 17:44:31 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/10 17:50:25 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:43:34 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	export_builtin(t_databus *data)
 {
-	char *new_env;
+	char	*new_env;
 
 	new_env = data->cmds->head->next->data;
 	if (!is_valid_env_name(new_env))
