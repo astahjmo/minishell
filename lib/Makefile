@@ -53,10 +53,10 @@ all: $(LIB)
 
 $(LIB): $(OBJS)
 	@ar -rcs $@ $(OBJS)
-	@printf "$(MSGBUILD) (libft): ok                                                                                                       \n"
+	@printf "$(MSGBUILD) (libft): ok                                                                      \n"
 
 $(BUILDDIR)%.o: %.c
-	@printf "$(MSGBUILD) (libft): building $@                                                                               \r"
+	@printf "$(MSGBUILD) (libft): building $@                                                             \r"
 	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
 	@$(CC) $(CFLAGS) -I./include -c $< -o $@
 

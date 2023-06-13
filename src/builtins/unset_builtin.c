@@ -12,12 +12,14 @@
 
 #include "minishell.h"
 
-void	unset_builtin(t_databus *data, char *env_to_unset)
+void	unset_builtin(t_databus *data)
 {
 	int	len;
+	char *env_to_unset;
 	int	i;
 
 	i = -1;
+	env_to_unset = data->cmds->head->next->data;
 	len = ft_strlen(env_to_unset);
 	if (!len)
 		return ;
