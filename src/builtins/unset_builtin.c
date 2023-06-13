@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 18:59:29 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/10 18:59:39 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:42:55 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	unset_builtin(t_databus *data)
 {
-	int	len;
-	char *env_to_unset;
-	int	i;
+	int		len;
+	char	*env_to_unset;
+	int		i;
 
 	i = -1;
 	env_to_unset = data->cmds->head->next->data;

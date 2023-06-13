@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:19:05 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/10 17:13:41 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:43:17 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	init_env(t_databus *data)
 {
-	int	i;
-	char **envp;
+	int		i;
+	char	**envp;
 
 	i = -1;
 	envp = data->envp;
