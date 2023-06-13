@@ -3,22 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/10 17:48:50 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:33:04 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 
 void	executor(t_databus *data)
 {
-	if (!ft_strncmp(data->stream, "exit", 5))
-		exit_cmd(data);
-	else if (!ft_strncmp(data->stream, "env", 4))
-		env_cmd(data->env, data->number_of_envs);
-	else if (!ft_strncmp(data->stream, "export ", 7))
-		export_cmd(data, &data->stream[7]);
+	char			*cmd;
+	t_node			*node;
+	t_tokens		builtin;
+	t_fn_built_exec	**exec;
+
+	node = data->cmds->head;
+	cmd = node->data;
+	exec = get_built_func();
+	builtin = is_builtin(cmd);
+	if (builtin != -1)
+		exec[is_builtin(cmd) - 1](data);
 	return ;
 }
