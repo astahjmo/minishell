@@ -48,7 +48,7 @@ $(NAME): $(OBJS)
 	@printf "$(MSGBUILD) $@: Program has been created!                                                          \n"
 
 $(BUILDDIR)%.o: %.c
-	@printf "$(MSGBUILD) $(NAME): building $@                                                                   \r"
+	@printf "$(MSGBUILD) $(NAME): building $@                                                                   \n"
 	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -I$(LINCLUDE) -c $< -o $@
 

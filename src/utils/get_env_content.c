@@ -21,11 +21,11 @@ void	get_env_content(t_databus *data, char *content, char *name)
 	i = 0;
 	while (data->env[i])
 	{
-		found_name = ft_strnstr(data->env[i], name, ENV_CONTENT_SZ);
+		found_name = ft_strnstr(data->env[i], name, STR_LIMIT);
 		if (found_name)
 		{
 			equal_sign = ft_strchr(found_name, '=');
-			ft_strlcpy(content, equal_sign + 1, ENV_CONTENT_SZ);
+			ft_strlcpy(content, equal_sign + 1, STR_LIMIT);
 			return ;
 		}
 		i++;

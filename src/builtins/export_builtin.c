@@ -12,35 +12,65 @@
 
 #include "minishell.h"
 
+static int	increase_number_of_envs(t_databus *data);
+static int	check_strlen(int len, char *new_env);
+
 void	export_builtin(t_databus *data)
 {
-	char	*new_env;
+	char	*env;
+	int		len;
 
-	new_env = data->cmds->head->next->data;
-	if (!is_valid_env_name(new_env))
-	{
-		printf("minishell: export: `%s': not a valid identifier\n", new_env);
+	env = data->cmds->head->next->data;
+	if (!is_valid_syntax(data->cmds->head))
 		return ;
-	}
-	if (!ft_strchr(new_env, '='))
+	if (!is_valid_env_name(env))
 		return ;
-	if (is_valid_syntax(data->cmds->head))
-	{
-		if (++data->number_of_envs < HEAP_OVERFLOW_PROTECTION)
-			data->env[data->number_of_envs - 1] = ft_strdup(new_env);
-	}
+	if (!increase_number_of_envs(data))
+		return ;
+	len = ft_strlen(env) + 1;
+	if (!check_strlen(len, env))
+		return ;
+	ft_strlcpy(data->env[data->number_of_envs - 1], env, len);
 }
 
-int	is_valid_env_name(char *name_value)
+int	is_valid_env_name(char *env)
 {
-	if (!ft_isalpha(*name_value) && *name_value != '_')
+	if (!ft_isalpha(*env) && *env != '_')
 		return (0);
-	name_value++;
-	while (*name_value != '\0' && *name_value != '=')
+	env++;
+	while (*env != '\0' && *env != '=')
 	{
-		if (!ft_isalnum(*name_value) && *name_value != '_')
+		if (!ft_isalnum(*env) && *env != '_')
+		{
+			ft_putstr_fd("minishell: export: `", 2);
+			ft_putstr_fd(env, 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
 			return (0);
-		name_value++;
+		}
+		env++;
+	}
+	return (1);
+}
+
+static int	increase_number_of_envs(t_databus *data)
+{
+	if ((data->number_of_envs + 1) == ENVS_LIMIT)
+	{
+		printf("minishell: too many environment variables\n");
+		return (0);
+	}
+	data->number_of_envs++;
+	return (1);
+}
+
+static int	check_strlen(int len, char *new_env)
+{
+	if (len >= STR_LIMIT)
+	{
+		ft_putstr_fd("minishell: export:", 2);
+		ft_putstr_fd(new_env, 2);
+		ft_putstr_fd(": error: variable is too long.\n", 2);
+		return (0);
 	}
 	return (1);
 }
