@@ -19,11 +19,8 @@ void	env_builtin(t_databus *d)
 	i = -1;
 	while (++i < d->number_of_envs)
 	{
-		if (d->env[i])
-		{
-			ft_putstr_fd(d->env[i], 1);
-			ft_putchar_fd('\n', 1);
-		}
+		ft_putstr_fd(d->env[i], 1);
+		ft_putchar_fd('\n', 1);
 	}
 }
 
