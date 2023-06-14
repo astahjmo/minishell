@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:30:04 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/13 15:42:28 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/13 16:45:32 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,17 @@
 # define DOLLAR '$'
 # define SQUOTE '\''
 # define DQUOTE '"'
-# define ENVS_LIMIT 2048
+# define CYAN "\033[0;36m"
+# define GREEN "\033[0;32m"
+# define RED "\033[0;31m"
+# define RESET "\033[0m"
+# define ENVS_LIMIT 1024
 # define STR_LIMIT 1024
 
 typedef struct s_node	t_node;
 typedef struct s_data	t_databus;
 typedef t_node			*t_fn_node_apply(char *);
+typedef void			t_fn_built_exec(t_databus *data);
 typedef short int		t_bool;
 typedef struct s_env	t_env;
 typedef enum e_tokens	t_tokens;
@@ -47,6 +52,7 @@ typedef int				t_recipes(t_tokens);
 // aliases to longer types
 typedef long long int	t_lli;
 typedef t_databus		t_dt;
+typedef unsigned short	t_ushort;
 
 typedef enum e_tokens
 {
@@ -155,6 +161,7 @@ void					exit_builtin(t_databus *data);
 void					export_builtin(t_databus *data);
 void					unset_builtin(t_databus *data);
 void					alt_env_builtin(t_databus *data);
+t_tokens				is_builtin(char *cmd);
 int						is_valid_env_name(char *name_value);
-
+t_fn_built_exec			**get_built_func(void);
 #endif // !
