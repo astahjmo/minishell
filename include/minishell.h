@@ -49,6 +49,7 @@ typedef int				t_recipes(t_tokens);
 // aliases to longer types
 typedef long long int	t_lli;
 typedef t_databus		t_dt;
+typedef unsigned short	t_ushort;
 
 typedef enum e_tokens
 {
