@@ -34,7 +34,7 @@
 # define SQUOTE '\''
 # define DQUOTE '"'
 # define ENVS_LIMIT 2048
-# define STR_LIMIT 512
+# define STR_LIMIT 1024
 
 typedef struct s_node	t_node;
 typedef struct s_data	t_databus;
