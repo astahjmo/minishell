@@ -36,8 +36,8 @@ void	unset_builtin(t_databus *data)
 
 static int	getindex_of_env_to_unset(t_databus *data, int len, int n)
 {
-	char	*env_to_unset;
 	int		i;
+	char	*env_to_unset;
 
 	i = -1;
 	env_to_unset = data->cmds->head->next->data;
@@ -56,7 +56,5 @@ static int	getindex_of_env_to_unset(t_databus *data, int len, int n)
 
 static inline int	whole_prefix_matched(t_databus *data, int i, int len)
 {
-	if (data->env[i] && (data->env[i][len] == '=' || data->env[i][len] == '\0'))
-		return (1);
-	return (0);
+	return (data->env[i][len] == '=' || data->env[i][len] == '\0');
 }

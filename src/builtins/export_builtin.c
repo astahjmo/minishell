@@ -17,20 +17,20 @@ static int	check_strlen(int len, char *new_env);
 
 void	export_builtin(t_databus *data)
 {
-	char	*env;
+	char	*new_env;
 	int		len;
 
-	env = data->cmds->head->next->data;
+	new_env = data->cmds->head->next->data;
 	if (!is_valid_syntax(data->cmds->head))
 		return ;
-	if (!is_valid_env_name(env))
+	if (!is_valid_env_name(new_env))
 		return ;
 	if (!increase_number_of_envs(data))
 		return ;
-	len = ft_strlen(env) + 1;
-	if (!check_strlen(len, env))
+	len = ft_strlen(new_env) + 1;
+	if (!check_strlen(len, new_env))
 		return ;
-	ft_strlcpy(data->env[data->number_of_envs - 1], env, len);
+	ft_strlcpy(data->env[data->number_of_envs - 1], new_env, len);
 }
 
 int	is_valid_env_name(char *env)
