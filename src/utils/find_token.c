@@ -12,34 +12,40 @@
 
 #include "minishell.h"
 
-static t_tokens	get_set(char *line, int set_limits, char **set)
+static t_tokens	get_index(char *to_find, int arr_size, char **arr)
 {
-	int			idx;
-	t_tokens	expansion;
+	int	idx;
 
 	idx = 0;
-	expansion = T_INVALID;
-	while (idx < set_limits && expansion == T_INVALID)
+	while (idx < arr_size)
 	{
-		if (ft_strncmp(line, set[idx],
-				ft_strlen(set[idx]) + 1) == 0)
-			expansion = idx + 1;
+		if (ft_strncmp(to_find, arr[idx], ft_strlen(arr[idx]) + 1) == 0)
+			return (idx + 1);
 		idx++;
 	}
-	return (expansion);
+	return (T_INVALID);
 }
 
 t_tokens	get_expansion(char *line)
 {
-	return (get_set(line, 3, get_expansion_lexes()));
+	t_ushort	arr_size;
+
+	arr_size = 3;
+	return (get_index(line, arr_size, get_expansion_lexes()));
 }
 
 t_tokens	get_token(char *line)
 {
-	return (get_set(line, 8, get_lexemes()));
+	t_ushort	arr_size;
+
+	arr_size = 8;
+	return (get_index(line, arr_size, get_lexemes()));
 }
 
 t_tokens	is_builtin(char *cmd)
 {
-	return (get_set(cmd, 5, get_builtins()));
+	t_ushort	arr_size;
+
+	arr_size = 5;
+	return (get_index(cmd, arr_size, get_builtins()));
 }
