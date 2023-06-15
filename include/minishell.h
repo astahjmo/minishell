@@ -166,6 +166,6 @@ int						already_exists(t_databus *data, char *env);
 t_fn_built_exec			**get_built_func(void);
 int						is_initialized_to_zero(char *str);
 int						names_are_equal(char *s1, char *s2);
-void					get_env_name(t_databus *data, char *env, char *name);
+void					get_env_name(char *name, char *env);
 void					get_env_content(char *content, char *name, char *env);
 #endif // !

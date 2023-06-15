@@ -23,7 +23,7 @@ void	env_builtin(t_databus *data)
 	ft_memset(content, 'x', STR_LIMIT);
 	while (++i < data->number_of_envs)
 	{
-		get_env_name(data, name, data->env[i]);
+		get_env_name(name, data->env[i]);
 		get_env_content(content, name, data->env[i]);
 		if (ft_strchr(data->env[i], '='))
 		{
@@ -46,7 +46,7 @@ void	alt_env_builtin(t_databus *data)
 	ft_memset(content, 'x', STR_LIMIT);
 	while (++i < data->number_of_envs)
 	{
-		get_env_name(data, name, data->env[i]);
+		get_env_name(name, data->env[i]);
 		get_env_content(content, name, data->env[i]);
 		if (ft_strchr(data->env[i], '='))
 		{

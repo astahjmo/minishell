@@ -46,24 +46,13 @@ int	names_are_equal(char *s1, char *s2)
 	}
 }
 
-void	get_env_name(t_databus *data, char *env, char *name)
+void	get_env_name(char *name, char *env)
 {
-	int		i;
-	char	*found_name;
 	char	*equal_sign;
 
-	i = 0;
-	while (data->env[i])
-	{
-		found_name = ft_strnstr(data->env[i], name, STR_LIMIT);
-		if (found_name)
-		{
-			equal_sign = ft_strchr(found_name, '=');
-			ft_strlcpy(env, found_name, equal_sign - found_name + 1);
-			return ;
-		}
-		i++;
-	}
+	equal_sign = ft_strchr(env, '=');
+	ft_strlcpy(name, env, equal_sign - env + 1);
+	return ;
 }
 
 void	get_env_content(char *content, char *name, char *env)
@@ -75,9 +64,9 @@ void	get_env_content(char *content, char *name, char *env)
 	if (found_name)
 	{
 		equal_sign = ft_strchr(found_name, '=');
-		if (equal_sign && *(equal_sign + 1))
-			ft_strlcpy(content, equal_sign + 1, ft_strlen(equal_sign));
-		else if (equal_sign && !*(equal_sign + 1))
+		if (equal_sign && equal_sign[1])
+			ft_strlcpy(content, &equal_sign[1], ft_strlen(equal_sign));
+		else if (equal_sign && !(equal_sign[1]))
 			ft_bzero(content, STR_LIMIT);
 		return ;
 	}
