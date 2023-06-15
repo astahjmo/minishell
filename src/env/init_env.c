@@ -24,13 +24,12 @@ void	init_env(t_databus *data)
 	while (envp[data->number_of_envs] != NULL)
 		data->number_of_envs++;
 	ft_bzero(data->env, sizeof(char *) * ENVS_LIMIT);
-	if (data->number_of_envs < ENVS_LIMIT)
+	if (data->number_of_envs >= ENVS_LIMIT)
+		return ;
+	while (++i < data->number_of_envs)
 	{
-		while (++i < data->number_of_envs)
-		{
-			envlen = ft_strlen(envp[i]) + 1;
-			if (envlen <= STR_LIMIT)
-				ft_strlcpy(data->env[i], envp[i], envlen);
-		}
+		envlen = ft_strlen(envp[i]) + 1;
+		if (envlen <= STR_LIMIT)
+			ft_strlcpy(data->env[i], envp[i], envlen);
 	}
 }
