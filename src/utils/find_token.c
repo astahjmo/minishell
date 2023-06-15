@@ -20,7 +20,7 @@ static t_tokens	get_index(char *to_find, int arr_size, char **arr)
 	while (idx < arr_size)
 	{
 		if (ft_strncmp(to_find, arr[idx], ft_strlen(arr[idx]) + 1) == 0)
-			return (idx + 1);
+			return (idx);
 		idx++;
 	}
 	return (T_INVALID);
@@ -42,10 +42,16 @@ t_tokens	get_token(char *line)
 	return (get_index(line, arr_size, get_lexemes()));
 }
 
-t_tokens	is_builtin(char *cmd)
+t_tokens	is_builtin(t_databus *data)
 {
 	t_ushort	arr_size;
+	t_tokens	index;
+	t_node		*list;
 
 	arr_size = 5;
-	return (get_index(cmd, arr_size, get_builtins()));
+	list = data->cmds->head;
+	index = get_index(list->data, arr_size, get_builtins());
+	if (2 == index && !list->next)
+		index++;
+	return (index);
 }
