@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-inline int	is_bzeroed(char *str)
+inline int	is_initialized_to_zero(char *str)
 {
 	int	i;
 
@@ -66,26 +66,20 @@ void	get_env_name(t_databus *data, char *env, char *name)
 	}
 }
 
-void	get_env_content(t_databus *data, char *content, char *name)
+void	get_env_content(char *content, char *name, char *env)
 {
-	int		i;
 	char	*found_name;
 	char	*equal_sign;
 
-	i = 0;
-	while (data->env[i])
+	found_name = ft_strnstr(env, name, STR_LIMIT);
+	if (found_name)
 	{
-		found_name = ft_strnstr(data->env[i], name, STR_LIMIT);
-		if (found_name)
-		{
-			equal_sign = ft_strchr(found_name, '=');
-			if (equal_sign)
-				ft_strlcpy(content, equal_sign + 1, ft_strlen(equal_sign));
-			else
-				ft_bzero(content, STR_LIMIT);
-			return ;
-		}
-		i++;
+		equal_sign = ft_strchr(found_name, '=');
+		if (equal_sign && *(equal_sign + 1))
+			ft_strlcpy(content, equal_sign + 1, ft_strlen(equal_sign));
+		else if (equal_sign && !*(equal_sign + 1))
+			ft_bzero(content, STR_LIMIT);
+		return ;
 	}
 }
 
