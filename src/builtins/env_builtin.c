@@ -20,20 +20,18 @@ void	env_builtin(t_databus *data)
 
 	i = -1;
 	ft_bzero(name, STR_LIMIT);
-	ft_bzero(content, STR_LIMIT);
+	ft_memset(content, 'x', STR_LIMIT);
 	while (++i < data->number_of_envs)
 	{
 		get_env_name(data, name, data->env[i]);
-		get_env_content(data, content, name);
+		get_env_content(content, name, data->env[i]);
 		if (ft_strchr(data->env[i], '='))
 		{
-			if (is_bzeroed(content))
+			if (is_initialized_to_zero(content))
 				printf("%s=\n", name);
 			else
 				printf("%s=%s\n", name, content);
 		}
-		else
-			continue ;
 	}
 }
 
@@ -44,13 +42,15 @@ void	alt_env_builtin(t_databus *data)
 	char	content[STR_LIMIT];
 
 	i = -1;
+	ft_bzero(name, STR_LIMIT);
+	ft_memset(content, 'x', STR_LIMIT);
 	while (++i < data->number_of_envs)
 	{
 		get_env_name(data, name, data->env[i]);
-		get_env_content(data, content, name);
+		get_env_content(content, name, data->env[i]);
 		if (ft_strchr(data->env[i], '='))
 		{
-			if (is_bzeroed(content))
+			if (is_initialized_to_zero(content))
 				printf("declare -x %s=\"\"\n", name);
 			else
 				printf("declare -x %s=\"%s\"\n", name, content);
