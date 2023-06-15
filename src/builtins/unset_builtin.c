@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 18:59:29 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/13 15:42:55 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:25:31 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,26 @@ static int			getindex_of_env_to_unset(t_databus *data, int len, int n);
 void	unset_builtin(t_databus *data)
 {
 	int		i;
-	int		number_of_envs;
+	int		nb;
 	char	*env_to_unset;
+	t_node	*list;
 
-	number_of_envs = data->number_of_envs;
-	env_to_unset = data->cmds->head->next->data;
-	i = getindex_of_env_to_unset(data, ft_strlen(env_to_unset), number_of_envs);
-	if (-1 == i)
-		return ;
-	while (i < number_of_envs)
+	nb = data->number_of_envs;
+	list = data->cmds->head;
+	while (list)
 	{
-		ft_memmove(&data->env[i], &data->env[i + 1], sizeof(char) * STR_LIMIT);
-		i++;
+		env_to_unset = data->cmds->head->next->data;
+		i = getindex_of_env_to_unset(data, ft_strlen(env_to_unset), nb);
+		if (-1 == i)
+			return ;
+		while (i < nb)
+		{
+			ft_memmove(&data->env[i], &data->env[i + 1], STR_LIMIT);
+			i++;
+		}
+		data->number_of_envs--;
+		list = list->next;
 	}
-	data->number_of_envs--;
 }
 
 static int	getindex_of_env_to_unset(t_databus *data, int len, int n)
