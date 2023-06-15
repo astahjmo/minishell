@@ -12,6 +12,20 @@
 
 #include "minishell.h"
 
+inline int	is_bzeroed(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (i < STR_LIMIT)
+	{
+		if (str[i] != '\0')
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}
+
 inline int	is_being_initialized(char *new_env)
 {
 	if (ft_strchr(new_env, '='))
