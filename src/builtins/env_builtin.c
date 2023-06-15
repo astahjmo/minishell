@@ -25,8 +25,15 @@ void	env_builtin(t_databus *data)
 	{
 		get_env_name(data, name, data->env[i]);
 		get_env_content(data, content, name);
-		if (*content)
-			printf("%s\n", data->env[i]);
+		if (ft_strchr(data->env[i], '='))
+		{
+			if (is_bzeroed(content))
+				printf("%s=\n", name);
+			else
+				printf("%s=%s\n", name, content);
+		}
+		else
+			continue ;
 	}
 }
 
@@ -42,7 +49,12 @@ void	alt_env_builtin(t_databus *data)
 		get_env_name(data, name, data->env[i]);
 		get_env_content(data, content, name);
 		if (ft_strchr(data->env[i], '='))
-			printf("declare -x %s=\"%s\"\n", name, content);
+		{
+			if (is_bzeroed(content))
+				printf("declare -x %s=\"\"\n", name);
+			else
+				printf("declare -x %s=\"%s\"\n", name, content);
+		}
 		else
 			printf("declare -x %s\n", name);
 	}

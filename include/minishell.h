@@ -165,6 +165,7 @@ t_tokens				is_builtin(t_databus *data);
 int						is_being_initialized(char *new_env);
 int						already_exists(t_databus *data, char *env);
 t_fn_built_exec			**get_built_func(void);
+int						is_bzeroed(char *str);
 int						names_are_equal(char *s1, char *s2);
 void					get_env_name(t_databus *data, char *env, char *name);
 #endif // !
