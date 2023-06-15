@@ -14,13 +14,22 @@
 
 void	env_builtin(t_databus *d)
 {
-	int	i;
+	int		i;
+	char	name[STR_LIMIT];
+	char	content[STR_LIMIT];
 
 	i = -1;
+	ft_bzero(name, STR_LIMIT);
+	ft_bzero(content, STR_LIMIT);
 	while (++i < d->number_of_envs)
 	{
-		ft_putstr_fd(d->env[i], 1);
-		ft_putchar_fd('\n', 1);
+		get_env_name(d, name, d->env[i]);
+		get_env_content(d, content, name);
+		if (*content)
+		{
+			ft_putstr_fd(d->env[i], 1);
+			ft_putchar_fd('\n', 1);
+		}
 	}
 }
 
