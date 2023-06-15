@@ -12,32 +12,43 @@
 
 #include "minishell.h"
 
-inline int	already_exists(t_databus *data)
+inline int	is_being_initialized(char *new_env)
 {
-	char		*env;
-	char		*new_env;
-	t_ushort	i;
+	if (ft_strchr(new_env, '='))
+		return (TRUE);
+	return (FALSE);
+}
 
-	i = 0;
-	new_env = data->cmds->head->next->data;
-	while (i < data->number_of_envs)
+int	names_are_equal(char *s1, char *s2)
+{
+	while (TRUE)
 	{
-		env = data->env[i];
-		if (ft_strncmp(env, new_env, ft_strlen(new_env)) == 0)
-			return (1);
-		i++;
+		if (*s1 == '=' || *s2 == '=' || !*s2 || !*s1)
+			return (TRUE);
+		if (*s1 != *s2)
+			return (FALSE);
+		s1++;
+		s2++;
 	}
-	return (0);
 }
 
-inline int	is_initialized(t_databus *data, int i)
-{
-	char	*new_env;
-	char	*env;
-
-	new_env = data->cmds->head->next->data;
-	env = data->env[i];
-	if (env[ft_strlen(new_env)] == '=')
-		return (1);
-	return (0);
-}
+// tests for names_are_equal
+// #include <assert.h>
+//
+// int	main(void)
+// {
+// 	assert(names_are_equal("a", "a") == TRUE);
+// 	assert(names_are_equal("a", "b") == FALSE);
+// 	assert(names_are_equal("a", "a=") == TRUE);
+// 	assert(names_are_equal("a", "a=b") == TRUE);
+// 	assert(names_are_equal("a=", "a") == TRUE);
+// 	assert(names_are_equal("a=", "a=") == TRUE);
+// 	assert(names_are_equal("a=b", "a") == TRUE);
+// 	assert(names_are_equal("a=b", "a=") == TRUE);
+// 	assert(names_are_equal("a=b", "a=b") == TRUE);
+// 	assert(names_are_equal("a=", "a==") == TRUE);
+// 	assert(names_are_equal("a==", "a=") == TRUE);
+// 	assert(names_are_equal("a==", "a==") == TRUE);
+// 	assert(names_are_equal("a===", "a==") == TRUE);
+// 	printf("names_are_equal tests passed\n");
+// }
