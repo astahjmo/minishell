@@ -161,7 +161,7 @@ void					exit_builtin(t_databus *data);
 void					export_builtin(t_databus *data);
 void					unset_builtin(t_databus *data);
 void					alt_env_builtin(t_databus *data);
-t_tokens				is_builtin(char *cmd);
+t_tokens				is_builtin(t_databus *data);
 int						is_valid_env_name(char *name_value);
 t_fn_built_exec			**get_built_func(void);
 #endif // !
