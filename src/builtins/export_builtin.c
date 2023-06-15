@@ -25,7 +25,9 @@ void	export_builtin(t_databus *data)
 	new_env = data->cmds->head->next->data;
 	if (!is_valid_syntax(data->cmds->head) || !is_valid_env_name(new_env))
 		return ;
-	if (!increase_number_of_envs(data) || overwrite_if_already_exists(data))
+	if (overwrite_if_already_exists(data))
+		return ;
+	if (!increase_number_of_envs(data))
 		return ;
 	len = ft_strlen(new_env) + 1;
 	if (!check_strlen(len, new_env))
@@ -70,9 +72,9 @@ static int	check_strlen(int len, char *new_env)
 		ft_putstr_fd("minishell: export:", 2);
 		ft_putstr_fd(new_env, 2);
 		ft_putstr_fd(": error: variable is too long.\n", 2);
-		return (0);
+		return (FALSE);
 	}
-	return (1);
+	return (TRUE);
 }
 
 static int	overwrite_if_already_exists(t_databus *data)
@@ -84,9 +86,15 @@ static int	overwrite_if_already_exists(t_databus *data)
 	new_env = data->cmds->head->next->data;
 	while (i < data->number_of_envs)
 	{
-		if (already_exists(data) && is_initialized(data, i))
-			return (ft_strlcpy(data->env[i], new_env, ft_strlen(new_env) + 1));
+		if (TRUE == names_are_equal(data->env[i], new_env))
+		{
+			if (TRUE == is_being_initialized(new_env))
+			{
+				ft_strlcpy(data->env[i], new_env, ft_strlen(new_env) + 1);
+				return (TRUE);
+			}
+		}
 		i++;
 	}
-	return (0);
+	return (FALSE);
 }
