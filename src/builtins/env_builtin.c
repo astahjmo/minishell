@@ -12,30 +12,50 @@
 
 #include "minishell.h"
 
-void	env_builtin(t_databus *d)
+void	env_builtin(t_databus *data)
 {
-	int	i;
+	int		i;
+	char	name[STR_LIMIT];
+	char	content[STR_LIMIT];
 
 	i = -1;
-	while (++i < d->number_of_envs)
+	ft_bzero(name, STR_LIMIT);
+	ft_memset(content, 'x', STR_LIMIT);
+	while (++i < data->number_of_envs)
 	{
-		ft_putstr_fd(d->env[i], 1);
-		ft_putchar_fd('\n', 1);
+		get_env_name(name, data->env[i]);
+		get_env_content(content, name, data->env[i]);
+		if (ft_strchr(data->env[i], '='))
+		{
+			if (is_initialized_to_zero(content))
+				printf("%s=\n", name);
+			else
+				printf("%s=%s\n", name, content);
+		}
 	}
 }
 
 void	alt_env_builtin(t_databus *data)
 {
-	int	i;
+	int		i;
+	char	name[STR_LIMIT];
+	char	content[STR_LIMIT];
 
 	i = -1;
+	ft_bzero(name, STR_LIMIT);
+	ft_memset(content, 'x', STR_LIMIT);
 	while (++i < data->number_of_envs)
 	{
-		if (data->env[i])
+		get_env_name(name, data->env[i]);
+		get_env_content(content, name, data->env[i]);
+		if (ft_strchr(data->env[i], '='))
 		{
-			ft_putstr_fd("declare -x ", 1);
-			ft_putstr_fd(data->env[i], 1);
-			ft_putchar_fd('\n', 1);
+			if (is_initialized_to_zero(content))
+				printf("declare -x %s=\"\"\n", name);
+			else
+				printf("declare -x %s=\"%s\"\n", name, content);
 		}
+		else
+			printf("declare -x %s\n", name);
 	}
 }

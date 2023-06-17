@@ -14,8 +14,8 @@
 
 static int	is_valid(t_tokens next)
 {
-	if (next == T_INPUT_REDIR || next == T_O_OUT_REDIR
-		|| next == T_HERE_DOC || next == T_OUT_REDIR)
+	if (next == T_INPUT_REDIR || next == T_O_OUT_REDIR || next == T_HERE_DOC
+		|| next == T_OUT_REDIR)
 		return (1);
 	return (-1);
 }
@@ -63,14 +63,16 @@ int	is_valid_syntax(t_node *head)
 	state = T_INITIAL;
 	cursor = head;
 	progress = get_next_state(state, cursor);
-	while (progress != T_INVALID && cursor != NULL)
+	while (cursor)
 	{
 		state = cursor->token;
 		progress = get_next_state(state, cursor->next);
+		if (progress == T_INVALID)
+			break ;
 		cursor = cursor->next;
 	}
-	if (progress != -1)
+	if (progress != T_INVALID)
 		return (TRUE);
-	ft_printf("Error: %s\n", get_token_string(state));
+	ft_printf("Error: %s\n", get_token_string(state + 1));
 	return (FALSE);
 }
