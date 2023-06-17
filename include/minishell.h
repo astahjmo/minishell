@@ -145,7 +145,6 @@ t_env					*ft_env_new(void);
 t_env					*ft_last_env(t_env *head);
 void					string_eat_at(char **word, char at);
 t_tokens				get_expansion(char *line);
-void					get_env_content(t_dt *d, char *content, char *name);
 char					*trim_key(char *key);
 char					*expand_dolar(char *line);
 char					*ft_strjoin_free(char *s1, char *s2);
@@ -161,12 +160,12 @@ void					exit_builtin(t_databus *data);
 void					export_builtin(t_databus *data);
 void					unset_builtin(t_databus *data);
 void					alt_env_builtin(t_databus *data);
-t_tokens				is_builtin(char *cmd);
+t_tokens			is_builtin(t_databus *data);
+int						is_being_initialized(char *new_env);
+int						already_exists(t_databus *data, char *env);
 t_fn_built_exec			**get_built_func(void);
-int						lentok(char *str, char tok);
-int						names_are_equal(char *env, char *new_env);
-int						cmptok(char *s1, char *s2, char tok);
-char					*is_being_initialized(char *new_env);
-int						already_exists(char *env, char *new_env);
-
+int						is_initialized_to_zero(char *str);
+int						names_are_equal(char *s1, char *s2);
+void					get_env_name(char *name, char *env);
+void					get_env_content(char *content, char *name, char *env);
 #endif // !

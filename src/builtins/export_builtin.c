@@ -70,9 +70,9 @@ static int	check_strlen(int len, char *new_env)
 		ft_putstr_fd("minishell: export:", 2);
 		ft_putstr_fd(new_env, 2);
 		ft_putstr_fd(": error: variable is too long.\n", 2);
-		return (0);
+		return (FALSE);
 	}
-	return (1);
+	return (TRUE);
 }
 
 static int	overwrite_if_already_exists(t_databus *data)
@@ -89,5 +89,5 @@ static int	overwrite_if_already_exists(t_databus *data)
 			return (ft_strlcpy(data->env[i], new_env, ft_strlen(new_env) + 1));
 		i++;
 	}
-	return (0);
+	return (FALSE);
 }

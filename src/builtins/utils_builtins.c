@@ -12,6 +12,20 @@
 
 #include "minishell.h"
 
+inline int	is_initialized_to_zero(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (i < STR_LIMIT)
+	{
+		if (str[i] != '\0')
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}
+
 char	*is_being_initialized(char *new_env)
 {
 	return (ft_strchr(new_env, '='));
@@ -51,4 +65,29 @@ int	cmptok(char *s1, char *s2, char tok)
 			break ;
 	}
 	return (TRUE);
+
+void	get_env_name(char *name, char *env)
+{
+	char	*equal_sign;
+
+	equal_sign = ft_strchr(env, '=');
+	ft_strlcpy(name, env, equal_sign - env + 1);
+	return ;
+}
+
+void	get_env_content(char *content, char *name, char *env)
+{
+	char	*found_name;
+	char	*equal_sign;
+
+	found_name = ft_strnstr(env, name, STR_LIMIT);
+	if (found_name)
+	{
+		equal_sign = ft_strchr(found_name, '=');
+		if (equal_sign && equal_sign[1])
+			ft_strlcpy(content, &equal_sign[1], ft_strlen(equal_sign));
+		else if (equal_sign && !(equal_sign[1]))
+			ft_bzero(content, STR_LIMIT);
+		return ;
+	}
 }
