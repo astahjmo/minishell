@@ -26,25 +26,45 @@ inline int	is_initialized_to_zero(char *str)
 	return (TRUE);
 }
 
-inline int	is_being_initialized(char *new_env)
+char	*is_being_initialized(char *new_env)
 {
-	if (ft_strchr(new_env, '='))
-		return (TRUE);
-	return (FALSE);
+	return (ft_strchr(new_env, '='));
 }
 
-int	names_are_equal(char *s1, char *s2)
+int	lentok(char *str, char tok)
 {
+	char	*end;
+
+	end = str;
+	while (*end && *end != tok)
+		end++;
+	return (end - str);
+}
+
+int	names_are_equal(char *env, char *new_env)
+{
+	return (cmptok(env, new_env, '='));
+}
+
+int	cmptok(char *s1, char *s2, char tok)
+{
+	int	s1len;
+	int	s2len;
+
+	s1len = lentok(s1, '=');
+	s2len = lentok(s2, '=');
+	if (s1len != s2len)
+		return (FALSE);
 	while (TRUE)
 	{
-		if (*s1 == '=' || !*s2 || !*s1)
-			return (TRUE);
-		if (*s1 != *s2)
+		if (*s1++ != *s2++)
 			return (FALSE);
-		s1++;
-		s2++;
+		if (*s2 == tok || !*s2)
+			break ;
+		if (*s1 == tok || !*s1)
+			break ;
 	}
-}
+	return (TRUE);
 
 void	get_env_name(char *name, char *env)
 {
@@ -71,25 +91,3 @@ void	get_env_content(char *content, char *name, char *env)
 		return ;
 	}
 }
-
-// tests for names_are_equal
-// #include <assert.h>
-//
-// int	main(void)
-// {
-// 	assert(names_are_equal("a", "a") == TRUE);
-// 	assert(names_are_equal("a", "b") == FALSE);
-// 	assert(names_are_equal("a", "a=") == TRUE);
-// 	assert(names_are_equal("a", "a=b") == TRUE);
-// 	assert(names_are_equal("a=", "a") == TRUE);
-// 	assert(names_are_equal("a=", "a=") == TRUE);
-// 	assert(names_are_equal("a=b", "a") == TRUE);
-// 	assert(names_are_equal("a=b", "a=") == TRUE);
-// 	assert(names_are_equal("a=b", "a=b") == TRUE);
-// 	assert(names_are_equal("a=", "a==") == TRUE);
-// 	assert(names_are_equal("a==", "a=") == TRUE);
-// 	assert(names_are_equal("a==", "a==") == TRUE);
-// 	assert(names_are_equal("a===", "a==") == TRUE);
-// 	assert(names_are_equal("as", "a=") == FALSE);
-// 	printf("names_are_equal tests passed\n");
-// }
