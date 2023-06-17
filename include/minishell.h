@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:30:04 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/13 16:45:32 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/17 13:57:29 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,12 +160,14 @@ void					exit_builtin(t_databus *data);
 void					export_builtin(t_databus *data);
 void					unset_builtin(t_databus *data);
 void					alt_env_builtin(t_databus *data);
-t_tokens			is_builtin(t_databus *data);
-int						is_being_initialized(char *new_env);
+t_tokens				is_builtin(t_databus *data);
+char					*is_being_initialized(char *new_env);
 int						already_exists(t_databus *data, char *env);
 t_fn_built_exec			**get_built_func(void);
 int						is_initialized_to_zero(char *str);
 int						names_are_equal(char *s1, char *s2);
 void					get_env_name(char *name, char *env);
+int						cmptok(char *s1, char *s2, char tok);
 void					get_env_content(char *content, char *name, char *env);
-#endif // !
+
+#endif
