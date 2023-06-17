@@ -12,32 +12,39 @@
 
 #include "minishell.h"
 
-inline int	already_exists(t_databus *data)
+char *is_being_initialized(char *new_env)
 {
-	char		*env;
-	char		*new_env;
-	t_ushort	i;
-
-	i = 0;
-	new_env = data->cmds->head->next->data;
-	while (i < data->number_of_envs)
-	{
-		env = data->env[i];
-		if (ft_strncmp(env, new_env, ft_strlen(new_env)) == 0)
-			return (1);
-		i++;
-	}
-	return (0);
+	return(ft_strchr(new_env, '='));
 }
 
-inline int	is_initialized(t_databus *data, int i)
-{
-	char	*new_env;
-	char	*env;
+int lentok(char *str, char tok) {
+    char *end;
+    end = str;
+    while (*end && *end != tok)
+        end++;
+    return (end - str);
+}
 
-	new_env = data->cmds->head->next->data;
-	env = data->env[i];
-	if (env[ft_strlen(new_env)] == '=')
-		return (1);
-	return (0);
+int names_are_equal(char *env, char *new_env)
+{
+	return (cmptok(env, new_env, '='));
+}
+
+int cmptok(char *s1, char *s2, char tok) {
+    int s1len;
+    int s2len;
+
+    s1len = lentok(s1, '=');
+    s2len = lentok(s2, '=');
+    if (s1len != s2len)
+        return (FALSE);
+    while (TRUE) {
+        if (*s1++ != *s2++)
+            return (FALSE);
+        if (*s2 == tok || !*s2)
+            break;
+        if (*s1 == tok || !*s1)
+            break;
+    }
+    return (TRUE);
 }
