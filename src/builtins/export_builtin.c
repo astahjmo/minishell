@@ -13,19 +13,19 @@
 #include "minishell.h"
 
 static int	increase_number_of_envs(t_databus *data);
+static int	is_valid_env_name(char *env);
 static int	check_strlen(int len, char *new_env);
+static int	overwrite_if_already_exists(t_databus *data);
 
 void	export_builtin(t_databus *data)
 {
-	char	*new_env;
 	int		len;
+	char	*new_env;
 
 	new_env = data->cmds->head->next->data;
-	if (!is_valid_syntax(data->cmds->head))
+	if (!is_valid_syntax(data->cmds->head) || !is_valid_env_name(new_env))
 		return ;
-	if (!is_valid_env_name(new_env))
-		return ;
-	if (!increase_number_of_envs(data))
+	if (overwrite_if_already_exists(data) || !increase_number_of_envs(data))
 		return ;
 	len = ft_strlen(new_env) + 1;
 	if (!check_strlen(len, new_env))
@@ -33,7 +33,7 @@ void	export_builtin(t_databus *data)
 	ft_strlcpy(data->env[data->number_of_envs - 1], new_env, len);
 }
 
-int	is_valid_env_name(char *env)
+static int	is_valid_env_name(char *env)
 {
 	if (!ft_isalpha(*env) && *env != '_')
 		return (0);
@@ -73,4 +73,21 @@ static int	check_strlen(int len, char *new_env)
 		return (0);
 	}
 	return (1);
+}
+
+static int	overwrite_if_already_exists(t_databus *data)
+{
+	int		i;
+	char	*new_env;
+
+	i = 0;
+	new_env = data->cmds->head->next->data;
+	while (i < data->number_of_envs)
+	{
+		if (names_are_equal(data->env[i], new_env)
+			&& is_being_initialized(new_env))
+			return (ft_strlcpy(data->env[i], new_env, ft_strlen(new_env) + 1));
+		i++;
+	}
+	return (0);
 }
