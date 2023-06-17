@@ -162,7 +162,11 @@ void					export_builtin(t_databus *data);
 void					unset_builtin(t_databus *data);
 void					alt_env_builtin(t_databus *data);
 t_tokens				is_builtin(char *cmd);
-int						is_initialized(t_databus *data, int i);
-int						already_exists(t_databus *data);
 t_fn_built_exec			**get_built_func(void);
+int 					lentok(char *str, char tok);
+int 					names_are_equal(char *env, char *new_env);
+int 					cmptok(char *s1, char *s2, char tok);
+char 					*is_being_initialized(char *new_env);
+int						already_exists(char *env, char *new_env);
+
 #endif // !

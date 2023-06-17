@@ -25,7 +25,7 @@ void	export_builtin(t_databus *data)
 	new_env = data->cmds->head->next->data;
 	if (!is_valid_syntax(data->cmds->head) || !is_valid_env_name(new_env))
 		return ;
-	if (!increase_number_of_envs(data) || overwrite_if_already_exists(data))
+	if (overwrite_if_already_exists(data) || !increase_number_of_envs(data))
 		return ;
 	len = ft_strlen(new_env) + 1;
 	if (!check_strlen(len, new_env))
@@ -84,7 +84,8 @@ static int	overwrite_if_already_exists(t_databus *data)
 	new_env = data->cmds->head->next->data;
 	while (i < data->number_of_envs)
 	{
-		if (already_exists(data) && is_initialized(data, i))
+		if (names_are_equal(data->env[i], new_env)
+				&& is_being_initialized(new_env))
 			return (ft_strlcpy(data->env[i], new_env, ft_strlen(new_env) + 1));
 		i++;
 	}
