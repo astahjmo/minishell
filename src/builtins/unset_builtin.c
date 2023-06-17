@@ -13,21 +13,24 @@
 #include "minishell.h"
 
 static int			whole_prefix_matched(t_databus *data, int i, int len);
-static int			getindex_of_env_to_unset(t_databus *data, int len, int n);
+static int			getindex_of_env_to_unset(t_databus *data, char *env, int n);
 
 void	unset_builtin(t_databus *data)
 {
 	int		i;
 	int		nb;
-	char	*env_to_unset;
 	t_node	*list;
 
 	nb = data->number_of_envs;
-	list = data->cmds->head;
+	list = data->cmds->head->next;
 	while (list)
 	{
-		env_to_unset = data->cmds->head->next->data;
-		i = getindex_of_env_to_unset(data, ft_strlen(env_to_unset), nb);
+		if (is_being_initialized(list->data))
+		{
+			list = list->next;
+			continue ;
+		}
+		i = getindex_of_env_to_unset(data, list->data, nb);
 		if (-1 == i)
 			return ;
 		while (i < nb)
@@ -35,27 +38,27 @@ void	unset_builtin(t_databus *data)
 			ft_memmove(&data->env[i], &data->env[i + 1], STR_LIMIT);
 			i++;
 		}
-		data->number_of_envs--;
 		list = list->next;
+		data->number_of_envs--;
 	}
 }
 
-static int	getindex_of_env_to_unset(t_databus *data, int len, int n)
+static int	getindex_of_env_to_unset(t_databus *data, char *to_unset, int nb)
 {
-	int		i;
-	char	*env_to_unset;
+	int	i;
+	int	len;
 
 	i = -1;
-	env_to_unset = data->cmds->head->next->data;
+	len = ft_strlen(to_unset);
 	if (!len)
 		return (-1);
-	while (++i < n)
+	while (++i < nb)
 	{
-		if (!ft_strncmp(data->env[i], env_to_unset, len)
+		if (!ft_strncmp(data->env[i], to_unset, len)
 			&& whole_prefix_matched(data, i, len))
 			break ;
 	}
-	if (i == n)
+	if (i == nb)
 		return (-1);
 	return (i);
 }
