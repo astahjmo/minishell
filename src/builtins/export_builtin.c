@@ -85,7 +85,7 @@ static int	overwrite_if_already_exists(t_databus *data)
 	while (i < data->number_of_envs)
 	{
 		if (names_are_equal(data->env[i], new_env)
-				&& is_being_initialized(new_env))
+			&& is_being_initialized(new_env))
 			return (ft_strlcpy(data->env[i], new_env, ft_strlen(new_env) + 1));
 		i++;
 	}
