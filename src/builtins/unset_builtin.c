@@ -19,15 +19,19 @@ void	unset_builtin(t_databus *data)
 {
 	int		i;
 	int		nb;
+	char	*new_env;
 	t_node	*list;
 
 	nb = data->number_of_envs;
 	list = data->cmds->head;
+	if (!is_valid_syntax(list))
+		return ;
 	while (list->next)
 	{
 		list = list->next;
-		i = getindex_of_env_to_unset(data, list->data);
-		if (is_being_initialized(list->data) || T_INVALID == i)
+		new_env = list->data;
+		i = getindex_of_env_to_unset(data, new_env);
+		if (is_being_initialized(new_env) || (T_INVALID == i))
 			continue ;
 		while (i < nb)
 		{
