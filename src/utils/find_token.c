@@ -48,7 +48,7 @@ t_tokens	is_builtin(t_databus *data)
 	t_tokens	index;
 	t_node		*list;
 
-	arr_size = 5;
+	arr_size = 7;
 	list = data->cmds->head;
 	index = get_index(list->data, arr_size, get_builtins());
 	if (2 == index && !list->next)

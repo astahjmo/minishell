@@ -156,6 +156,7 @@ void					init_env(t_databus *data);
 void					free_env(t_databus *data);
 void					free_all(t_databus *data);
 void					env_builtin(t_databus *data);
+void					echo_builtin(t_databus *data);
 void					exit_builtin(t_databus *data);
 void					export_builtin(t_databus *data);
 void					unset_builtin(t_databus *data);
