@@ -15,22 +15,30 @@
 static int	increase_number_of_envs(t_databus *data);
 static int	is_valid_env_name(char *env);
 static int	check_strlen(int len, char *new_env);
-static int	overwrite_if_already_exists(t_databus *data);
+static int	overwrite(t_databus *data, char *new_env);
 
 void	export_builtin(t_databus *data)
 {
 	int		len;
 	char	*new_env;
+	t_node	*list;
 
-	new_env = data->cmds->head->next->data;
-	if (!is_valid_syntax(data->cmds->head) || !is_valid_env_name(new_env))
+	list = data->cmds->head;
+	if (!is_valid_syntax(list))
 		return ;
-	if (overwrite_if_already_exists(data) || !increase_number_of_envs(data))
-		return ;
-	len = ft_strlen(new_env) + 1;
-	if (!check_strlen(len, new_env))
-		return ;
-	ft_strlcpy(data->env[data->number_of_envs - 1], new_env, len);
+	while (list->next)
+	{
+		list = list->next;
+		new_env = list->data;
+		len = ft_strlen(new_env) + 1;
+		if (!is_valid_env_name(new_env) || overwrite(data, new_env))
+			continue ;
+		if (!increase_number_of_envs(data))
+			return ;
+		if (!check_strlen(len, new_env))
+			return ;
+		ft_strlcpy(data->env[data->number_of_envs - 1], new_env, len);
+	}
 }
 
 static int	is_valid_env_name(char *env)
@@ -75,13 +83,11 @@ static int	check_strlen(int len, char *new_env)
 	return (TRUE);
 }
 
-static int	overwrite_if_already_exists(t_databus *data)
+static int	overwrite(t_databus *data, char *new_env)
 {
-	int		i;
-	char	*new_env;
+	int	i;
 
 	i = 0;
-	new_env = data->cmds->head->next->data;
 	while (i < data->number_of_envs)
 	{
 		if (names_are_equal(data->env[i], new_env)
