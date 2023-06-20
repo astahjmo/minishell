@@ -31,7 +31,6 @@ char	*shift_left(char *buffer)
 		new_buffer[++count] = buffer[++shift];
 	new_buffer[++count] = '\0';
 	free (buffer);
-	free(new_buffer);
 	return (new_buffer);
 }
 
