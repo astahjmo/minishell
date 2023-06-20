@@ -17,9 +17,13 @@ void	executor(t_databus *data)
 {
 	t_tokens		builtin;
 	t_fn_built_exec	**exec;
+//	int				status;
 
 	exec = get_built_func();
-	builtin = is_builtin(data);
+	//status = init_heredoc(data->cmds->head);
+//	if (status == 2)
+//		return ;
+	builtin = is_builtin(data->cmds->head);
 	if (builtin != -1)
 		exec[builtin](data);
 	return ;

@@ -21,41 +21,41 @@ void	child_execute(int fd[], char *delimiter)
 
 	signal(SIGINT, SIG_DFL);
 	state = 0;
-	buf = get_next_line(0);
+	close(fd[0]);
+	buf = readline("> ");
 	state = check_unclosed_quotes(buf, delimiter);
-	while (state != 1)
+	while (state == FALSE)
 	{
-		tmp = get_next_line(0);
-		switcher = ft_interpol("%s%s", buf, tmp);
-		free(buf);
-		free(tmp);
+		tmp = readline("> ");
+		state = check_unclosed_quotes(tmp, delimiter);
+		if (state == TRUE)
+			break ;
+		switcher = ft_strjoin_free(buf, tmp);
 		buf = switcher;
-		state = check_unclosed_quotes(buf, delimiter);
 	}
 	write(fd[1], buf, ft_strlen(buf));
+	close(fd[1]);
 	free(buf);
 	exit(1);
 }
 
-//TODO: Make the read process dynamic
-char	*main_process(int fd[], pid_t pid, char *line)
+void	main_process(int fd[], pid_t pid, int *status)
 {
-	int		status;
-	char	*str;
-	char	*buff[1024];
-
 	close(fd[1]);
-	waitpid(pid, &status, 0);
-	ft_memset(buff, 0, 1024);
-	read(fd[0], buff, 1024);
-	str = ft_interpol("%s%s", line, buff);
-	close(fd[0]);
-	return (str);
+	waitpid(pid, status, 0);
 }
 
-char	*here_doc(char	*line, char *quote)
+int	here_doc(int *status, char *quote)
 {
-	line = (char *)line;
-	quote = (char *)quote;
-	return (NULL);
+	pid_t	pid;
+	int		fd[2];
+
+	if (pipe(fd) < 0)
+		return (0);
+	pid = fork();
+	if (pid == 0)
+		child_execute(fd, quote);
+	else
+		main_process(fd, pid, status);
+	return (fd[0]);
 }
