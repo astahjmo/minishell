@@ -84,6 +84,7 @@ typedef struct s_cmds
 
 typedef struct s_data
 {
+	int					exit_status;
 	int					number_of_envs;
 	enum e_inputii		type_stream;
 	char				*stream;
