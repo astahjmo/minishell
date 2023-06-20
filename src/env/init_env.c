@@ -23,7 +23,6 @@ void	init_env(t_databus *data)
 	data->number_of_envs = 0;
 	while (envp[data->number_of_envs] != NULL)
 		data->number_of_envs++;
-	ft_bzero(data->env, sizeof(char *) * ENVS_LIMIT);
 	if (data->number_of_envs >= ENVS_LIMIT)
 		return ;
 	while (++i < data->number_of_envs)

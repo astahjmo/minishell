@@ -18,6 +18,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void)argc;
 	(void)argv;
+	ft_bzero(&data, sizeof(data));
 	data.envp = envp;
 	init_signal();
 	main_setup_hook(&data);
