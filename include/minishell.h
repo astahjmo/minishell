@@ -48,6 +48,7 @@ typedef short int		t_bool;
 typedef struct s_env	t_env;
 typedef enum e_tokens	t_tokens;
 typedef int				t_recipes(t_tokens);
+typedef void*			t_genfunc_apply(void *);
 
 // aliases to longer types
 typedef long long int	t_lli;
@@ -116,7 +117,7 @@ extern void				init_signal(void);
 t_fn_node_apply			**init_parser(void);
 t_recipes				**init_recipes(void);
 extern void				bscanner(t_databus data);
-extern char				*here_doc(char *line, char *quote);
+int						here_doc(int *status, char *quote);
 extern int				check_unclosed_quotes(char *line, char *delimiter);
 extern void				scanner(t_databus data);
 extern char				ft_interpol_wrapper(char *pattern, ...);
@@ -169,5 +170,6 @@ int						names_are_equal(char *s1, char *s2);
 void					get_env_name(char *name, char *env);
 int						cmptok(char *s1, char *s2, char tok);
 void					get_env_content(char *content, char *name, char *env);
-
+void					ft_lstiter(t_node *node, t_genfunc_apply *func_apply);
+int						init_heredoc(t_node *node);
 #endif

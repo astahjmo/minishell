@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 21:38:21 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/13 17:36:06 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/17 15:26:47 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_unclosed_quotes(char *line, char *delimiter)
 			credit++;
 		}
 	}
-	if (credit % 2 != 0)
-		return (1);
-	return (0);
+	if (credit % 2 == 0)
+		return (FALSE);
+	return (TRUE);
 }
