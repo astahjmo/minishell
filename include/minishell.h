@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:30:04 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/17 13:57:29 by vcedraz-         ###   ########.fr       */
+/*   Created: 2023/06/21 11:05:52 by johmatos          #+#    #+#             */
+/*   Updated: 2023/06/21 18:55:00 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,18 +117,17 @@ extern void				init_signal(void);
 t_fn_node_apply			**init_parser(void);
 t_recipes				**init_recipes(void);
 extern void				bscanner(t_databus data);
-int						here_doc(int *status, char *quote);
 extern int				check_unclosed_quotes(char *line, char *delimiter);
 extern void				scanner(t_databus data);
 extern char				ft_interpol_wrapper(char *pattern, ...);
 extern t_tokens			get_word_recipe(t_tokens state);
 char					*handler_quotes(char *line);
 void					tokenizer(t_databus data);
+int						*getter_heredoc_fd(int pipes);
 char					*single_quotes_handler(char *line, int *acc);
 void					string_eat_all(char **word, char hungry);
 void					string_eat_until(char **word, char *until);
 t_tokens				get_token(char *find);
-t_bool					string_is_equal(char *string, char find);
 t_node					*tokenizer_operator(char *list);
 t_node					*ft_last_node(t_node *head);
 t_node					*ft_node_new(void);
@@ -172,4 +171,7 @@ int						cmptok(char *s1, char *s2, char tok);
 void					get_env_content(char *content, char *name, char *env);
 void					ft_lstiter(t_node *node, t_genfunc_apply *func_apply);
 int						init_heredoc(t_node *node);
+int						here_doc(int *status, char *delimiter);
+int						string_is_equal(char *s1, char *s2);
+t_databus				*getter_data(void);
 #endif
