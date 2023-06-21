@@ -14,10 +14,10 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  tokenizer_operator.c init_parsers.c linked_list.c \
 		  tokenizer_string.c analysis.c free_cmds.c recipeWord.c \
 		  recipeOperator.c init_recipes.c lexer_strings.c \
-		  ft_strjoinfree.c \
+		  ft_strjoinfree.c free_all.c \
 		  env_builtin.c exit_builtin.c executor.c export_builtin.c \
 		  unset_builtin.c utils_builtins.c echo_builtin.c \
-		  init_env.c init_statics.c \
+		  init_env.c init_statics.c is_llmin.c
 	
 
 BUILDDIR = ./objs/

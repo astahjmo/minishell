@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 14:03:44 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/05 18:45:33 by johmatos         ###   ########.fr       */
+/*   Created: 2023/06/21 14:38:23 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/21 14:38:53 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void	free_all(t_databus *data)
 {
-	t_databus	data;
-
-	(void)argc;
-	(void)argv;
-	ft_bzero(&data, sizeof(data));
-	data.envp = envp;
-	init_signal();
-	main_setup_hook(&data);
-	init_env(&data);
-	repl(&data);
-	return (data.exit_status);
+	free_cmds(data->cmds);
+	free(data->cmds);
+	free(data->stream);
+	free(data->prompt);
+	rl_clear_history();
 }

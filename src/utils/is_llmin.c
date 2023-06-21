@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   is_llmin.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 14:03:44 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/05 18:45:33 by johmatos         ###   ########.fr       */
+/*   Created: 2023/06/21 17:27:58 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/21 17:29:06 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char *argv[], char *envp[])
+int	is_llmin(char *str)
 {
-	t_databus	data;
+	char	*llmin;
 
-	(void)argc;
-	(void)argv;
-	ft_bzero(&data, sizeof(data));
-	data.envp = envp;
-	init_signal();
-	main_setup_hook(&data);
-	init_env(&data);
-	repl(&data);
-	return (data.exit_status);
+	llmin = "-9223372036854775808";
+	while (*str)
+	{
+		if (*str != *llmin)
+			return (0);
+		str++;
+		llmin++;
+	}
+	return (1);
 }
