@@ -17,8 +17,8 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  ft_strjoinfree.c free_all.c \
 		  env_builtin.c exit_builtin.c executor.c export_builtin.c \
 		  unset_builtin.c utils_builtins.c echo_builtin.c \
-		  init_env.c init_statics.c is_llmin.c
-	
+		  init_env.c init_statics.c is_llmin.c heredoc_utils.c
+
 
 BUILDDIR = ./objs/
 LINCLUDE= ./lib/include
