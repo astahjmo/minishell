@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:30:04 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/17 13:57:29 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:29:15 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,5 +174,6 @@ void						get_env_name(char *name, char *env);
 int							cmptok(char *s1, char *s2, char tok);
 void						get_env_content(char *content, char *name,
 								char *env);
+int							is_llmin(char *str);
 
 #endif
