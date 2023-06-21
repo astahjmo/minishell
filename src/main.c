@@ -24,4 +24,5 @@ int	main(int argc, char *argv[], char *envp[])
 	main_setup_hook(&data);
 	init_env(&data);
 	repl(&data);
+	exit (data.exit_status);
 }

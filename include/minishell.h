@@ -39,6 +39,7 @@
 # define RESET "\033[0m"
 # define ENVS_LIMIT 1024
 # define STR_LIMIT 1024
+# define SIZEMAX 9223372036854775807
 
 typedef struct s_node	t_node;
 typedef struct s_data	t_databus;
@@ -51,6 +52,7 @@ typedef int				t_recipes(t_tokens);
 
 // aliases to longer types
 typedef long long int	t_lli;
+typedef unsigned long	t_ull;
 typedef t_databus		t_dt;
 typedef unsigned short	t_ushort;
 
