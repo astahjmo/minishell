@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:05:52 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/21 19:44:42 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:49:13 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,21 @@
 # define ENVS_LIMIT 1024
 # define SIZEMAX 9223372036854775807
 
-typedef struct s_node	t_node;
-typedef struct s_data	t_databus;
-typedef t_node			*t_fn_node_apply(char *);
-typedef void			t_fn_built_exec(t_databus *data);
-typedef short int		t_bool;
-typedef struct s_env	t_env;
-typedef enum e_tokens	t_tokens;
-typedef int				t_recipes(t_tokens);
-typedef void*			t_genfunc_apply(void *);
+typedef struct s_node		t_node;
+typedef struct s_data		t_databus;
+typedef t_node				*t_fn_node_apply(char *);
+typedef void				t_fn_built_exec(t_databus *data);
+typedef short int			t_bool;
+typedef struct s_env		t_env;
+typedef enum e_tokens		t_tokens;
+typedef int					t_recipes(t_tokens);
+typedef void*				t_genfunc_apply(void *);
 
 // aliases to longer types
-typedef long long int	t_lli;
+typedef long long int		t_lli;
 typedef unsigned long long	t_ull;
-typedef t_databus		t_dt;
-typedef unsigned short	t_ushort;
+typedef t_databus			t_dt;
+typedef unsigned short		t_ushort;
 
 typedef enum e_tokens
 {
