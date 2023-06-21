@@ -12,8 +12,8 @@
 
 #include "minishell.h"
 
-static int	has_non_numeric_char(char *str);
-static int	has_too_many_args(t_databus *data);
+static void	if_has_too_many_args(t_databus *data, int *too_many_arguments);
+static void	if_has_non_numeric_char(t_databus *data);
 
 void	free_all(t_databus *data)
 {
@@ -27,23 +27,19 @@ void	free_all(t_databus *data)
 void	exit_builtin(t_databus *data)
 {
 	char	*exit_argument;
+	int		too_many_arguments;
 
+	too_many_arguments = 0;
 	exit_argument = NULL;
 	if (data->cmds->head->next)
 		exit_argument = data->cmds->head->next->data;
 	if (exit_argument)
 	{
-		if (has_too_many_args(data))
-		{
-			data->exit_status = 1;
-			printf("minishell: exit: too many arguments\n");
-		}
-		else if (has_non_numeric_char(exit_argument))
-			data->exit_status = 2;
-		else
-			data->exit_status = ft_atoi(exit_argument);
+		data->exit_status = ft_atoi(exit_argument);
+		if_has_too_many_args(data, &too_many_arguments);
+		if_has_non_numeric_char(data);
 	}
-	if (!has_too_many_args(data))
+	if (!too_many_arguments)
 	{
 		if (isatty(STDIN_FILENO))
 			ft_putstr_fd("exit\n", 1);
@@ -52,18 +48,24 @@ void	exit_builtin(t_databus *data)
 	}
 }
 
-static int	has_non_numeric_char(char *str)
+static void	if_has_non_numeric_char(t_databus *data)
 {
+	char	*str;
+
+	str = data->cmds->head->next->data;
 	while (*str)
 	{
-		if (!ft_isdigit(*str))
-			return (1);
+		if (!ft_isdigit(*str) && *str != '+' && *str != '-')
+		{
+			data->exit_status = 2;
+			ft_putstr_fd("minishell: numeric argument required\n", 2);
+			break ;
+		}
 		str++;
 	}
-	return (0);
 }
 
-static int	has_too_many_args(t_databus *data)
+static void	if_has_too_many_args(t_databus *data, int *has_too_many_arguments)
 {
 	t_node	*head;
 	t_node	*arg1;
@@ -77,5 +79,10 @@ static int	has_too_many_args(t_databus *data)
 		arg1 = head->next;
 	if (arg1)
 		too_many_args = arg1->next;
-	return (too_many_args != NULL);
+	if (too_many_args != NULL)
+	{
+		data->exit_status = 1;
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+		(*has_too_many_arguments) = 1;
+	}
 }
