@@ -6,11 +6,26 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 21:38:21 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/13 17:36:06 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:58:46 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
+
+int	string_is_equal(char *s1, char *s2)
+{
+	int	a;
+	int	b;
+
+	a = ft_strlen(s1);
+	b = ft_strlen(s2);
+	if (a != b)
+		return (0);
+	if (ft_strncmp(s1, s2, a + b) == 0)
+		return (1);
+	return (0);
+}
 
 int	check_unclosed_quotes(char *line, char *delimiter)
 {
@@ -32,7 +47,7 @@ int	check_unclosed_quotes(char *line, char *delimiter)
 			credit++;
 		}
 	}
-	if (credit % 2 != 0)
-		return (1);
-	return (0);
+	if (credit % 2 == 0)
+		return (FALSE);
+	return (TRUE);
 }

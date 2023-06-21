@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:30:04 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/21 17:29:15 by vcedraz-         ###   ########.fr       */
+/*   Created: 2023/06/21 11:05:52 by johmatos          #+#    #+#             */
+/*   Updated: 2023/06/21 19:44:42 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,21 @@
 # define ENVS_LIMIT 1024
 # define SIZEMAX 9223372036854775807
 
-typedef struct s_node		t_node;
-typedef struct s_data		t_databus;
-typedef t_node				*t_fn_node_apply(char *);
-typedef void				t_fn_built_exec(t_databus *data);
-typedef short int			t_bool;
-typedef struct s_env		t_env;
-typedef enum e_tokens		t_tokens;
-typedef int					t_recipes(t_tokens);
+typedef struct s_node	t_node;
+typedef struct s_data	t_databus;
+typedef t_node			*t_fn_node_apply(char *);
+typedef void			t_fn_built_exec(t_databus *data);
+typedef short int		t_bool;
+typedef struct s_env	t_env;
+typedef enum e_tokens	t_tokens;
+typedef int				t_recipes(t_tokens);
+typedef void*			t_genfunc_apply(void *);
 
 // aliases to longer types
-typedef long long int		t_lli;
+typedef long long int	t_lli;
 typedef unsigned long long	t_ull;
-typedef t_databus			t_dt;
-typedef unsigned short		t_ushort;
+typedef t_databus		t_dt;
+typedef unsigned short	t_ushort;
 
 typedef enum e_tokens
 {
@@ -111,6 +112,7 @@ typedef struct b_bus
 	void					*stream;
 }							t_bus;
 
+t_databus					*getter_data(void);
 int							repl(t_databus *data);
 extern char					*get_prompt(void);
 extern void					clear_bimatrix(char **arr);
@@ -119,7 +121,6 @@ extern void					init_signal(void);
 t_fn_node_apply				**init_parser(void);
 t_recipes					**init_recipes(void);
 extern void					bscanner(t_databus data);
-extern char					*here_doc(char *line, char *quote);
 extern int					check_unclosed_quotes(char *line, char *delimiter);
 extern void					scanner(t_databus data);
 extern char					ft_interpol_wrapper(char *pattern, ...);
@@ -129,8 +130,9 @@ void						tokenizer(t_databus data);
 char						*single_quotes_handler(char *line, int *acc);
 void						string_eat_all(char **word, char hungry);
 void						string_eat_until(char **word, char *until);
+int							string_is_equal(char *s1, char *s2);
 t_tokens					get_token(char *find);
-t_bool						string_is_equal(char *string, char find);
+int							init_heredoc(t_node *node);
 t_node						*tokenizer_operator(char *list);
 t_node						*ft_last_node(t_node *head);
 t_node						*ft_node_new(void);
@@ -175,5 +177,7 @@ int							cmptok(char *s1, char *s2, char tok);
 void						get_env_content(char *content, char *name,
 								char *env);
 int							is_llmin(char *str);
-
+int							*getter_heredoc_fd(int pipes);
+int							names_are_equal(char *s1, char *s2);
+int							here_doc(int *status, char *delimiter);
 #endif
