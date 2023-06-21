@@ -29,7 +29,7 @@ SOURCES := ft_atoi.c ft_isalnum.c ft_isalpha.c \
 		   ft_printf.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 		   ft_putstr_fd.c get_next_line_bonus.c \
 		   get_next_line_utils_bonus.c parser.c \
-		   ft_interpol.c
+		   ft_interpol.c ft_atoull.c
 
 RCol='\033[0m'
 Bla='\033[0;30m'
