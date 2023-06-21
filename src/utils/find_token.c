@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:53:05 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/20 18:02:57 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:06:45 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ t_tokens	is_builtin(t_databus *data)
 
 	arr_size = 5;
 	list = data->cmds->head;
+	if (!list->data)
+		return (T_INVALID);
 	index = get_index(list->data, arr_size, get_builtins());
 	if (2 == index && !list->next)
 		index++;
