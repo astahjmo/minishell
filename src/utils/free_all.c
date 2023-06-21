@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   recipeWord.c                                       :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 12:02:32 by astaroth          #+#    #+#             */
-/*   Updated: 2023/05/18 16:10:03 by johmatos         ###   ########.fr       */
+/*   Created: 2023/06/21 14:38:23 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/21 14:38:53 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_tokens	get_word_recipe(t_tokens state)
+void	free_all(t_databus *data)
 {
-	static int	transitions[3] = {1, 1, -1};
-
-	return (transitions[state]);
+	free_cmds(data->cmds);
+	free(data->cmds);
+	free(data->stream);
+	free(data->prompt);
+	rl_clear_history();
 }

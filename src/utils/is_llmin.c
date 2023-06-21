@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   recipeWord.c                                       :+:      :+:    :+:   */
+/*   is_llmin.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 12:02:32 by astaroth          #+#    #+#             */
-/*   Updated: 2023/05/18 16:10:03 by johmatos         ###   ########.fr       */
+/*   Created: 2023/06/21 17:27:58 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/21 17:29:06 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_tokens	get_word_recipe(t_tokens state)
+int	is_llmin(char *str)
 {
-	static int	transitions[3] = {1, 1, -1};
+	char	*llmin;
 
-	return (transitions[state]);
+	llmin = "-9223372036854775808";
+	while (*str)
+	{
+		if (*str != *llmin)
+			return (0);
+		str++;
+		llmin++;
+	}
+	return (1);
 }

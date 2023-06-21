@@ -26,10 +26,11 @@ int	main(int argc, char *argv[], char *envp[])
 	data = getter_data();
 	(void)argc;
 	(void)argv;
-	data->envp = envp;
+	ft_bzero(&data, sizeof(data));
+	data.envp = envp;
 	init_signal();
-	main_setup_hook(data);
-	init_env(data);
-	repl(data);
-	return (0);
+	main_setup_hook(&data);
+	init_env(&data);
+	repl(&data);
+	return (data.exit_status);
 }
