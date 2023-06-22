@@ -29,7 +29,7 @@ void	unset_builtin(t_node *current)
 	while (current->next)
 	{
 		current = current->next;
-		new_env = current->data;
+		new_env = current->str;
 		i = getindex_of_env_to_unset(data, new_env);
 		if (is_being_initialized(new_env) || (T_INVALID == i))
 			continue ;

@@ -26,7 +26,7 @@ void	exit_builtin(t_node *current)
 	data = getter_data();
 	exit_argument = NULL;
 	if (data->cmds->head->next)
-		exit_argument = data->cmds->head->next->data;
+		exit_argument = data->cmds->head->next->str;
 	data->exit_status = 0;
 	if (!exit_argument)
 		free_and_exit(data, NULL);

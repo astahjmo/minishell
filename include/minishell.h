@@ -102,7 +102,7 @@ typedef struct s_data
 typedef struct s_node
 {
 	enum e_tokens			token;
-	char					*data;
+	char					*str;
 	t_node					*next;
 }							t_node;
 

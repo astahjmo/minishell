@@ -19,7 +19,7 @@ static t_node	*init_node(char*line)
 
 	node = ft_node_new();
 	node->token = T_WORD;
-	node->data = line;
+	node->str = line;
 	node->next = NULL;
 	return (node);
 }

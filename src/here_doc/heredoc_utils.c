@@ -26,7 +26,7 @@ static void	open_heredoc(t_node *node, int *fds, int *status)
 		{
 			if (fds[aux])
 				close(fds[aux]);
-			fds[aux] = here_doc(status, node->next->data);
+			fds[aux] = here_doc(status, node->next->str);
 		}
 		node = node->next;
 	}

@@ -29,7 +29,7 @@ void	export_builtin(t_node *current)
 	while (current->next)
 	{
 		current = current->next;
-		new_env = current->data;
+		new_env = current->str;
 		len = ft_strlen(new_env) + 1;
 		if (!is_valid_env_name(new_env) || overwrite(data, new_env))
 			continue ;
