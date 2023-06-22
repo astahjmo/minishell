@@ -16,7 +16,7 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  recipeOperator.c init_recipes.c lexer_strings.c \
 		  ft_strjoinfree.c free_all.c \
 		  env_builtin.c exit_builtin.c executor.c export_builtin.c \
-		  unset_builtin.c utils_builtins.c echo_builtin.c \
+		  unset_builtin.c utils_builtins_01.c echo_builtin.c utils_builtins_02.c\
 		  init_env.c init_statics.c is_llmin.c heredoc_utils.c
 
 
