@@ -30,7 +30,7 @@ t_node	*ft_node_new(void)
 	t_node	*node;
 
 	node = malloc(sizeof(t_node));
-	node->data = NULL;
+	node->str = NULL;
 	node->next = NULL;
 	node->token = -1;
 	return (node);

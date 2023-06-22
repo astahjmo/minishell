@@ -55,9 +55,9 @@ t_tokens	is_builtin(t_databus *data)
 
 	arr_size = 6;
 	list = data->cmds->head;
-	if (!list->data)
+	if (!list->str)
 		return (T_INVALID);
-	index = get_index(list->data, arr_size, get_builtins());
+	index = get_index(list->str, arr_size, get_builtins());
 	if (2 == index && !list->next)
 		index++;
 	return (index);
