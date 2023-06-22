@@ -23,6 +23,7 @@ void	unset_builtin(t_node *current)
 	t_databus	*data;
 
 	data = getter_data();
+	data->exit_status = 0;
 	nb = data->number_of_envs;
 	if (!is_valid_syntax(current))
 		return ;

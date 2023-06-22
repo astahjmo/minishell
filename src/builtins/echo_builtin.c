@@ -26,7 +26,7 @@ void	echo_builtin(t_node *current)
 	{
 		current = current->next;
 		ft_putstr_fd(current->str, 1);
-		if (current->next)
+		if (current->next && current->str[0])
 			write(1, " ", 1);
 	}
 	if (!n_flag)

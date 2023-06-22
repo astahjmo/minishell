@@ -13,7 +13,7 @@
 #include "minishell.h"
 
 static int	increase_number_of_envs(t_databus *data);
-static int	is_valid_env_name(char *env);
+static int	is_valid_env_name_err(char *env);
 static int	check_strlen(int len, char *new_env);
 static int	overwrite(t_databus *data, char *new_env);
 
@@ -31,7 +31,7 @@ void	export_builtin(t_node *current)
 		current = current->next;
 		new_env = current->str;
 		len = ft_strlen(new_env) + 1;
-		if (!is_valid_env_name(new_env) || overwrite(data, new_env))
+		if (!is_valid_env_name_err(new_env) || overwrite(data, new_env))
 			continue ;
 		if (!increase_number_of_envs(data))
 			return ;
@@ -41,7 +41,7 @@ void	export_builtin(t_node *current)
 	}
 }
 
-static int	is_valid_env_name(char *env)
+static int	is_valid_env_name_err(char *env)
 {
 	if (!ft_isalpha(*env) && *env != '_')
 		return (0);
