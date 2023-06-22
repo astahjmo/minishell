@@ -6,13 +6,68 @@
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 05:32:09 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/30 15:39:36 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:44:29 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*expand_dolar(char *line)
+static char	*expand_dollar_question_aux(char *line, int i);
+
+// substitues each $? in a string by an ft_itoa(data->exit_status);
+// and returns a dup of the new string all $? substituted
+void	expand_dollar_question_of_all_cmds(void)
 {
-	return (line);
+	t_databus	*data;
+	t_node		*list;
+
+	data = getter_data();
+	list = data->cmds->head;
+	while (list)
+	{
+		list->str = expand_dollar_question(list->str);
+		list = list->next;
+	}
+}
+
+char	*expand_dollar_question(char *line)
+{
+	int		i;
+	int		has_dollar_sign;
+	char	*new_line;
+
+	i = 0;
+	has_dollar_sign = 0;
+	while (line[i])
+	{
+		if (line[i] == '$' && line[i + 1] == '?')
+		{
+			has_dollar_sign = 1;
+			new_line = expand_dollar_question_aux(line, i);
+			break ;
+		}
+		i++;
+	}
+	if (!has_dollar_sign)
+		return (line);
+	free(line);
+	return (new_line);
+}
+
+static char	*expand_dollar_question_aux(char *line, int i)
+{
+	char	*until_dollar;
+	char	*exit_status;
+	char	*until_exit_status_end;
+	char	*after_question_mark;
+	char	*new_line;
+
+	until_dollar = ft_substr(line, 0, i);
+	exit_status = ft_itoa(getter_data()->exit_status);
+	until_exit_status_end = ft_strjoinfree_s1(until_dollar, exit_status);
+	after_question_mark = ft_strdup(&line[i + ft_strlen(exit_status) + 1]);
+	new_line = ft_strjoinfree_s1(until_exit_status_end, after_question_mark);
+	free(exit_status);
+	free(after_question_mark);
+	return (new_line);
 }

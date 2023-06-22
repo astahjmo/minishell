@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin_free_s1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/20 11:23:39 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/22 16:44:06 by vcedraz-         ###   ########.fr       */
+/*   Created: 2023/06/22 16:43:00 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/22 16:43:54 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoinfree_s1(char *s1, char *s2)
 {
 	char	*str;
 
-	str = (char *)ft_calloc(ft_strlen(s1) + ft_strlen(s2) + 1, sizeof(char));
-	if (!str)
-		return (NULL);
-	ft_strlcat(str, s1, ft_strlen(s1)+1);
-	ft_strlcat(str, s2, ft_strlen(s1) + ft_strlen(s2) + 1);
+	str = ft_strjoin(s1, s2);
+	free(s1);
 	return (str);
 }

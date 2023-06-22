@@ -32,7 +32,10 @@ static inline void	if_stream_not_null(t_databus *data)
 		tokenizer(*data);
 		add_history(data->stream);
 		if (is_valid_syntax(data->cmds->head))
+		{
+			expand_dollar_question_of_all_cmds();
 			executor(data);
+		}
 		free_cmds(data->cmds);
 	}
 }
