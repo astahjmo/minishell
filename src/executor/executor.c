@@ -25,6 +25,6 @@ void	executor(t_databus *data)
 		return ;
 	builtin = is_builtin(data);
 	if (builtin != -1)
-		exec[builtin](data);
+		exec[builtin](data->cmds->head);
 	return ;
 }

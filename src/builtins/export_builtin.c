@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 17:44:31 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/13 15:43:34 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:49:26 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ static int	is_valid_env_name(char *env);
 static int	check_strlen(int len, char *new_env);
 static int	overwrite(t_databus *data, char *new_env);
 
-void	export_builtin(t_databus *data)
+void	export_builtin(t_node *current)
 {
-	int		len;
-	char	*new_env;
-	t_node	*list;
+	int			len;
+	char		*new_env;
+	t_databus	*data;
 
-	list = data->cmds->head;
-	if (!is_valid_syntax(list))
+	if (!is_valid_syntax(current))
 		return ;
-	while (list->next)
+	data = getter_data();
+	while (current->next)
 	{
-		list = list->next;
-		new_env = list->data;
+		current = current->next;
+		new_env = current->data;
 		len = ft_strlen(new_env) + 1;
 		if (!is_valid_env_name(new_env) || overwrite(data, new_env))
 			continue ;
