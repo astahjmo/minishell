@@ -6,7 +6,7 @@
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:31:33 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/21 17:32:39 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:50:36 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@ static int	has_non_numeric_char(char *str);
 static void	free_and_exit(t_databus *data, char *failure_message);
 static void	handle_exit_argument(t_databus *data, char *exit_argument);
 
-void	exit_builtin(t_databus *data)
+void	exit_builtin(t_node *current)
 {
-	char	*exit_argument;
+	char		*exit_argument;
+	t_databus	*data;
 
+	(void)current;
+	data = getter_data();
 	exit_argument = NULL;
 	if (data->cmds->head->next)
 		exit_argument = data->cmds->head->next->data;

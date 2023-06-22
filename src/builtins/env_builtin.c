@@ -12,13 +12,15 @@
 
 #include "minishell.h"
 
-void	env_builtin(t_databus *data)
+void	env_builtin(t_node *current)
 {
-	int		i;
-	char	name[STR_LIMIT];
-	char	content[STR_LIMIT];
+	int			i;
+	t_databus	*data;
+	char		name[STR_LIMIT];
+	char		content[STR_LIMIT];
 
 	i = -1;
+	data = getter_data();
 	ft_bzero(name, STR_LIMIT);
 	ft_memset(content, 'x', STR_LIMIT);
 	while (++i < data->number_of_envs)
@@ -33,15 +35,18 @@ void	env_builtin(t_databus *data)
 				printf("%s=%s\n", name, content);
 		}
 	}
+	(void)current;
 }
 
-void	alt_env_builtin(t_databus *data)
+void	alt_env_builtin(t_node *current)
 {
-	int		i;
-	char	name[STR_LIMIT];
-	char	content[STR_LIMIT];
+	int			i;
+	char		name[STR_LIMIT];
+	char		content[STR_LIMIT];
+	t_databus	*data;
 
 	i = -1;
+	data = getter_data();
 	ft_bzero(name, STR_LIMIT);
 	ft_memset(content, 'x', STR_LIMIT);
 	while (++i < data->number_of_envs)
@@ -58,33 +63,5 @@ void	alt_env_builtin(t_databus *data)
 		else
 			printf("declare -x %s\n", name);
 	}
-}
-
-void	get_env_name(char *name, char *env)
-{
-	char	*equal_sign;
-
-	equal_sign = ft_strchr(env, '=');
-	if (equal_sign)
-		ft_strlcpy(name, env, equal_sign - env + 1);
-	else
-		ft_strlcpy(name, env, ft_strlen(env) + 1);
-	return ;
-}
-
-void	get_env_content(char *content, char *name, char *env)
-{
-	char	*found_name;
-	char	*equal_sign;
-
-	found_name = ft_strnstr(env, name, STR_LIMIT);
-	if (found_name)
-	{
-		equal_sign = ft_strchr(found_name, '=');
-		if (equal_sign && equal_sign[1])
-			ft_strlcpy(content, &equal_sign[1], ft_strlen(equal_sign));
-		else if (equal_sign && !(equal_sign[1]))
-			ft_bzero(content, STR_LIMIT);
-		return ;
-	}
+	(void)current;
 }
