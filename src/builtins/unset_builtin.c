@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 18:59:29 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/15 18:25:31 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:47:33 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 static int			whole_prefix_matched(t_databus *data, int i, int len);
 static int			getindex_of_env_to_unset(t_databus *data, char *env);
 
-void	unset_builtin(t_databus *data)
+void	unset_builtin(t_node *current)
 {
-	int		i;
-	int		nb;
-	char	*new_env;
-	t_node	*list;
+	int			i;
+	int			nb;
+	char		*new_env;
+	t_databus	*data;
 
+	data = getter_data();
 	nb = data->number_of_envs;
-	list = data->cmds->head;
-	if (!is_valid_syntax(list))
+	if (!is_valid_syntax(current))
 		return ;
-	while (list->next)
+	while (current->next)
 	{
-		list = list->next;
-		new_env = list->data;
+		current = current->next;
+		new_env = current->data;
 		i = getindex_of_env_to_unset(data, new_env);
 		if (is_being_initialized(new_env) || (T_INVALID == i))
 			continue ;
