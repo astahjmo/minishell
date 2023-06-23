@@ -13,9 +13,8 @@
 #include "minishell.h"
 
 static char	*expand_dollar_question_aux(char *line, int i);
+static char	*handle_frees(char *tmp, char *new_line, char *line, int dollar);
 
-// substitues each $? in a string by an ft_itoa(data->exit_status);
-// and returns a dup of the new string all $? substituted
 void	expand_dollar_question_of_all_cmds(void)
 {
 	t_databus	*data;
@@ -37,24 +36,19 @@ char	*expand_dollar_question(char *line)
 	char	*new_line;
 	int		has_dollar_sign;
 
-	i = 0;
+	i = -1;
 	has_dollar_sign = 0;
 	tmp = ft_strdup(line);
-	while (tmp[i])
+	while (tmp[++i])
 	{
 		if (tmp[i] == '$' && tmp[i + 1] == '?')
 		{
 			has_dollar_sign = 1;
 			tmp = expand_dollar_question_aux(tmp, i);
 		}
-		i++;
 	}
 	new_line = ft_strdup(tmp);
-	free(tmp);
-	if (!has_dollar_sign)
-		return (free(new_line), line);
-	free(line);
-	return (new_line);
+	return (handle_frees(tmp, new_line, line, has_dollar_sign));
 }
 
 static char	*expand_dollar_question_aux(char *tmp, int i)
@@ -73,5 +67,17 @@ static char	*expand_dollar_question_aux(char *tmp, int i)
 	free(exit_status);
 	free(after_question_mark);
 	free(tmp);
+	return (new_line);
+}
+
+static char	*handle_frees(char *tmp, char *new_line, char *line, int has_dollar)
+{
+	free(tmp);
+	if (!has_dollar)
+	{
+		free(new_line);
+		return (line);
+	}
+	free(line);
 	return (new_line);
 }
