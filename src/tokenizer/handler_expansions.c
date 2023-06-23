@@ -33,28 +33,31 @@ void	expand_dollar_question_of_all_cmds(void)
 char	*expand_dollar_question(char *line)
 {
 	int		i;
-	int		has_dollar_sign;
+	char	*tmp;
 	char	*new_line;
+	int		has_dollar_sign;
 
 	i = 0;
 	has_dollar_sign = 0;
-	while (line[i])
+	tmp = ft_strdup(line);
+	while (tmp[i])
 	{
-		if (line[i] == '$' && line[i + 1] == '?')
+		if (tmp[i] == '$' && tmp[i + 1] == '?')
 		{
 			has_dollar_sign = 1;
-			new_line = expand_dollar_question_aux(line, i);
-			break ;
+			tmp = expand_dollar_question_aux(tmp, i);
 		}
 		i++;
 	}
+	new_line = ft_strdup(tmp);
+	free(tmp);
 	if (!has_dollar_sign)
-		return (line);
+		return (free(new_line), line);
 	free(line);
 	return (new_line);
 }
 
-static char	*expand_dollar_question_aux(char *line, int i)
+static char	*expand_dollar_question_aux(char *tmp, int i)
 {
 	char	*until_dollar;
 	char	*exit_status;
@@ -62,12 +65,13 @@ static char	*expand_dollar_question_aux(char *line, int i)
 	char	*after_question_mark;
 	char	*new_line;
 
-	until_dollar = ft_substr(line, 0, i);
+	until_dollar = ft_substr(tmp, 0, i);
 	exit_status = ft_itoa(getter_data()->exit_status);
 	until_exit_status_end = ft_strjoinfree_s1(until_dollar, exit_status);
-	after_question_mark = ft_strdup(&line[i + ft_strlen(exit_status) + 1]);
+	after_question_mark = ft_strdup(&tmp[i + ft_strlen(exit_status) + 1]);
 	new_line = ft_strjoinfree_s1(until_exit_status_end, after_question_mark);
 	free(exit_status);
 	free(after_question_mark);
+	free(tmp);
 	return (new_line);
 }
