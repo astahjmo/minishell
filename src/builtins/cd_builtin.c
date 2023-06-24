@@ -1,34 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo_builtin.c                                     :+:      :+:    :+:   */
+/*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/18 15:02:26 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/18 15:02:39 by vcedraz-         ###   ########.fr       */
+/*   Created: 2023/06/23 17:01:14 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/23 17:01:33 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <unistd.h>
 
-void	echo_builtin(t_node *current)
+int	change_directory(const char *path)
 {
-	int	n_flag;
-
-	n_flag = 0;
-	if (current->next && !ft_strncmp(current->next->str, "-n", 2))
+	if (chdir(path) == -1)
 	{
-		n_flag = 1;
-		current = current->next;
+		perror("cd");
+		return (-1);
 	}
-	while (current->next)
-	{
-		current = current->next;
-		ft_putstr_fd(current->str, 1);
-		if (current->next && current->str[0])
-			write(1, " ", 1);
-	}
-	if (!n_flag)
-		write(1, "\n", 1);
+	return (0);
 }
+//
+// int	main(int argc, char *argv[])
+// {
+// 	if (argc < 2)
+// 	{
+// 		fprintf(stderr, "Usage: %s <directory>\n", argv[0]);
+// 		return (1);
+// 	}
+// 	if (change_directory(argv[1]) == -1)
+// 		return (1);
+// 	system("pwd");
+// }
