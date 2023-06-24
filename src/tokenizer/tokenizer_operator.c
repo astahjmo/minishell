@@ -21,7 +21,7 @@ t_node	*tokenizer_operator(char *str)
 	token = get_token(str);
 	if (token == -1)
 		return (NULL);
-	node = ft_node_new();
+	node = list_node_new();
 	node->token = token;
 	node->next = NULL;
 	return (node);

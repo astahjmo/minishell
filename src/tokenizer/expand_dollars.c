@@ -61,9 +61,9 @@ static char	*expand_dollar_question_aux(char *tmp, int i)
 
 	until_dollar = ft_substr(tmp, 0, i);
 	exit_status = ft_itoa(getter_data()->exit_status);
-	until_exit_status_end = ft_strjoinfree_s1(until_dollar, exit_status);
+	until_exit_status_end = strjoinfree_s1(until_dollar, exit_status);
 	after_question_mark = ft_strdup(&tmp[i + ft_strlen(exit_status) + 1]);
-	new_line = ft_strjoinfree_s1(until_exit_status_end, after_question_mark);
+	new_line = strjoinfree_s1(until_exit_status_end, after_question_mark);
 	free(exit_status);
 	free(after_question_mark);
 	free(tmp);

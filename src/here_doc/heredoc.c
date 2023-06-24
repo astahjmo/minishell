@@ -66,7 +66,7 @@ void	child_execute(int fd[], char *delimiter)
 		state = string_is_equal(tmp, delimiter);
 		if (state == TRUE || tmp == NULL)
 			break ;
-		switcher = ft_strjoin_free(*buf, tmp);
+		switcher = strjoin_free(*buf, tmp);
 		*buf = switcher;
 	}
 	write(fd[1], buf, ft_strlen(*buf));

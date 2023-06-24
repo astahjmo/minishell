@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char	*ft_strjoinfree_s1(char *s1, char *s2)
+char	*strjoinfree_s1(char *s1, char *s2)
 {
 	char	*str;
 
