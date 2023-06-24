@@ -19,37 +19,48 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  unset_builtin.c utils_builtins_01.c echo_builtin.c utils_builtins_02.c\
 		  init_env.c init_statics.c is_llmin.c heredoc_utils.c
 
+LIB_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
+				 ft_split.c ft_interpol.c ft_strlcpy.c ft_isalpha.c \
+				 ft_isalnum.c ft_putstr_fd.c ft_memmove.c ft_strncmp.c \
+				 ft_strchr.c ft_bzero.c ft_strnstr.c ft_memset.c ft_isdigit.c \
+				 ft_strjoin.c ft_atoull.c ft_atoi.c ft_memcpy.c ft_calloc.c \
+				 ft_strlcat.c ft_strcmp.c 
 
 BUILDDIR = ./objs/
 LINCLUDE= ./lib/include
 INCLUDE = ./include
 LIB = libft.a
+MINILIB = lib/mini_libft.a
 OBJS = $(addprefix $(BUILDDIR), $(SOURCES:.c=.o))
 
 RCol='\033[0m'
 Bla='\033[0;30m'
 Red='\033[0;31m'
-Gre='\033[0;32m'
+Gre='\033[1;32m'
 Yel='\033[1;33m'
 Blu='\033[0;34m'
 Pur='\033[0;35m'
-Cya='\033[0;36m'
+Cya='\033[1;36m'
 Whi='\033[0;37m'
+cleanline = \033[2K
 
 MSGBUILD="[$(Gre)+$(RCol)]"
+ALT_MSGBUILD="[$(Cya)+$(RCol)]"
 MSGRM="[$(Red)-$(RCol)]"
 
 all: $(NAME)
 
-$(NAME): $(OBJS) 
+makelib:
+	@make minishell -C lib --no-print-directory
+
+$(NAME): $(OBJS) makelib 
 	@make --no-print-directory supp
-	@make --no-print-directory -C ./lib
-	@$(CC) $(CFLAGS) -I$(INCLUDE) $(OBJS) -Llib -lft -lreadline -o $@
-	@printf "$(MSGBUILD) $@: Program has been created!                                                          \n"
+	@$(CC) $(CFLAGS) -I$(INCLUDE) $(OBJS) $(MINILIB) -lreadline -o $@
+	@echo "\n$(ALT_MSGBUILD) $@: Program has been created!               \n"
 
 $(BUILDDIR)%.o: %.c
-	@printf "$(MSGBUILD) $(NAME): building $@                                                                   \n"
 	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
+	@printf "$(MSGBUILD) $(NAME): building $@                        \n"
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -I$(LINCLUDE) -c $< -o $@
 
 supp:
