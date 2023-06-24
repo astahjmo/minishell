@@ -74,7 +74,7 @@ void	string_eat_at_next_token(char **word)
 			while (temp && *temp != '\0' && *temp != ' '
 				&& get_token(temp) == -1 && get_expansion(temp) == -1)
 				temp++;
-	*word = temp;
+		*word = temp;
 	}
 	else
 		eat_token(word);

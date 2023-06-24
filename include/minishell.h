@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:05:52 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/22 16:44:02 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/24 11:27:23 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,5 +188,4 @@ char						*expand_dollar_question(char *line);
 int							names_are_equal(char *s1, char *s2);
 char						*ft_strjoinfree_s1(char *s1, char *s2);
 int							here_doc(int *status, char *delimiter);
-
 #endif
