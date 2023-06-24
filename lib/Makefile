@@ -77,7 +77,7 @@ minishell: $(MINISHELL_LIB)
 $(MINISHELL_LIB): $(MINISHELL_OBJS)
 	@ar -rcs $@ $(MINISHELL_OBJS)
 	@printf "\n";
-	@printf "$(ALTMSGBUILD) (libft): ok                              \n"
+	@printf "$(ALTMSGBUILD) (libft): ok                              "
 
 $(MINISHELLDIR)%.o: %.c
 	@printf "$(MSGBUILD) (libft): building $@                        \r"

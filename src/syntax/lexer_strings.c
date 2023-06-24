@@ -24,7 +24,6 @@ char	*get_token_string(t_tokens token)
 		"&",
 		"<",
 		">",
-		"$"
 	};
 
 	return (strings[token]);
