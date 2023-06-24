@@ -41,14 +41,16 @@ void	add_token_to_list(t_node *token, t_cmds *list)
 		list_add_back(list_last_node(list->head), token);
 }
 
-void	tokenizer(t_databus data)
+void	tokenizer(void)
 {
+	t_databus	*data;
 	t_node		*node;
 	char		*cursor;
 
 	node = NULL;
-	cursor = data.stream;
-	while (cursor && *data.stream != '\0')
+	data = getter_data();
+	cursor = data->stream;
+	while (cursor && *data->stream != '\0')
 	{
 		if (*cursor == ' ')
 			string_eat_until(&cursor, " ");
@@ -58,7 +60,7 @@ void	tokenizer(t_databus data)
 			return ;
 		node = create_token(cursor);
 		if (node)
-			add_token_to_list(node, data.cmds);
+			add_token_to_list(node, data->cmds);
 		string_eat_at_next_token(&cursor);
 	}
 }

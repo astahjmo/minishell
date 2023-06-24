@@ -29,7 +29,7 @@ static inline void	if_stream_not_null(t_databus *data)
 		return ;
 	if (data->stream)
 	{
-		tokenizer(*data);
+		tokenizer();
 		add_history(data->stream);
 		if (is_valid_syntax(data->cmds->head))
 		{
