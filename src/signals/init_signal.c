@@ -16,7 +16,7 @@ void	define_handle(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ft_printf("\n");
+		ft_putstr_fd("\n", 1);
 		rl_on_new_line();
 		rl_replace_line ("", 0);
 		rl_redisplay();
