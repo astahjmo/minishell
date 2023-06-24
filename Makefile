@@ -56,7 +56,7 @@ makelib:
 $(NAME): $(OBJS) makelib 
 	@make --no-print-directory supp
 	@$(CC) $(CFLAGS) -I$(INCLUDE) $(OBJS) $(MINILIB) -lreadline -o $@
-	@echo "\n$(ALT_MSGBUILD) $@: Program has been created!               \n"
+	@printf "\n$(ALT_MSGBUILD) $@: Program has been created!         \n"
 
 $(BUILDDIR)%.o: %.c
 	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
@@ -99,13 +99,13 @@ supp:
 
 
 clean:
-	@echo "$(MSGRM) removing $(BUILDDIR) dir "
+	@printf "$(MSGRM) removing $(BUILDDIR) dir                   \n"
 	@make --no-print-directory -C ./lib clean
 	@rm -rf $(BUILDDIR)
 
 fclean: clean
 	@rm -f readline.supp
-	@echo "$(MSGRM) removing $(BUILDDIR) dir and $(NAME) bin"
+	@printf "$(MSGRM) removing $(BUILDDIR) dir and $(NAME) bin   \n"
 	@make --no-print-directory -C ./lib fclean
 	@if test -f $(NAME); then rm -f $(NAME); fi
 
