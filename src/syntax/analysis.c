@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:10:41 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/13 00:43:32 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/24 12:56:31 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	is_valid_syntax(t_node *head)
 	state = T_INITIAL;
 	cursor = head;
 	progress = get_next_state(state, cursor);
-	while (cursor)
+	while (cursor && progress != -1)
 	{
 		state = cursor->token;
 		progress = get_next_state(state, cursor->next);

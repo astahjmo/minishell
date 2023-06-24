@@ -12,8 +12,6 @@
 
 #include "libft.h"
 
-
-
 void	*ft_calloc(size_t memory, size_t size)
 {
 	void	*ptr;
