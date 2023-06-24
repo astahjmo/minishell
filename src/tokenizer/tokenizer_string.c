@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "minishell.h"
 
-static t_node	*init_node(char*line)
+static t_node	*init_node(char *line)
 {
 	t_node	*node;
 
@@ -31,8 +31,7 @@ static t_node	*handler_word(char *cursor, char *line)
 
 	if (!cursor)
 		return (NULL);
-	while (*cursor != '\0' && get_token(cursor) == -1 && *cursor != ' '
-		&& get_expansion(cursor) == -1)
+	while (*cursor != '\0' && get_token(cursor) == -1 && *cursor != ' ')
 		cursor++;
 	str = ft_substr(line, 0, cursor - line);
 	node = init_node(str);
@@ -65,8 +64,8 @@ t_node	*handler_single_quotes(char *cursor)
 
 t_node	*tokenizer_string(char *line)
 {
-	char		*cursor;
-	t_node		*node;
+	char	*cursor;
+	t_node	*node;
 
 	cursor = line;
 	if (!cursor)
