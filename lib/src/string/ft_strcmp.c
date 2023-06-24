@@ -6,7 +6,7 @@
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 11:25:03 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/24 11:29:03 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/24 17:07:45 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 int	ft_strcmp(char *str1, char *str2)
 {
-	if (str1 && str2)
+	if (!str1 || !str2)
+		return (1);
+	while (*str1)
 	{
-		while (*str1)
-		{
-			if (*str1 != *str2)
-				return (1);
-			str1++;
-			str2++;
-		}
+		if (*str1 != *str2)
+			return (1);
+		str1++;
+		str2++;
 	}
 	return (0);
 }

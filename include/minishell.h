@@ -125,7 +125,7 @@ extern int					check_unclosed_quotes(char *line, char *delimiter);
 extern void					scanner(t_databus data);
 extern t_tokens				get_word_recipe(t_tokens state);
 char						*handler_quotes(char *line);
-void						tokenizer(t_databus data);
+void						tokenizer(void);
 char						*single_quotes_handler(char *line, int *acc);
 void						string_eat_all(char **word, char hungry);
 void						string_eat_until(char **word, char *until);
