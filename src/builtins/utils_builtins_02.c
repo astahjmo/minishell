@@ -40,3 +40,36 @@ void	get_env_content(char *content, char *name, char *env)
 		return ;
 	}
 }
+
+char	*get_content_from_name_alone(char *name)
+{
+	t_databus	*data;
+	int			i;
+	char		content[STR_LIMIT];
+
+	i = -1;
+	data = getter_data();
+	while (++i < data->number_of_envs)
+	{
+		if (!ft_strncmp(name, data->env[i], ft_strlen(name)))
+		{
+			get_env_content(content, name, data->env[i]);
+			return (ft_strdup(content));
+		}
+	}
+	return (ft_strdup(""));
+}
+
+int	is_valid_env_name(char *env)
+{
+	if (!ft_isalpha(*env) && *env != '_')
+		return (FALSE);
+	env++;
+	while (*env != '\0' && *env != '=')
+	{
+		if (!ft_isalnum(*env) && *env != '_')
+			return (FALSE);
+		env++;
+	}
+	return (TRUE);
+}
