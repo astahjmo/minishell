@@ -12,7 +12,6 @@
 
 #include "libft.h"
 
-
 static t_ull	convert_recursively(const char *a, t_ull toi);
 static int		local_is_whitespace(const char c);
 static int		is_digit(const char c);
