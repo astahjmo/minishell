@@ -19,12 +19,19 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  unset_builtin.c utils_builtins_01.c echo_builtin.c utils_builtins_02.c\
 		  init_env.c init_statics.c is_llmin.c heredoc_utils.c
 
+LIB_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
+		   ft_split.c ft_interpol.c ft_strlcpy.c ft_isalpha.c \
+		   ft_isalnum.c ft_putstr_fd.c ft_memmove.c ft_strncmp.c \
+		   ft_strchr.c ft_bzero.c ft_strnstr.c ft_memset.c ft_isdigit.c \
+		   ft_atoull.c
 
 BUILDDIR = ./objs/
+LIBBUILDIR = ./lib/mini_obj/
 LINCLUDE= ./lib/include
 INCLUDE = ./include
 LIB = libft.a
 OBJS = $(addprefix $(BUILDDIR), $(SOURCES:.c=.o))
+LIB_OBJS = $(addprefix $(LIBBUILDDIR), $(LIB_SRCS:.c=.o))
 
 RCol='\033[0m'
 Bla='\033[0;30m'
@@ -41,11 +48,13 @@ MSGRM="[$(Red)-$(RCol)]"
 
 all: $(NAME)
 
-$(NAME): $(OBJS) 
+$(NAME): $(LIB_OBJS) $(OBJS)
 	@make --no-print-directory supp
-	@make --no-print-directory -C ./lib
 	@$(CC) $(CFLAGS) -I$(INCLUDE) $(OBJS) -Llib -lft -lreadline -o $@
 	@printf "$(MSGBUILD) $@: Program has been created!                                                          \n"
+
+$(LIB_OBJS):
+	@make minishell -C ./lib
 
 $(BUILDDIR)%.o: %.c
 	@printf "$(MSGBUILD) $(NAME): building $@                                                                   \n"
