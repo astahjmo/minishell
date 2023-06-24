@@ -32,23 +32,26 @@ SOURCES := ft_atoi.c ft_isalnum.c ft_isalpha.c \
 		   ft_putstr_fd.c get_next_line_bonus.c \
 		   get_next_line_utils_bonus.c parser.c \
 		   ft_interpol.c ft_atoull.c ft_strcmp.c
+
 MINISHELL_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
 				 ft_split.c ft_interpol.c ft_strlcpy.c ft_isalpha.c \
 				 ft_isalnum.c ft_putstr_fd.c ft_memmove.c ft_strncmp.c \
 				 ft_strchr.c ft_bzero.c ft_strnstr.c ft_memset.c ft_isdigit.c \
-				 ft_atoull.c
+				 ft_strjoin.c ft_atoull.c ft_atoi.c ft_memcpy.c ft_calloc.c \
+				 ft_strlcat.c ft_strcmp.c 
 
 RCol='\033[0m'
 Bla='\033[0;30m'
 Red='\033[0;31m'
-Gre='\033[0;32m'
+Gre='\033[1;32m'
 Yel='\033[1;33m'
 Blu='\033[0;34m'
-Pur='\033[0;35m'
+Pur='\033[1;35m'
 Cya='\033[0;36m'
 Whi='\033[0;37m'
 
 MSGBUILD="[$(Yel)+$(RCol)]"
+ALTMSGBUILD="[$(Pur)+$(RCol)]"
 MSGRM="[$(Red)-$(RCol)]"
 OBJS := $(addprefix $(BUILDDIR), $(SOURCES:.c=.o))
 MINISHELL_OBJS := $(addprefix $(MINISHELLDIR), $(MINISHELL_SRCS:.c=.o))
@@ -60,11 +63,12 @@ endif
 all: $(LIB)
 
 $(LIB): $(OBJS)
+	@printf "\n";
 	@ar -rcs $@ $(OBJS)
-	@printf "$(MSGBUILD) (libft): ok                                                                      \n"
+	@printf "$(MSGBUILD) (libft): ok\n"
 
 $(BUILDDIR)%.o: %.c
-	@printf "$(MSGBUILD) (libft): building $@                                                             \r"
+	@printf "$(MSGBUILD) (libft): building $@                        \r"
 	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
 	@$(CC) $(CFLAGS) -I./include -c $< -o $@
 
@@ -72,10 +76,11 @@ minishell: $(MINISHELL_LIB)
 
 $(MINISHELL_LIB): $(MINISHELL_OBJS)
 	@ar -rcs $@ $(MINISHELL_OBJS)
-	@printf "$(MSGBUILD) (libft): ok                                                                      \n"
+	@printf "\n";
+	@printf "$(ALTMSGBUILD) (libft): ok                              \n"
 
 $(MINISHELLDIR)%.o: %.c
-	@printf "$(MSGBUILD) (libft): building $@                                                         \r"
+	@printf "$(MSGBUILD) (libft): building $@                        \r"
 	@test -d $(MINISHELLDIR) || mkdir $(MINISHELLDIR)
 	@$(CC) $(CFLAGS) -I./include -c $< -o $@
 

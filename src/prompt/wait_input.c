@@ -16,7 +16,7 @@ static inline void	if_stream_is_null(t_databus *data)
 {
 	if (!data->stream)
 	{
-		ft_printf("\n");
+		ft_putstr_fd("\n", 1);
 		free_all(data);
 		rl_clear_history();
 		exit(0);
