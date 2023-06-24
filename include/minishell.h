@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:05:52 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/24 11:27:23 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/24 14:30:03 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,6 @@ void						alt_env_builtin(t_node *current);
 int							is_valid_env_name(char *env);
 char						*get_content_from_name_alone(char *name);
 void						expand_dollar_question_of_all_cmds(void);
-
 t_tokens					is_builtin(t_databus *data);
 char						*is_being_initialized(char *new_env);
 int							already_exists(t_databus *data, char *env);
@@ -179,9 +178,9 @@ int							cmptok(char *s1, char *s2, char tok);
 void						get_env_content(char *content, char *name,
 								char *env);
 int							is_llmin(char *str);
-int							*getter_heredoc_fd(int pipes);
 char						*expand_dollar_question(char *line);
 int							names_are_equal(char *s1, char *s2);
 char						*strjoinfree_s1(char *s1, char *s2);
 int							here_doc(int *status, char *delimiter);
+int							*getter_heredoc_fd(void);
 #endif

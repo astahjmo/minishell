@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 19:46:33 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/21 18:55:23 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/24 15:00:42 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,19 @@ static void	open_heredoc(t_node *node, int *fds, int *status)
 	}
 }
 
+int	*getter_heredoc_fd(void)
+{
+	static int	heredoc_fds[MAX_FD] = {0};
+
+	return (heredoc_fds);
+}
+
 int	init_heredoc(t_node *node)
 {
-	int		heredoc_fd[MAX_FD];
+	int		*heredoc_fd;
 	int		status;
 
+	heredoc_fd = getter_heredoc_fd();
 	status = 0;
 	ft_bzero(heredoc_fd, MAX_FD);
 	open_heredoc(node, heredoc_fd, &status);
