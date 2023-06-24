@@ -12,3 +12,4 @@ tags
 *.supp
 objs/
 minishell_tester
+vshell
