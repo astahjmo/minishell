@@ -13,7 +13,7 @@
 #include "minishell.h"
 #include <stdlib.h>
 
-void	ft_add_back(t_node *old_node, t_node *new)
+void	list_add_back(t_node *old_node, t_node *new)
 {
 	t_node	*temp;
 
@@ -25,7 +25,7 @@ void	ft_add_back(t_node *old_node, t_node *new)
 	return ;
 }
 
-t_node	*ft_node_new(void)
+t_node	*list_node_new(void)
 {
 	t_node	*node;
 
@@ -36,7 +36,7 @@ t_node	*ft_node_new(void)
 	return (node);
 }
 
-t_node	*ft_last_node(t_node *head)
+t_node	*list_last_node(t_node *head)
 {
 	t_node	*cursor;
 
@@ -46,7 +46,7 @@ t_node	*ft_last_node(t_node *head)
 	return (cursor);
 }
 
-void	ft_addfront(t_node *old, t_node *new)
+void	list_addfront(t_node *old, t_node *new)
 {
 	t_node	temp;
 

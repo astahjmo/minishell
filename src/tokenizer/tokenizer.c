@@ -38,7 +38,7 @@ void	add_token_to_list(t_node *token, t_cmds *list)
 	if (list->head == NULL)
 		list->head = token;
 	else
-		ft_add_back(ft_last_node(list->head), token);
+		list_add_back(list_last_node(list->head), token);
 }
 
 void	tokenizer(t_databus data)

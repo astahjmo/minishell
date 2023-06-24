@@ -17,7 +17,7 @@ static t_node	*init_node(char*line)
 {
 	t_node	*node;
 
-	node = ft_node_new();
+	node = list_node_new();
 	node->token = T_WORD;
 	node->str = line;
 	node->next = NULL;
