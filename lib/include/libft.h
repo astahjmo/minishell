@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 00:23:34 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/10 00:41:07 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/24 11:28:45 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ size_t						ft_strlcat(char *dest, const char *str,
 								size_t size);
 size_t						ft_strlcpy(char *dest, const char *str,
 								size_t size);
+int							ft_strcmp(char *str1, char *str2);
 
 // FD
 void						ft_putchar_fd(char c, int fd);
