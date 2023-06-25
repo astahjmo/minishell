@@ -6,7 +6,7 @@
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/24 23:22:25 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/25 09:22:43 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,4 +184,7 @@ int							names_are_equal(char *s1, char *s2);
 char						*strjoinfree_s1(char *s1, char *s2);
 int							here_doc(int *status, char *delimiter);
 int							*getter_heredoc_fd(void);
+void						cd_builtin(t_node *current);
+int							overwrite_env(t_databus *data, char *new_env);
+
 #endif

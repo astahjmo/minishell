@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 17:44:31 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/21 22:49:26 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/25 09:07:24 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static int	increase_number_of_envs(t_databus *data);
 static int	is_valid_env_name_err(char *env);
 static int	check_strlen(int len, char *new_env);
-static int	overwrite(t_databus *data, char *new_env);
 
 void	export_builtin(t_node *current)
 {
@@ -31,7 +30,7 @@ void	export_builtin(t_node *current)
 		current = current->next;
 		new_env = current->str;
 		len = ft_strlen(new_env) + 1;
-		if (!is_valid_env_name_err(new_env) || overwrite(data, new_env))
+		if (!is_valid_env_name_err(new_env) || overwrite_env(data, new_env))
 			continue ;
 		if (!increase_number_of_envs(data))
 			return ;
@@ -83,7 +82,7 @@ static int	check_strlen(int len, char *new_env)
 	return (TRUE);
 }
 
-static int	overwrite(t_databus *data, char *new_env)
+int	overwrite_env(t_databus *data, char *new_env)
 {
 	int	i;
 
