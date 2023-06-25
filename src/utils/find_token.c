@@ -53,7 +53,7 @@ t_tokens	is_builtin(t_databus *data)
 	t_tokens	index;
 	t_node		*list;
 
-	arr_size = 6;
+	arr_size = 7;
 	list = data->cmds->head;
 	if (!list->str)
 		return (T_INVALID);

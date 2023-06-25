@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 23:14:39 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/13 16:52:17 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/24 23:17:55 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	**get_builtins(void)
 		"define",
 		"unset",
 		"echo",
+		"pwd",
 		NULL
 	};
 
@@ -64,6 +65,7 @@ t_fn_built_exec	**get_built_func(void)
 		alt_env_builtin,
 		unset_builtin,
 		echo_builtin,
+		pwd_builtin,
 		NULL,
 	};
 

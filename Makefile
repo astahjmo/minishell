@@ -7,6 +7,7 @@ VPATH = ./src \
  		./src/syntax ./src/env ./src \
 		./src/builtins ./src/executor
 CFLAGS = -g -Wall -Wextra -Werror
+
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  heredoc.c check_unclosed.c display.c \
 		  init_signal.c clear_bimatrix.c \
@@ -17,7 +18,7 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  strjoinfree.c free_all.c expand_dollars.c \
 		  env_builtin.c exit_builtin.c executor.c export_builtin.c \
 		  unset_builtin.c utils_builtins_01.c echo_builtin.c utils_builtins_02.c\
-		  init_env.c init_statics.c is_llmin.c heredoc_utils.c
+		  init_env.c init_statics.c is_llmin.c heredoc_utils.c pwd_builtin.c
 
 LIB_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
 				 ft_split.c ft_interpol.c ft_strlcpy.c ft_isalpha.c \

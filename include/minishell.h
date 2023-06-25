@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/21 11:05:52 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/24 14:30:03 by johmatos         ###   ########.fr       */
+/*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/24 23:22:25 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ int							is_valid_env_name(char *env);
 char						*get_content_from_name_alone(char *name);
 void						expand_dollar_question_of_all_cmds(void);
 t_tokens					is_builtin(t_databus *data);
+void						pwd_builtin(t_node *current);
 char						*is_being_initialized(char *new_env);
 int							already_exists(t_databus *data, char *env);
 t_fn_built_exec				**get_built_func(void);
