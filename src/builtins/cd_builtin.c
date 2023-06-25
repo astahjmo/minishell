@@ -12,8 +12,8 @@
 
 #include "minishell.h"
 
-static void	update_pwd_and_oldpwd(char *cwd);
 static int	path_is_valid(int chdir_return);
+static void	update_pwd_and_oldpwd(char *cwd);
 
 void	cd_builtin(t_node *current)
 {

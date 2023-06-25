@@ -22,9 +22,9 @@ void	export_builtin(t_node *current)
 	char		*new_env;
 	t_databus	*data;
 
+	data = getter_data();
 	if (!is_valid_syntax(current))
 		return ;
-	data = getter_data();
 	while (current->next)
 	{
 		current = current->next;
@@ -52,6 +52,7 @@ static int	is_valid_env_name_err(char *env)
 			ft_putstr_fd("minishell: export: `", 2);
 			ft_putstr_fd(env, 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
+			getter_data()->exit_status = 1;
 			return (0);
 		}
 		env++;
