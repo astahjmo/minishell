@@ -19,3 +19,37 @@ void	pwd_builtin(t_node *current)
 	(void)current;
 	printf("%s\n", getcwd(cwd, sizeof(cwd)));
 }
+
+int	pwd_idx(void)
+{
+	t_databus	*data;
+	int			i;
+
+	i = 0;
+	data = getter_data();
+	while (i < data->number_of_envs)
+	{
+		if (!ft_strncmp(data->env[i], "PWD=", 4))
+			return (i);
+		i++;
+	}
+	ft_strlcpy(data->env[data->number_of_envs], "PWD=", 5);
+	return (data->number_of_envs);
+}
+
+int	oldpwd_idx(void)
+{
+	t_databus	*data;
+	int			i;
+
+	i = 0;
+	data = getter_data();
+	while (i < data->number_of_envs)
+	{
+		if (!ft_strncmp(data->env[i], "OLDPWD=", 7))
+			return (i);
+		i++;
+	}
+	ft_strlcpy(data->env[data->number_of_envs], "OLDPWD=", 7);
+	return (data->number_of_envs);
+}

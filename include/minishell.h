@@ -169,6 +169,8 @@ char						*get_content_from_name_alone(char *name);
 void						expand_dollar_question_of_all_cmds(void);
 t_tokens					is_builtin(t_databus *data);
 void						pwd_builtin(t_node *current);
+int							pwd_idx(void);
+int							oldpwd_idx(void);
 char						*is_being_initialized(char *new_env);
 int							already_exists(t_databus *data, char *env);
 t_fn_built_exec				**get_built_func(void);

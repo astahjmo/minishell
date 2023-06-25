@@ -22,8 +22,8 @@ void	free_cmds(t_cmds *cmds)
 	{
 		tmp = node;
 		node = node->next;
-		ft_safe_free((void **)&tmp->str);
-		ft_safe_free((void **)&tmp);
+		ft_safe_free(&tmp->str);
+		free(tmp);
 	}
 	free(node);
 	cmds->head = NULL;
