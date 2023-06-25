@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_safe_free(void **ptr)
+int	ft_safe_free(char **ptr)
 {
 	if (*ptr)
 	{
