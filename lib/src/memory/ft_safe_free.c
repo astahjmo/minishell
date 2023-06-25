@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd_builtin.c                                      :+:      :+:    :+:   */
+/*   ft_safe_free.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/24 23:01:51 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/25 08:58:58 by vcedraz-         ###   ########.fr       */
+/*   Created: 2023/06/25 11:04:21 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/25 11:05:31 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	pwd_builtin(t_node *current)
+int	ft_safe_free(void **ptr)
 {
-	char	cwd[STR_LIMIT];
-
-	(void)current;
-	printf("%s\n", getcwd(cwd, sizeof(cwd)));
+	if (*ptr)
+	{
+		free(*ptr);
+		*ptr = NULL;
+		return (1);
+	}
+	return (0);
 }
