@@ -1,0 +1,10 @@
+1 issue:
+	when we echo something with a dollar sign, it will be duplicated:
+
+	[vcedraz-] - [minishell]-> echo asd$
+asd$ $
+	[vcedraz-] - [minishell]-> echo asd$asDD
+asd$ $asDD
+
+2 issue:
+	removal of quotes works with the echo command but not with the export command
