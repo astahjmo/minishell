@@ -22,15 +22,17 @@ void	export_builtin(t_node *current)
 	char		*new_env;
 	t_databus	*data;
 
-	data = getter_data();
 	if (!is_valid_syntax(current))
 		return ;
+	data = getter_data();
 	while (current->next)
 	{
 		current = current->next;
 		new_env = current->str;
 		len = ft_strlen(new_env) + 1;
-		if (!is_valid_env_name_err(new_env) || overwrite_env(data, new_env))
+		if (!is_valid_env_name_err(new_env))
+			break ;
+		else if (overwrite_env(data, new_env))
 			continue ;
 		if (!increase_number_of_envs(data))
 			return ;
@@ -42,8 +44,12 @@ void	export_builtin(t_node *current)
 
 static int	is_valid_env_name_err(char *env)
 {
-	if (!ft_isalpha(*env) && *env != '_')
+	if (!env || (!ft_isalpha(*env) && *env != '_'))
+	{
+		ft_putstr_fd("not a valid identifier\n", 2);
+		getter_data()->exit_status = 1;
 		return (0);
+	}
 	env++;
 	while (*env != '\0' && *env != '=')
 	{
@@ -65,6 +71,7 @@ static int	increase_number_of_envs(t_databus *data)
 	if ((data->number_of_envs + 1) == ENVS_LIMIT)
 	{
 		printf("minishell: too many environment variables\n");
+		getter_data()->exit_status = 1;
 		return (0);
 	}
 	data->number_of_envs++;
@@ -78,6 +85,7 @@ static int	check_strlen(int len, char *new_env)
 		ft_putstr_fd("minishell: export:", 2);
 		ft_putstr_fd(new_env, 2);
 		ft_putstr_fd(": error: variable is too long.\n", 2);
+		getter_data()->exit_status = 1;
 		return (FALSE);
 	}
 	return (TRUE);
