@@ -14,6 +14,9 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
+	int	ignore_return;
+
 	while (*s)
-		write(fd, &(*s++), 1);
+		ignore_return = write(fd, s++, 1);
+	(void)ignore_return ;
 }

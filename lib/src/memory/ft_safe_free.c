@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo_builtin.c                                     :+:      :+:    :+:   */
+/*   ft_safe_free.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/18 15:02:26 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/24 11:27:01 by vcedraz-         ###   ########.fr       */
+/*   Created: 2023/06/25 11:04:21 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/25 11:05:31 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	echo_builtin(t_node *current)
+int	ft_safe_free(char **ptr)
 {
-	int	n_flag;
-
-	n_flag = 0;
-	while (current->next && !ft_strcmp("-n", current->next->str))
+	if (*ptr)
 	{
-		n_flag = 1;
-		current = current->next;
+		free(*ptr);
+		*ptr = NULL;
+		return (1);
 	}
-	while (current->next)
-	{
-		current = current->next;
-		if (current->str)
-			ft_putstr_fd(current->str, 1);
-	}
-	if (!n_flag)
-		write(1, "\n", 1);
+	return (0);
 }

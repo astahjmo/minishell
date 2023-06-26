@@ -31,7 +31,7 @@ char	**get_lexemes(void)
 
 char	**get_builtins(void)
 {
-	static char	*builtins[8] = {
+	static char	*builtins[9] = {
 		"exit",
 		"env",
 		"export",
@@ -39,6 +39,7 @@ char	**get_builtins(void)
 		"unset",
 		"echo",
 		"pwd",
+		"cd",
 		NULL
 	};
 
@@ -58,7 +59,7 @@ char	**get_expansion_lexes(void)
 
 t_fn_built_exec	**get_built_func(void)
 {
-	static t_fn_built_exec	*fns[8] = {
+	static t_fn_built_exec	*fns[9] = {
 		exit_builtin,
 		env_builtin,
 		export_builtin,
@@ -66,6 +67,7 @@ t_fn_built_exec	**get_built_func(void)
 		unset_builtin,
 		echo_builtin,
 		pwd_builtin,
+		cd_builtin,
 		NULL,
 	};
 
