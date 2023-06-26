@@ -22,7 +22,7 @@ void	free_cmds(t_cmds *cmds)
 	{
 		tmp = node;
 		node = node->next;
-		ft_safe_free(&tmp->str);
+		free(tmp->str);
 		free(tmp);
 	}
 	free(node);
