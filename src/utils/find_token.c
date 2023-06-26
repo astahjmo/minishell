@@ -19,7 +19,7 @@ static t_tokens	get_index(char *to_find, int arr_size, char **arr)
 	idx = 0;
 	while (idx < arr_size)
 	{
-		if (ft_strncmp(to_find, arr[idx], ft_strlen(arr[idx])) == 0)
+		if (!ft_strcmp(to_find, arr[idx]))
 		{
 			if (arr_size == 8)
 				return (idx + 1);
