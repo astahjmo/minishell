@@ -15,7 +15,7 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  tokenizer_operator.c init_parsers.c linked_list.c \
 		  tokenizer_string.c analysis.c free_cmds.c recipeWord.c \
 		  recipeOperator.c init_recipes.c lexer_strings.c \
-		  strjoinfree.c free_all.c expand_dollars.c \
+		  strjoinfree.c free_all.c expand_dollars.c cd_builtin.c \
 		  env_builtin.c exit_builtin.c executor.c export_builtin.c \
 		  unset_builtin.c utils_builtins_01.c echo_builtin.c utils_builtins_02.c\
 		  init_env.c init_statics.c is_llmin.c heredoc_utils.c pwd_builtin.c
@@ -25,7 +25,7 @@ LIB_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
 				 ft_isalnum.c ft_putstr_fd.c ft_memmove.c ft_strncmp.c \
 				 ft_strchr.c ft_bzero.c ft_strnstr.c ft_memset.c ft_isdigit.c \
 				 ft_strjoin.c ft_atoull.c ft_atoi.c ft_memcpy.c ft_calloc.c \
-				 ft_strlcat.c ft_strcmp.c 
+				 ft_strlcat.c ft_strcmp.c ft_safe_free.c \
 
 BUILDDIR = ./objs/
 LINCLUDE= ./lib/include

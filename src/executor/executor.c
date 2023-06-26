@@ -15,7 +15,7 @@
 
 void	executor(t_databus *data)
 {
-	t_tokens		builtin;
+	t_tokens		builtin_idx;
 	t_fn_built_exec	**exec;
 	unsigned int	status;
 
@@ -23,8 +23,8 @@ void	executor(t_databus *data)
 	status = init_heredoc(data->cmds->head);
 	if (WEXITSTATUS(status) == 129)
 		return ;
-	builtin = is_builtin(data);
-	if (builtin != -1)
-		exec[builtin](data->cmds->head);
+	builtin_idx = is_builtin(data);
+	if (builtin_idx != -1)
+		exec[builtin_idx](data->cmds->head);
 	return ;
 }
