@@ -6,7 +6,7 @@
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/25 09:22:43 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/26 22:10:27 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,6 @@ void						unset_builtin(t_node *current);
 void						alt_env_builtin(t_node *current);
 int							is_valid_env_name(char *env);
 char						*get_content_from_name_alone(char *name);
-void						expand_dollar_question_of_all_cmds(void);
 t_tokens					is_builtin(t_databus *data);
 void						pwd_builtin(t_node *current);
 int							pwd_idx(void);
@@ -181,12 +180,24 @@ int							cmptok(char *s1, char *s2, char tok);
 void						get_env_content(char *content, char *name,
 								char *env);
 int							is_llmin(char *str);
-char						*expand_dollar_question(char *line);
 int							names_are_equal(char *s1, char *s2);
 char						*strjoinfree_s1(char *s1, char *s2);
 int							here_doc(int *status, char *delimiter);
 int							*getter_heredoc_fd(void);
 void						cd_builtin(t_node *current);
 int							overwrite_env(t_databus *data, char *new_env);
+char						*get_name(char *str);
+int							has_too_many_args(t_databus *data);
+
+// TOKENIZER
+char						*expand_dollar_question(char *line);
+char						*expand_dollar_env(char *line);
+void						expand_dollar_env_of_all_cmds(void);
+void						expand_dollar_question_of_all_cmds(void);
+char						*trimfree(char *s1, char *set);
+int							whole_prefix_matched(t_databus *data, int i,
+								int len);
+int							getindex_of_env(char *to_unset);
+char						*trim(char *s, char reject);
 
 #endif
