@@ -46,7 +46,7 @@ static int	path_is_valid(int chdir_return)
 	else if (has_too_many_args(getter_data()))
 	{
 		ft_putstr_fd("minishell: cd:", 1);
-		ft_putstr_fd(" No such file or directory\n", 2);
+		ft_putstr_fd(" too many arguments\n", 2);
 		getter_data()->exit_status = 1;
 	}
 	return (chdir_return);
