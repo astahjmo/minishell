@@ -35,7 +35,7 @@ t_tokens	get_expansion(char *line)
 {
 	t_ushort	arr_size;
 
-	arr_size = 3;
+	arr_size = 2;
 	return (get_index(line, arr_size, get_expansion_lexes()));
 }
 
