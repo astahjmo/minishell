@@ -71,7 +71,7 @@ state | '<<' | '>>' | '||' | '&&' | '|' | '&' | '<' | '>' | WORD
 
 - [ ] cd with only a relative or absolute path
 
-- [ ] pwd with no options
+- [x] pwd with no options
 
 - [x] export with no options
 

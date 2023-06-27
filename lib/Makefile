@@ -6,7 +6,7 @@
 #    By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/30 16:11:43 by johmatos          #+#    #+#              #
-#    Updated: 2023/06/24 11:28:58 by vcedraz-         ###   ########.fr        #
+#    Updated: 2023/06/25 11:05:51 by vcedraz-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SOURCES := ft_atoi.c ft_isalnum.c ft_isalpha.c \
 		   ft_memmove.c ft_memset.c fmt_to_char.c fmt_to_decimal.c \
 		   fmt_to_hex.c fmt_to_pointer.c fmt_to_string.c fmt_to_udecimal.c \
 		   ft_printf.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
-		   ft_putstr_fd.c get_next_line_bonus.c \
+		   ft_putstr_fd.c get_next_line_bonus.c ft_safe_free.c \
 		   get_next_line_utils_bonus.c parser.c \
 		   ft_interpol.c ft_atoull.c ft_strcmp.c
 
@@ -38,7 +38,7 @@ MINISHELL_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
 				 ft_isalnum.c ft_putstr_fd.c ft_memmove.c ft_strncmp.c \
 				 ft_strchr.c ft_bzero.c ft_strnstr.c ft_memset.c ft_isdigit.c \
 				 ft_strjoin.c ft_atoull.c ft_atoi.c ft_memcpy.c ft_calloc.c \
-				 ft_strlcat.c ft_strcmp.c 
+				 ft_strlcat.c ft_strcmp.c ft_safe_free.c \
 
 RCol='\033[0m'
 Bla='\033[0;30m'
@@ -77,7 +77,7 @@ minishell: $(MINISHELL_LIB)
 $(MINISHELL_LIB): $(MINISHELL_OBJS)
 	@ar -rcs $@ $(MINISHELL_OBJS)
 	@printf "\n";
-	@printf "$(ALTMSGBUILD) (libft): ok                              \n"
+	@printf "$(ALTMSGBUILD) (libft): ok                              "
 
 $(MINISHELLDIR)%.o: %.c
 	@printf "$(MSGBUILD) (libft): building $@                        \r"
