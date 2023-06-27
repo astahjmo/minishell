@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handler_expansions.c                               :+:      :+:    :+:   */
+/*   expand_dollar_question.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 05:32:09 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/22 16:44:29 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:02:40 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,21 @@ char	*expand_dollar_question(char *line)
 	int		i;
 	char	*tmp;
 	char	*new_line;
-	int		has_dollar_sign;
+	int		have_to_expand;
 
 	i = -1;
-	has_dollar_sign = 0;
+	have_to_expand = 0;
 	tmp = ft_strdup(line);
 	while (tmp[++i])
 	{
 		if (tmp[i] == '$' && tmp[i + 1] == '?')
 		{
-			has_dollar_sign = 1;
+			have_to_expand = 1;
 			tmp = expand_dollar_question_aux(tmp, i);
 		}
 	}
 	new_line = ft_strdup(tmp);
-	return (handle_frees(tmp, new_line, line, has_dollar_sign));
+	return (handle_frees(tmp, new_line, line, have_to_expand));
 }
 
 static char	*expand_dollar_question_aux(char *tmp, int i)
