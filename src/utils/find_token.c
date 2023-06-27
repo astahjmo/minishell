@@ -19,7 +19,7 @@ static t_tokens	get_index(char *to_find, int arr_size, char **arr)
 	idx = 0;
 	while (idx < arr_size)
 	{
-		if (ft_strncmp(to_find, arr[idx], ft_strlen(arr[idx])) == 0)
+		if (!ft_strcmp(to_find, arr[idx]))
 		{
 			if (arr_size == 8)
 				return (idx + 1);
@@ -35,7 +35,7 @@ t_tokens	get_expansion(char *line)
 {
 	t_ushort	arr_size;
 
-	arr_size = 3;
+	arr_size = 2;
 	return (get_index(line, arr_size, get_expansion_lexes()));
 }
 
@@ -53,7 +53,7 @@ t_tokens	is_builtin(t_databus *data)
 	t_tokens	index;
 	t_node		*list;
 
-	arr_size = 6;
+	arr_size = 9;
 	list = data->cmds->head;
 	if (!list->str)
 		return (T_INVALID);
