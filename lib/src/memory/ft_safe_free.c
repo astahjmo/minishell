@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_cmds.c                                        :+:      :+:    :+:   */
+/*   ft_safe_free.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/12 01:55:29 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/05 17:50:10 by johmatos         ###   ########.fr       */
+/*   Created: 2023/06/25 11:04:21 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/25 11:05:31 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	free_cmds(t_cmds *cmds)
+int	ft_safe_free(char **ptr)
 {
-	t_node	*node;
-	t_node	*tmp;
-
-	node = cmds->head;
-	while (node)
+	if (*ptr)
 	{
-		tmp = node;
-		node = node->next;
-		free(tmp->str);
-		free(tmp);
+		free(*ptr);
+		*ptr = NULL;
+		return (1);
 	}
-	free(node);
-	cmds->head = NULL;
+	return (0);
 }

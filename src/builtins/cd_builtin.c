@@ -5,34 +5,60 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/23 17:01:14 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/23 17:01:33 by vcedraz-         ###   ########.fr       */
+/*   Created: 2023/06/25 08:42:30 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/25 11:06:30 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <unistd.h>
 
-int	change_directory(const char *path)
+static int	path_is_valid(int chdir_return);
+static void	update_pwd_and_oldpwd(char *cwd);
+
+void	cd_builtin(t_node *current)
 {
-	if (chdir(path) == -1)
+	char	*home;
+	char	**path_address;
+	char	cwd[STR_LIMIT];
+
+	if (current->next)
+		path_address = &current->next->str;
+	else
 	{
-		perror("cd");
-		return (-1);
+		home = get_content_from_name_alone("HOME");
+		path_address = &home;
 	}
-	return (0);
+	if (-1 == path_is_valid(chdir(*path_address)))
+		return ;
+	getcwd(cwd, STR_LIMIT);
+	update_pwd_and_oldpwd(cwd);
+	ft_safe_free(path_address);
 }
-//
-// int	main(int argc, char *argv[])
-// {
-// 	if (argc < 2)
-// 	{
-// 		fprintf(stderr, "Usage: %s <directory>\n", argv[0]);
-// 		return (1);
-// 	}
-// 	if (change_directory(argv[1]) == -1)
-// 		return (1);
-// 	system("pwd");
-// }
+
+static int	path_is_valid(int chdir_return)
+{
+	if (chdir_return == -1)
+	{
+		ft_putstr_fd("minishell: cd:", 1);
+		ft_putstr_fd(" No such file or directory\n", 2);
+		getter_data()->exit_status = 1;
+	}
+	else if (has_too_many_args(getter_data()))
+	{
+		ft_putstr_fd("minishell: cd:", 1);
+		ft_putstr_fd(" too many arguments\n", 2);
+		getter_data()->exit_status = 1;
+	}
+	return (chdir_return);
+}
+
+static void	update_pwd_and_oldpwd(char *cwd)
+{
+	t_databus	*data;
+	int			pwdlen;
+
+	data = getter_data();
+	pwdlen = ft_strlen(data->env[pwd_idx()]);
+	ft_strlcpy(data->env[oldpwd_idx()] + 7, data->env[pwd_idx()] + 4, pwdlen);
+	ft_strlcpy(data->env[pwd_idx()] + 4, cwd, ft_strlen(cwd) + 1);
+}
