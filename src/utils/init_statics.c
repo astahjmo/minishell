@@ -48,10 +48,9 @@ char	**get_builtins(void)
 
 char	**get_expansion_lexes(void)
 {
-	static char	*expansions[3] = {
+	static char	*expansions[2] = {
 		"$",
 		"~",
-		"."
 	};
 
 	return (expansions);
