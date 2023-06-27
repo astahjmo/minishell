@@ -53,6 +53,8 @@ char	*get_content_from_name_alone(char *name)
 	{
 		if (!ft_strncmp(name, data->env[i], ft_strlen(name)))
 		{
+			if (!ft_strchr(data->env[i], '='))
+				return (ft_strdup(""));
 			get_env_content(content, name, data->env[i]);
 			return (ft_strdup(content));
 		}
