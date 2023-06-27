@@ -40,7 +40,7 @@ char	*expand_dollar_env(char *line)
 	i = -1;
 	have_to_expand = 0;
 	tmp = ft_strdup(line);
-	while (tmp[++i])
+	while (*tmp && tmp[++i])
 	{
 		if (tmp[i] == '$')
 		{
