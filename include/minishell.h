@@ -186,6 +186,8 @@ int							here_doc(int *status, char *delimiter);
 int							*getter_heredoc_fd(void);
 void						cd_builtin(t_node *current);
 int							overwrite_env(t_databus *data, char *new_env);
+char						*get_name(char *str);
+int							has_too_many_args(t_databus *data);
 
 // TOKENIZER
 char						*expand_dollar_question(char *line);
@@ -197,6 +199,5 @@ int							whole_prefix_matched(t_databus *data, int i,
 								int len);
 int							getindex_of_env(char *to_unset);
 char						*trim(char *s, char reject);
-char						*get_name(char *str);
 
 #endif
