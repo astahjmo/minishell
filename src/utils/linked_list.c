@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 05:41:48 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/04 06:11:45 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/27 14:17:22 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_node	*list_last_node(t_node *head)
 {
 	t_node	*cursor;
 
+	if (!head)
+		return (NULL);
 	cursor = head;
 	while (cursor->next != NULL)
 		cursor = cursor->next;

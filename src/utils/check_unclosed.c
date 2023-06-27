@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 21:38:21 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/21 18:58:46 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/24 18:26:57 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,9 @@ int	check_unclosed_quotes(char *line, char *delimiter)
 	if (credit % 2 == 0)
 		return (FALSE);
 	return (TRUE);
+}
+
+int	is_quotes(char cmp)
+{
+	return (cmp == '\'' || cmp == '"');
 }

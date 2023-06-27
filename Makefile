@@ -19,8 +19,7 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  env_builtin.c exit_builtin.c executor.c export_builtin.c \
 		  unset_builtin.c utils_builtins_01.c echo_builtin.c utils_builtins_02.c \
 		  init_env.c init_statics.c is_llmin.c heredoc_utils.c pwd_builtin.c \
-		  expand_dollar_env.c expansion_utils.c
-
+		  expand_dollar_env.c expansion_utils.c print_tokens.c
 
 LIB_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
 				 ft_split.c ft_interpol.c ft_strlcpy.c ft_isalpha.c \

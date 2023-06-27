@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/26 22:10:27 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:46:18 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ typedef enum e_tokens
 	T_INPUT_REDIR = 7,
 	T_OUT_REDIR = 8,
 	T_WORD = 9,
-	T_INVALID = -1
+	T_INVALID = -1,
+	T_SPACE = 9
 }							t_tokens;
 
 enum						e_inputii
@@ -199,5 +200,6 @@ int							whole_prefix_matched(t_databus *data, int i,
 								int len);
 int							getindex_of_env(char *to_unset);
 char						*trim(char *s, char reject);
-
+void						print_tokens(void);
+int							is_quotes(char cmp);
 #endif
