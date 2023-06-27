@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:53:05 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/27 17:34:48 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/27 18:31:35 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_tokens	get_index(char *to_find, int arr_size, char **arr)
 	int	idx;
 
 	idx = 0;
-	while (idx < arr_size)
+	while (idx < arr_size && arr[idx] != NULL)
 	{
 		if (ft_strncmp(to_find, arr[idx], ft_strlen(arr[idx])) == 0)
 		{
