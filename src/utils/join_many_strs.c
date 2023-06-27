@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_cmds.c                                        :+:      :+:    :+:   */
+/*   join_many_strs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/12 01:55:29 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/05 17:50:10 by johmatos         ###   ########.fr       */
+/*   Created: 2023/06/27 09:49:58 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/27 09:57:00 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_cmds(t_cmds *cmds)
+char	*join_many_strs(t_node **head)
 {
-	t_node	*node;
-	t_node	*tmp;
+	char	*result;
 
-	node = cmds->head;
-	while (node)
+	result = ft_strdup("");
+	while (*(*head)->str != ' ')
 	{
-		tmp = node;
-		node = node->next;
-		free(tmp->str);
-		free(tmp);
+		result = strjoinfree_s1(result, (*head)->str);
+		head = &(*head)->next;
 	}
-	free(node);
-	cmds->head = NULL;
+	return (result);
 }
