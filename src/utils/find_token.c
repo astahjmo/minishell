@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:53:05 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/21 11:06:45 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:34:48 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_tokens	get_index(char *to_find, int arr_size, char **arr)
 	idx = 0;
 	while (idx < arr_size)
 	{
-		if (!ft_strcmp(to_find, arr[idx]))
+		if (ft_strncmp(to_find, arr[idx], ft_strlen(arr[idx])) == 0)
 		{
 			if (arr_size == 8)
 				return (idx + 1);
@@ -35,7 +35,7 @@ t_tokens	get_expansion(char *line)
 {
 	t_ushort	arr_size;
 
-	arr_size = 2;
+	arr_size = 3;
 	return (get_index(line, arr_size, get_expansion_lexes()));
 }
 
