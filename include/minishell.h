@@ -37,7 +37,7 @@
 # define GREEN "\033[0;32m"
 # define RED "\033[0;31m"
 # define RESET "\033[0m"
-# define STR_LIMIT 512
+# define STR_LIMIT 1024
 # define ENVS_LIMIT 8512
 # define SIZEMAX 9223372036854775807
 
