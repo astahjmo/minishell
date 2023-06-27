@@ -47,9 +47,9 @@ char	*expand_dollar_env(char *line)
 			env_name = get_name(&tmp[i]);
 			if (env_name)
 			{
-				ft_putstr_fd(env_name, 1);
 				have_to_expand = 1;
 				tmp = expand_dollar_env_aux(tmp, env_name, i);
+				free(env_name);
 			}
 		}
 	}
@@ -67,10 +67,8 @@ static char	*expand_dollar_env_aux(char *tmp, char *env_name, int i)
 
 	until_dollar = ft_substr(tmp, 0, i);
 	env_content = get_content_from_name_alone(env_name);
-	ft_putstr_fd("\n", 1);
-	ft_putstr_fd(env_content, 1);
 	until_env_content_end = strjoinfree_s1(until_dollar, env_content);
-	after_content = ft_strdup(&tmp[i + ft_strlen(env_content) + 1]);
+	after_content = ft_strdup(&tmp[i + ft_strlen(env_name) + 1]);
 	new_line = strjoinfree_s1(until_env_content_end, after_content);
 	free(env_content);
 	free(after_content);
