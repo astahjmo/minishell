@@ -6,7 +6,7 @@
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 22:44:41 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/21 22:45:10 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:55:43 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ char	*get_content_from_name_alone(char *name)
 	{
 		if (!ft_strncmp(name, data->env[i], ft_strlen(name)))
 		{
+			if (!ft_strchr(data->env[i], '='))
+				return (ft_strdup(""));
 			get_env_content(content, name, data->env[i]);
 			return (ft_strdup(content));
 		}
@@ -72,4 +74,28 @@ int	is_valid_env_name(char *env)
 		env++;
 	}
 	return (TRUE);
+}
+
+int	getindex_of_env(char *to_unset)
+{
+	int			i;
+	int			len;
+	int			nb;
+	t_databus	*data;
+
+	i = -1;
+	len = ft_strlen(to_unset);
+	data = getter_data();
+	nb = data->number_of_envs;
+	if (!len)
+		return (-1);
+	while (++i < nb)
+	{
+		if (!ft_strncmp(data->env[i], to_unset, len)
+			&& whole_prefix_matched(data, i, len))
+			break ;
+	}
+	if (i == nb)
+		return (-1);
+	return (i);
 }

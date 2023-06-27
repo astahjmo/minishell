@@ -6,13 +6,12 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 18:59:29 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/21 22:47:33 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:42:15 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int			whole_prefix_matched(t_databus *data, int i, int len);
 static int			getindex_of_env_to_unset(t_databus *data, char *env);
 
 void	unset_builtin(t_node *current)
@@ -65,7 +64,7 @@ static int	getindex_of_env_to_unset(t_databus *data, char *to_unset)
 	return (i);
 }
 
-static inline int	whole_prefix_matched(t_databus *data, int i, int len)
+int	whole_prefix_matched(t_databus *data, int i, int len)
 {
 	return (data->env[i][len] == '=' || data->env[i][len] == '\0');
 }

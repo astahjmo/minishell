@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-static int	has_too_many_args(t_databus *data);
 static int	has_non_numeric_char(char *str);
 static void	free_and_exit(t_databus *data, char *failure_message);
 static void	handle_exit_argument(t_databus *data, char *exit_argument);
@@ -75,7 +74,7 @@ static int	has_non_numeric_char(char *str)
 	return (FALSE);
 }
 
-static int	has_too_many_args(t_databus *data)
+int	has_too_many_args(t_databus *data)
 {
 	t_node	*head;
 	t_node	*arg1;
