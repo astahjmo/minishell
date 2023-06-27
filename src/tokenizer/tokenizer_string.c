@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_string.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:11:15 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/04 07:45:56 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/27 14:06:12 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ static t_node	*init_node(char *line)
 	t_node	*node;
 
 	node = list_node_new();
-	node->token = T_WORD;
+	if (*line == '\0')
+		node->token = T_SPACE;
+	else
+		node->token = T_WORD;
 	node->str = line;
 	node->next = NULL;
 	return (node);
@@ -31,7 +34,8 @@ static t_node	*handler_word(char *cursor, char *line)
 
 	if (!cursor)
 		return (NULL);
-	while (*cursor != '\0' && get_token(cursor) == -1 && *cursor != ' ')
+	while (*cursor != '\0' && get_token(cursor) == -1
+		&& *cursor != ' ' && *cursor != '\'' && *cursor != '"')
 		cursor++;
 	str = ft_substr(line, 0, cursor - line);
 	node = init_node(str);
