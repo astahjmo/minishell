@@ -24,6 +24,8 @@
 # include <string.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# define WITH_ENV 1
+# define WITHOUT_ENV 0
 # define PREFIX_LEN 30
 # define BUILTINS "echo cd pwd export unset env exit"
 # define TRUE 1
@@ -202,4 +204,11 @@ int							getindex_of_env(char *to_unset);
 char						*trim(char *s, char reject);
 void						print_tokens(void);
 int							is_quotes(char cmp);
+void						print_data(int env);
+
+void						lstadd_back(t_node **lst, t_node *nw);
+void						lstfree(t_node **list);
+t_node						*lstnew(void *content);
+void						create_new_cmds_list(void);
+
 #endif
