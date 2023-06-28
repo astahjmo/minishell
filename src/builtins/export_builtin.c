@@ -39,6 +39,7 @@ void	export_builtin(t_node *current)
 		if (!check_strlen(len, new_env))
 			return ;
 		ft_strlcpy(data->env[data->number_of_envs - 1], new_env, len);
+		printf("%d\n", data->number_of_envs);
 	}
 }
 
