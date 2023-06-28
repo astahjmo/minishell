@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/27 15:46:18 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:39:16 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef enum e_tokens
 	T_OUT_REDIR = 8,
 	T_WORD = 9,
 	T_INVALID = -1,
-	T_SPACE = 9
+	T_SPACE = 10
 }							t_tokens;
 
 enum						e_inputii

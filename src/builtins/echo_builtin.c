@@ -17,6 +17,7 @@ void	echo_builtin(t_node *current)
 	int	n_flag;
 
 	n_flag = 0;
+	current = current->next;
 	while (current->next && !ft_strcmp("-n", current->next->str))
 	{
 		n_flag = 1;
@@ -26,11 +27,7 @@ void	echo_builtin(t_node *current)
 	{
 		current = current->next;
 		if (current->str)
-		{
 			ft_putstr_fd(current->str, 1);
-			if (current->next && *current->str)
-				write(1, " ", 1);
-		}
 	}
 	if (!n_flag)
 		write(1, "\n", 1);
