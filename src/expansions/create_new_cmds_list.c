@@ -12,22 +12,28 @@
 
 #include "minishell.h"
 
-static char	*join_many_strs(t_node **head)
+static char	*join_many_strs(t_node **lst)
 {
 	char	*result;
 
-	result = ft_strdup((*head)->str);
-	while (head && *head)
+	if (!lst || !*lst || ((*lst)->token != T_WORD && (*lst)->token != T_SPACE))
+		return (NULL);
+	if ((*lst)->next && (*lst)->next->token == T_SPACE)
 	{
-		if ((*head)->token != T_WORD)
-			break ;
-		if ((*head)->token == T_SPACE)
-			break ;
-		if ((*head)->next)
+		lst = &(*lst)->next;
+		return (ft_strdup(" "));
+	}
+	result = ft_strdup((*lst)->str);
+	while (*lst)
+	{
+		if (!(*lst)->next || (*lst)->next->token != T_WORD)
 		{
-			result = strjoinfree_s1(result, (*head)->next->str);
-			head = &(*head)->next;
+			lst = &(*lst)->next;
+			break ;
 		}
+		if ((*lst)->next)
+			result = strjoinfree_s1(result, (*lst)->next->str);
+		lst = &(*lst)->next;
 	}
 	return (result);
 }
@@ -39,18 +45,14 @@ static t_node	*apply_join_many_strs(t_databus *data)
 	t_node	*aux;
 
 	result = NULL;
-	aux = data->cmds->head->next;
+	aux = data->cmds->head->next->next;
 	while (aux)
 	{
-		if (aux->token == T_WORD)
-		{
-			new_node = lstnew(join_many_strs(&aux));
-			if (!new_node)
-				return (NULL);
-			lstadd_back(&result, new_node);
-		}
-		else
-			aux = aux->next;
+		new_node = lstnew(join_many_strs(&aux));
+		if (!new_node)
+			return (NULL);
+		lstadd_back(&result, new_node);
+		aux = aux->next;
 	}
 	lstfree(&data->cmds->head);
 	return (result);

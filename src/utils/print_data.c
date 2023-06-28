@@ -20,11 +20,11 @@ void	print_data(int env)
 	t_node		*tmp;
 
 	data = getter_data();
-	printf(RED "exit_status:" RESET " %d\n", data->exit_status);
 	printf(RED "number_of_envs:" RESET " %d\n", data->number_of_envs);
 	printf(RED "type_stream:" RESET " %d\n", data->type_stream);
-	printf(RED "stream:" RESET " %s\n", data->stream);
+	printf(RED "exit_status:" RESET " %d\n", data->exit_status);
 	printf(RED "prompt:" RESET " %s\n", data->prompt);
+	printf(RED "stream:" RESET " %s\n", data->stream);
 	printf(RED "cmds:" RESET " %p\n", data->cmds);
 	tmp = data->cmds->head;
 	while (tmp)
@@ -34,7 +34,7 @@ void	print_data(int env)
 		printf(RED "    cmds->head->str:" RESET " %s\n", tmp->str);
 		tmp = tmp->next;
 	}
-	printf(RED "cmds end\n\n\n" RESET);
+	printf(RED "cmds: "RESET"%p\n", tmp);
 	if (env)
 		print_envs();
 }

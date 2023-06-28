@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:10:41 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/24 12:56:31 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:54:45 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int	is_valid(t_tokens next)
 {
 	if (next == T_INPUT_REDIR || next == T_O_OUT_REDIR || next == T_HERE_DOC
 		|| next == T_OUT_REDIR)
+		return (1);
+	if (next == T_SPACE)
 		return (1);
 	return (-1);
 }
@@ -30,7 +32,6 @@ static int	get_next_state(t_tokens state, t_node *next)
 	int			next_state;
 	int			next_token;
 	int			status;
-	int			test;
 	t_recipes	**recipes;
 
 	recipes = init_recipes();
@@ -47,9 +48,9 @@ static int	get_next_state(t_tokens state, t_node *next)
 		next_state = 1;
 	else
 		next_state = 0;
-	test = is_operator(state);
-	status = recipes[test](next_state);
-	if (state == T_PIPE && next_token != T_WORD)
+	status = recipes[is_operator(state)](next_state);
+	if (state == T_PIPE && next_token != T_WORD
+		&& status != T_SPACE)
 		status = is_valid(next_token);
 	return (status);
 }
@@ -60,9 +61,9 @@ int	is_valid_syntax(t_node *head)
 	int			progress;
 	t_node		*cursor;
 
-	print_data(WITHOUT_ENV);
-	create_new_cmds_list();
-	print_data(WITHOUT_ENV);
+	// print_data(WITHOUT_ENV);
+	// create_new_cmds_list();
+	// print_data(WITHOUT_ENV);
 	state = T_INITIAL;
 	cursor = head;
 	progress = get_next_state(state, cursor);
