@@ -15,20 +15,27 @@
 void	init_env(t_databus *data)
 {
 	int		i;
+	int		j;
 	int		envlen;
 	char	**envp;
 
-	i = -1;
+	i = 0;
+	j = 0;
 	envp = data->envp;
 	data->number_of_envs = 0;
 	while (envp[data->number_of_envs] != NULL)
 		data->number_of_envs++;
 	if (data->number_of_envs >= ENVS_LIMIT)
-		return ;
-	while (++i < data->number_of_envs)
 	{
-		envlen = ft_strlen(envp[i]) + 1;
+		while (data->number_of_envs >= ENVS_LIMIT)
+			data->number_of_envs = data->number_of_envs / 2;
+	}
+	while (i < data->number_of_envs)
+	{
+		envlen = ft_strlen(envp[j]) + 1;
 		if (envlen <= STR_LIMIT)
-			ft_strlcpy(data->env[i], envp[i], envlen);
+			ft_strlcpy(data->env[i++], envp[j++], envlen);
+		else
+			j++;
 	}
 }
