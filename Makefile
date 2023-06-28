@@ -3,15 +3,15 @@ VPATH = ./src \
 		./src/parser ./src/prompt ./src/signals \
  		./src/here_doc ./src/utils \
  		./src/handler_quotes \
- 		./src/tokenizer \
+ 		./src/tokenizer ./src/expansions \
  		./src/syntax ./src/env ./src \
 		./src/builtins ./src/executor
 CFLAGS = -g -Wall -Wextra -Werror
 
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
-		  heredoc.c check_unclosed.c display.c \
-		  init_signal.c clear_bimatrix.c \
-		  find_token.c strings_utils.c strjoinfree_s1.c \
+		  heredoc.c check_unclosed.c display.c ft_linked_list.c \
+	  	  init_signal.c clear_bimatrix.c create_new_cmds_list.c \
+		  find_token.c strings_utils.c strjoinfree_s1.c print_data.c\
 		  tokenizer_operator.c init_parsers.c linked_list.c \
 		  tokenizer_string.c analysis.c free_cmds.c recipeWord.c \
 		  recipeOperator.c init_recipes.c lexer_strings.c \
