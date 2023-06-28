@@ -47,7 +47,7 @@ state | '<<' | '>>' | '||' | '&&' | '|' | '&' | '<' | '>' | WORD
 
 - [x] Handle $? which should expand to the exit status of the most recently executed foreground pipeline.
 
-- [ ] Handle environment variables ($ followed by a sequence of characters) which should expand to their values.
+- [x] Handle environment variables ($ followed by a sequence of characters) which should expand to their values.
 
 - [ ] Handle ’ (single quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence.
 
@@ -69,7 +69,7 @@ state | '<<' | '>>' | '||' | '&&' | '|' | '&' | '<' | '>' | WORD
 
 - [x] echo with option -n
 
-- [ ] cd with only a relative or absolute path
+- [x] cd with only a relative or absolute path
 
 - [x] pwd with no options
 
