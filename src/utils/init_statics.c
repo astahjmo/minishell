@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 23:14:39 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/24 23:17:55 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/27 18:30:44 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,9 @@ char	**get_builtins(void)
 
 char	**get_expansion_lexes(void)
 {
-	static char	*expansions[3] = {
+	static char	*expansions[2] = {
 		"$",
 		"~",
-		"."
 	};
 
 	return (expansions);
