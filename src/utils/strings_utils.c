@@ -76,7 +76,7 @@ void	string_eat_at_next_token(char **word)
 			string_eat_at(&temp, *line);
 		else
 			while (*temp != '\0' && *temp != ' ' && get_token(temp) == -1
-				&& get_expansion(temp) == -1 && !is_quotes(*temp))
+				&& !is_quotes(*temp))
 				temp++;
 		*word = temp;
 	}
