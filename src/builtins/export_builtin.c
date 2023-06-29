@@ -22,7 +22,6 @@ void	export_builtin(t_node *current)
 	char		*new_env;
 	t_databus	*data;
 
-	current = current->next;
 	if (!is_valid_syntax(current))
 		return ;
 	data = getter_data();

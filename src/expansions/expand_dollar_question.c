@@ -38,6 +38,8 @@ char	*expand_dollar_question(char *line)
 
 	i = -1;
 	have_to_expand = 0;
+	if (*line == '\'')
+		return (line);
 	tmp = ft_strdup(line);
 	while (tmp[++i])
 	{
