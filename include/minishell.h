@@ -24,6 +24,8 @@
 # include <string.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# define JOINED 1
+# define NOT_JOINED 0
 # define WITH_ENV 1
 # define WITHOUT_ENV 0
 # define PREFIX_LEN 30
@@ -208,7 +210,8 @@ void						print_data(int env);
 
 void						lstadd_back(t_node **lst, t_node *nw);
 void						lstfree(t_node **list);
-t_node						*lstnew(void *content);
+t_node						*create_new_node(void *content, t_tokens tok);
 void						create_new_cmds_list(void);
+char						*expand_everything_on_str(char *str);
 
 #endif

@@ -12,12 +12,13 @@
 
 #include "minishell.h"
 
-t_node	*lstnew(void *content)
+t_node	*create_new_node(void *content, t_tokens tok)
 {
 	t_node	*node;
 
 	node = (t_node *)malloc(sizeof(*node));
 	node->str = content;
+	node->token = tok;
 	node->next = NULL;
 	return (node);
 }

@@ -23,7 +23,10 @@ static t_node	*init_node(char *line)
 	else
 		node->token = T_WORD;
 	if (node->token == T_SPACE)
+	{
 		node->str = ft_strdup(" ");
+		free(line);
+	}
 	else
 		node->str = line;
 	node->next = NULL;
