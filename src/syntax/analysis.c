@@ -61,9 +61,6 @@ int	is_valid_syntax(t_node *head)
 	int			progress;
 	t_node		*cursor;
 
-	// print_data(WITHOUT_ENV);
-	// create_new_cmds_list();
-	// print_data(WITHOUT_ENV);
 	state = T_INITIAL;
 	cursor = head;
 	progress = get_next_state(state, cursor);
