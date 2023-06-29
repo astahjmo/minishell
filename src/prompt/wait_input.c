@@ -30,11 +30,11 @@ static inline void	if_stream_not_null(t_databus *data)
 	if (data->stream)
 	{
 		tokenizer();
+		add_history(data->stream);
 		expand_dollar_question_of_all_cmds();
 		expand_dollar_env_of_all_cmds();
 		if (is_valid_syntax(data->cmds->head))
 		{
-			add_history(data->stream);
 			create_new_cmds_list();
 			executor(data);
 		}
