@@ -17,7 +17,6 @@ void	echo_builtin(t_node *current)
 	int	n_flag;
 
 	n_flag = 0;
-	current = current->next;
 	while (current->next && !ft_strcmp("-n", current->next->str))
 	{
 		n_flag = 1;

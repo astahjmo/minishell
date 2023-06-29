@@ -51,14 +51,11 @@ static char	*join_many_strs(t_node **lst)
 	char	*result;
 	int		joined;
 
-	if (!*lst || ((*lst)->token != T_WORD && *(*lst)->str != ' '))
+	if (!*lst || !(*lst)->str)
 		return (NULL);
 	result = ft_strdup((*lst)->str);
-	if (!(*lst)->next || *(*lst)->next->str == ' ' || *(*lst)->str == ' ')
-	{
-		lst = &(*lst)->next;
+	if (!(*lst)->next || !(*lst)->next->str)
 		return (result);
-	}
 	while (1)
 	{
 		if (!(*lst) || (*lst)->token != T_WORD)
