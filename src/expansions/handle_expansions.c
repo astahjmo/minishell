@@ -14,7 +14,6 @@
 
 static char	*expand_dollar_env(char *tmp, char *env_name, int i);
 static char	*expand_dollar_question(char *tmp, int i);
-static char	*handle_frees(char *tmp, char *new_line, char *line, int dollar);
 
 void	handle_expansions(void)
 {
@@ -25,13 +24,13 @@ void	handle_expansions(void)
 	list = data->cmds->head;
 	while (list)
 	{
-		if (*list->str != '\'')
-			list->str = expand_dollar(list->str);
+		if (list->str && *list->str != '\'')
+			list->str = expand_dollars(list->str);
 		list = list->next;
 	}
 }
 
-char	*expand_dollar(char *line)
+char	*expand_dollars(char *line)
 {
 	int		i;
 	char	*tmp;
@@ -51,7 +50,6 @@ char	*expand_dollar(char *line)
 			{
 				have_to_expand = 1;
 				tmp = expand_dollar_env(tmp, env_name, i);
-				free(env_name);
 			}
 			else if (tmp[i + 1] == '?')
 				tmp = expand_dollar_question(tmp, i);
@@ -77,6 +75,7 @@ static char	*expand_dollar_env(char *tmp, char *env_name, int i)
 	free(env_content);
 	free(after_content);
 	free(tmp);
+	free(env_name);
 	return (new_line);
 }
 
@@ -96,17 +95,5 @@ static char	*expand_dollar_question(char *tmp, int i)
 	free(exit_status);
 	free(after_question_mark);
 	free(tmp);
-	return (new_line);
-}
-
-static char	*handle_frees(char *tmp, char *new_line, char *line, int has_dollar)
-{
-	free(tmp);
-	if (!has_dollar)
-	{
-		free(new_line);
-		return (line);
-	}
-	free(line);
 	return (new_line);
 }

@@ -196,7 +196,7 @@ char						*get_name(char *str);
 int							has_too_many_args(t_databus *data);
 
 // TOKENIZER
-char						*expand_dollar(char *line);
+char						*expand_dollars(char *line);
 void						handle_expansions(void);
 char						*trimfree(char *s1, char *set);
 int							getindex_of_env(char *to_unset);
@@ -210,5 +210,7 @@ t_node						*create_new_node(void *content, t_tokens tok);
 void						retokenize(void);
 char						*expand_everything_on_str(char *str);
 int							whole_prefix_matched(int i, int len);
+char						*handle_frees(char *tmp, char *new_line, char *line, int dollar);
+
 
 #endif

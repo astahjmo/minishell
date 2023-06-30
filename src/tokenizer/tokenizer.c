@@ -52,7 +52,7 @@ void	tokenizer(void)
 	cursor = data->stream;
 	while (cursor && *data->stream != '\0')
 	{
-		if (list_last_node(data->cmds->head) 
+		if (list_last_node(data->cmds->head)
 			&& list_last_node(data->cmds->head)->token == T_SPACE)
 			string_eat_all(&cursor, ' ');
 		if (*cursor == '#')

@@ -31,3 +31,15 @@ char	*get_name(char *str)
 	name[i] = '\0';
 	return (ft_strdup(name));
 }
+
+char	*handle_frees(char *tmp, char *new_line, char *line, int has_dollar)
+{
+	free(tmp);
+	if (!has_dollar)
+	{
+		free(new_line);
+		return (line);
+	}
+	free(line);
+	return (new_line);
+}
