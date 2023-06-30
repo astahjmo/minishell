@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static int			getindex_of_env_to_unset(t_databus *data, char *env);
+static int	getindex_of_env_to_unset(t_databus *data, char *env);
 
 void	unset_builtin(t_node *current)
 {
@@ -55,16 +55,21 @@ static int	getindex_of_env_to_unset(t_databus *data, char *to_unset)
 		return (-1);
 	while (++i < nb)
 	{
-		if (!ft_strncmp(data->env[i], to_unset, len)
-			&& whole_prefix_matched(data, i, len))
-			break ;
+		if (!ft_strncmp(data->env[i], to_unset, len))
+		{
+			if (whole_prefix_matched(i, len))
+				break ;
+		}
 	}
 	if (i == nb)
 		return (-1);
 	return (i);
 }
 
-int	whole_prefix_matched(t_databus *data, int i, int len)
+int	whole_prefix_matched(int i, int len)
 {
+	t_databus	*data;
+
+	data = getter_data();
 	return (data->env[i][len] == '=' || data->env[i][len] == '\0');
 }

@@ -41,27 +41,6 @@ void	get_env_content(char *content, char *name, char *env)
 	}
 }
 
-char	*get_content_from_name_alone(char *name)
-{
-	t_databus	*data;
-	int			i;
-	char		content[STR_LIMIT];
-
-	i = -1;
-	data = getter_data();
-	while (++i < data->number_of_envs)
-	{
-		if (!ft_strncmp(name, data->env[i], ft_strlen(name)))
-		{
-			if (!ft_strchr(data->env[i], '='))
-				return (ft_strdup(""));
-			get_env_content(content, name, data->env[i]);
-			return (ft_strdup(content));
-		}
-	}
-	return (ft_strdup(""));
-}
-
 int	is_valid_env_name(char *env)
 {
 	if (!ft_isalpha(*env) && *env != '_')
@@ -74,6 +53,21 @@ int	is_valid_env_name(char *env)
 		env++;
 	}
 	return (TRUE);
+}
+
+char	*get_content_from_name_alone(char *name)
+{
+	int			i;
+	t_databus	*data;
+	char		content[STR_LIMIT];
+
+	data = getter_data();
+	i = getindex_of_env(name);
+	if (!ft_strchr(data->env[i], '='))
+		return (ft_strdup(""));
+	get_env_content(content, name, data->env[i]);
+	return (ft_strdup(content));
+	return (ft_strdup(""));
 }
 
 int	getindex_of_env(char *to_unset)
@@ -91,9 +85,11 @@ int	getindex_of_env(char *to_unset)
 		return (-1);
 	while (++i < nb)
 	{
-		if (!ft_strncmp(data->env[i], to_unset, len)
-			&& whole_prefix_matched(data, i, len))
-			break ;
+		if (!ft_strncmp(data->env[i], to_unset, len))
+		{
+			if (whole_prefix_matched(i, len))
+				break ;
+		}
 	}
 	if (i == nb)
 		return (-1);
