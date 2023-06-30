@@ -31,8 +31,3 @@ char	*get_name(char *str)
 	name[i] = '\0';
 	return (ft_strdup(name));
 }
-
-char	*expand_everything_on_str(char *str)
-{
-	return (expand_dollar_env(expand_dollar_question(str)));
-}
