@@ -196,10 +196,8 @@ char						*get_name(char *str);
 int							has_too_many_args(t_databus *data);
 
 // TOKENIZER
-char						*expand_dollar_question(char *line);
-char						*expand_dollar_env(char *line);
-void						expand_dollar_env_of_all_cmds(void);
-void						expand_dollar_question_of_all_cmds(void);
+char						*expand_dollar(char *line);
+void						handle_expansions(void);
 char						*trimfree(char *s1, char *set);
 int							getindex_of_env(char *to_unset);
 char						*trim(char *s, char reject);
@@ -209,7 +207,7 @@ void						print_data(int env);
 void						lstadd_back(t_node **lst, t_node *nw);
 void						lstfree(t_node **list);
 t_node						*create_new_node(void *content, t_tokens tok);
-void						create_new_cmds_list(void);
+void						retokenize(void);
 char						*expand_everything_on_str(char *str);
 int							whole_prefix_matched(int i, int len);
 

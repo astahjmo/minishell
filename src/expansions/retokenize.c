@@ -16,7 +16,7 @@ static void		walk_on_the_list(t_node **lst, int *joined);
 static char		*join_many_strs(t_node **lst);
 static t_node	*apply_join_many_strs(t_databus *data);
 
-void	create_new_cmds_list(void)
+void	retokenize(void)
 {
 	t_databus	*data;
 
