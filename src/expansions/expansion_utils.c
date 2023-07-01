@@ -32,7 +32,14 @@ char	*get_name(char *str)
 	return (ft_strdup(name));
 }
 
-char	*expand_everything_on_str(char *str)
+char	*handle_frees(char *tmp, char *new_line, char *line, int has_dollar)
 {
-	return (expand_dollar_env(expand_dollar_question(str)));
+	free(tmp);
+	if (!has_dollar)
+	{
+		free(new_line);
+		return (line);
+	}
+	free(line);
+	return (new_line);
 }

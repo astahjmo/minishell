@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:17:14 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/05 19:07:03 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/27 14:14:25 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ void	tokenizer(void)
 	cursor = data->stream;
 	while (cursor && *data->stream != '\0')
 	{
-		if (*cursor == ' ')
-			string_eat_until(&cursor, " ");
+		if (list_last_node(data->cmds->head)
+			&& list_last_node(data->cmds->head)->token == T_SPACE)
+			string_eat_all(&cursor, ' ');
 		if (*cursor == '#')
 			string_eat_all(&cursor, '\n');
 		if (*cursor == '\0')

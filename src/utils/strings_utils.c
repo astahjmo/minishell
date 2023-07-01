@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strings_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:16:20 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/05 19:07:56 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:17:51 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,14 @@ void	string_eat_until(char **word, char *until)
 void	string_eat_at(char **word, char at)
 {
 	char	*line;
+	char	*ck;
 
 	line = *word;
-	while (*line != at)
+	if (*line == at)
 		line++;
+	ck = ft_strchr(line, at);
+	if (ck != NULL)
+		line = ck;
 	line++;
 	*word = line;
 }
@@ -65,14 +69,14 @@ void	string_eat_at_next_token(char **word)
 	char	*temp;
 
 	line = *word;
-	temp = line + 1;
+	temp = line;
 	if (get_token(line) == -1)
 	{
 		if (*line == '\'' || *line == '"')
 			string_eat_at(&temp, *line);
 		else
-			while (temp && *temp != '\0' && *temp != ' '
-				&& get_token(temp) == -1 && get_expansion(temp) == -1)
+			while (*temp != '\0' && *temp != ' ' && get_token(temp) == -1
+				&& !is_quotes(*temp))
 				temp++;
 		*word = temp;
 	}
