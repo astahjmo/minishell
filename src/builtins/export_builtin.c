@@ -57,6 +57,7 @@ static int	is_valid_env_name_err(char *env)
 		if (!ft_isalnum(*env) && *env != '_')
 		{
 			ft_putstr_fd("minishell: export:", 1);
+			ft_putstr_fd(getter_data()->new_env, 1);
 			ft_putstr_fd(" not a valid identifier\n", 2);
 			getter_data()->exit_status = 1;
 			return (0);

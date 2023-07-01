@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/26 22:10:27 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:39:16 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 # include <string.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# define JOINED 1
+# define NOT_JOINED 0
+# define WITH_ENV 1
+# define WITHOUT_ENV 0
 # define PREFIX_LEN 30
 # define BUILTINS "echo cd pwd export unset env exit"
 # define TRUE 1
@@ -34,6 +38,7 @@
 # define SQUOTE '\''
 # define DQUOTE '"'
 # define CYAN "\033[0;36m"
+# define WHITE "\033[0;37m"
 # define GREEN "\033[0;32m"
 # define RED "\033[0;31m"
 # define RESET "\033[0m"
@@ -69,7 +74,8 @@ typedef enum e_tokens
 	T_INPUT_REDIR = 7,
 	T_OUT_REDIR = 8,
 	T_WORD = 9,
-	T_INVALID = -1
+	T_INVALID = -1,
+	T_SPACE = 10
 }							t_tokens;
 
 enum						e_inputii
@@ -190,14 +196,21 @@ char						*get_name(char *str);
 int							has_too_many_args(t_databus *data);
 
 // TOKENIZER
-char						*expand_dollar_question(char *line);
-char						*expand_dollar_env(char *line);
-void						expand_dollar_env_of_all_cmds(void);
-void						expand_dollar_question_of_all_cmds(void);
+char						*expand_dollars(char *line);
+void						handle_expansions(void);
 char						*trimfree(char *s1, char *set);
-int							whole_prefix_matched(t_databus *data, int i,
-								int len);
 int							getindex_of_env(char *to_unset);
 char						*trim(char *s, char reject);
+void						print_tokens(void);
+int							is_quotes(char cmp);
+void						print_data(int env);
+void						lstadd_back(t_node **lst, t_node *nw);
+void						lstfree(t_node **list);
+t_node						*create_new_node(void *content, t_tokens tok);
+void						retokenize(void);
+char						*expand_everything_on_str(char *str);
+int							whole_prefix_matched(int i, int len);
+char						*handle_frees(char *tmp, char *new_line, char *line,
+								int dollar);
 
 #endif

@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_strings.c                                    :+:      :+:    :+:   */
+/*   print_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 15:04:31 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/28 16:44:43 by vcedraz-         ###   ########.fr       */
+/*   Created: 2023/06/27 09:00:25 by johmatos          #+#    #+#             */
+/*   Updated: 2023/06/27 15:25:52 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-char	*get_token_string(t_tokens token)
+void	print_tokens(void)
 {
-	static char	*strings[11] = {
-		"invalid",
-		"<<",
-		">>",
-		"||",
-		"&&",
-		"|",
-		"&",
-		"<",
-		">",
-		"<word>",
-		"<space>"
-	};
+	t_databus	*data;
+	t_node		*cursor;
 
-	return (strings[token]);
+	data = getter_data();
+	cursor = data->cmds->head;
+	while (cursor)
+	{
+		if (cursor->str && *cursor->str != '\0')
+			printf("[%s]\n", cursor->str);
+		else
+			printf("[%s]\n", get_token_string(cursor->token));
+		cursor = cursor->next;
+	}
+	free_all(getter_data());
+	exit(2);
 }

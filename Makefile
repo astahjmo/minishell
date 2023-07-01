@@ -3,24 +3,23 @@ VPATH = ./src \
 		./src/parser ./src/prompt ./src/signals \
  		./src/here_doc ./src/utils \
  		./src/handler_quotes \
- 		./src/tokenizer \
+ 		./src/tokenizer ./src/expansions \
  		./src/syntax ./src/env ./src \
 		./src/builtins ./src/executor
 CFLAGS = -g -Wall -Wextra -Werror
 
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
-		  heredoc.c check_unclosed.c display.c \
-		  init_signal.c clear_bimatrix.c \
-		  find_token.c strings_utils.c strjoinfree_s1.c \
+		  heredoc.c check_unclosed.c display.c ft_linked_list.c \
+	  	  init_signal.c clear_bimatrix.c retokenize.c handle_expansions.c \
+		  find_token.c strings_utils.c strjoinfree_s1.c print_data.c\
 		  tokenizer_operator.c init_parsers.c linked_list.c \
 		  tokenizer_string.c analysis.c free_cmds.c recipeWord.c \
 		  recipeOperator.c init_recipes.c lexer_strings.c \
-		  strjoinfree.c free_all.c expand_dollar_question.c cd_builtin.c \
+		  strjoinfree.c free_all.c cd_builtin.c \
 		  env_builtin.c exit_builtin.c executor.c export_builtin.c \
 		  unset_builtin.c utils_builtins_01.c echo_builtin.c utils_builtins_02.c \
 		  init_env.c init_statics.c is_llmin.c heredoc_utils.c pwd_builtin.c \
-		  expand_dollar_env.c expansion_utils.c
-
+		  expansion_utils.c print_tokens.c
 
 LIB_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
 				 ft_split.c ft_interpol.c ft_strlcpy.c ft_isalpha.c \
