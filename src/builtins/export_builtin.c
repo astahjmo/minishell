@@ -25,9 +25,12 @@ void	export_builtin(t_node *current)
 	if (!is_valid_syntax(current))
 		return ;
 	data = getter_data();
+	current = current->next;
 	while (current->next)
 	{
 		current = current->next;
+		if (current->token != T_WORD)
+			current = current->next;
 		new_env = current->str;
 		len = ft_strlen(new_env) + 1;
 		if (!is_valid_env_name_err(new_env))
@@ -57,7 +60,6 @@ static int	is_valid_env_name_err(char *env)
 		if (!ft_isalnum(*env) && *env != '_')
 		{
 			ft_putstr_fd("minishell: export:", 1);
-			ft_putstr_fd(getter_data()->new_env, 1);
 			ft_putstr_fd(" not a valid identifier\n", 2);
 			getter_data()->exit_status = 1;
 			return (0);

@@ -22,22 +22,21 @@ void	unset_builtin(t_node *current)
 	t_databus	*data;
 
 	data = getter_data();
-	data->exit_status = 0;
 	nb = data->number_of_envs;
-	if (!is_valid_syntax(current))
+	if (!is_valid_syntax(current) || !current->next)
 		return ;
+	current = current->next;
 	while (current->next)
 	{
 		current = current->next;
+		if (current->token != T_WORD)
+			current = current->next;
 		new_env = current->str;
-		i = getindex_of_env_to_unset(data, new_env);
-		if (is_being_initialized(new_env) || (T_INVALID == i))
+		i = getindex_of_env_to_unset(data, new_env) - 1;
+		if (is_being_initialized(new_env) || (T_INVALID == i + 1))
 			continue ;
-		while (i < nb)
-		{
+		while (++i < nb)
 			ft_memmove(&data->env[i], &data->env[i + 1], STR_LIMIT);
-			i++;
-		}
 		data->number_of_envs--;
 	}
 }

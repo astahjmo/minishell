@@ -30,14 +30,11 @@ static inline void	if_stream_not_null(t_databus *data)
 	if (data->stream)
 	{
 		tokenizer();
-		print_data(0);
 		add_history(data->stream);
 		if (is_valid_syntax(data->cmds->head))
 		{
 			handle_expansions();
-			print_data(0);
 			retokenize();
-			print_data(0);
 			executor(data);
 		}
 		free_cmds(data->cmds);

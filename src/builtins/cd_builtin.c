@@ -22,6 +22,8 @@ void	cd_builtin(t_node *current)
 	char	cwd[STR_LIMIT];
 
 	if (current->next)
+		current = current->next;
+	if (current->next)
 		path_address = &current->next->str;
 	else
 	{
