@@ -105,6 +105,21 @@ typedef struct s_data
 	char					**envp;
 }							t_databus;
 
+typedef struct s_split
+{
+	char					**str_arr;
+	int						word_count;
+}							t_split;
+
+typedef struct s_get_cmd_path
+{
+	t_split					*split;
+	char					*slash_address;
+	int						full_possible_size;
+	char					*full_possible_name;
+	char					*path_str;
+}							t_get_cmd_path;
+
 typedef struct s_node
 {
 	enum e_tokens			token;
@@ -213,5 +228,6 @@ int							whole_prefix_matched(int i, int len);
 char						*handle_frees(char *tmp, char *new_line, char *line,
 								int dollar);
 char						*remove_quotes(char *list_str);
+t_split						*split_envp(char *str, char c);
 
 #endif
