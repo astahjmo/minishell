@@ -212,5 +212,6 @@ char						*expand_everything_on_str(char *str);
 int							whole_prefix_matched(int i, int len);
 char						*handle_frees(char *tmp, char *new_line, char *line,
 								int dollar);
+char						*remove_quotes(char *list_str);
 
 #endif

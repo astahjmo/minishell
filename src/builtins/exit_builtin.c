@@ -24,8 +24,8 @@ void	exit_builtin(t_node *current)
 	(void)current;
 	data = getter_data();
 	exit_argument = NULL;
-	if (data->cmds->head->next)
-		exit_argument = data->cmds->head->next->str;
+	if (current->next && current->next->next)
+		exit_argument = current->next->next->str;
 	data->exit_status = 0;
 	if (!exit_argument)
 		free_and_exit(data, NULL);
@@ -85,12 +85,19 @@ int	has_too_many_args(t_databus *data)
 	head = data->cmds->head;
 	too_many_args = NULL;
 	if (head)
-		arg1 = head->next;
-	if (arg1)
-		too_many_args = arg1->next;
-	if (too_many_args)
 	{
-		return (TRUE);
+		arg1 = head->next;
+		if (arg1->token != T_WORD)
+			arg1 = arg1->next;
 	}
+	if (arg1)
+	{
+		arg1 = head->next;
+		if (arg1->token != T_WORD)
+			arg1 = arg1->next;
+		too_many_args = arg1->next;
+	}
+	if (too_many_args)
+		return (TRUE);
 	return (FALSE);
 }
