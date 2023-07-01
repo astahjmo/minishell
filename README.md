@@ -49,9 +49,9 @@ state | '<<' | '>>' | '||' | '&&' | '|' | '&' | '<' | '>' | WORD
 
 - [x] Handle environment variables ($ followed by a sequence of characters) which should expand to their values.
 
-- [ ] Handle ’ (single quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence.
+- [x] Handle ’ (single quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence.
 
-- [ ] Handle " (double quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence except for $ (dollar sign).
+- [x] Handle " (double quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence except for $ (dollar sign).
 
 - [ ] Search and launch the right executable (based on the PATH variable or using a relative or an absolute path
 
