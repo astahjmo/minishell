@@ -32,9 +32,9 @@ void	print_data(int env)
 		printf(RED "    cmds->head:" RESET " %p\n", tmp);
 		printf(RED "    cmds->head->token:" RESET " %d\n", tmp->token);
 		if (*tmp->str == ' ')
-			printf(RED "    cmds->head->str:" RESET " %s\n", "<space>");
+			printf(RED "    cmds->head->str:" RESET " \"%s\"\n", "<space>");
 		else
-			printf(RED "    cmds->head->str:" RESET " %s\n", tmp->str);
+			printf(RED "    cmds->head->str:" RESET " \"%s\"\n", tmp->str);
 		tmp = tmp->next;
 	}
 	printf(RED "cmds: "RESET"%p\n", tmp);

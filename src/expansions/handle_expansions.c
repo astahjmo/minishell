@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_dollar_env.c                                :+:      :+:    :+:   */
+/*   handle_expansions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:58:10 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/26 22:14:51 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/06/30 23:02:03 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	handle_expansions(void)
 	{
 		if (list->str && *list->str != '\'')
 			list->str = expand_dollars(list->str);
+		if (list->str && (*list->str == '"' || *list->str == '\''))
+			list->str = remove_quotes(list->str);
 		list = list->next;
 	}
 }
