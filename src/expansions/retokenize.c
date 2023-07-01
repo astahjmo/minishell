@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static void		walk_on_the_list(t_node **lst, int *joined);
+static void		walk_on_the_list(t_node **lst);
 static char		*join_many_strs(t_node **lst);
 static t_node	*apply_join_many_strs(t_databus *data);
 
@@ -49,23 +49,21 @@ static t_node	*apply_join_many_strs(t_databus *data)
 static char	*join_many_strs(t_node **lst)
 {
 	char	*result;
-	int		joined;
 
 	if (!*lst || !(*lst)->str)
 		return (NULL);
 	result = ft_strdup((*lst)->str);
-	if (!(*lst)->next || !(*lst)->next->str)
+	if (!(*lst)->next || !(*lst)->next->str || *(*lst)->str == ' ')
 		return (result);
 	while (1)
 	{
 		if (!(*lst) || (*lst)->token != T_WORD)
 			break ;
-		else
+		else if ((*lst)->next->token == T_WORD)
 		{
 			result = strjoinfree_s1(result, (*lst)->next->str);
-			joined = 1;
+			walk_on_the_list(lst);
 		}
-		walk_on_the_list(lst, &joined);
 		if (!(*lst)->next || (*lst)->next->token != T_WORD)
 			break ;
 	}
@@ -73,14 +71,8 @@ static char	*join_many_strs(t_node **lst)
 }
 
 // if (joined) we have to walk two times, else only once
-static void	walk_on_the_list(t_node **lst, int *joined)
+static void	walk_on_the_list(t_node **lst)
 {
-	if (*joined)
-	{
-		if ((*lst)->next)
-			*lst = (*lst)->next;
-		(*joined) = 0;
-	}
-	else
+	if ((*lst)->next)
 		*lst = (*lst)->next;
 }
