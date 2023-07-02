@@ -1,5 +1,6 @@
 *.out
 *.a
+*.o
 build/
 vgcore.*
 compile_commands.json
@@ -7,6 +8,7 @@ compile_commands.json
 .vscode/
 .nfs*
 src/readline/*
+readline.supp
 minishell
 tags
 *.supp
