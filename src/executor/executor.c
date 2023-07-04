@@ -12,19 +12,46 @@
 
 #include "libft.h"
 #include "minishell.h"
+#include <stdlib.h>
+
+static int	init_redir(void)
+{
+	int	status;
+
+	status = init_heredoc(getter_data()->cmds->head);
+	if (WEXITSTATUS(status) == 129)
+		return (status);
+	status = init_redirections(getter_data()->cmds->head);
+	return (status);
+}
+
+int	pre_executor(t_databus *data)
+{
+	t_node			*head;
+	unsigned int	status;
+
+	status = init_redir();
+	if (WEXITSTATUS(status) == 129)
+		return (status);
+	head = remove_operators(data->cmds->head);
+	free_cmds(data->cmds);
+	data->cmds->head = head;
+	return (status);
+}
 
 void	executor(t_databus *data)
 {
 	t_tokens		builtin_idx;
 	t_fn_built_exec	**exec;
-	unsigned int	status;
+	t_node			*cursor;
 
 	exec = get_built_func();
-	status = init_heredoc(data->cmds->head);
-	if (WEXITSTATUS(status) == 129)
-		return ;
-	builtin_idx = is_builtin(data);
-	if (builtin_idx != -1)
-		exec[builtin_idx](data->cmds->head);
+	cursor = data->cmds->head;
+	while (cursor)
+	{
+		builtin_idx = is_builtin(data);
+		if (builtin_idx != -1)
+			exec[builtin_idx](cursor);
+	}
 	return ;
 }
