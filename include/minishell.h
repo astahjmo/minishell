@@ -21,6 +21,9 @@
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
 # include <string.h>
 # include <sys/wait.h>
 # include <unistd.h>
@@ -229,5 +232,8 @@ char						*handle_frees(char *tmp, char *new_line, char *line,
 								int dollar);
 char						*remove_quotes(char *list_str);
 t_split						*split_envp(char *str, char c);
+int							init_redirections(t_node *node);
+t_node						*remove_operators(t_node *cursor);
+int							pre_executor(t_databus *data);
 
 #endif

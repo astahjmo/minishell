@@ -5,7 +5,7 @@ VPATH = ./src \
  		./src/handler_quotes \
  		./src/tokenizer ./src/expansions \
  		./src/syntax ./src/env ./src \
-		./src/builtins ./src/executor
+		./src/builtins ./src/executor ./src/redirections
 CFLAGS = -g -Wall -Wextra -Werror
 
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
@@ -19,7 +19,7 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  env_builtin.c exit_builtin.c executor.c export_builtin.c \
 		  unset_builtin.c utils_builtins_01.c echo_builtin.c utils_builtins_02.c \
 		  init_env.c init_statics.c is_llmin.c heredoc_utils.c pwd_builtin.c \
-		  expansion_utils.c print_tokens.c
+		  expansion_utils.c print_tokens.c init_redirections.c utils_executor.c
 
 LIB_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
 				 ft_split.c ft_interpol.c ft_strlcpy.c ft_isalpha.c \
