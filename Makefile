@@ -5,9 +5,9 @@ VPATH = ./src \
  		./src/handler_quotes \
  		./src/tokenizer ./src/expansions \
  		./src/syntax ./src/env ./src \
-		./src/builtins ./src/executor ./src/redirections
-CFLAGS = -g -Wall -Wextra -Werror
+		./src/builtins ./src/executor ./src/redirections ./src/utils
 
+CFLAGS = -g -Wall -Wextra -Werror
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  heredoc.c check_unclosed.c display.c ft_linked_list.c \
 	  	  init_signal.c clear_bimatrix.c retokenize.c handle_expansions.c \
@@ -19,14 +19,15 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  env_builtin.c exit_builtin.c executor.c export_builtin.c \
 		  unset_builtin.c utils_builtins_01.c echo_builtin.c utils_builtins_02.c \
 		  init_env.c init_statics.c is_llmin.c heredoc_utils.c pwd_builtin.c \
-		  expansion_utils.c print_tokens.c init_redirections.c utils_executor.c
+		  expansion_utils.c print_tokens.c init_redirections.c redirections.c \
+		  utils_executor.c
 
 LIB_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
 				 ft_split.c ft_interpol.c ft_strlcpy.c ft_isalpha.c \
 				 ft_isalnum.c ft_putstr_fd.c ft_memmove.c ft_strncmp.c \
 				 ft_strchr.c ft_bzero.c ft_strnstr.c ft_memset.c ft_isdigit.c \
 				 ft_strjoin.c ft_atoull.c ft_atoi.c ft_memcpy.c ft_calloc.c \
-				 ft_strlcat.c ft_strcmp.c ft_safe_free.c \
+				 ft_strlcat.c ft_strcmp.c ft_safe_free.c
 
 BUILDDIR = ./objs/
 LINCLUDE= ./lib/include
@@ -38,13 +39,13 @@ OBJS = $(addprefix $(BUILDDIR), $(SOURCES:.c=.o))
 RCol='\033[0m'
 Bla='\033[0;30m'
 Red='\033[0;31m'
-Gre='\033[1;32m'
+Gre='\033[0;32m'
 Yel='\033[1;33m'
 Blu='\033[0;34m'
 Pur='\033[0;35m'
-Cya='\033[1;36m'
+Cya='\033[0;36m'
 Whi='\033[0;37m'
-cleanline = \033[2K
+cleanline='\033[2K'
 
 MSGBUILD="[$(Gre)+$(RCol)]"
 ALT_MSGBUILD="[$(Cya)+$(RCol)]"
@@ -55,12 +56,13 @@ all: $(NAME)
 makelib:
 	@make minishell -C lib --no-print-directory
 
-$(NAME): $(OBJS) makelib 
+$(NAME): $(OBJS) makelib
 	@make --no-print-directory supp
 	@$(CC) $(CFLAGS) -I$(INCLUDE) $(OBJS) $(MINILIB) -lreadline -o $@
 	@printf "\n$(ALT_MSGBUILD) $@: Program has been created!         \n"
 
 $(BUILDDIR)%.o: %.c
+	@printf "$(MSGBUILD) $(NAME): building $@                                                                   \r"
 	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
 	@printf "$(MSGBUILD) $(NAME): building $@                        \n"
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -I$(LINCLUDE) -c $< -o $@
@@ -98,7 +100,6 @@ supp:
         fun:add_history\n\
         ...\n\
     }\n" > readline.supp
-
 
 clean:
 	@printf "$(MSGRM) removing $(BUILDDIR) dir                   \n"
