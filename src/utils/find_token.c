@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static t_tokens	get_index(char *to_find, int arr_size, char **arr)
+static t_tokens	get_set(char *to_find, int arr_size, char **arr)
 {
 	int	idx;
 
@@ -36,7 +36,7 @@ t_tokens	get_expansion(char *line)
 	t_ushort	arr_size;
 
 	arr_size = 3;
-	return (get_index(line, arr_size, get_expansion_lexes()));
+	return (get_set(line, arr_size, get_expansion_lexes()));
 }
 
 t_tokens	get_token(char *line)
@@ -44,21 +44,10 @@ t_tokens	get_token(char *line)
 	t_ushort	arr_size;
 
 	arr_size = 8;
-	return (get_index(line, arr_size, get_lexemes()));
+	return (get_set(line, arr_size, get_lexemes()));
 }
 
-t_tokens	is_builtin(t_databus *data)
+t_tokens	is_builtin(char *cmd)
 {
-	t_ushort	arr_size;
-	t_tokens	index;
-	t_node		*list;
-
-	arr_size = 9;
-	list = data->cmds->head;
-	if (!list->str)
-		return (T_INVALID);
-	index = get_index(list->str, arr_size, get_builtins());
-	if (2 == index && !list->next)
-		index++;
-	return (index);
+	return (get_set(cmd, 5, get_builtins()));
 }

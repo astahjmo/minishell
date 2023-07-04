@@ -49,9 +49,10 @@ void	executor(t_databus *data)
 	cursor = data->cmds->head;
 	while (cursor)
 	{
-		builtin_idx = is_builtin(data);
+		builtin_idx = is_builtin(cursor->str);
 		if (builtin_idx != -1)
 			exec[builtin_idx](cursor);
+		cursor = cursor->next;
 	}
 	return ;
 }

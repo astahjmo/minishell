@@ -48,6 +48,9 @@
 # define STR_LIMIT 1024
 # define ENVS_LIMIT 8512
 # define SIZEMAX 9223372036854775807
+# define ENV_CONTENT_SZ 32367
+# define ENV_NAME_SZ 1024
+# define HEAP_OVERFLOW_PROTECTION 100000
 
 typedef struct s_node		t_node;
 typedef struct s_data		t_databus;
@@ -190,7 +193,7 @@ void						unset_builtin(t_node *current);
 void						alt_env_builtin(t_node *current);
 int							is_valid_env_name(char *env);
 char						*get_content_from_name_alone(char *name);
-t_tokens					is_builtin(t_databus *data);
+t_tokens					is_builtin(char *cmd);
 void						pwd_builtin(t_node *current);
 int							pwd_idx(void);
 int							oldpwd_idx(void);
