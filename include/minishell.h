@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/28 15:39:16 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/04 12:13:26 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,5 +238,5 @@ t_split						*split_envp(char *str, char c);
 int							init_redirections(t_node *node);
 t_node						*remove_operators(t_node *cursor);
 int							pre_executor(t_databus *data);
-
+t_node						*list_get_token(t_node *node, t_tokens token);
 #endif
