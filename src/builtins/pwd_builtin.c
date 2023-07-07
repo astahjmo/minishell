@@ -17,7 +17,7 @@ void	pwd_builtin(t_node *current)
 	char	cwd[STR_LIMIT];
 
 	(void)current;
-	printf("%s\n", getcwd(cwd, sizeof(cwd)));
+	ft_printf("%s\n", getcwd(cwd, sizeof(cwd)));
 }
 
 int	pwd_idx(void)

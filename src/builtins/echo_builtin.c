@@ -28,8 +28,8 @@ void	echo_builtin(t_node *current)
 	{
 		current = current->next;
 		if (current->str)
-			printf(WHITE "%s" RESET, current->str);
+			ft_printf(WHITE "%s" RESET, current->str);
 	}
 	if (!n_flag)
-		printf("\n");
+		ft_printf("\n");
 }

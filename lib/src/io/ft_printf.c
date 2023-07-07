@@ -20,7 +20,7 @@ int	ft_printf(const char *s, ...)
 	if (!s)
 		return (0);
 	va_start(ap, s);
-	len = fparser(s, ap);
+	len = parser(s, ap);
 	va_end(ap);
 	return (len);
 }
