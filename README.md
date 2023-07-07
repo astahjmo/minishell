@@ -80,3 +80,15 @@ state | '<<' | '>>' | '||' | '&&' | '|' | '&' | '<' | '>' | WORD
 - [x] env with no options or arguments
 
 - [x] exit with no options
+
+### PROBLEMS
+
+- [ ] Exit after export leaks
+
+- [ ] Heredoc doesn't close
+
+- [ ] Heredoc doesn't break after SIGINT
+
+- [ ] exit status in redirections
+
+- [ ] PODE SER INPUT E OUTPUT 
