@@ -15,12 +15,14 @@
 void	pwd_builtin(t_node *current)
 {
 	char	cwd[STR_LIMIT];
+	int		cmd_count;
 
+	cmd_count = getter_data()->cmds->cmd_count;
+	ft_putendl_fd(getcwd(cwd, sizeof(cwd)), command_hook(cmd_count)[OUTPUT]);
 	(void)current;
-	ft_printf("%s\n", getcwd(cwd, sizeof(cwd)));
 }
 
-int	pwd_idx(void)
+int	get_pwd_idx(void)
 {
 	t_databus	*data;
 	int			i;
@@ -37,7 +39,7 @@ int	pwd_idx(void)
 	return (data->number_of_envs);
 }
 
-int	oldpwd_idx(void)
+int	get_oldpwd_idx(void)
 {
 	t_databus	*data;
 	int			i;

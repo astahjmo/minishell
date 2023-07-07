@@ -39,7 +39,7 @@ MINISHELL_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
 				 ft_strchr.c ft_bzero.c ft_strnstr.c ft_memset.c ft_isdigit.c \
 				 ft_strjoin.c ft_atoull.c ft_atoi.c ft_memcpy.c ft_calloc.c \
 				 ft_strlcat.c ft_strcmp.c ft_safe_free.c \
-				 fmt_to_char.c fmt_to_decimal.c \
+				 fmt_to_char.c fmt_to_decimal.c ft_putendl_fd.c \
 				 fmt_to_hex.c fmt_to_pointer.c fmt_to_string.c fmt_to_udecimal.c ft_putchar_fd.c \
 				 parser.c ft_ithex.c ft_ubase.c ft_toupper.c ft_printf.c
 
