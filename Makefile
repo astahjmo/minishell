@@ -8,7 +8,7 @@ VPATH = ./src \
 		./src/builtins ./src/executor ./src/redirections ./src/utils
 
 CFLAGS = -g -Wall -Wextra -Werror
-
+CC = clang-12
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  heredoc.c check_unclosed.c display.c ft_linked_list.c \
 	  	  init_signal.c clear_bimatrix.c retokenize.c handle_expansions.c \
@@ -54,6 +54,10 @@ ALT_MSGBUILD="[$(Cya)+$(RCol)]"
 MSGRM="[$(Red)-$(RCol)]"
 
 all: $(NAME)
+
+ifdef ACTIONS
+    CC = clang-12
+endif
 
 makelib:
 	@make minishell -C lib --no-print-directory
