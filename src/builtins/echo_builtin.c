@@ -17,8 +17,8 @@ void	echo_builtin(t_node *current)
 	int	n_flag;
 	int	cmd_count;
 
-	n_flag = 0;
 	cmd_count = getter_data()->cmds->cmd_count;
+	n_flag = 0;
 	if (current->next)
 		current = current->next;
 	while (current->next && !ft_strcmp("-n", current->next->str))
