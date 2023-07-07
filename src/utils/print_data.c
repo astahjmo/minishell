@@ -20,24 +20,24 @@ void	print_data(int env)
 	t_node		*tmp;
 
 	data = getter_data();
-	printf(RED "number_of_envs:" RESET " %d\n", data->number_of_envs);
-	printf(RED "type_stream:" RESET " %d\n", data->type_stream);
-	printf(RED "exit_status:" RESET " %d\n", data->exit_status);
-	printf(RED "prompt:" RESET " %s\n", data->prompt);
-	printf(RED "stream:" RESET " %s\n", data->stream);
-	printf(RED "cmds:" RESET " %p\n", data->cmds);
+	ft_printf(RED "number_of_envs:" RESET " %d\n", data->number_of_envs);
+	ft_printf(RED "type_stream:" RESET " %d\n", data->type_stream);
+	ft_printf(RED "exit_status:" RESET " %d\n", data->exit_status);
+	ft_printf(RED "prompt:" RESET " %s\n", data->prompt);
+	ft_printf(RED "stream:" RESET " %s\n", data->stream);
+	ft_printf(RED "cmds:" RESET " %p\n", data->cmds);
 	tmp = data->cmds->head;
 	while (tmp)
 	{
-		printf(RED "    cmds->head:" RESET " %p\n", tmp);
-		printf(RED "    cmds->head->token:" RESET " %d\n", tmp->token);
+		ft_printf(RED "    cmds->head:" RESET " %p\n", tmp);
+		ft_printf(RED "    cmds->head->token:" RESET " %d\n", tmp->token);
 		if (*tmp->str == ' ')
-			printf(RED "    cmds->head->str:" RESET " \"%s\"\n", "<space>");
+			ft_printf(RED "    cmds->head->str:" RESET " \"%s\"\n", "<space>");
 		else
-			printf(RED "    cmds->head->str:" RESET " \"%s\"\n", tmp->str);
+			ft_printf(RED "    cmds->head->str:" RESET " \"%s\"\n", tmp->str);
 		tmp = tmp->next;
 	}
-	printf(RED "cmds: "RESET"%p\n", tmp);
+	ft_printf(RED "cmds: "RESET"%p\n", tmp);
 	if (env)
 		print_envs();
 }
@@ -50,10 +50,10 @@ void	print_envs(void)
 	i = -1;
 	data = getter_data();
 	{
-		printf(RED "envs:" RESET " %p\n", data->cmds);
-		printf(RED "envp:" RESET " %p\n", data->envp);
-		printf(RED "number_of_envs:" RESET "%d\n", data->number_of_envs);
+		ft_printf(RED "envs:" RESET " %p\n", data->cmds);
+		ft_printf(RED "envp:" RESET " %p\n", data->envp);
+		ft_printf(RED "number_of_envs:" RESET "%d\n", data->number_of_envs);
 		while (++i < data->number_of_envs)
-			printf("env[%d]: %s\n", i, data->env[i]);
+			ft_printf("env[%d]: %s\n", i, data->env[i]);
 	}
 }

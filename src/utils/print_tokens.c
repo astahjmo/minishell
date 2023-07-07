@@ -24,9 +24,9 @@ void	print_tokens(void)
 	while (cursor)
 	{
 		if (cursor->str && *cursor->str != '\0')
-			printf("[%s]\n", cursor->str);
+			ft_printf("[%s]\n", cursor->str);
 		else
-			printf("[%s]\n", get_token_string(cursor->token));
+			ft_printf("[%s]\n", get_token_string(cursor->token));
 		cursor = cursor->next;
 	}
 	free_all(getter_data());

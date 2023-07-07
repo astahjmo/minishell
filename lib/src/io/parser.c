@@ -33,7 +33,7 @@ static int	handler_parms(char spec, va_list ap)
 	return (0);
 }
 
-int	fparser(const char *s, va_list ap)
+int	parser(const char *s, va_list ap)
 {
 	int		index;
 	int		len;
