@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   one_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/04 13:09:04 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/07 19:55:50 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,34 @@ int	*getter_fds(void)
 	return (fds);
 }
 
+static void	dup2_and_close(int fd, int clone)
+{
+	dup2(fd, clone);
+	close(fd);
+}
+
 static void	fork_and_execute(t_node *cmds)
 {
 	pid_t	pid;
 	int		i;
+	int		*fds;
+	int		cmd_count;
 
+	cmd_count = getter_data()->cmds->cmd_count;
 	pid = fork();
 	if (pid < 0)
 		printf("sda\n");
 	i = 0;
+	fds = command_hook(cmd_count);
 	if (pid == 0)
+	{
+		if (fds[INPUT] > 2)
+			dup2_and_close(fds[INPUT], STDIN_FILENO);
+		if (fds[OUTPUT] > 2)
+			dup2_and_close(fds[OUTPUT], STDOUT_FILENO);
 		exec_command(cmds);
+		exit(1);
+	}
 	else
 		waitpid(pid, &i, 0);
 	getter_data()->exit_status = WEXITSTATUS(i);

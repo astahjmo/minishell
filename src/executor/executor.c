@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/04 13:09:04 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/07 20:14:22 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,7 @@
 #include "minishell.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-static int	init_redir(void)
-{
-	int	status;
-
-	status = init_heredoc(getter_data()->cmds->head);
-	if (WEXITSTATUS(status) == 129)
-		return (status);
-	status = init_redirections(getter_data()->cmds->head);
-	return (status);
-}
-
-int	pre_executor(t_databus *data)
-{
-	t_node			*head;
-	unsigned int	status;
-
-	status = init_redir();
-	if (WEXITSTATUS(status) == 129)
-		return (status);
-	head = remove_operators(data->cmds->head);
-	free_cmds(data->cmds);
-	data->cmds->head = head;
-	return (status);
-}
+#include <unistd.h>
 
 void	create_commnd_list(t_databus *data, t_node **arr)
 {
@@ -86,6 +62,27 @@ t_node	**prepare_commands(t_databus *data, int *i)
 	return (cmds);
 }
 
+void	after_execution(void)
+{
+	int	*i_redir;
+	int	*o_redir;
+	int	count;
+
+	i_redir = getter_heredoc_fd();
+	o_redir = getter_redirections();
+	count = 0;
+	while (count <= getter_data()->cmds->cmd_count)
+	{
+		if (i_redir[count] > 2)
+			close(i_redir[count]);
+		if (o_redir[count] > 2)
+			close(o_redir[count]);
+		i_redir[count] = 0;
+		o_redir[count] = 0;
+		count++;
+	}
+}
+
 void	executor(t_databus *data)
 {
 	t_node	**cmds;
@@ -94,5 +91,17 @@ void	executor(t_databus *data)
 	i = 1;
 	cmds = prepare_commands(data, &i);
 	getter_data()->cmds->cmd_count = 0;
-	one_command(cmds[getter_data()->cmds->cmd_count]);
+	if (i == 1)
+		one_command(cmds[getter_data()->cmds->cmd_count]);
+	else
+	{
+		while (i-- != 1)
+		{
+			getter_data()->cmds->cmd_count++;
+		}
+		one_command(cmds[getter_data()->cmds->cmd_count]);
+	}
+
+	after_execution();
+	free(cmds);
 }
