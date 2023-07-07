@@ -45,6 +45,7 @@ void	create_commnd_list(t_databus *data, t_node **arr)
 	t_node	*cursor;
 	int		i;
 	t_node	*head;
+	t_node	*tmp;
 
 	i = 0;
 	cursor = data->cmds->head;
@@ -56,66 +57,41 @@ void	create_commnd_list(t_databus *data, t_node **arr)
 			cursor = cursor->next;
 			continue ;
 		}
+		if (cursor)
+		{
+			tmp = cursor->next;
+			cursor->next = NULL;
+			cursor = tmp;
+		}
 		arr[i] = head;
 		i++;
 		cursor = list_get_token(cursor, T_WORD);
 	}
 }
 
-t_node	**prepare_commands(t_databus *data)
+t_node	**prepare_commands(t_databus *data, int *i)
 {
 	t_node	*cursor;
-	int		i;
 	t_node	**cmds;
 
 	cursor = data->cmds->head;
-	i = 0;
 	while (cursor)
 	{
 		if (cursor->token == T_PIPE)
-			i++;
+			(*i)++;
 		cursor = cursor->next;
 	}
-	cmds = malloc(i * sizeof(t_node *) + 1);
+	cmds = ft_calloc(*i, sizeof(t_node *));
 	create_commnd_list(data, cmds);
 	return (cmds);
 }
 
-void	print_tokens_arrs(t_node **arr)
-{
-	int		i;
-	t_node	*cursor;
-
-	i = 0;
-	while (arr[i])
-	{
-		cursor = arr[i];
-		while (cursor)
-		{
-			if (cursor->str)
-				printf("%s\n", cursor->str);
-			cursor = cursor->next;
-		}
-		i++;
-	}
-}
-
 void	executor(t_databus *data)
 {
-	t_tokens		builtin_idx;
-	t_fn_built_exec	**exec;
-	t_node			*cursor;
 	t_node			**cmds;
+	int				i;
 
-	exec = get_built_func();
-	cmds = prepare_commands(data);
-	cursor = data->cmds->head;
-	while (cursor)
-	{
-		builtin_idx = is_builtin(cursor->str);
-		if (builtin_idx != -1)
-			exec[builtin_idx](cursor);
-		cursor = cursor->next;
-	}
-	return ;
+	i = 1;
+	cmds = prepare_commands(data, &i);
+	one_command(cmds[0]);
 }
