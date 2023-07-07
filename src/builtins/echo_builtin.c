@@ -15,7 +15,9 @@
 void	echo_builtin(t_node *current)
 {
 	int	n_flag;
+	int	cmd_count;
 
+	cmd_count = getter_data()->cmds->cmd_count;
 	n_flag = 0;
 	if (current->next)
 		current = current->next;
@@ -28,8 +30,8 @@ void	echo_builtin(t_node *current)
 	{
 		current = current->next;
 		if (current->str)
-			ft_printf(WHITE "%s" RESET, current->str);
+			ft_putstr_fd(current->str, command_hook(cmd_count)[OUTPUT]);
 	}
 	if (!n_flag)
-		ft_printf("\n");
+		ft_putstr_fd("\n", command_hook(cmd_count)[OUTPUT]);
 }
