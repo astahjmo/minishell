@@ -74,6 +74,6 @@ int	is_valid_syntax(t_node *head)
 	}
 	if (progress != T_INVALID)
 		return (TRUE);
-	printf("Error: %s\n", get_token_string(state));
+	ft_printf("Error: %s\n", get_token_string(state));
 	return (FALSE);
 }

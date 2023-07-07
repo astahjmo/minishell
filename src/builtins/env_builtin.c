@@ -30,9 +30,9 @@ void	env_builtin(t_node *current)
 		if (ft_strchr(data->env[i], '='))
 		{
 			if (is_initialized_to_zero(content))
-				printf("%s=\n", name);
+				ft_printf("%s=\n", name);
 			else
-				printf("%s=%s\n", name, content);
+				ft_printf("%s=%s\n", name, content);
 		}
 	}
 	(void)current;
@@ -56,12 +56,12 @@ void	alt_env_builtin(t_node *current)
 		if (ft_strchr(data->env[i], '='))
 		{
 			if (is_initialized_to_zero(content))
-				printf("declare -x %s=\"\"\n", name);
+				ft_printf("declare -x %s=\"\"\n", name);
 			else
-				printf("declare -x %s=\"%s\"\n", name, content);
+				ft_printf("declare -x %s=\"%s\"\n", name, content);
 		}
 		else
-			printf("declare -x %s\n", name);
+			ft_printf("declare -x %s\n", name);
 	}
 	(void)current;
 }
