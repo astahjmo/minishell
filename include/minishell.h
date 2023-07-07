@@ -19,6 +19,9 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -239,4 +242,9 @@ int							init_redirections(t_node *node);
 t_node						*remove_operators(t_node *cursor);
 int							pre_executor(t_databus *data);
 t_node						*list_get_token(t_node *node, t_tokens token);
+char						*get_cmd_path(char *cmd);
+void						exec_command(t_node *cmd);
+void						one_command(t_node *cmds);
+int							command_hook(int cmd_count);
+int							*getter_redirections(void);
 #endif

@@ -21,7 +21,7 @@ static t_tokens	get_set(char *to_find, int arr_size, char **arr)
 	{
 		if (ft_strncmp(to_find, arr[idx], ft_strlen(arr[idx])) == 0)
 		{
-			if (arr_size == 8)
+			if (arr == get_lexemes())
 				return (idx + 1);
 			else
 				return (idx);
@@ -49,5 +49,5 @@ t_tokens	get_token(char *line)
 
 t_tokens	is_builtin(char *cmd)
 {
-	return (get_set(cmd, 5, get_builtins()));
+	return (get_set(cmd, 7, get_builtins()));
 }

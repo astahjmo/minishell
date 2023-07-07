@@ -31,7 +31,7 @@ char	**get_lexemes(void)
 
 char	**get_builtins(void)
 {
-	static char	*builtins[7] = {
+	static char	*builtins[8] = {
 		"exit",
 		"env",
 		"export",
@@ -39,6 +39,7 @@ char	**get_builtins(void)
 		"echo",
 		"pwd",
 		"cd",
+		NULL
 	};
 
 	return (builtins);

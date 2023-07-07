@@ -24,7 +24,7 @@ static int	setup_redir(t_node *node, t_tokens token)
 	if (token == T_OUT_REDIR)
 		fd = open(path, O_RDWR | O_TRUNC | O_CREAT, 0666);
 	else
-		fd = open(path, O_RDWR | O_APPEND, 0666);
+		fd = open(path, O_RDWR | O_CREAT | O_APPEND, 0666);
 	return (fd);
 }
 

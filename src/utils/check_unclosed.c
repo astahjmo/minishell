@@ -21,10 +21,10 @@ int	string_is_equal(char *s1, char *s2)
 	a = ft_strlen(s1);
 	b = ft_strlen(s2);
 	if (a != b)
-		return (0);
+		return (FALSE);
 	if (ft_strncmp(s1, s2, a + b) == 0)
-		return (1);
-	return (0);
+		return (TRUE);
+	return (FALSE);
 }
 
 int	check_unclosed_quotes(char *line, char *delimiter)
