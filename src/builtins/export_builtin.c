@@ -73,7 +73,7 @@ static int	increase_number_of_envs(t_databus *data)
 {
 	if ((data->number_of_envs + 1) == ENVS_LIMIT)
 	{
-		printf("minishell: too many environment variables\n");
+		ft_printf("minishell: too many environment variables\n");
 		getter_data()->exit_status = 1;
 		return (0);
 	}

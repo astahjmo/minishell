@@ -26,7 +26,7 @@ typedef unsigned long long	t_ull;
 
 // Io
 int							ft_printf(const char *str, ...);
-int							fparser(const char *s, va_list ap);
+int							parser(const char *s, va_list ap);
 int							fmt_to_decimal(int nbr);
 int							fmt_to_udecimal(unsigned int nbr);
 int							fmt_to_char(char s);
