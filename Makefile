@@ -73,6 +73,10 @@ $(BUILDDIR)%.o: %.c
 	@printf "$(MSGBUILD) $(NAME): building $@                        \n"
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -I$(LINCLUDE) -c $< -o $@
 
+test:
+	@echo $(CC)
+	@$(CC) --version
+
 supp:
 	@printf "{\n\
         <Readline>\n\
