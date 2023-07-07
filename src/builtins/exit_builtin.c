@@ -87,7 +87,7 @@ int	has_too_many_args(t_databus *data)
 	if (head)
 	{
 		arg1 = head->next;
-		if (arg1->token != T_WORD)
+		if (arg1 && arg1->token != T_WORD)
 			arg1 = arg1->next;
 	}
 	if (arg1)
