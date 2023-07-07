@@ -8,6 +8,7 @@ VPATH = ./src \
 		./src/builtins ./src/executor ./src/redirections ./src/utils
 
 CFLAGS = -g -Wall -Wextra -Werror
+
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  heredoc.c check_unclosed.c display.c ft_linked_list.c \
 	  	  init_signal.c clear_bimatrix.c retokenize.c handle_expansions.c \
@@ -20,7 +21,8 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  unset_builtin.c utils_builtins_01.c echo_builtin.c utils_builtins_02.c \
 		  init_env.c init_statics.c is_llmin.c heredoc_utils.c pwd_builtin.c \
 		  expansion_utils.c print_tokens.c init_redirections.c redirections.c \
-		  utils_executor.c
+		  utils_executor.c one_command.c exec_command.c get_cmd_path.c \
+		  split_envp.c command_setuphook.c
 
 LIB_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
 				 ft_split.c ft_interpol.c ft_strlcpy.c ft_isalpha.c \
