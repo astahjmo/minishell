@@ -56,11 +56,11 @@ static int	path_is_valid(int chdir_return)
 
 static void	update_pwd_and_oldpwd(char *cwd)
 {
-	t_databus	*data;
-	int			pwdlen;
+	t_databus	*d;
+	int			len;
 
-	data = getter_data();
-	pwdlen = ft_strlen(data->env[pwd_idx()]);
-	ft_strlcpy(data->env[oldpwd_idx()] + 7, data->env[pwd_idx()] + 4, pwdlen);
-	ft_strlcpy(data->env[pwd_idx()] + 4, cwd, ft_strlen(cwd) + 1);
+	d = getter_data();
+	len = ft_strlen(d->env[get_pwd_idx()]);
+	ft_strlcpy(d->env[get_oldpwd_idx()] + 7, d->env[get_pwd_idx()] + 4, len);
+	ft_strlcpy(d->env[get_pwd_idx()] + 4, cwd, ft_strlen(cwd) + 1);
 }

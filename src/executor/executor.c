@@ -88,10 +88,11 @@ t_node	**prepare_commands(t_databus *data, int *i)
 
 void	executor(t_databus *data)
 {
-	t_node			**cmds;
-	int				i;
+	t_node	**cmds;
+	int		i;
 
 	i = 1;
 	cmds = prepare_commands(data, &i);
-	one_command(cmds[0]);
+	getter_data()->cmds->cmd_count = 0;
+	one_command(cmds[getter_data()->cmds->cmd_count]);
 }

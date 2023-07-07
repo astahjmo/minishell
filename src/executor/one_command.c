@@ -20,20 +20,27 @@
 #include <time.h>
 #include <unistd.h>
 
-int	command_hook(int cmd_count)
+int	*command_hook(int cmd_count)
 {
 	int	*o_redir;
 	int	*i_redir;
-	int	re;
+	int	*re;
 
-	re = 0;
+	re = getter_fds();
 	i_redir = getter_heredoc_fd();
 	o_redir = getter_redirections();
 	if (i_redir[cmd_count] > 2)
-		re = dup2(i_redir[cmd_count], STDIN_FILENO);
+		re[INPUT] = i_redir[cmd_count];
 	if (o_redir[cmd_count] > 2)
-		re = dup2(o_redir[cmd_count], STDOUT_FILENO);
+		re[OUTPUT] = o_redir[cmd_count];
 	return (re);
+}
+
+int	*getter_fds(void)
+{
+	static int	fds[2] = {INPUT, OUTPUT};
+
+	return (fds);
 }
 
 static void	fork_and_execute(t_node *cmds)
