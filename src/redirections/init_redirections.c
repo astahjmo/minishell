@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "minishell.h"
 
-static int	setup_redir(t_node *node, t_tokens token)
+static int	setup_out_redir(t_node *node, t_tokens token)
 {
 	int		fd;
 	char	*path;
@@ -41,7 +41,7 @@ static void	open_redir(t_node *node, int *fds, int *status)
 		{
 			if (fds[aux])
 				close(fds[aux]);
-			fds[aux] = setup_redir(node, node->token);
+			fds[aux] = setup_out_redir(node, node->token);
 		}
 		node = node->next;
 	}
