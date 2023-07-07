@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/28 15:39:16 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/04 12:13:26 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -45,6 +51,9 @@
 # define STR_LIMIT 1024
 # define ENVS_LIMIT 8512
 # define SIZEMAX 9223372036854775807
+# define ENV_CONTENT_SZ 32367
+# define ENV_NAME_SZ 1024
+# define HEAP_OVERFLOW_PROTECTION 100000
 
 typedef struct s_node		t_node;
 typedef struct s_data		t_databus;
@@ -187,7 +196,7 @@ void						unset_builtin(t_node *current);
 void						alt_env_builtin(t_node *current);
 int							is_valid_env_name(char *env);
 char						*get_content_from_name_alone(char *name);
-t_tokens					is_builtin(t_databus *data);
+t_tokens					is_builtin(char *cmd);
 void						pwd_builtin(t_node *current);
 int							pwd_idx(void);
 int							oldpwd_idx(void);
@@ -229,5 +238,13 @@ char						*handle_frees(char *tmp, char *new_line, char *line,
 								int dollar);
 char						*remove_quotes(char *list_str);
 t_split						*split_envp(char *str, char c);
-
+int							init_redirections(t_node *node);
+t_node						*remove_operators(t_node *cursor);
+int							pre_executor(t_databus *data);
+t_node						*list_get_token(t_node *node, t_tokens token);
+char						*get_cmd_path(char *cmd);
+void						exec_command(t_node *cmd);
+void						one_command(t_node *cmds);
+int							command_hook(int cmd_count);
+int							*getter_redirections(void);
 #endif

@@ -35,6 +35,7 @@ static inline void	if_stream_not_null(t_databus *data)
 		{
 			handle_expansions();
 			retokenize();
+			pre_executor(data);
 			executor(data);
 		}
 		free_cmds(data->cmds);

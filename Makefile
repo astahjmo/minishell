@@ -5,7 +5,8 @@ VPATH = ./src \
  		./src/handler_quotes \
  		./src/tokenizer ./src/expansions \
  		./src/syntax ./src/env ./src \
-		./src/builtins ./src/executor
+		./src/builtins ./src/executor ./src/redirections ./src/utils
+
 CFLAGS = -g -Wall -Wextra -Werror
 
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
@@ -19,7 +20,9 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  env_builtin.c exit_builtin.c executor.c export_builtin.c \
 		  unset_builtin.c utils_builtins_01.c echo_builtin.c utils_builtins_02.c \
 		  init_env.c init_statics.c is_llmin.c heredoc_utils.c pwd_builtin.c \
-		  expansion_utils.c print_tokens.c
+		  expansion_utils.c print_tokens.c init_redirections.c redirections.c \
+		  utils_executor.c one_command.c exec_command.c get_cmd_path.c \
+		  split_envp.c command_setuphook.c
 
 LIB_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
 				 ft_split.c ft_interpol.c ft_strlcpy.c ft_isalpha.c \
@@ -38,13 +41,13 @@ OBJS = $(addprefix $(BUILDDIR), $(SOURCES:.c=.o))
 RCol='\033[0m'
 Bla='\033[0;30m'
 Red='\033[0;31m'
-Gre='\033[1;32m'
+Gre='\033[0;32m'
 Yel='\033[1;33m'
 Blu='\033[0;34m'
 Pur='\033[0;35m'
-Cya='\033[1;36m'
+Cya='\033[0;36m'
 Whi='\033[0;37m'
-cleanline = \033[2K
+cleanline='\033[2K'
 
 MSGBUILD="[$(Gre)+$(RCol)]"
 ALT_MSGBUILD="[$(Cya)+$(RCol)]"
@@ -55,12 +58,13 @@ all: $(NAME)
 makelib:
 	@make minishell -C lib --no-print-directory
 
-$(NAME): $(OBJS) makelib 
+$(NAME): $(OBJS) makelib
 	@make --no-print-directory supp
 	@$(CC) $(CFLAGS) -I$(INCLUDE) $(OBJS) $(MINILIB) -lreadline -o $@
 	@printf "\n$(ALT_MSGBUILD) $@: Program has been created!         \n"
 
 $(BUILDDIR)%.o: %.c
+	@printf "$(MSGBUILD) $(NAME): building $@                                                                   \r"
 	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
 	@printf "$(MSGBUILD) $(NAME): building $@                        \n"
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -I$(LINCLUDE) -c $< -o $@
@@ -98,7 +102,6 @@ supp:
         fun:add_history\n\
         ...\n\
     }\n" > readline.supp
-
 
 clean:
 	@printf "$(MSGRM) removing $(BUILDDIR) dir                   \n"
