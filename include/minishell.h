@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/04 12:13:26 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/08 16:04:11 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,13 @@ typedef struct s_data
 	char					*new_env;
 	char					**envp;
 }							t_databus;
+
+typedef struct s_trings
+{
+	char					str1;
+	char					str2;
+	char					str3;
+}							t_strings;
 
 typedef struct s_split
 {
@@ -248,4 +255,5 @@ void						one_command(t_node *cmds);
 int							*command_hook(int cmd_count);
 int							*getter_redirections(void);
 int							*getter_fds(void);
+
 #endif
