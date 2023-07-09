@@ -14,5 +14,8 @@
 
 void	ft_putchar_fd(char c, int fd)
 {
-	write(fd, &c, 1);
+	int	ignore_return;
+
+	ignore_return = write(fd, &c, 1);
+	(void)ignore_return;
 }

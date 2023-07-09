@@ -14,7 +14,7 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
-	int ignore_return;
+	int	ignore_return;
 
 	ignore_return = 0;
 	while (*s)
