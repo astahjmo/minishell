@@ -101,7 +101,6 @@ void	executor(t_databus *data)
 		}
 		one_command(cmds[getter_data()->cmds->cmd_count]);
 	}
-
 	after_execution();
 	free(cmds);
 }

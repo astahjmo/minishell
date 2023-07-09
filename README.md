@@ -83,12 +83,14 @@ state | '<<' | '>>' | '||' | '&&' | '|' | '&' | '<' | '>' | WORD
 
 ### PROBLEMS
 
-- [ ] Exit after export leaks
+- [x] PODE SER INPUT E OUTPUT 
+
+- [x?] Exit after export leaks
+
+- [ ] Finish interpolation
+
+- [ ] Make redirections work with child processes
 
 - [ ] Heredoc doesn't close
 
 - [ ] Heredoc doesn't break after SIGINT
-
-- [ ] exit status in redirections
-
-- [ ] PODE SER INPUT E OUTPUT 
