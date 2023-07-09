@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/08 16:04:11 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/09 20:04:14 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@
 # define DOLLAR '$'
 # define SQUOTE '\''
 # define DQUOTE '"'
-# define CYAN "\033[0;36m"
 # define WHITE "\033[0;37m"
 # define GREEN "\033[0;32m"
 # define RED "\033[0;31m"
+# define CYAN "\033[0;36m"
 # define RESET "\033[0m"
 # define STR_LIMIT 1024
 # define ENVS_LIMIT 8512
@@ -116,9 +116,9 @@ typedef struct s_data
 
 typedef struct s_trings
 {
-	char					str1;
-	char					str2;
-	char					str3;
+	char					*next;
+	char					*str2;
+	char					*str3;
 }							t_strings;
 
 typedef struct s_split
@@ -255,5 +255,6 @@ void						one_command(t_node *cmds);
 int							*command_hook(int cmd_count);
 int							*getter_redirections(void);
 int							*getter_fds(void);
+char						*miniprintf(char *fmt, char *col, t_strings strs);
 
 #endif
