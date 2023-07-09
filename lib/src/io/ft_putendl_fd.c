@@ -14,7 +14,11 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
+	int ignore_return;
+
+	ignore_return = 0;
 	while (*s)
-		write(fd, &(*s++), 1);
-	write(fd, "\n", 1);
+		ignore_return += write(fd, &(*s++), 1);
+	ignore_return += write(fd, "\n", 1);
+	(void)ignore_return;
 }
