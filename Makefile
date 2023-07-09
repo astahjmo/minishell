@@ -8,7 +8,6 @@ VPATH = ./src \
 		./src/builtins ./src/executor ./src/redirections ./src/utils
 
 CFLAGS = -g -Wall -Wextra -Werror
-CC = clang-12
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  heredoc.c check_unclosed.c display.c ft_linked_list.c \
 	  	  init_signal.c clear_bimatrix.c retokenize.c handle_expansions.c \
@@ -16,7 +15,7 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  tokenizer_operator.c init_parsers.c linked_list.c \
 		  tokenizer_string.c analysis.c free_cmds.c recipeWord.c \
 		  recipeOperator.c init_recipes.c lexer_strings.c \
-		  strjoinfree.c free_all.c cd_builtin.c \
+		  strjoinfree.c free_all.c cd_builtin.c miniprintf.c\
 		  env_builtin.c exit_builtin.c executor.c export_builtin.c \
 		  unset_builtin.c utils_builtins_01.c echo_builtin.c utils_builtins_02.c \
 		  init_env.c init_statics.c is_llmin.c heredoc_utils.c pwd_builtin.c \
