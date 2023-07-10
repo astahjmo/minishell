@@ -255,6 +255,6 @@ void						one_command(t_node *cmds);
 int							*command_hook(int cmd_count);
 int							*getter_redirections(void);
 int							*getter_fds(void);
-char						*miniprintf(char *fmt, char *col, t_strings strs);
+char						*mini_sprintf(char *fmt, t_strings strs);
 
 #endif
