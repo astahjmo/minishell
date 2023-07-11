@@ -18,7 +18,7 @@ void	echo_builtin(t_node *current)
 	int	cmd_io;
 
 	n_flag = 0;
-	cmd_io = getter_data()->cmds->cmd_io;
+	cmd_io = getter_data()->cmds->idx;
 	if (current->next)
 		current = current->next;
 	while (current->next && !ft_strcmp("-n", current->next->str))

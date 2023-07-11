@@ -96,7 +96,7 @@ enum						e_inputii
 typedef struct s_cmds
 {
 	int						exit_code;
-	int						cmd_io;
+	int						idx;
 	t_node					*head;
 }							t_cmds;
 
