@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:31:33 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/21 22:50:36 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:09:05 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static void	free_and_exit(t_databus *data, char *failure_message)
 		ft_putstr_fd(failure_message, 2);
 	if (isatty(STDIN_FILENO))
 		ft_putstr_fd("exit\n", 1);
+	free(data->cmds->arr_cmds);
+	free_cmds(data->cmds);
 	free_all(data);
 	exit(data->exit_status);
 }
