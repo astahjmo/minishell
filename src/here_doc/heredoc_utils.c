@@ -13,40 +13,44 @@
 #include "libft.h"
 #include "minishell.h"
 
-static void	open_heredoc(t_node *node, int *fds, int *status)
-{
-	int		aux;
-
-	aux = 0;
-	while (node != NULL && *status != 2)
-	{
-		if (node->token == T_PIPE)
-			aux++;
-		if (node->token == T_HERE_DOC)
-		{
-			if (fds[aux])
-				close(fds[aux]);
-			fds[aux] = here_doc(status, node->next->str);
-		}
-		node = node->next;
-	}
-}
-
 int	*getter_heredoc_fd(void)
 {
-	static int	heredoc_fds[MAX_FD] = {0};
+	static int	heredoc_fds[MAX_FD];
 
+	ft_bzero(heredoc_fds, sizeof(*heredoc_fds));
 	return (heredoc_fds);
 }
 
 int	init_heredoc(t_node *node)
 {
-	int		*heredoc_fd;
-	int		status;
+	int	*heredoc_fd;
+	int	status;
 
 	heredoc_fd = getter_heredoc_fd();
 	status = 0;
 	ft_bzero(heredoc_fd, MAX_FD);
 	open_heredoc(node, heredoc_fd, &status);
 	return (status);
+}
+
+char	**getter_buff(void)
+{
+	static char	*buf;
+
+	buf = NULL;
+	return (&buf);
+}
+
+void	sig_handler(int sig)
+{
+	t_databus	*data;
+	char		**buff;
+
+	if (sig != SIGINT)
+		return ;
+	data = getter_data();
+	buff = getter_buff();
+	free(*buff);
+	free_all(data);
+	exit(129);
 }

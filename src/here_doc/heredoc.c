@@ -14,38 +14,45 @@
 #include "minishell.h"
 #include <readline/readline.h>
 
-static char	**getter_buff(void)
-{
-	static char	*buf = NULL;
+static int	here_doc(int *status, char *delimiter);
+static void	child_execute(int fd[], char *delimiter);
+static void	free_buf_all(char *buf, unsigned int code);
 
-	return (&buf);
+void	open_heredoc(t_node *node, int *fds, int *status)
+{
+	int	aux;
+
+	aux = 0;
+	while (node != NULL && *status != 2)
+	{
+		if (node->token == T_PIPE)
+			aux++;
+		if (node->token == T_HERE_DOC)
+		{
+			if (fds[aux])
+				close(fds[aux]);
+			fds[aux] = here_doc(status, node->next->str);
+		}
+		node = node->next;
+	}
 }
 
-void	free_buf_all(char	*buf, unsigned int code)
+static int	here_doc(int *status, char *delimiter)
 {
-	t_databus	*data;
+	pid_t	pid;
+	int		fd[2];
 
-	data = getter_data();
-	free_all(data);
-	free(buf);
-	exit(code);
+	if (pipe(fd) < 0)
+		return (0);
+	pid = fork();
+	if (pid == 0)
+		child_execute(fd, delimiter);
+	close(fd[1]);
+	waitpid(pid, status, 0);
+	return (fd[0]);
 }
 
-void	sig_handler(int sig)
-{
-	t_databus	*data;
-	char		**buff;
-
-	if (sig != SIGINT)
-		return ;
-	data = getter_data();
-	buff = getter_buff();
-	free(*buff);
-	free_all(data);
-	exit(129);
-}
-
-void	child_execute(int fd[], char *delimiter)
+static void	child_execute(int fd[], char *delimiter)
 {
 	char	*switcher;
 	char	*tmp;
@@ -74,17 +81,12 @@ void	child_execute(int fd[], char *delimiter)
 	free_buf_all(*buf, 1);
 }
 
-int	here_doc(int *status, char *delimiter)
+static void	free_buf_all(char *buf, unsigned int code)
 {
-	pid_t	pid;
-	int		fd[2];
+	t_databus	*data;
 
-	if (pipe(fd) < 0)
-		return (0);
-	pid = fork();
-	if (pid == 0)
-		child_execute(fd, delimiter);
-	close(fd[1]);
-	waitpid(pid, status, 0);
-	return (fd[0]);
+	data = getter_data();
+	free_all(data);
+	free(buf);
+	exit(code);
 }

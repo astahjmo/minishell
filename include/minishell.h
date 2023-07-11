@@ -219,7 +219,6 @@ void						get_env_content(char *content, char *name,
 int							is_llmin(char *str);
 int							names_are_equal(char *s1, char *s2);
 char						*strjoinfree_s1(char *s1, char *s2);
-int							here_doc(int *status, char *delimiter);
 int							*getter_heredoc_fd(void);
 void						cd_builtin(t_node *current);
 char						*get_name(char *str);
@@ -255,5 +254,8 @@ int							*getter_redirections(void);
 int							*getter_fds(void);
 char						*fmt_s(char *format, char *s1, char *s2, char *s3);
 void						one_command(t_node *cmds, t_node **free_if_invalid);
+void						open_heredoc(t_node *node, int *fds, int *status);
+char						**getter_buff(void);
+void						sig_handler(int sig);
 
 #endif
