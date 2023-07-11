@@ -249,11 +249,11 @@ t_node						*remove_operators(t_node *cursor);
 int							pre_executor(t_databus *data);
 t_node						*list_get_token(t_node *node, t_tokens token);
 char						*get_cmd_path(char *cmd);
-void						exec_command(t_node *cmd);
-void						one_command(t_node *cmds);
+void						exec_command(t_node *cmd, t_node **free_if_invalid);
 int							*command_hook(int cmd_count);
 int							*getter_redirections(void);
 int							*getter_fds(void);
 char						*fmt_s(char *format, char *s1, char *s2, char *s3);
+void						one_command(t_node *cmds, t_node **free_if_invalid);
 
 #endif

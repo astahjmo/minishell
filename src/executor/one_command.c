@@ -49,7 +49,7 @@ static void	dup2_and_close(int fd, int clone)
 	close(fd);
 }
 
-static void	fork_and_execute(t_node *cmds)
+static void	fork_and_execute(t_node *cmds, t_node **free_if_invalid)
 {
 	pid_t	pid;
 	int		i;
@@ -68,7 +68,7 @@ static void	fork_and_execute(t_node *cmds)
 			dup2_and_close(fds[IN_FD], STDIN_FILENO);
 		if (fds[OUT_FD] > 2)
 			dup2_and_close(fds[OUT_FD], STDOUT_FILENO);
-		exec_command(cmds);
+		exec_command(cmds, free_if_invalid);
 		exit(1);
 	}
 	else
@@ -76,7 +76,7 @@ static void	fork_and_execute(t_node *cmds)
 	getter_data()->exit_status = WEXITSTATUS(i);
 }
 
-void	one_command(t_node *cmds)
+void	one_command(t_node *cmds, t_node **free_if_invalid)
 {
 	t_tokens		builtin_idx;
 	t_fn_built_exec	**exec;
@@ -86,5 +86,5 @@ void	one_command(t_node *cmds)
 	if (builtin_idx != -1)
 		exec[builtin_idx](cmds);
 	else
-		fork_and_execute(cmds);
+		fork_and_execute(cmds, free_if_invalid);
 }
