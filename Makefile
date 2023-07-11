@@ -15,7 +15,7 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  tokenizer_operator.c init_parsers.c linked_list.c \
 		  tokenizer_string.c analysis.c free_cmds.c recipeWord.c \
 		  recipeOperator.c init_recipes.c lexer_strings.c \
-		  strjoinfree.c free_all.c cd_builtin.c miniprintf.c\
+		  strjoinfree.c free_all.c cd_builtin.c fmt_s.c \
 		  env_builtin.c exit_builtin.c executor.c export_builtin.c \
 		  unset_builtin.c utils_builtins_01.c echo_builtin.c utils_builtins_02.c \
 		  init_env.c init_statics.c is_llmin.c heredoc_utils.c pwd_builtin.c \
@@ -24,7 +24,7 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  split_envp.c command_setuphook.c pre_executor.c
 
 LIB_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
-				 ft_split.c ft_interpol.c ft_strlcpy.c ft_isalpha.c \
+				 ft_split.c ft_strlcpy.c ft_isalpha.c \
 				 ft_isalnum.c ft_putstr_fd.c ft_memmove.c ft_strncmp.c \
 				 ft_strchr.c ft_bzero.c ft_strnstr.c ft_memset.c ft_isdigit.c \
 				 ft_strjoin.c ft_atoull.c ft_atoi.c ft_memcpy.c ft_calloc.c \

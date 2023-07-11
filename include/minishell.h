@@ -51,8 +51,8 @@
 # define ENV_CONTENT_SZ 32367
 # define ENV_NAME_SZ 1024
 # define HEAP_OVERFLOW_PROTECTION 100000
-# define INPUT 0
-# define OUTPUT 1
+# define IN_FD 0
+# define OUT_FD 1
 
 typedef struct s_node		t_node;
 typedef struct s_data		t_databus;
@@ -96,7 +96,7 @@ enum						e_inputii
 typedef struct s_cmds
 {
 	int						exit_code;
-	int						cmd_count;
+	int						cmd_io;
 	t_node					*head;
 }							t_cmds;
 
@@ -222,7 +222,6 @@ char						*strjoinfree_s1(char *s1, char *s2);
 int							here_doc(int *status, char *delimiter);
 int							*getter_heredoc_fd(void);
 void						cd_builtin(t_node *current);
-int							overwrite_env(t_databus *data, char *new_env);
 char						*get_name(char *str);
 int							has_too_many_args(t_databus *data);
 
@@ -255,6 +254,6 @@ void						one_command(t_node *cmds);
 int							*command_hook(int cmd_count);
 int							*getter_redirections(void);
 int							*getter_fds(void);
-char						*miniprintf(char *fmt, char *col, t_strings strs);
+char						*fmt_s(char *format, char *s1, char *s2, char *s3);
 
 #endif
