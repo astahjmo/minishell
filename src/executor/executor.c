@@ -71,7 +71,7 @@ void	after_execution(void)
 	i_redir = getter_heredoc_fd();
 	o_redir = getter_redirections();
 	count = 0;
-	while (count <= getter_data()->cmds->cmd_count)
+	while (count <= getter_data()->cmds->cmd_io)
 	{
 		if (i_redir[count] > 2)
 			close(i_redir[count]);
@@ -90,16 +90,16 @@ void	executor(t_databus *data)
 
 	i = 1;
 	cmds = prepare_commands(data, &i);
-	getter_data()->cmds->cmd_count = 0;
+	getter_data()->cmds->cmd_io = 0;
 	if (i == 1)
-		one_command(cmds[getter_data()->cmds->cmd_count]);
+		one_command(cmds[getter_data()->cmds->cmd_io]);
 	else
 	{
 		while (i-- != 1)
 		{
-			getter_data()->cmds->cmd_count++;
+			getter_data()->cmds->cmd_io++;
 		}
-		one_command(cmds[getter_data()->cmds->cmd_count]);
+		one_command(cmds[getter_data()->cmds->cmd_io]);
 	}
 	after_execution();
 	free(cmds);

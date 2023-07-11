@@ -14,16 +14,19 @@
 
 static void	expand_format_str(t_strings *strs, int *len, int *i, char *result);
 
-char	*mini_sprintf(char *format, t_strings strs)
+char	*fmt_s(char *format, char *s1, char *s2, char *s3)
 {
 	int			i;
 	int			param_len;
 	int			format_idx;
-	char		result[STR_LIMIT] = {0};
+	char		result[STR_LIMIT];
+	t_strings	strs;
 
 	i = 0;
 	param_len = 0;
 	format_idx = 0;
+	ft_bzero(result, STR_LIMIT);
+	strs = (t_strings){.next = s1, .str2 = s2, .str3 = s3};
 	while (format[format_idx])
 	{
 		if (format[format_idx] == '%' && format[format_idx + 1] == 's')
