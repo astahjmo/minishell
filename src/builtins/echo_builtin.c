@@ -15,10 +15,10 @@
 void	echo_builtin(t_node *current)
 {
 	int	n_flag;
-	int	cmd_count;
+	int	cmd_io;
 
-	cmd_count = getter_data()->cmds->cmd_count;
 	n_flag = 0;
+	cmd_io = getter_data()->cmds->cmd_io;
 	if (current->next)
 		current = current->next;
 	while (current->next && !ft_strcmp("-n", current->next->str))
@@ -30,8 +30,8 @@ void	echo_builtin(t_node *current)
 	{
 		current = current->next;
 		if (current->str)
-			ft_putstr_fd(current->str, command_hook(cmd_count)[OUTPUT]);
+			ft_putstr_fd(current->str, command_hook(cmd_io)[OUT_FD]);
 	}
 	if (!n_flag)
-		ft_putstr_fd("\n", command_hook(cmd_count)[OUTPUT]);
+		ft_putstr_fd("\n", command_hook(cmd_io)[OUT_FD]);
 }

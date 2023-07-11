@@ -17,7 +17,7 @@ BUILDDIR := objs/
 MINISHELLDIR := mini_objs/
 INCLUDE := /include
 CC := cc
-CFLAGS = -O3 -Wall -Werror -Wextra
+CFLAGS = -g -Wall -Werror -Wextra
 SOURCES := ft_atoi.c ft_isalnum.c ft_isalpha.c \
 		   ft_isascii.c ft_isdigit.c ft_isprint.c \
 		   ft_ithex.c ft_itoa.c ft_ubase.c ft_split.c \
@@ -34,7 +34,7 @@ SOURCES := ft_atoi.c ft_isalnum.c ft_isalpha.c \
 		   ft_interpol.c ft_atoull.c ft_strcmp.c
 
 MINISHELL_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
-				 ft_split.c ft_interpol.c ft_strlcpy.c ft_isalpha.c \
+				 ft_split.c ft_strlcpy.c ft_isalpha.c \
 				 ft_isalnum.c ft_putstr_fd.c ft_memmove.c ft_strncmp.c \
 				 ft_strchr.c ft_bzero.c ft_strnstr.c ft_memset.c ft_isdigit.c \
 				 ft_strjoin.c ft_atoull.c ft_atoi.c ft_memcpy.c ft_calloc.c \
