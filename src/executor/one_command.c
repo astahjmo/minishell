@@ -30,15 +30,15 @@ int	*command_hook(int cmd_count)
 	i_redir = getter_heredoc_fd();
 	o_redir = getter_redirections();
 	if (i_redir[cmd_count] > 2)
-		re[INPUT] = i_redir[cmd_count];
+		re[IN_FD] = i_redir[cmd_count];
 	if (o_redir[cmd_count] > 2)
-		re[OUTPUT] = o_redir[cmd_count];
+		re[OUT_FD] = o_redir[cmd_count];
 	return (re);
 }
 
 int	*getter_fds(void)
 {
-	static int	fds[2] = {INPUT, OUTPUT};
+	static int	fds[2] = {IN_FD, OUT_FD};
 
 	return (fds);
 }
@@ -56,7 +56,7 @@ static void	fork_and_execute(t_node *cmds)
 	int		*fds;
 	int		cmd_count;
 
-	cmd_count = getter_data()->cmds->cmd_count;
+	cmd_count = getter_data()->cmds->cmd_io;
 	pid = fork();
 	if (pid < 0)
 		printf("sda\n");
@@ -64,10 +64,10 @@ static void	fork_and_execute(t_node *cmds)
 	fds = command_hook(cmd_count);
 	if (pid == 0)
 	{
-		if (fds[INPUT] > 2)
-			dup2_and_close(fds[INPUT], STDIN_FILENO);
-		if (fds[OUTPUT] > 2)
-			dup2_and_close(fds[OUTPUT], STDOUT_FILENO);
+		if (fds[IN_FD] > 2)
+			dup2_and_close(fds[IN_FD], STDIN_FILENO);
+		if (fds[OUT_FD] > 2)
+			dup2_and_close(fds[OUT_FD], STDOUT_FILENO);
 		exec_command(cmds);
 		exit(1);
 	}
