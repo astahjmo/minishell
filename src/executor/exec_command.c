@@ -67,7 +67,7 @@ char	**create_envs(void)
 	return (envps);
 }
 
-void	exec_command(t_node *cmd)
+void	exec_command(t_node *cmd, t_node **free_if_invalid)
 {
 	char	*path;
 	char	**args;
@@ -80,7 +80,9 @@ void	exec_command(t_node *cmd)
 	if (path == NULL)
 	{
 		printf("minishell: %s: comando não encontrado\n", cmd->str);
+		free(free_if_invalid);
 		free_cmds(&ar);
+		free_all(getter_data());
 		exit(127);
 	}
 	args = create_args(cmd);

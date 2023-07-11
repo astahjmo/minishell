@@ -92,14 +92,14 @@ void	executor(t_databus *data)
 	cmds = prepare_commands(data, &i);
 	getter_data()->cmds->cmd_io = 0;
 	if (i == 1)
-		one_command(cmds[getter_data()->cmds->cmd_io]);
+		one_command(cmds[getter_data()->cmds->cmd_io], cmds);
 	else
 	{
 		while (i-- != 1)
 		{
 			getter_data()->cmds->cmd_io++;
 		}
-		one_command(cmds[getter_data()->cmds->cmd_io]);
+		one_command(cmds[getter_data()->cmds->cmd_io], cmds);
 	}
 	after_execution();
 	free(cmds);
