@@ -12,18 +12,16 @@
 
 #include "minishell.h"
 
-static void	expand_format_str(t_strings *strs, int *len, int *i, char *result);
+static void	expand_format_str(t_strings *strs, char *result);
 
 char	*fmt_s(char *format, char *s1, char *s2, char *s3)
 {
 	int			i;
-	int			param_len;
 	int			format_idx;
 	char		result[STR_LIMIT];
 	t_strings	strs;
 
 	i = 0;
-	param_len = 0;
 	format_idx = 0;
 	ft_bzero(result, STR_LIMIT);
 	strs = (t_strings){.next = s1, .str2 = s2, .str3 = s3};
@@ -32,8 +30,9 @@ char	*fmt_s(char *format, char *s1, char *s2, char *s3)
 		if (format[format_idx] == '%' && format[format_idx + 1] == 's')
 		{
 			if (strs.next)
-				expand_format_str(&strs, &param_len, &i, result);
+				expand_format_str(&strs, result);
 			format_idx += 2;
+			i = ft_strlen(result);
 		}
 		else
 			result[i++] = format[format_idx++];
@@ -41,11 +40,9 @@ char	*fmt_s(char *format, char *s1, char *s2, char *s3)
 	return (ft_strdup(result));
 }
 
-static void	expand_format_str(t_strings *strs, int *len, int *i, char *result)
+static void	expand_format_str(t_strings *strs, char *result)
 {
-	*len = ft_strlen(strs->next);
-	strncat(result, strs->next, *len);
-	(*i) += *len;
+	ft_strlcat(result, strs->next, STR_LIMIT);
 	strs->next = strs->str2;
 	strs->str2 = strs->str3;
 	strs->str3 = NULL;

@@ -12,36 +12,36 @@
 
 #include "minishell.h"
 
-static int	increase_number_of_envs(t_databus *data);
+static int	increase_number_of_envs(void);
 static int	is_valid_env_name_err(char *env);
-static int	check_strlen(int len, char *new_env);
+static int	check_strlen(char *new_env);
+static int	overwrite_env(char *new_env);
 
 void	export_builtin(t_node *current)
 {
-	int			len;
-	char		*new_env;
 	t_databus	*data;
 
 	if (!is_valid_syntax(current))
 		return ;
-	data = getter_data();
 	current = current->next;
-	while (current->next)
+	if (!current)
+		alt_env_builtin(current);
+	data = getter_data();
+	while (current && current->next)
 	{
 		current = current->next;
 		if (current->token != T_WORD)
 			current = current->next;
-		new_env = current->str;
-		len = ft_strlen(new_env) + 1;
-		if (!is_valid_env_name_err(new_env))
+		if (!is_valid_env_name_err(current->str))
 			break ;
-		else if (overwrite_env(data, new_env))
+		else if (overwrite_env(current->str))
 			continue ;
-		if (!increase_number_of_envs(data))
+		if (!increase_number_of_envs())
 			return ;
-		if (!check_strlen(len, new_env))
+		if (!check_strlen(current->str))
 			return ;
-		ft_strlcpy(data->env[data->number_of_envs - 1], new_env, len);
+		ft_strlcpy(data->env[data->number_of_envs - 1], current->str,
+			ft_strlen(current->str) + 1);
 	}
 }
 
@@ -69,8 +69,11 @@ static int	is_valid_env_name_err(char *env)
 	return (1);
 }
 
-static int	increase_number_of_envs(t_databus *data)
+static int	increase_number_of_envs(void)
 {
+	t_databus	*data;
+
+	data = getter_data();
 	if ((data->number_of_envs + 1) == ENVS_LIMIT)
 	{
 		ft_printf("minishell: too many environment variables\n");
@@ -81,8 +84,11 @@ static int	increase_number_of_envs(t_databus *data)
 	return (1);
 }
 
-static int	check_strlen(int len, char *new_env)
+static int	check_strlen(char *new_env)
 {
+	int	len;
+
+	len = ft_strlen(new_env) + 1;
 	if (len >= STR_LIMIT)
 	{
 		ft_putstr_fd("minishell: export:", 2);
@@ -94,11 +100,13 @@ static int	check_strlen(int len, char *new_env)
 	return (TRUE);
 }
 
-int	overwrite_env(t_databus *data, char *new_env)
+static int	overwrite_env(char *new_env)
 {
-	int	i;
+	int			i;
+	t_databus	*data;
 
 	i = 0;
+	data = getter_data();
 	while (i < data->number_of_envs)
 	{
 		if (names_are_equal(data->env[i], new_env)

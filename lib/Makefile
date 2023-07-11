@@ -17,7 +17,7 @@ BUILDDIR := objs/
 MINISHELLDIR := mini_objs/
 INCLUDE := /include
 CC := cc
-CFLAGS = -O3 -Wall -Werror -Wextra
+CFLAGS = -g -Wall -Werror -Wextra
 SOURCES := ft_atoi.c ft_isalnum.c ft_isalpha.c \
 		   ft_isascii.c ft_isdigit.c ft_isprint.c \
 		   ft_ithex.c ft_itoa.c ft_ubase.c ft_split.c \

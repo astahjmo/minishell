@@ -35,10 +35,10 @@ void	env_builtin(t_node *current)
 			else
 				s = fmt_s("%s=%s\n", name, content, NULL);
 			ft_putstr_fd(s, command_hook(data->cmds->cmd_io)[OUT_FD]);
+			free(s);
 		}
 	}
 	(void)current;
-	free(s);
 }
 
 void	alt_env_builtin(t_node *current)
@@ -65,7 +65,7 @@ void	alt_env_builtin(t_node *current)
 		else
 			s = fmt_s("declare -x %s\n", name, NULL, NULL);
 		ft_putstr_fd(s, command_hook(getter_data()->cmds->cmd_io)[OUT_FD]);
+		free(s);
 	}
 	(void)current;
-	free(s);
 }
