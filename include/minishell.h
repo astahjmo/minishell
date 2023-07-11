@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/09 20:04:14 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:07:37 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_cmds
 	int						exit_code;
 	int						idx;
 	t_node					*head;
+	t_node					**arr_cmds;
 }							t_cmds;
 
 typedef struct s_data
