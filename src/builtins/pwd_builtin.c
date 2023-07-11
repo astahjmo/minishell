@@ -17,7 +17,7 @@ void	pwd_builtin(t_node *current)
 	char	cwd[STR_LIMIT];
 	int		cmd_count;
 
-	cmd_count = getter_data()->cmds->cmd_io;
+	cmd_count = getter_data()->cmds->idx;
 	ft_putendl_fd(getcwd(cwd, sizeof(cwd)), command_hook(cmd_count)[OUT_FD]);
 	(void)current;
 }

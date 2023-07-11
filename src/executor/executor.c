@@ -10,11 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 
 void	create_commnd_list(t_databus *data, t_node **arr)
 {
@@ -71,7 +67,7 @@ void	after_execution(void)
 	i_redir = getter_heredoc_fd();
 	o_redir = getter_redirections();
 	count = 0;
-	while (count <= getter_data()->cmds->cmd_io)
+	while (count <= getter_data()->cmds->idx)
 	{
 		if (i_redir[count] > 2)
 			close(i_redir[count]);
@@ -90,16 +86,16 @@ void	executor(t_databus *data)
 
 	i = 1;
 	cmds = prepare_commands(data, &i);
-	getter_data()->cmds->cmd_io = 0;
+	getter_data()->cmds->idx = 0;
 	if (i == 1)
-		one_command(cmds[getter_data()->cmds->cmd_io], cmds);
+		one_command(cmds[getter_data()->cmds->idx], cmds);
 	else
 	{
 		while (i-- != 1)
 		{
-			getter_data()->cmds->cmd_io++;
+			getter_data()->cmds->idx++;
 		}
-		one_command(cmds[getter_data()->cmds->cmd_io], cmds);
+		one_command(cmds[getter_data()->cmds->idx], cmds);
 	}
 	after_execution();
 	free(cmds);

@@ -56,7 +56,7 @@ static void	fork_and_execute(t_node *cmds, t_node **free_if_invalid)
 	int		*fds;
 	int		cmd_count;
 
-	cmd_count = getter_data()->cmds->cmd_io;
+	cmd_count = getter_data()->cmds->idx;
 	pid = fork();
 	if (pid < 0)
 		printf("sda\n");
