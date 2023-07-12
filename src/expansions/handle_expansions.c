@@ -87,11 +87,13 @@ static char	*expand_dollar_question(char *tmp, int i, int *to_expand)
 	char	*after_question_mark;
 	char	*new_line;
 
+	after_question_mark = NULL;
 	(*to_expand) = 1;
 	until_dollar = ft_substr(tmp, 0, i);
 	exit_status = ft_itoa(getter_data()->exit_status);
 	until_exit_status_end = strjoinfree_s1(until_dollar, exit_status);
-	after_question_mark = ft_strdup(&tmp[i + ft_strlen(exit_status) + 1]);
+	if (tmp[i + ft_strlen(exit_status) + 1])
+		after_question_mark = ft_strdup(&tmp[i + ft_strlen(exit_status) + 1]);
 	new_line = strjoinfree_s1(until_exit_status_end, after_question_mark);
 	free(exit_status);
 	free(after_question_mark);
