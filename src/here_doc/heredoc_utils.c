@@ -52,5 +52,5 @@ void	sig_handler(int sig)
 	buff = getter_buff();
 	free(*buff);
 	free_all(data);
-	exit(129);
+	exit(130);
 }

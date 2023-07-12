@@ -16,7 +16,6 @@
 
 static int	here_doc(int *status, char *delimiter);
 static void	child_execute(int fd[], char *delimiter);
-static void	free_buf_all(char *buf, unsigned int code);
 
 void	open_heredoc(t_node *node, int *fds, int *status)
 {
@@ -54,39 +53,26 @@ static int	here_doc(int *status, char *delimiter)
 
 static void	child_execute(int fd[], char *delimiter)
 {
-	char	*switcher;
-	char	*tmp;
 	char	**buf;
 	int		state;
 
 	buf = getter_buff();
 	signal(SIGINT, sig_handler);
-	state = 0;
 	close(fd[0]);
+	state = FALSE;
 	*buf = readline("> ");
-	if (*buf == NULL)
-		free_buf_all(*buf, 3);
 	state = string_is_equal(*buf, delimiter);
 	while (state == FALSE)
 	{
-		tmp = readline("> ");
-		state = string_is_equal(tmp, delimiter);
-		if (state == TRUE || tmp == NULL)
+		write(fd[1], *buf, ft_strlen(*buf));
+		write(fd[1], "\n", 1);
+		*buf = readline("> ");
+		state = string_is_equal(*buf, delimiter);
+		if (state == TRUE || *buf == NULL)
 			break ;
-		switcher = strjoin_free(*buf, tmp);
-		*buf = switcher;
 	}
-	write(fd[1], buf, ft_strlen(*buf));
+	write(fd[1], *buf, ft_strlen(*buf));
+	printf("CHILD %s\n", *buf);
 	close(fd[1]);
-	free_buf_all(*buf, 1);
-}
-
-static void	free_buf_all(char *buf, unsigned int code)
-{
-	t_databus	*data;
-
-	data = getter_data();
-	free_all(data);
-	free(buf);
-	exit(code);
+	exit(1);
 }
