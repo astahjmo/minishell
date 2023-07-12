@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/12 18:52:12 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/12 20:16:13 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ static void	fork_and_execute(t_node *cmds, t_node **free_if_invalid)
 	if (pid < 0)
 		printf("sda\n");
 	i = 0;
-	fds = command_hook(cmd_count);
 	if (pid == 0)
 	{
+		fds = command_hook(cmd_count);
 		if (fds[IN_FD] > 2)
 			dup2_and_close(fds[IN_FD], STDIN_FILENO);
 		if (fds[OUT_FD] > 2)

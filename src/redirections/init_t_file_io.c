@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_t_file_io.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 18:34:44 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/12 18:37:52 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/12 19:50:37 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 t_file_io	*getter_t_file_io(void)
 {
-	static t_file_io	io[MAX_FD];
+	static t_file_io	io[MAX_FD] = {0};
 
-	ft_bzero(&io, MAX_FD);
 	return (io);
 }
