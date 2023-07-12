@@ -12,43 +12,74 @@
 
 #include "libft.h"
 
-static void	ft_fill_array(long num, char *arr, int size)
+static char	*mstr(char *s, int n);
+static int	numlen(int n);
+static int	handle_negative(int nbr, char **iter);
+static void	build_str(int nbr, char *str, char **iter);
+
+char	*ft_itoa(int nbr)
 {
-	if (num < 0)
-	{
-		arr[0] = '-';
-		num = -num;
-	}
-	while (num >= 10)
-	{
-		arr[size] = (num % 10) + '0';
-		num /= 10;
-		size--;
-	}
-	arr[size] = (num % 10) + '0';
+	int		strlen;
+	char	*str;
+	char	*iter;
+
+	if (nbr == -2147483648)
+		return (mstr("-2147483648", 12));
+	strlen = numlen(nbr);
+	str = (char *)malloc(sizeof(char) * strlen + 1);
+	iter = str;
+	nbr = handle_negative(nbr, &iter);
+	build_str(nbr, str, &iter);
+	*iter = '\0';
+	return (str);
 }
 
-char	*ft_itoa(int n)
+static char	*mstr(char *s, int n)
 {
-	char	*arr;
-	long	num;
-	int		is_negative;
-	int		int_size;
+	int		i;
+	char	*mstr;
 
-	int_size = 1;
-	is_negative = 0;
-	num = n;
+	i = -1;
+	mstr = (char *)malloc((n + 1) * sizeof(char));
+	while (++i < n)
+		*(mstr + i) = *s++;
+	mstr[i] = '\0';
+	return (mstr);
+}
+
+static int	numlen(int n)
+{
+	int	len;
+
+	len = 0;
+	if (n == 0)
+		return (1);
 	if (n < 0)
-		is_negative = 1;
-	while (n >= 10 || n <= -10)
+	{
+		len++;
+		n *= -1;
+	}
+	while (n)
 	{
 		n /= 10;
-		int_size++;
+		len++;
 	}
-	arr = malloc(sizeof(char) * (int_size + is_negative) + 1);
-	if (arr == NULL)
-		return (NULL);
-	ft_fill_array(num, arr, (int_size + is_negative) - 1);
-	arr[int_size + is_negative] = '\0';
-	return (arr);
+	return (len);
+}
+
+int	handle_negative(int nbr, char **iter)
+{
+	if (nbr < 0)
+	{
+		*(*iter)++ = '-';
+		nbr *= -1;
+	}
+	return (nbr);
+}
+
+static void	build_str(int nbr, char *str, char **iter)
+{
+	if (nbr > 9)
+		build_str(nbr / 10, str, iter);
+	*(*iter)++ = (nbr % 10) + '0';
 }
