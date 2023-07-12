@@ -21,7 +21,7 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  init_env.c init_statics.c is_llmin.c heredoc_utils.c pwd_builtin.c \
 		  expansion_utils.c print_tokens.c init_redirections.c redirections.c \
 		  utils_executor.c one_command.c exec_command.c get_cmd_path.c \
-		  split_envp.c command_setuphook.c pre_executor.c
+		  split_envp.c command_setuphook.c pre_executor.c is_a_command.c
 
 LIB_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
 				 ft_split.c ft_strlcpy.c ft_isalpha.c \
