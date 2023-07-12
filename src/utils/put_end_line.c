@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_all.c                                         :+:      :+:    :+:   */
+/*   put_end_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/21 14:38:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/11 18:08:53 by johmatos         ###   ########.fr       */
+/*   Created: 2023/07/12 14:33:16 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/07/12 14:34:19 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_all(t_databus *data)
+void	put_end_line(char *buf, int fd)
 {
-	free(data->cmds);
-	free(data->stream);
-	free(data->prompt);
-	rl_clear_history();
+	if (buf)
+		ft_putendl_fd(buf, fd);
 }
