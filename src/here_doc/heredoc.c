@@ -39,8 +39,9 @@ void	open_heredoc(t_node *node, int *fds, int *status)
 static int	here_doc(int *status, char *delimiter)
 {
 	pid_t	pid;
-	int		fd[2];
+	int		*fd;
 
+	fd = getter_pipes();
 	if (pipe(fd) < 0)
 		return (0);
 	pid = fork();
@@ -49,6 +50,14 @@ static int	here_doc(int *status, char *delimiter)
 	close(fd[1]);
 	waitpid(pid, status, 0);
 	return (fd[0]);
+}
+
+static void	free_and_exit(int code)
+{
+	free_cmds(getter_data()->cmds);
+	free_all(getter_data());
+	rl_clear_history();
+	exit(code);
 }
 
 static void	child_execute(int fd[], char *delimiter)
@@ -64,15 +73,15 @@ static void	child_execute(int fd[], char *delimiter)
 	state = string_is_equal(*buf, delimiter);
 	while (state == FALSE)
 	{
-		write(fd[1], *buf, ft_strlen(*buf));
+		write(fd[1], buf, ft_strlen(*buf));
 		write(fd[1], "\n", 1);
+		free (*buf);
 		*buf = readline("> ");
 		state = string_is_equal(*buf, delimiter);
-		if (state == TRUE || *buf == NULL)
+		if (state == TRUE || buf == NULL)
 			break ;
 	}
 	write(fd[1], *buf, ft_strlen(*buf));
-	printf("CHILD %s\n", *buf);
 	close(fd[1]);
-	exit(1);
+	free_and_exit(1);
 }

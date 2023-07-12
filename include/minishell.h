@@ -258,5 +258,6 @@ void						one_command(t_node *cmds, t_node **free_if_invalid);
 void						open_heredoc(t_node *node, int *fds, int *status);
 char						**getter_buff(void);
 void						sig_handler(int sig);
+int							*getter_pipes(void);
 
 #endif
