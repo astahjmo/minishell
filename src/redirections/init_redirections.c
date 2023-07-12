@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_utils.c                                    :+:      :+:    :+:   */
+/*   init_redirections.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 19:46:33 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/24 15:00:42 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:46:28 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	setup_out_redir(t_node *node, t_tokens token)
 	return (fd);
 }
 
-static void	open_redir(t_node *node, int *fds, int *status)
+static void	open_redir(t_node *node, t_file_io *fds, int *status)
 {
 	int	aux;
 
@@ -39,9 +39,9 @@ static void	open_redir(t_node *node, int *fds, int *status)
 			aux++;
 		if (node->token == T_OUT_REDIR || node->token == T_O_OUT_REDIR)
 		{
-			if (fds[aux])
-				close(fds[aux]);
-			fds[aux] = setup_out_redir(node, node->token);
+			if (fds[aux].output)
+				close(fds[aux].output);
+			fds[aux].output = setup_out_redir(node, node->token);
 		}
 		node = node->next;
 	}
@@ -56,11 +56,11 @@ int	*getter_outputs(void)
 
 int	init_redirections(t_node *node)
 {
-	int	*redirections;
-	int	status;
+	t_file_io	*redirections;
+	int			status;
 
 	status = 0;
-	redirections = getter_outputs();
+	redirections = getter_t_file_io();
 	open_redir(node, redirections, &status);
 	return (status);
 }
