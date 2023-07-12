@@ -6,12 +6,13 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 19:46:33 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/12 18:46:28 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/12 20:16:49 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
+#include <stdio.h>
 
 static int	setup_out_redir(t_node *node, t_tokens token)
 {

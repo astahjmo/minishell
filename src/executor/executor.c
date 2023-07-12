@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/12 18:35:45 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/12 20:21:45 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,14 @@ t_node	**prepare_commands(t_databus *data, int *i)
 void	after_execution(void)
 {
 	int			idx;
+	int			*std_io;
 	t_file_io	*file_io;
 
 	idx = 0;
+	std_io = getter_fds();
 	file_io = getter_t_file_io();
+	std_io[IN_FD] = IN_FD;
+	std_io[OUT_FD] = OUT_FD;
 	while (idx <= getter_data()->cmds->idx)
 	{
 		if (file_io[idx].input > 2)
