@@ -13,6 +13,13 @@
 #include "libft.h"
 #include "minishell.h"
 
+int	*getter_pipes(void)
+{
+	static int	pipes[2];
+
+	return (pipes);
+}
+
 int	*getter_heredoc_fd(void)
 {
 	static int	heredoc_fds[MAX_FD];
@@ -43,14 +50,13 @@ char	**getter_buff(void)
 
 void	sig_handler(int sig)
 {
-	t_databus	*data;
-	char		**buff;
-
 	if (sig != SIGINT)
 		return ;
-	data = getter_data();
-	buff = getter_buff();
-	free(*buff);
-	free_all(data);
-	exit(129);
+	close(getter_pipes()[0]);
+	close(getter_pipes()[1]);
+	free(*getter_buff());
+	free_cmds(getter_data()->cmds);
+	free_all(getter_data());
+	rl_clear_history();
+	exit(130);
 }

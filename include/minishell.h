@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/11 18:07:37 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:34:26 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,10 @@
 # define BUILTINS "echo cd pwd export unset env exit"
 # define TRUE 1
 # define FALSE 0
-# define ARR_MAX_BUFF (int)1e3
 # define PRIME 373
-# define DOLLAR '$'
-# define SQUOTE '\''
-# define DQUOTE '"'
+# define DOLLAR "$"
+# define SQUOTE "\'"
+# define DQUOTE "\""
 # define WHITE "\033[0;37m"
 # define GREEN "\033[0;32m"
 # define RED "\033[0;31m"
@@ -53,6 +52,7 @@
 # define HEAP_OVERFLOW_PROTECTION 100000
 # define IN_FD 0
 # define OUT_FD 1
+# define CMD_NOT_FOUND 127
 
 typedef struct s_node		t_node;
 typedef struct s_data		t_databus;
@@ -167,7 +167,7 @@ void						tokenizer(void);
 char						*single_quotes_handler(char *line, int *acc);
 void						string_eat_all(char **word, char hungry);
 void						string_eat_until(char **word, char *until);
-int							string_is_equal(char *s1, char *s2);
+int							input_is_delimiter(char *s1, char *s2);
 t_tokens					get_token(char *find);
 int							init_heredoc(t_node *node);
 t_node						*tokenizer_operator(char *list);
@@ -258,5 +258,8 @@ void						one_command(t_node *cmds, t_node **free_if_invalid);
 void						open_heredoc(t_node *node, int *fds, int *status);
 char						**getter_buff(void);
 void						sig_handler(int sig);
+int							*getter_pipes(void);
+void						put_end_line(char *buf, int fd);
+int							is_a_command(void);
 
 #endif
