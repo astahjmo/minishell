@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "minishell.h"
 
-int	string_is_equal(char *s1, char *s2)
+int	input_is_delimiter(char *s1, char *s2)
 {
 	int	a;
 	int	b;

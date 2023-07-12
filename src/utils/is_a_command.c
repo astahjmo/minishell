@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_all.c                                         :+:      :+:    :+:   */
+/*   is_a_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/21 14:38:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/11 18:08:53 by johmatos         ###   ########.fr       */
+/*   Created: 2023/07/12 12:20:19 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/07/12 12:22:18 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_all(t_databus *data)
+int	is_a_command(void)
 {
-	free(data->cmds);
-	free(data->stream);
-	free(data->prompt);
-	rl_clear_history();
+	char	*address;
+
+	address = get_cmd_path(getter_data()->cmds->head->str);
+	if (address)
+	{
+		free(address);
+		return (FALSE);
+	}
+	return (TRUE);
 }
