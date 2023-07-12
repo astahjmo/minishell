@@ -47,7 +47,7 @@ static void	open_redir(t_node *node, int *fds, int *status)
 	}
 }
 
-int	*getter_redirections(void)
+int	*getter_outputs(void)
 {
 	static int	redirections[MAX_FD] = {0};
 
@@ -60,7 +60,7 @@ int	init_redirections(t_node *node)
 	int	status;
 
 	status = 0;
-	redirections = getter_redirections();
+	redirections = getter_outputs();
 	open_redir(node, redirections, &status);
 	return (status);
 }

@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/11 18:07:50 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:35:45 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,19 @@ t_node	**prepare_commands(t_databus *data, int *i)
 
 void	after_execution(void)
 {
-	int	*i_redir;
-	int	*o_redir;
-	int	count;
+	int			idx;
+	t_file_io	*file_io;
 
-	i_redir = getter_heredoc_fd();
-	o_redir = getter_redirections();
-	count = 0;
-	while (count <= getter_data()->cmds->idx)
+	idx = 0;
+	file_io = getter_t_file_io();
+	while (idx <= getter_data()->cmds->idx)
 	{
-		if (i_redir[count] > 2)
-			close(i_redir[count]);
-		if (o_redir[count] > 2)
-			close(o_redir[count]);
-		i_redir[count] = 0;
-		o_redir[count] = 0;
-		count++;
+		if (file_io[idx].input > 2)
+			close(file_io[idx].input);
+		if (file_io[idx].output > 2)
+			close(file_io[idx].output);
+		ft_bzero(&file_io[idx], sizeof(int) * 2);
+		idx++;
 	}
 }
 
