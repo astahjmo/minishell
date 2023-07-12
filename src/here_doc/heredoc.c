@@ -31,7 +31,7 @@ void	open_heredoc(t_node *node, int *fds, int *status)
 		{
 			if (fds[aux])
 				close(fds[aux]);
-			fds[aux] = here_doc(status, node->next->str);
+			fds[aux] = here_doc(status, list_get_token(node, T_WORD)->str);
 		}
 		node = node->next;
 	}
