@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/07 19:55:50 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:52:12 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,15 @@
 
 int	*command_hook(int cmd_count)
 {
-	int	*o_redir;
-	int	*i_redir;
-	int	*re;
+	t_file_io	*fds;
+	int			*re;
 
 	re = getter_fds();
-	i_redir = getter_inputs();
-	o_redir = getter_outputs();
-	if (i_redir[cmd_count] > 2)
-		re[IN_FD] = i_redir[cmd_count];
-	if (o_redir[cmd_count] > 2)
-		re[OUT_FD] = o_redir[cmd_count];
+	fds = getter_t_file_io();
+	if (fds[cmd_count].input > 2)
+		re[IN_FD] = fds[cmd_count].input;
+	if (fds[cmd_count].output > 2)
+		re[OUT_FD] = fds[cmd_count].output;
 	return (re);
 }
 
