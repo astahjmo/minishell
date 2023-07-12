@@ -27,8 +27,8 @@ int	*command_hook(int cmd_count)
 	int	*re;
 
 	re = getter_fds();
-	i_redir = getter_heredoc_fd();
-	o_redir = getter_redirections();
+	i_redir = getter_inputs();
+	o_redir = getter_outputs();
 	if (i_redir[cmd_count] > 2)
 		re[IN_FD] = i_redir[cmd_count];
 	if (o_redir[cmd_count] > 2)

@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/12 14:34:26 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:38:00 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,12 @@ typedef enum e_tokens
 	T_INVALID = -1,
 	T_SPACE = 10
 }							t_tokens;
+
+typedef struct s_io
+{
+	int						input;
+	int						output;
+}							t_file_io;
 
 enum						e_inputii
 {
@@ -220,7 +226,7 @@ void						get_env_content(char *content, char *name,
 int							is_llmin(char *str);
 int							names_are_equal(char *s1, char *s2);
 char						*strjoinfree_s1(char *s1, char *s2);
-int							*getter_heredoc_fd(void);
+int							*getter_inputs(void);
 void						cd_builtin(t_node *current);
 char						*get_name(char *str);
 int							has_too_many_args(t_databus *data);
@@ -251,7 +257,7 @@ t_node						*list_get_token(t_node *node, t_tokens token);
 char						*get_cmd_path(char *cmd);
 void						exec_command(t_node *cmd, t_node **free_if_invalid);
 int							*command_hook(int cmd_count);
-int							*getter_redirections(void);
+int							*getter_outputs(void);
 int							*getter_fds(void);
 char						*fmt_s(char *format, char *s1, char *s2, char *s3);
 void						one_command(t_node *cmds, t_node **free_if_invalid);
@@ -261,5 +267,6 @@ void						sig_handler(int sig);
 int							*getter_pipes(void);
 void						put_end_line(char *buf, int fd);
 int							is_a_command(void);
+t_file_io					*getter_t_file_io(void);
 
 #endif

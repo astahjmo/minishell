@@ -20,7 +20,7 @@ int	*getter_pipes(void)
 	return (pipes);
 }
 
-int	*getter_heredoc_fd(void)
+int	*getter_inputs(void)
 {
 	static int	heredoc_fds[MAX_FD];
 
@@ -33,7 +33,7 @@ int	init_heredoc(t_node *node)
 	int	*heredoc_fd;
 	int	status;
 
-	heredoc_fd = getter_heredoc_fd();
+	heredoc_fd = getter_inputs();
 	status = 0;
 	ft_bzero(heredoc_fd, MAX_FD);
 	open_heredoc(node, heredoc_fd, &status);
