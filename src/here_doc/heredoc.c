@@ -17,7 +17,7 @@ static void	print_warning(char *delimiter);
 static void	free_and_exit(int code);
 static void	child_execute(int fd[], char *delimiter);
 
-void	open_heredoc(t_node *node, int *fds, int *status)
+void	open_heredoc(t_node *node, t_file_io *fds, int *status)
 {
 	int	aux;
 
@@ -28,9 +28,10 @@ void	open_heredoc(t_node *node, int *fds, int *status)
 			aux++;
 		if (node->token == T_HERE_DOC)
 		{
-			if (fds[aux])
-				close(fds[aux]);
-			fds[aux] = here_doc(status, list_get_token(node, T_WORD)->str);
+			if (fds[aux].input)
+				close(fds[aux].input);
+			fds[aux].input = here_doc(status,
+					list_get_token(node, T_WORD)->str);
 		}
 		node = node->next;
 	}

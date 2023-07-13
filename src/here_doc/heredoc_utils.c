@@ -30,10 +30,10 @@ int	*getter_inputs(void)
 
 int	init_heredoc(t_node *node)
 {
-	int	*heredoc_fd;
-	int	status;
+	t_file_io	*heredoc_fd;
+	int			status;
 
-	heredoc_fd = getter_inputs();
+	heredoc_fd = getter_t_file_io();
 	status = 0;
 	ft_bzero(heredoc_fd, MAX_FD);
 	open_heredoc(node, heredoc_fd, &status);
