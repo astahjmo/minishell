@@ -58,24 +58,27 @@ t_node	**prepare_commands(t_databus *data, int *i)
 	return (cmds);
 }
 
+static void	reset_stdin_and_out(void)
+{
+	getter_stdio()->input = STDIN_FILENO;
+	getter_stdio()->output = STDOUT_FILENO;
+}
+
 void	after_execution(void)
 {
-	int			idx;
-	int			*std_io;
-	t_file_io	*file_io;
+	int				idx;
+	t_process_io	*process_ios;
 
 	idx = 0;
-	std_io = getter_fds();
-	file_io = getter_t_file_io();
-	std_io[IN_FD] = IN_FD;
-	std_io[OUT_FD] = OUT_FD;
+	reset_stdin_and_out();
+	process_ios = getter_t_process_io();
 	while (idx <= getter_data()->cmds->idx)
 	{
-		if (file_io[idx].input > 2)
-			close(file_io[idx].input);
-		if (file_io[idx].output > 2)
-			close(file_io[idx].output);
-		ft_bzero(&file_io[idx], sizeof(int) * 2);
+		if (process_ios[idx].input > 2)
+			close(process_ios[idx].input);
+		if (process_ios[idx].output > 2)
+			close(process_ios[idx].output);
+		ft_bzero(&process_ios[idx], sizeof(int) * 2);
 		idx++;
 	}
 }

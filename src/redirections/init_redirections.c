@@ -29,7 +29,7 @@ static int	setup_out_redir(t_node *node, t_tokens token)
 	return (fd);
 }
 
-static void	open_redir(t_node *node, t_file_io *fds, int *status)
+static void	open_redir(t_node *node, t_process_io *fds, int *status)
 {
 	int	aux;
 
@@ -57,11 +57,11 @@ int	*getter_outputs(void)
 
 int	init_redirections(t_node *node)
 {
-	t_file_io	*redirections;
-	int			status;
+	t_process_io	*redirections;
+	int				status;
 
 	status = 0;
-	redirections = getter_t_file_io();
+	redirections = getter_t_process_io();
 	open_redir(node, redirections, &status);
 	return (status);
 }

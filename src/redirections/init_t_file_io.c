@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-t_file_io	*getter_t_file_io(void)
+t_process_io	*getter_t_process_io(void)
 {
-	static t_file_io	io[MAX_FD] = {0};
+	static t_process_io	io[MAX_FD] = {0};
 
 	return (io);
 }
