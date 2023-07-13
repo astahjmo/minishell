@@ -90,7 +90,7 @@ typedef struct s_io
 {
 	int						input;
 	int						output;
-}							t_file_io;
+}							t_process_io;
 
 enum						e_inputii
 {
@@ -256,18 +256,18 @@ int							pre_executor(t_databus *data);
 t_node						*list_get_token(t_node *node, t_tokens token);
 char						*get_cmd_path(char *cmd);
 void						exec_command(t_node *cmd, t_node **free_if_invalid);
-int							*command_hook(int cmd_count);
+t_process_io				*command_hook(int cmd_count);
 int							*getter_outputs(void);
-int							*getter_fds(void);
+t_process_io				*getter_stdio(void);
 char						*fmt_s(char *format, char *s1, char *s2, char *s3);
 void						one_command(t_node *cmds, t_node **free_if_invalid);
 char						**getter_buff(void);
 void						sig_handler(int sig);
 int							*getter_pipes(void);
 void						put_end_line(char *buf, int fd);
-void						open_heredoc(t_node *node,
-								t_file_io *fds, int *status);
+void						open_heredoc(t_node *node, t_process_io *fds,
+								int *status);
 int							is_a_command(void);
-t_file_io					*getter_t_file_io(void);
+t_process_io				*getter_t_process_io(void);
 
 #endif

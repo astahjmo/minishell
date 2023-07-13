@@ -30,8 +30,8 @@ void	echo_builtin(t_node *current)
 	{
 		current = current->next;
 		if (current->str)
-			ft_putstr_fd(current->str, command_hook(cmd_io)[OUT_FD]);
+			ft_putstr_fd(current->str, command_hook(cmd_io)->output);
 	}
 	if (!n_flag)
-		ft_putstr_fd("\n", command_hook(cmd_io)[OUT_FD]);
+		ft_putstr_fd("\n", command_hook(cmd_io)->output);
 }

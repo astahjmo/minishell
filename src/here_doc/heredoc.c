@@ -17,7 +17,7 @@ static void	print_warning(char *delimiter);
 static void	free_and_exit(int code);
 static void	child_execute(int fd[], char *delimiter);
 
-void	open_heredoc(t_node *node, t_file_io *fds, int *status)
+void	open_heredoc(t_node *node, t_process_io *fds, int *status)
 {
 	int	aux;
 

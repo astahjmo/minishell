@@ -34,7 +34,7 @@ void	env_builtin(t_node *current)
 				s = fmt_s("%s=\n", name, NULL, NULL);
 			else
 				s = fmt_s("%s=%s\n", name, content, NULL);
-			ft_putstr_fd(s, command_hook(data->cmds->idx)[OUT_FD]);
+			ft_putstr_fd(s, command_hook(data->cmds->idx)->output);
 			free(s);
 		}
 	}
@@ -64,7 +64,7 @@ void	alt_env_builtin(t_node *current)
 		}
 		else
 			s = fmt_s("declare -x %s\n", name, NULL, NULL);
-		ft_putstr_fd(s, command_hook(getter_data()->cmds->idx)[OUT_FD]);
+		ft_putstr_fd(s, command_hook(getter_data()->cmds->idx)->output);
 		free(s);
 	}
 	(void)current;

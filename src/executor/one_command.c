@@ -12,25 +12,25 @@
 
 #include "minishell.h"
 
-int	*command_hook(int cmd_count)
+t_process_io	*command_hook(int cmd_count)
 {
-	t_file_io	*fds;
-	int			*re;
+	t_process_io	*fds;
+	t_process_io	*stdio;
 
-	re = getter_fds();
-	fds = getter_t_file_io();
+	stdio = getter_stdio();
+	fds = getter_t_process_io();
 	if (fds[cmd_count].input > 2)
-		re[IN_FD] = fds[cmd_count].input;
+		stdio->input = fds[cmd_count].input;
 	if (fds[cmd_count].output > 2)
-		re[OUT_FD] = fds[cmd_count].output;
-	return (re);
+		stdio->output = fds[cmd_count].output;
+	return (stdio);
 }
 
-int	*getter_fds(void)
+t_process_io	*getter_stdio(void)
 {
-	static int	fds[2] = {IN_FD, OUT_FD};
+	static t_process_io	fds = {STDIN_FILENO, STDOUT_FILENO};
 
-	return (fds);
+	return (&fds);
 }
 
 static void	dup2_and_close(int fd, int clone)
@@ -41,10 +41,10 @@ static void	dup2_and_close(int fd, int clone)
 
 static void	fork_and_execute(t_node *cmds, t_node **free_if_invalid)
 {
-	pid_t	pid;
-	int		i;
-	int		*fds;
-	int		cmd_count;
+	pid_t			pid;
+	int				i;
+	t_process_io	*fds;
+	int				cmd_count;
 
 	cmd_count = getter_data()->cmds->idx;
 	pid = fork();
@@ -54,10 +54,10 @@ static void	fork_and_execute(t_node *cmds, t_node **free_if_invalid)
 	if (pid == 0)
 	{
 		fds = command_hook(cmd_count);
-		if (fds[IN_FD] > 2)
-			dup2_and_close(fds[IN_FD], STDIN_FILENO);
-		if (fds[OUT_FD] > 2)
-			dup2_and_close(fds[OUT_FD], STDOUT_FILENO);
+		if (fds->input > 2)
+			dup2_and_close(fds->input, STDIN_FILENO);
+		if (fds->output > 2)
+			dup2_and_close(fds->output, STDOUT_FILENO);
 		exec_command(cmds, free_if_invalid);
 		exit(1);
 	}
