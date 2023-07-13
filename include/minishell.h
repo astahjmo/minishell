@@ -265,7 +265,8 @@ char						**getter_buff(void);
 void						sig_handler(int sig);
 int							*getter_pipes(void);
 void						put_end_line(char *buf, int fd);
-void						open_heredoc(t_node *node, t_file_io *fds, int *status);
+void						open_heredoc(t_node *node,
+								t_file_io *fds, int *status);
 int							is_a_command(void);
 t_file_io					*getter_t_file_io(void);
 
