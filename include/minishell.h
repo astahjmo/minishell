@@ -261,11 +261,11 @@ int							*getter_outputs(void);
 int							*getter_fds(void);
 char						*fmt_s(char *format, char *s1, char *s2, char *s3);
 void						one_command(t_node *cmds, t_node **free_if_invalid);
-void						open_heredoc(t_node *node, int *fds, int *status);
 char						**getter_buff(void);
 void						sig_handler(int sig);
 int							*getter_pipes(void);
 void						put_end_line(char *buf, int fd);
+void						open_heredoc(t_node *node, t_file_io *fds, int *status);
 int							is_a_command(void);
 t_file_io					*getter_t_file_io(void);
 
