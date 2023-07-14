@@ -5,12 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/20 19:46:33 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/24 15:00:42 by johmatos         ###   ########.fr       */
+/*   Created: 2023/07/14 14:23:39 by johmatos          #+#    #+#             */
+/*   Updated: 2023/07/14 14:23:50 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 
 int	*getter_pipes(void)
@@ -18,26 +17,6 @@ int	*getter_pipes(void)
 	static int	pipes[2];
 
 	return (pipes);
-}
-
-int	*getter_inputs(void)
-{
-	static int	heredoc_fds[MAX_FD];
-
-	ft_bzero(heredoc_fds, sizeof(*heredoc_fds));
-	return (heredoc_fds);
-}
-
-int	init_heredoc(t_node *node)
-{
-	t_process_io	*heredoc_fd;
-	int				status;
-
-	heredoc_fd = getter_t_process_io();
-	status = 0;
-	ft_bzero(heredoc_fd, MAX_FD);
-	open_heredoc(node, heredoc_fd, &status);
-	return (status);
 }
 
 char	**getter_buff(void)

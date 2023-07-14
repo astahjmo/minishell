@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/12 18:38:00 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:08:54 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,5 +269,12 @@ void						open_heredoc(t_node *node, t_process_io *fds,
 								int *status);
 int							is_a_command(void);
 t_process_io				*getter_t_process_io(void);
+int							here_doc(int *status, char *delimiter);
+void						open_out_redir(t_node *node, t_process_io *fds,
+								int *status);
+void						open_input_redir(t_node *node, t_process_io *fds,
+								int *status);
+int							init_input(t_node *node);
+int							init_output(t_node *node);
 
 #endif

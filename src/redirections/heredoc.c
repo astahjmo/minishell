@@ -6,52 +6,11 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 05:31:29 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/12 14:34:55 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:22:17 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	here_doc(int *status, char *delimiter);
-static void	print_warning(char *delimiter);
-static void	free_and_exit(int code);
-static void	child_execute(int fd[], char *delimiter);
-
-void	open_heredoc(t_node *node, t_process_io *fds, int *status)
-{
-	int	aux;
-
-	aux = 0;
-	while (node != NULL && *status != 2)
-	{
-		if (node->token == T_PIPE)
-			aux++;
-		if (node->token == T_HERE_DOC)
-		{
-			if (fds[aux].input)
-				close(fds[aux].input);
-			fds[aux].input = here_doc(status,
-					list_get_token(node, T_WORD)->str);
-		}
-		node = node->next;
-	}
-}
-
-static int	here_doc(int *status, char *delimiter)
-{
-	pid_t	pid;
-	int		*fd;
-
-	fd = getter_pipes();
-	if (pipe(fd) < 0)
-		return (0);
-	pid = fork();
-	if (pid == 0)
-		child_execute(fd, delimiter);
-	close(fd[1]);
-	waitpid(pid, status, 0);
-	return (fd[0]);
-}
 
 static void	free_and_exit(int code)
 {
@@ -67,7 +26,6 @@ static void	print_warning(char *delimiter)
 		"end-of-file (wanted %s)\n",
 		delimiter);
 }
-
 static void	child_execute(int fd[], char *delimiter)
 {
 	char	**buf;
@@ -95,4 +53,20 @@ static void	child_execute(int fd[], char *delimiter)
 	write(fd[1], *buf, ft_strlen(*buf));
 	close(fd[1]);
 	free_and_exit(1);
+}
+
+int	here_doc(int *status, char *delimiter)
+{
+	pid_t	pid;
+	int		*fd;
+
+	fd = getter_pipes();
+	if (pipe(fd) < 0)
+		return (0);
+	pid = fork();
+	if (pid == 0)
+		child_execute(fd, delimiter);
+	close(fd[1]);
+	waitpid(pid, status, 0);
+	return (fd[0]);
 }
