@@ -82,9 +82,11 @@ int	has_too_many_args(void)
 	t_node	*arg2;
 	t_node	*cmd;
 
+	arg2 = NULL;
 	cmd = getter_data()->cmds->head;
 	arg1 = next_node_with_this_token(cmd->next, T_WORD);
-	arg2 = next_node_with_this_token(arg1->next, T_WORD);
+	if (arg1)
+		arg2 = next_node_with_this_token(arg1->next, T_WORD);
 	if (arg2)
 		return (TRUE);
 	return (FALSE);
