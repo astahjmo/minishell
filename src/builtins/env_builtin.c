@@ -38,7 +38,7 @@ void	env_builtin(t_node *current)
 			free(s);
 		}
 	}
-	(void)current;
+	set_ext_code_after_builtin(current);
 }
 
 void	no_arguments_export_builtin(t_node *current)
@@ -67,5 +67,5 @@ void	no_arguments_export_builtin(t_node *current)
 		ft_putstr_fd(s, command_hook(getter_data()->cmds->idx)->output);
 		free(s);
 	}
-	(void)current;
+	set_ext_code_after_builtin(current);
 }
