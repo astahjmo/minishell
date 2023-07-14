@@ -201,7 +201,7 @@ void						echo_builtin(t_node *current);
 void						exit_builtin(t_node *current);
 void						export_builtin(t_node *current);
 void						unset_builtin(t_node *current);
-void						alt_env_builtin(t_node *current);
+void						no_arguments_export_builtin(t_node *current);
 int							is_valid_env_name(char *env);
 char						*get_content_from_name_alone(char *name);
 t_tokens					is_builtin(char *cmd);
@@ -223,7 +223,7 @@ char						*strjoinfree_s1(char *s1, char *s2);
 int							*getter_heredoc_fd(void);
 void						cd_builtin(t_node *current);
 char						*get_name(char *str);
-int							has_too_many_args(t_databus *data);
+int							has_too_many_args(void);
 
 // TOKENIZER
 char						*expand_dollars(char *line);
