@@ -1,5 +1,10 @@
 SEMPRE:
 --> comando invalido "hello"
+--> CTRL + D
+--> CTRL + C
+--> $?
+--> $PWD$?
+--> $PWD $?
 
 HEREDOC:
 1-> fechando com input de delimitador
@@ -12,3 +17,4 @@ HEREDOC:
 BUILTINS:
 -> rodar teste da sheela
 -> && testar sem argumentos
+

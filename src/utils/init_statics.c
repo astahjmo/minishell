@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-char	**get_lexemes(void)
+char	**get_operators_lexemes(void)
 {
-	static char	*lexems[9] = {
+	static char	*lexemes[9] = {
 		"<<",
 		">>",
 		"||",
@@ -26,10 +26,10 @@ char	**get_lexemes(void)
 		NULL,
 	};
 
-	return (lexems);
+	return (lexemes);
 }
 
-char	**get_builtins(void)
+char	**get_builtins_arr(void)
 {
 	static char	*builtins[8] = {
 		"exit",
@@ -45,17 +45,7 @@ char	**get_builtins(void)
 	return (builtins);
 }
 
-char	**get_expansion_lexes(void)
-{
-	static char	*expansions[2] = {
-		"$",
-		"~",
-	};
-
-	return (expansions);
-}
-
-t_fn_built_exec	**get_built_func(void)
+t_fn_built_exec	**get_built_func_arr(void)
 {
 	static t_fn_built_exec	*fns[7] = {
 		exit_builtin,
