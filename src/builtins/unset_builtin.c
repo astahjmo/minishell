@@ -77,5 +77,5 @@ int	whole_prefix_matched(int i, int len)
 
 int	index_is_invalid(int i)
 {
-	return ((i + 1) == T_INVALID);
+	return (!((i + 1) == T_INVALID));
 }
