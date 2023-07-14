@@ -38,7 +38,7 @@ void	env_builtin(t_node *current)
 			free(s);
 		}
 	}
-	(void)current;
+	after(current);
 }
 
 void	alt_env_builtin(t_node *current)
@@ -67,5 +67,5 @@ void	alt_env_builtin(t_node *current)
 		ft_putstr_fd(s, command_hook(getter_data()->cmds->idx)[OUT_FD]);
 		free(s);
 	}
-	(void)current;
+	after(current);
 }

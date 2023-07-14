@@ -35,6 +35,7 @@ void	cd_builtin(t_node *current)
 	getcwd(cwd, STR_LIMIT);
 	update_pwd_and_oldpwd(cwd);
 	ft_safe_free(path_address);
+	getter_data()->exit_status = 0;
 }
 
 static int	path_is_valid(int chdir_return)

@@ -19,7 +19,7 @@ void	pwd_builtin(t_node *current)
 
 	cmd_count = getter_data()->cmds->idx;
 	ft_putendl_fd(getcwd(cwd, sizeof(cwd)), command_hook(cmd_count)[OUT_FD]);
-	(void)current;
+	after(current);
 }
 
 int	get_pwd_idx(void)
@@ -54,4 +54,10 @@ int	get_oldpwd_idx(void)
 	}
 	ft_strlcpy(data->env[data->number_of_envs], "OLDPWD=", 7);
 	return (data->number_of_envs);
+}
+
+void	after(t_node *current)
+{
+	(void)current;
+	getter_data()->exit_status = 0;
 }
