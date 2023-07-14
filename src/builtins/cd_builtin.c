@@ -21,20 +21,18 @@ void	cd_builtin(t_node *current)
 	char	**path_address;
 	char	cwd[STR_LIMIT];
 
-	if (current->next)
-		current = current->next;
-	if (current->next)
-		path_address = &current->next->str;
-	else
+	path_address = &next_node_with_this_token(current->next, T_WORD)->str;
+	if (!next_node_with_this_token(current->next, T_WORD))
 	{
 		home = get_content_from_name_alone("HOME");
 		path_address = &home;
 	}
-	if (-1 == path_is_valid(chdir(*path_address)))
+	if (T_INVALID == path_is_valid(chdir(*path_address)))
 		return ;
 	getcwd(cwd, STR_LIMIT);
 	update_pwd_and_oldpwd(cwd);
 	ft_safe_free(path_address);
+	getter_data()->exit_status = 0;
 }
 
 static int	path_is_valid(int chdir_return)
@@ -45,11 +43,12 @@ static int	path_is_valid(int chdir_return)
 		ft_putstr_fd(" No such file or directory\n", 2);
 		getter_data()->exit_status = 1;
 	}
-	else if (has_too_many_args(getter_data()))
+	else if (has_too_many_args())
 	{
 		ft_putstr_fd("minishell: cd:", 1);
 		ft_putstr_fd(" too many arguments\n", 2);
 		getter_data()->exit_status = 1;
+		return (T_INVALID);
 	}
 	return (chdir_return);
 }

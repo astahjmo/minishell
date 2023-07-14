@@ -6,18 +6,18 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 05:31:29 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/14 14:22:17 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:59:41 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	free_and_exit(int code)
+static void	free_and_exit(int ext)
 {
 	free_cmds(getter_data()->cmds);
 	free_all(getter_data());
 	rl_clear_history();
-	exit(code);
+	exit(ext);
 }
 
 static void	print_warning(char *delimiter)
@@ -26,6 +26,7 @@ static void	print_warning(char *delimiter)
 		"end-of-file (wanted %s)\n",
 		delimiter);
 }
+
 static void	child_execute(int fd[], char *delimiter)
 {
 	char	**buf;

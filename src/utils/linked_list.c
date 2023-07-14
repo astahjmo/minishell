@@ -60,11 +60,11 @@ void	list_addfront(t_node *old, t_node *new)
 	old->next = new;
 }
 
-t_node	*list_get_token(t_node *node, t_tokens token)
+t_node	*next_node_with_this_token(t_node *node, t_tokens token)
 {
 	if (!node)
 		return (NULL);
-	while (node->token != token)
+	while (node && node->token != token)
 		node = node->next;
 	return (node);
 }
