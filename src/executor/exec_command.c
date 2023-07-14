@@ -79,7 +79,7 @@ void	exec_command(t_node *cmd, t_node **free_if_invalid)
 	ar.head = cmd;
 	args = create_args(cmd);
 	envs = create_envs();
-	if (path && *path == 0)
+	if (!path)
 	{
 		printf("minishell: %s: comando não encontrado\n", cmd->str);
 		free(free_if_invalid);
@@ -90,5 +90,6 @@ void	exec_command(t_node *cmd, t_node **free_if_invalid)
 		free(envs);
 		exit(127);
 	}
-	execve(path, args, envs);
+	if (path)
+		execve(path, args, envs);
 }
