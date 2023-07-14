@@ -16,8 +16,8 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  tokenizer_string.c analysis.c free_cmds.c recipeWord.c \
 		  recipeOperator.c init_recipes.c lexer_strings.c \
 		  strjoinfree.c free_all.c cd_builtin.c fmt_s.c put_end_line.c \
-		  env_builtin.c exit_builtin.c executor.c export_builtin.c \
-		  unset_builtin.c utils_builtins_01.c echo_builtin.c utils_builtins_02.c \
+		  env_builtin.c exit_builtin.c executor.c export_builtin.c echo_builtin.c \
+		  unset_builtin.c utils_builtins_01.c utils_builtins_02.c utils_builtins_03.c \
 		  init_env.c init_statics.c is_llmin.c heredoc_utils.c pwd_builtin.c \
 		  expansion_utils.c print_tokens.c init_redirections.c redirections.c \
 		  utils_executor.c one_command.c exec_command.c get_cmd_path.c \

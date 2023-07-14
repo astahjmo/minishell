@@ -12,31 +12,31 @@
 
 #include "minishell.h"
 
-static int	here_doc(int *status, char *delimiter);
+static int	heredoc(int *ext, char *delimiter);
 static void	print_warning(char *delimiter);
-static void	free_and_exit(int code);
+static void	free_and_exit(int ext);
 static void	child_execute(int fd[], char *delimiter);
 
-void	open_heredoc(t_node *node, int *fds, int *status)
+void	open_heredoc(t_node *node, int *fds, int *ext)
 {
-	int	aux;
+	int	i;
 
-	aux = 0;
-	while (node != NULL && *status != 2)
+	i = 0;
+	while (node != NULL && *ext != 2)
 	{
 		if (node->token == T_PIPE)
-			aux++;
+			i++;
 		if (node->token == T_HERE_DOC)
 		{
-			if (fds[aux])
-				close(fds[aux]);
-			fds[aux] = here_doc(status, list_get_token(node, T_WORD)->str);
+			if (fds[i])
+				close(fds[i]);
+			fds[i] = heredoc(ext, next_node_with_this_token(node, T_WORD)->str);
 		}
 		node = node->next;
 	}
 }
 
-static int	here_doc(int *status, char *delimiter)
+static int	heredoc(int *ext, char *delimiter)
 {
 	pid_t	pid;
 	int		*fd;
@@ -48,16 +48,16 @@ static int	here_doc(int *status, char *delimiter)
 	if (pid == 0)
 		child_execute(fd, delimiter);
 	close(fd[1]);
-	waitpid(pid, status, 0);
+	waitpid(pid, ext, 0);
 	return (fd[0]);
 }
 
-static void	free_and_exit(int code)
+static void	free_and_exit(int ext)
 {
 	free_cmds(getter_data()->cmds);
 	free_all(getter_data());
 	rl_clear_history();
-	exit(code);
+	exit(ext);
 }
 
 static void	print_warning(char *delimiter)
