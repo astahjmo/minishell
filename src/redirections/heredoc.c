@@ -6,51 +6,11 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 05:31:29 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/12 14:34:55 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:59:41 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	heredoc(int *ext, char *delimiter);
-static void	print_warning(char *delimiter);
-static void	free_and_exit(int ext);
-static void	child_execute(int fd[], char *delimiter);
-
-void	open_heredoc(t_node *node, int *fds, int *ext)
-{
-	int	i;
-
-	i = 0;
-	while (node != NULL && *ext != 2)
-	{
-		if (node->token == T_PIPE)
-			i++;
-		if (node->token == T_HERE_DOC)
-		{
-			if (fds[i])
-				close(fds[i]);
-			fds[i] = heredoc(ext, next_node_with_this_token(node, T_WORD)->str);
-		}
-		node = node->next;
-	}
-}
-
-static int	heredoc(int *ext, char *delimiter)
-{
-	pid_t	pid;
-	int		*fd;
-
-	fd = getter_pipes();
-	if (pipe(fd) < 0)
-		return (0);
-	pid = fork();
-	if (pid == 0)
-		child_execute(fd, delimiter);
-	close(fd[1]);
-	waitpid(pid, ext, 0);
-	return (fd[0]);
-}
 
 static void	free_and_exit(int ext)
 {
@@ -94,4 +54,20 @@ static void	child_execute(int fd[], char *delimiter)
 	write(fd[1], *buf, ft_strlen(*buf));
 	close(fd[1]);
 	free_and_exit(1);
+}
+
+int	here_doc(int *status, char *delimiter)
+{
+	pid_t	pid;
+	int		*fd;
+
+	fd = getter_pipes();
+	if (pipe(fd) < 0)
+		return (0);
+	pid = fork();
+	if (pid == 0)
+		child_execute(fd, delimiter);
+	close(fd[1]);
+	waitpid(pid, status, 0);
+	return (fd[0]);
 }

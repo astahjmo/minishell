@@ -1,66 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_utils.c                                    :+:      :+:    :+:   */
+/*   init_redirections.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 19:46:33 by johmatos          #+#    #+#             */
-/*   Updated: 2023/06/24 15:00:42 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:23:22 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 
-static int	setup_out_redir(t_node *node, t_tokens token)
-{
-	int		fd;
-	char	*path;
-
-	while (node->token != T_WORD)
-		node = node->next;
-	path = node->str;
-	if (token == T_OUT_REDIR)
-		fd = open(path, O_RDWR | O_TRUNC | O_CREAT, 0666);
-	else
-		fd = open(path, O_RDWR | O_CREAT | O_APPEND, 0666);
-	return (fd);
-}
-
-static void	open_redir(t_node *node, int *fds, int *status)
-{
-	int	aux;
-
-	aux = 0;
-	while (node != NULL && *status != 2)
-	{
-		if (node->token == T_PIPE)
-			aux++;
-		if (node->token == T_OUT_REDIR || node->token == T_O_OUT_REDIR)
-		{
-			if (fds[aux])
-				close(fds[aux]);
-			fds[aux] = setup_out_redir(node, node->token);
-		}
-		node = node->next;
-	}
-}
-
-int	*getter_redirections(void)
+int	*getter_outputs(void)
 {
 	static int	redirections[MAX_FD] = {0};
 
 	return (redirections);
 }
 
-int	init_redirections(t_node *node)
+int	*getter_inputs(void)
 {
-	int	*redirections;
-	int	status;
+	static int	heredoc_fds[MAX_FD];
+
+	ft_bzero(heredoc_fds, sizeof(*heredoc_fds));
+	return (heredoc_fds);
+}
+
+int	init_output(t_node *node)
+{
+	t_process_io	*redirections;
+	int				status;
 
 	status = 0;
-	redirections = getter_redirections();
-	open_redir(node, redirections, &status);
+	redirections = getter_t_process_io();
+	open_out_redir(node, redirections, &status);
+	return (status);
+}
+
+int	init_input(t_node *node)
+{
+	t_process_io	*heredoc_fd;
+	int				status;
+
+	heredoc_fd = getter_t_process_io();
+	status = 0;
+	ft_bzero(heredoc_fd, MAX_FD);
+	open_input_redir(node, heredoc_fd, &status);
 	return (status);
 }
