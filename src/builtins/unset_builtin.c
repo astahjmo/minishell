@@ -39,6 +39,7 @@ void	unset_builtin(t_node *current)
 			ft_memmove(&data->env[i], &data->env[i + 1], STR_LIMIT);
 		data->number_of_envs--;
 	}
+	after(NULL);
 }
 
 static int	getindex_of_env_to_unset(t_databus *data, char *to_unset)

@@ -43,6 +43,7 @@ void	export_builtin(t_node *current)
 		ft_strlcpy(data->env[data->number_of_envs - 1], current->str,
 			ft_strlen(current->str) + 1);
 	}
+	after(NULL);
 }
 
 static int	is_valid_env_name_err(char *env)

@@ -34,4 +34,5 @@ void	echo_builtin(t_node *current)
 	}
 	if (!n_flag)
 		ft_putstr_fd("\n", command_hook(cmd_io)[OUT_FD]);
+	getter_data()->exit_status = 0;
 }
