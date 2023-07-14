@@ -38,7 +38,7 @@ void	env_builtin(t_node *current)
 			free(s);
 		}
 	}
-	after(current);
+	set_ext_code_after_builtin(current);
 }
 
 void	alt_env_builtin(t_node *current)
@@ -67,5 +67,5 @@ void	alt_env_builtin(t_node *current)
 		ft_putstr_fd(s, command_hook(getter_data()->cmds->idx)[OUT_FD]);
 		free(s);
 	}
-	after(current);
+	set_ext_code_after_builtin(current);
 }
