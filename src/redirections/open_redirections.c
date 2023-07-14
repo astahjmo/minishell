@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 13:15:05 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/14 13:57:59 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:55:05 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	setup_input_redir(int *status, t_node *node, t_tokens token)
 		fd = open(path, O_RDONLY);
 	else
 		fd = here_doc(status,
-				list_get_token(node, T_WORD)->str);
+				next_node_with_this_token(node, T_WORD)->str);
 	return (fd);
 }
 
