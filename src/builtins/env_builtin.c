@@ -41,7 +41,7 @@ void	env_builtin(t_node *current)
 	(void)current;
 }
 
-void	alt_env_builtin(t_node *current)
+void	no_arguments_export_builtin(t_node *current)
 {
 	int		i;
 	char	name[STR_LIMIT];

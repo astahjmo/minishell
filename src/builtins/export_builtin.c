@@ -25,7 +25,7 @@ void	export_builtin(t_node *current)
 		return ;
 	current = current->next;
 	if (!current)
-		alt_env_builtin(current);
+		no_arguments_export_builtin(current);
 	data = getter_data();
 	while (current && current->next)
 	{
