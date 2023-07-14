@@ -19,20 +19,18 @@ static int	overwrite_env(char *new_env);
 
 void	export_builtin(t_node *current)
 {
-	t_databus	*data;
+	int	valid;
 
+	valid = 0;
 	if (!is_valid_syntax(current))
 		return ;
-	current = current->next;
-	if (!current)
+	if (!next_node_with_this_token(current->next, T_WORD))
 		no_arguments_export_builtin(current);
-	data = getter_data();
 	while (current && current->next)
 	{
-		current = current->next;
-		if (current->token != T_WORD)
-			current = current->next;
-		if (!is_valid_env_name_err(current->str))
+		current = next_node_with_this_token(current->next, T_WORD);
+		valid = is_valid_env_name_err(current->str);
+		if (FALSE == valid)
 			break ;
 		else if (overwrite_env(current->str))
 			continue ;
@@ -40,9 +38,10 @@ void	export_builtin(t_node *current)
 			return ;
 		if (!check_strlen(current->str))
 			return ;
-		ft_strlcpy(data->env[data->number_of_envs - 1], current->str,
-			ft_strlen(current->str) + 1);
+		ft_strlcpy(getter_data()->env[getter_data()->number_of_envs - 1],
+			current->str, ft_strlen(current->str) + 1);
 	}
+	set_ext_code_after_export(valid);
 }
 
 static int	is_valid_env_name_err(char *env)
@@ -52,7 +51,7 @@ static int	is_valid_env_name_err(char *env)
 		ft_putstr_fd("minishell: export:", 1);
 		ft_putstr_fd(" not a valid identifier\n", 2);
 		getter_data()->exit_status = 1;
-		return (0);
+		return (FALSE);
 	}
 	env++;
 	while (*env != '\0' && *env != '=')
@@ -62,11 +61,11 @@ static int	is_valid_env_name_err(char *env)
 			ft_putstr_fd("minishell: export:", 1);
 			ft_putstr_fd(" not a valid identifier\n", 2);
 			getter_data()->exit_status = 1;
-			return (0);
+			return (FALSE);
 		}
 		env++;
 	}
-	return (1);
+	return (TRUE);
 }
 
 static int	increase_number_of_envs(void)
@@ -78,10 +77,10 @@ static int	increase_number_of_envs(void)
 	{
 		ft_printf("minishell: too many environment variables\n");
 		getter_data()->exit_status = 1;
-		return (0);
+		return (FALSE);
 	}
 	data->number_of_envs++;
-	return (1);
+	return (TRUE);
 }
 
 static int	check_strlen(char *new_env)

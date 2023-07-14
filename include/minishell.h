@@ -223,7 +223,7 @@ char						*strjoinfree_s1(char *s1, char *s2);
 int							*getter_heredoc_fd(void);
 void						cd_builtin(t_node *current);
 char						*get_name(char *str);
-int							has_too_many_args(t_databus *data);
+int							has_too_many_args(void);
 
 // TOKENIZER
 char						*expand_dollars(char *line);
@@ -247,7 +247,8 @@ t_split						*split_envp(char *str, char c);
 int							init_redirections(t_node *node);
 t_node						*remove_operators(t_node *cursor);
 int							pre_executor(t_databus *data);
-t_node						*list_get_token(t_node *node, t_tokens token);
+t_node						*next_node_with_this_token(t_node *node,
+								t_tokens token);
 char						*get_cmd_path(char *cmd);
 void						exec_command(t_node *cmd, t_node **free_if_invalid);
 int							*command_hook(int cmd_count);
@@ -261,5 +262,7 @@ void						sig_handler(int sig);
 int							*getter_pipes(void);
 void						put_end_line(char *buf, int fd);
 int							is_a_command(void);
+void						set_ext_code_after_builtin(t_node *current);
+void						set_ext_code_after_export(int valid);
 
 #endif

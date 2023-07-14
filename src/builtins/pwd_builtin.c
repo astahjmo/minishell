@@ -6,7 +6,7 @@
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:01:51 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/25 08:58:58 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/14 09:23:19 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	pwd_builtin(t_node *current)
 
 	cmd_count = getter_data()->cmds->idx;
 	ft_putendl_fd(getcwd(cwd, sizeof(cwd)), command_hook(cmd_count)[OUT_FD]);
-	(void)current;
+	set_ext_code_after_builtin(current);
 }
 
 int	get_pwd_idx(void)
