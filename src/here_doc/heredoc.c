@@ -63,8 +63,8 @@ static void	free_and_exit(int code)
 static void	print_warning(char *delimiter)
 {
 	ft_printf("minishell: warning: here-document at line 1 delimited by "
-				"end-of-file (wanted %s)\n",
-				delimiter);
+		"end-of-file (wanted %s)\n",
+		delimiter);
 }
 
 static void	child_execute(int fd[], char *delimiter)
