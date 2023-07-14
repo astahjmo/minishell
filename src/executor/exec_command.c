@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/07 19:44:43 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/14 15:40:49 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,19 @@ void	exec_command(t_node *cmd, t_node **free_if_invalid)
 	signal(SIGINT, SIG_DFL);
 	path = get_cmd_path(cmd->str);
 	ar.head = cmd;
-	if (path == NULL)
+	args = create_args(cmd);
+	envs = create_envs();
+	if (!path)
 	{
 		printf("minishell: %s: comando não encontrado\n", cmd->str);
 		free(free_if_invalid);
 		free_cmds(&ar);
 		free_all(getter_data());
+		free(path);
+		free(args);
+		free(envs);
 		exit(127);
 	}
-	args = create_args(cmd);
-	envs = create_envs();
-	execve(path, args, envs);
+	if (path)
+		execve(path, args, envs);
 }
