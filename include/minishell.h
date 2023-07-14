@@ -247,7 +247,8 @@ t_split						*split_envp(char *str, char c);
 int							init_redirections(t_node *node);
 t_node						*remove_operators(t_node *cursor);
 int							pre_executor(t_databus *data);
-t_node						*list_get_token(t_node *node, t_tokens token);
+t_node						*next_node_with_this_token(t_node *node,
+								t_tokens token);
 char						*get_cmd_path(char *cmd);
 void						exec_command(t_node *cmd, t_node **free_if_invalid);
 int							*command_hook(int cmd_count);

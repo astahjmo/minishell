@@ -37,7 +37,7 @@ void	create_commnd_list(t_databus *data, t_node **arr)
 		}
 		arr[i] = head;
 		i++;
-		cursor = list_get_token(cursor, T_WORD);
+		cursor = next_node_with_this_token(cursor, T_WORD);
 	}
 }
 
