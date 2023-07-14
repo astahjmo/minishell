@@ -71,7 +71,7 @@ void	one_command(t_node *cmds, t_node **free_if_invalid)
 	t_tokens		builtin_idx;
 	t_fn_built_exec	**exec;
 
-	exec = get_built_func();
+	exec = get_built_func_arr();
 	builtin_idx = is_builtin(cmds->str);
 	if (builtin_idx != -1)
 		exec[builtin_idx](cmds);
