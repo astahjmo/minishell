@@ -262,6 +262,7 @@ void						sig_handler(int sig);
 int							*getter_pipes(void);
 void						put_end_line(char *buf, int fd);
 int							is_a_command(void);
-void						after(t_node *current);
+void						set_ext_code_after_builtin(t_node *current);
+void						set_ext_code_after_export(int valid);
 
 #endif
