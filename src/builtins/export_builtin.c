@@ -21,16 +21,14 @@ void	export_builtin(t_node *current)
 {
 	int	valid;
 
+	valid = 0;
 	if (!is_valid_syntax(current))
 		return ;
-	current = current->next;
-	if (!current)
-		alt_env_builtin(current);
+	if (!next_node_with_this_token(current->next, T_WORD))
+		no_arguments_export_builtin(current);
 	while (current && current->next)
 	{
-		current = current->next;
-		if (current->token != T_WORD)
-			current = current->next;
+		current = next_node_with_this_token(current->next, T_WORD);
 		valid = is_valid_env_name_err(current->str);
 		if (FALSE == valid)
 			break ;

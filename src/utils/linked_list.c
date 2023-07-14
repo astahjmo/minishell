@@ -64,7 +64,7 @@ t_node	*next_node_with_this_token(t_node *node, t_tokens token)
 {
 	if (!node)
 		return (NULL);
-	while (node->token != token)
+	while (node && node->token != token)
 		node = node->next;
 	return (node);
 }

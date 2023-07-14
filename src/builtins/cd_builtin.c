@@ -21,16 +21,13 @@ void	cd_builtin(t_node *current)
 	char	**path_address;
 	char	cwd[STR_LIMIT];
 
-	if (current->next)
-		current = current->next;
-	if (current->next)
-		path_address = &current->next->str;
-	else
+	path_address = &next_node_with_this_token(current->next, T_WORD)->str;
+	if (!next_node_with_this_token(current->next, T_WORD))
 	{
 		home = get_content_from_name_alone("HOME");
 		path_address = &home;
 	}
-	if (-1 == path_is_valid(chdir(*path_address)))
+	if (T_INVALID == path_is_valid(chdir(*path_address)))
 		return ;
 	getcwd(cwd, STR_LIMIT);
 	update_pwd_and_oldpwd(cwd);
