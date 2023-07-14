@@ -12,19 +12,25 @@
 
 #include "minishell.h"
 
-static void	free_and_exit(int ext)
-{
-	free_cmds(getter_data()->cmds);
-	free_all(getter_data());
-	rl_clear_history();
-	exit(ext);
-}
+static void	child_execute(int fd[], char *delimiter);
+static void	print_warning(char *delimiter);
+static void	free_and_exit(int ext);
+static void	readline_wrapper(char **buf, char *delimiter);
 
-static void	print_warning(char *delimiter)
+int	here_doc(int *status, char *delimiter)
 {
-	ft_printf("minishell: warning: here-document at line 1 delimited by "
-		"end-of-file (wanted %s)\n",
-		delimiter);
+	pid_t	pid;
+	int		*fd;
+
+	fd = getter_pipes();
+	if (pipe(fd) < 0)
+		return (0);
+	pid = fork();
+	if (pid == 0)
+		child_execute(fd, delimiter);
+	close(fd[1]);
+	waitpid(pid, status, 0);
+	return (fd[0]);
 }
 
 static void	child_execute(int fd[], char *delimiter)
@@ -35,8 +41,7 @@ static void	child_execute(int fd[], char *delimiter)
 	buf = getter_buff();
 	signal(SIGINT, sig_handler);
 	close(fd[0]);
-	state = FALSE;
-	*buf = readline("> ");
+	readline_wrapper(buf, delimiter);
 	state = input_is_delimiter(*buf, delimiter);
 	while (*buf && state == FALSE)
 	{
@@ -53,21 +58,30 @@ static void	child_execute(int fd[], char *delimiter)
 	}
 	write(fd[1], *buf, ft_strlen(*buf));
 	close(fd[1]);
-	free_and_exit(1);
+	free_and_exit(0);
 }
 
-int	here_doc(int *status, char *delimiter)
+static void	readline_wrapper(char **buf, char *delimiter)
 {
-	pid_t	pid;
-	int		*fd;
+	*buf = readline("> ");
+	if (NULL == *buf)
+	{
+		print_warning(delimiter);
+		free_and_exit(0);
+	}
+}
 
-	fd = getter_pipes();
-	if (pipe(fd) < 0)
-		return (0);
-	pid = fork();
-	if (pid == 0)
-		child_execute(fd, delimiter);
-	close(fd[1]);
-	waitpid(pid, status, 0);
-	return (fd[0]);
+static void	print_warning(char *delimiter)
+{
+	ft_printf("minishell: warning: here-document at line 1 delimited by "
+		"end-of-file (wanted %s)\n",
+		delimiter);
+}
+
+static void	free_and_exit(int ext)
+{
+	free_cmds(getter_data()->cmds);
+	free_all(getter_data());
+	rl_clear_history();
+	exit(ext);
 }
