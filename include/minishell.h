@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/12 14:34:26 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:54:33 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,12 @@ typedef enum e_tokens
 	T_INVALID = -1,
 	T_SPACE = 10
 }							t_tokens;
+
+typedef struct s_io
+{
+	int						input;
+	int						output;
+}							t_process_io;
 
 enum						e_inputii
 {
@@ -220,7 +226,7 @@ void						get_env_content(char *content, char *name,
 int							is_llmin(char *str);
 int							names_are_equal(char *s1, char *s2);
 char						*strjoinfree_s1(char *s1, char *s2);
-int							*getter_heredoc_fd(void);
+int							*getter_inputs(void);
 void						cd_builtin(t_node *current);
 char						*get_name(char *str);
 int							has_too_many_args(void);
@@ -251,17 +257,26 @@ t_node						*next_node_with_this_token(t_node *node,
 								t_tokens token);
 char						*get_cmd_path(char *cmd);
 void						exec_command(t_node *cmd, t_node **free_if_invalid);
-int							*command_hook(int cmd_count);
-int							*getter_redirections(void);
-int							*getter_fds(void);
+t_process_io				*command_hook(int cmd_count);
+int							*getter_outputs(void);
+t_process_io				*getter_stdio(void);
 char						*fmt_s(char *format, char *s1, char *s2, char *s3);
 void						one_command(t_node *cmds, t_node **free_if_invalid);
-void						open_heredoc(t_node *node, int *fds, int *status);
 char						**getter_buff(void);
 void						sig_handler(int sig);
 int							*getter_pipes(void);
 void						put_end_line(char *buf, int fd);
+void						open_heredoc(t_node *node, t_process_io *fds,
+								int *status);
 int							is_a_command(void);
+t_process_io				*getter_t_process_io(void);
+int							here_doc(int *status, char *delimiter);
+void						open_out_redir(t_node *node, t_process_io *fds,
+								int *status);
+void						open_input_redir(t_node *node, t_process_io *fds,
+								int *status);
+int							init_input(t_node *node);
+int							init_output(t_node *node);
 void						set_ext_code_after_builtin(t_node *current);
 void						set_ext_code_after_export(int valid);
 

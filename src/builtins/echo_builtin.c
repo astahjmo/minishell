@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 15:02:26 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/24 11:27:01 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:52:25 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	echo_builtin(t_node *current)
 	{
 		current = current->next;
 		if (current->str)
-			ft_putstr_fd(current->str, command_hook(cmd_io)[OUT_FD]);
+			ft_putstr_fd(current->str, command_hook(cmd_io)->output);
 	}
 	if (!n_flag)
-		ft_putstr_fd("\n", command_hook(cmd_io)[OUT_FD]);
+		ft_putstr_fd("\n", command_hook(cmd_io)->output);
 	getter_data()->exit_status = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/11 18:07:50 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/12 20:21:45 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,24 +58,28 @@ t_node	**prepare_commands(t_databus *data, int *i)
 	return (cmds);
 }
 
+static void	reset_stdin_and_out(void)
+{
+	getter_stdio()->input = STDIN_FILENO;
+	getter_stdio()->output = STDOUT_FILENO;
+}
+
 void	after_execution(void)
 {
-	int	*i_redir;
-	int	*o_redir;
-	int	count;
+	int				idx;
+	t_process_io	*process_ios;
 
-	i_redir = getter_heredoc_fd();
-	o_redir = getter_redirections();
-	count = 0;
-	while (count <= getter_data()->cmds->idx)
+	idx = 0;
+	reset_stdin_and_out();
+	process_ios = getter_t_process_io();
+	while (idx <= getter_data()->cmds->idx)
 	{
-		if (i_redir[count] > 2)
-			close(i_redir[count]);
-		if (o_redir[count] > 2)
-			close(o_redir[count]);
-		i_redir[count] = 0;
-		o_redir[count] = 0;
-		count++;
+		if (process_ios[idx].input > 2)
+			close(process_ios[idx].input);
+		if (process_ios[idx].output > 2)
+			close(process_ios[idx].output);
+		ft_bzero(&process_ios[idx], sizeof(int) * 2);
+		idx++;
 	}
 }
 

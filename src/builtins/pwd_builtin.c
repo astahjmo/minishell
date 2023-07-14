@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:01:51 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/14 09:23:19 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:55:11 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	pwd_builtin(t_node *current)
 	int		cmd_count;
 
 	cmd_count = getter_data()->cmds->idx;
-	ft_putendl_fd(getcwd(cwd, sizeof(cwd)), command_hook(cmd_count)[OUT_FD]);
+	ft_putendl_fd(getcwd(cwd, sizeof(cwd)), command_hook(cmd_count)->output);
 	set_ext_code_after_builtin(current);
 }
 
