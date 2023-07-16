@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/12 20:21:45 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/16 14:57:23 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,18 +90,12 @@ void	executor(t_databus *data)
 
 	i = 1;
 	cmds = prepare_commands(data, &i);
-	getter_data()->cmds->idx = 0;
+	getter_data()->cmds->idx = i - 1;
 	getter_data()->cmds->arr_cmds = cmds;
 	if (i == 1)
-		one_command(cmds[getter_data()->cmds->idx], cmds);
+		one_command(cmds[getter_data()->cmds->idx]);
 	else
-	{
-		while (i-- != 1)
-		{
-			getter_data()->cmds->idx++;
-		}
-		one_command(cmds[getter_data()->cmds->idx], cmds);
-	}
+		mult_command(cmds);
 	after_execution();
 	free(cmds);
 }
