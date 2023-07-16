@@ -9,7 +9,7 @@ VPATH = ./src \
 
 CFLAGS = -g -Wall -Wextra -Werror
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
-		  check_unclosed.c display.c ft_linked_list.c \
+		  has_unclosed_quotes.c display.c ft_linked_list.c \
 	  	  init_signal.c clear_bimatrix.c retokenize.c handle_expansions.c \
 		  find_token.c strings_utils.c strjoinfree_s1.c print_data.c\
 		  tokenizer_operator.c init_parsers.c linked_list.c \

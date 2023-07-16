@@ -5,6 +5,8 @@ SEMPRE:
 --> $?
 --> $PWD$?
 --> $PWD $?
+--> unclosed quote: "hello
+--> unclosed quote: 'hello
 
 HEREDOC:
 1-> fechando com input de delimitador
