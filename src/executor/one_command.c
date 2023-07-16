@@ -6,11 +6,13 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/12 20:16:13 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/16 14:59:03 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
+#include <unistd.h>
 
 t_process_io	*command_hook(int cmd_count)
 {
@@ -39,7 +41,7 @@ static void	dup2_and_close(int fd, int clone)
 	close(fd);
 }
 
-static void	fork_and_execute(t_node *cmds, t_node **free_if_invalid)
+static void	fork_and_execute(t_node *cmds)
 {
 	pid_t			pid;
 	int				i;
@@ -58,7 +60,7 @@ static void	fork_and_execute(t_node *cmds, t_node **free_if_invalid)
 			dup2_and_close(fds->input, STDIN_FILENO);
 		if (fds->output > 2)
 			dup2_and_close(fds->output, STDOUT_FILENO);
-		exec_command(cmds, free_if_invalid);
+		exec_command(cmds);
 		exit(1);
 	}
 	else
@@ -66,7 +68,7 @@ static void	fork_and_execute(t_node *cmds, t_node **free_if_invalid)
 	getter_data()->exit_status = WEXITSTATUS(i);
 }
 
-void	one_command(t_node *cmds, t_node **free_if_invalid)
+void	one_command(t_node *cmds)
 {
 	t_tokens		builtin_idx;
 	t_fn_built_exec	**exec;
@@ -76,5 +78,5 @@ void	one_command(t_node *cmds, t_node **free_if_invalid)
 	if (builtin_idx != -1)
 		exec[builtin_idx](cmds);
 	else
-		fork_and_execute(cmds, free_if_invalid);
+		fork_and_execute(cmds);
 }

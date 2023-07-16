@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/14 14:54:33 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/16 14:58:35 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,12 +256,12 @@ int							pre_executor(t_databus *data);
 t_node						*next_node_with_this_token(t_node *node,
 								t_tokens token);
 char						*get_cmd_path(char *cmd);
-void						exec_command(t_node *cmd, t_node **free_if_invalid);
+void						exec_command(t_node *cmd);
 t_process_io				*command_hook(int cmd_count);
 int							*getter_outputs(void);
 t_process_io				*getter_stdio(void);
 char						*fmt_s(char *format, char *s1, char *s2, char *s3);
-void						one_command(t_node *cmds, t_node **free_if_invalid);
+void						one_command(t_node *cmds);
 char						**getter_buff(void);
 void						sig_handler(int sig);
 int							*getter_pipes(void);
@@ -279,5 +279,5 @@ int							init_input(t_node *node);
 int							init_output(t_node *node);
 void						set_ext_code_after_builtin(t_node *current);
 void						set_ext_code_after_export(int valid);
-
+void						mult_command(t_node **cmds);
 #endif
