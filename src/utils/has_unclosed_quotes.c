@@ -27,32 +27,36 @@ int	input_is_delimiter(char *s1, char *s2)
 	return (FALSE);
 }
 
-int	check_unclosed_quotes(char *line, char *delimiter)
+t_bool	has_unclosed_quotes(char *line)
 {
-	int		credit;
-	char	*cursor;
+	int	single_quotes;
+	int	double_quotes;
+	int	i;
 
-	credit = 0;
-	cursor = ft_strnstr(line, delimiter, ft_strlen(line));
-	if (cursor != NULL)
+	i = 0;
+	single_quotes = 0;
+	double_quotes = 0;
+	while (line[i] != '\0')
 	{
-		credit++;
-		cursor++;
-		while (*cursor != '\0' || cursor != NULL)
+		if (line[i] == 39)
 		{
-			cursor = ft_strnstr(cursor, delimiter, ft_strlen(cursor));
-			if (cursor == NULL)
-				break ;
-			cursor++;
-			credit++;
+			if (double_quotes == 0)
+				single_quotes++;
 		}
+		else if (line[i] == 34)
+			if (single_quotes == 0)
+				double_quotes++;
+		i++;
 	}
-	if (credit % 2 == 0)
-		return (FALSE);
-	return (TRUE);
+	if ((single_quotes % 2) || (double_quotes % 2))
+	{
+		ft_printf("Error: Unclosed quotes in the string.\n");
+		return (TRUE);
+	}
+	return (FALSE);
 }
 
-int	is_quotes(char cmp)
+t_bool	is_quotes(char c)
 {
-	return (cmp == '\'' || cmp == '"');
+	return ((c == 39 || c == 34));
 }
