@@ -15,6 +15,12 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+void	close_pipe_fds(int *pipe_fds)
+{
+	close(pipe_fds[0]);
+	close(pipe_fds[1]);
+}
+
 static void	dup2_and_close(int fd, int clone)
 {
 	dup2(fd, clone);
@@ -32,12 +38,6 @@ void	child_routine(t_node *cmds, int count)
 		dup2_and_close(fds->output, STDOUT_FILENO);
 	exec_command(cmds);
 	exit(1);
-}
-
-void	close_pipe_fds(int *pipe_fds)
-{
-	close(pipe_fds[0]);
-	close(pipe_fds[1]);
 }
 
 void	mult_command(t_node **cmds)

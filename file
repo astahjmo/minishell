@@ -1,0 +1,20 @@
+total 240
+drwxr-xr-x  9 johmatos candidate   4096 Jul 16 15:01 .
+drwxr-xr-x 15 johmatos candidate   4096 Jul 16 11:57 ..
+-rw-r--r--  1 johmatos candidate   1115 Jul 16 14:20 a
+drwxr-x---  3 johmatos candidate   4096 Jul 16 13:20 .cache
+-rw-r--r--  1 johmatos candidate  17957 Jul 16 15:01 compile_commands.json
+-rw-r--r--  1 johmatos candidate      0 Jul 16 14:51 file
+drwxr-xr-x  8 johmatos candidate   4096 Jul 16 13:34 .git
+drwxr-xr-x  3 johmatos candidate   4096 Jul 16 13:19 .github
+-rw-r--r--  1 johmatos candidate    156 Jul 16 13:19 .gitignore
+drwxr-xr-x  2 johmatos candidate   4096 Jul 16 14:58 include
+-rw-r--r--  1 johmatos candidate   1185 Jul 16 14:29 input
+drwxr-xr-x  5 johmatos candidate   4096 Jul 16 15:01 lib
+-rw-r--r--  1 johmatos candidate   3765 Jul 16 15:01 Makefile
+-rwxr-xr-x  1 johmatos candidate 156992 Jul 16 15:01 minishell
+drwxr-xr-x  2 johmatos candidate   4096 Jul 16 15:01 objs
+-rw-r--r--  1 johmatos candidate    624 Jul 16 15:01 readline.supp
+-rw-r--r--  1 johmatos candidate   3121 Jul 16 13:32 README.md
+-rw-r--r--  1 johmatos candidate    406 Jul 16 13:32 roteiro_de_testes.txt
+drwxr-xr-x 11 johmatos candidate   4096 Jul 16 13:32 src
