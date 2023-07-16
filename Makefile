@@ -1,31 +1,31 @@
 NAME  = minishell
 VPATH = ./src \
 		./src/parser ./src/prompt ./src/signals \
- 		./src/here_doc ./src/utils \
+ 		./src/utils \
  		./src/handler_quotes \
  		./src/tokenizer ./src/expansions \
  		./src/syntax ./src/env ./src \
 		./src/builtins ./src/executor ./src/redirections ./src/utils
 
 CFLAGS = -g -Wall -Wextra -Werror
-CC = clang-12
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
-		  heredoc.c check_unclosed.c display.c ft_linked_list.c \
+		  check_unclosed.c display.c ft_linked_list.c \
 	  	  init_signal.c clear_bimatrix.c retokenize.c handle_expansions.c \
 		  find_token.c strings_utils.c strjoinfree_s1.c print_data.c\
 		  tokenizer_operator.c init_parsers.c linked_list.c \
 		  tokenizer_string.c analysis.c free_cmds.c recipeWord.c \
 		  recipeOperator.c init_recipes.c lexer_strings.c \
-		  strjoinfree.c free_all.c cd_builtin.c \
-		  env_builtin.c exit_builtin.c executor.c export_builtin.c \
-		  unset_builtin.c utils_builtins_01.c echo_builtin.c utils_builtins_02.c \
+		  strjoinfree.c free_all.c cd_builtin.c fmt_s.c put_end_line.c \
+		  env_builtin.c exit_builtin.c executor.c export_builtin.c echo_builtin.c \
+		  unset_builtin.c utils_builtins_01.c utils_builtins_02.c utils_builtins_03.c \
 		  init_env.c init_statics.c is_llmin.c heredoc_utils.c pwd_builtin.c \
-		  expansion_utils.c print_tokens.c init_redirections.c redirections.c \
+		  init_t_file_io.c init_redirections.c open_redirections.c \
+		  expansion_utils.c print_tokens.c heredoc.c\
 		  utils_executor.c one_command.c exec_command.c get_cmd_path.c \
-		  split_envp.c command_setuphook.c pre_executor.c
+		  split_envp.c command_setuphook.c pre_executor.c is_a_command.c \
 
 LIB_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
-				 ft_split.c ft_interpol.c ft_strlcpy.c ft_isalpha.c \
+				 ft_split.c ft_strlcpy.c ft_isalpha.c \
 				 ft_isalnum.c ft_putstr_fd.c ft_memmove.c ft_strncmp.c \
 				 ft_strchr.c ft_bzero.c ft_strnstr.c ft_memset.c ft_isdigit.c \
 				 ft_strjoin.c ft_atoull.c ft_atoi.c ft_memcpy.c ft_calloc.c \

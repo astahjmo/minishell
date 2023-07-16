@@ -15,13 +15,14 @@
 static void	free_t_split(t_split *split, char *path_str);
 static char	*test_directory(char *cmd);
 static char	*conditional_return(int i, t_get_cmd_path *get);
+static int	there_is_no_path(char *path);
 
 char	*get_cmd_path(char *cmd)
 {
 	t_get_cmd_path	get;
 	int				i;
 
-	if (!cmd || !*cmd)
+	if (!cmd || !*cmd || there_is_no_path("PATH"))
 		return (NULL);
 	i = -1;
 	get.slash_address = ft_strchr(cmd, '/');
@@ -48,6 +49,20 @@ static void	free_t_split(t_split *split, char *path_str)
 	free(path_str);
 	free(split->str_arr);
 	free(split);
+}
+
+static int	there_is_no_path(char *path)
+{
+	char	*content;
+
+	content = get_content_from_name_alone(path);
+	if (!content || !*content)
+	{
+		free(content);
+		return (TRUE);
+	}
+	free(content);
+	return (FALSE);
 }
 
 static char	*conditional_return(int i, t_get_cmd_path *get)

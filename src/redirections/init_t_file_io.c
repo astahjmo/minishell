@@ -1,14 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_setuphook.c                                :+:      :+:    :+:   */
+/*   init_t_file_io.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/09 20:14:41 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/09 20:14:44 by vcedraz-         ###   ########.fr       */
+/*   Created: 2023/07/12 18:34:44 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/07/12 19:50:37 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <unistd.h>
+
+t_process_io	*getter_t_process_io(void)
+{
+	static t_process_io	io[MAX_FD] = {0};
+
+	return (io);
+}

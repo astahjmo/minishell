@@ -67,7 +67,6 @@ char	*get_content_from_name_alone(char *name)
 		return (ft_strdup(""));
 	get_env_content(content, name, data->env[i]);
 	return (ft_strdup(content));
-	return (ft_strdup(""));
 }
 
 int	getindex_of_env(char *to_unset)
