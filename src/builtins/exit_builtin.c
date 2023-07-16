@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:31:33 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/21 22:50:36 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:09:05 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	handle_exit_argument(t_databus *data, char *exit_argument)
 		data->exit_status = 2;
 		free_and_exit(data, "minishell: exit: numeric argument required\n");
 	}
-	else if (has_too_many_args(data))
+	else if (has_too_many_args())
 	{
 		data->exit_status = 1;
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
@@ -58,6 +58,8 @@ static void	free_and_exit(t_databus *data, char *failure_message)
 		ft_putstr_fd(failure_message, 2);
 	if (isatty(STDIN_FILENO))
 		ft_putstr_fd("exit\n", 1);
+	free(data->cmds->arr_cmds);
+	free_cmds(data->cmds);
 	free_all(data);
 	exit(data->exit_status);
 }
@@ -74,30 +76,18 @@ static int	has_non_numeric_char(char *str)
 	return (FALSE);
 }
 
-int	has_too_many_args(t_databus *data)
+int	has_too_many_args(void)
 {
-	t_node	*head;
 	t_node	*arg1;
-	t_node	*too_many_args;
+	t_node	*arg2;
+	t_node	*cmd;
 
-	arg1 = NULL;
-	head = NULL;
-	head = data->cmds->head;
-	too_many_args = NULL;
-	if (head)
-	{
-		arg1 = head->next;
-		if (arg1 && arg1->token != T_WORD)
-			arg1 = arg1->next;
-	}
+	arg2 = NULL;
+	cmd = getter_data()->cmds->head;
+	arg1 = next_node_with_this_token(cmd->next, T_WORD);
 	if (arg1)
-	{
-		arg1 = head->next;
-		if (arg1->token != T_WORD)
-			arg1 = arg1->next;
-		too_many_args = arg1->next;
-	}
-	if (too_many_args)
+		arg2 = next_node_with_this_token(arg1->next, T_WORD);
+	if (arg2)
 		return (TRUE);
 	return (FALSE);
 }

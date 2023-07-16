@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/04 12:13:26 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:54:33 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,14 @@
 # define BUILTINS "echo cd pwd export unset env exit"
 # define TRUE 1
 # define FALSE 0
-# define ARR_MAX_BUFF (int)1e3
 # define PRIME 373
-# define DOLLAR '$'
-# define SQUOTE '\''
-# define DQUOTE '"'
-# define CYAN "\033[0;36m"
+# define DOLLAR "$"
+# define SQUOTE "\'"
+# define DQUOTE "\""
 # define WHITE "\033[0;37m"
 # define GREEN "\033[0;32m"
 # define RED "\033[0;31m"
+# define CYAN "\033[0;36m"
 # define RESET "\033[0m"
 # define STR_LIMIT 1024
 # define ENVS_LIMIT 8512
@@ -51,8 +50,9 @@
 # define ENV_CONTENT_SZ 32367
 # define ENV_NAME_SZ 1024
 # define HEAP_OVERFLOW_PROTECTION 100000
-# define INPUT 0
-# define OUTPUT 1
+# define IN_FD 0
+# define OUT_FD 1
+# define CMD_NOT_FOUND 127
 
 typedef struct s_node		t_node;
 typedef struct s_data		t_databus;
@@ -86,6 +86,12 @@ typedef enum e_tokens
 	T_SPACE = 10
 }							t_tokens;
 
+typedef struct s_io
+{
+	int						input;
+	int						output;
+}							t_process_io;
+
 enum						e_inputii
 {
 	I_COMMAND_LINE,
@@ -96,8 +102,9 @@ enum						e_inputii
 typedef struct s_cmds
 {
 	int						exit_code;
-	int						cmd_count;
+	int						idx;
 	t_node					*head;
+	t_node					**arr_cmds;
 }							t_cmds;
 
 typedef struct s_data
@@ -113,6 +120,13 @@ typedef struct s_data
 	char					*new_env;
 	char					**envp;
 }							t_databus;
+
+typedef struct s_trings
+{
+	char					*next;
+	char					*str2;
+	char					*str3;
+}							t_strings;
 
 typedef struct s_split
 {
@@ -159,7 +173,7 @@ void						tokenizer(void);
 char						*single_quotes_handler(char *line, int *acc);
 void						string_eat_all(char **word, char hungry);
 void						string_eat_until(char **word, char *until);
-int							string_is_equal(char *s1, char *s2);
+int							input_is_delimiter(char *s1, char *s2);
 t_tokens					get_token(char *find);
 int							init_heredoc(t_node *node);
 t_node						*tokenizer_operator(char *list);
@@ -180,9 +194,9 @@ char						*trim_key(char *key);
 char						*expand_dolar(char *line);
 char						*strjoin_free(char *s1, char *s2);
 void						executor(t_databus *data);
-char						**get_lexemes(void);
-char						**get_builtins(void);
-char						**get_expansion_lexes(void);
+char						**get_operators_lexemes(void);
+char						**get_builtins_arr(void);
+char						**get_expansion_lexemes(void);
 void						init_env(t_databus *data);
 void						free_env(t_databus *data);
 void						free_all(t_databus *data);
@@ -193,7 +207,7 @@ void						echo_builtin(t_node *current);
 void						exit_builtin(t_node *current);
 void						export_builtin(t_node *current);
 void						unset_builtin(t_node *current);
-void						alt_env_builtin(t_node *current);
+void						no_arguments_export_builtin(t_node *current);
 int							is_valid_env_name(char *env);
 char						*get_content_from_name_alone(char *name);
 t_tokens					is_builtin(char *cmd);
@@ -202,7 +216,7 @@ int							get_pwd_idx(void);
 int							get_oldpwd_idx(void);
 char						*is_being_initialized(char *new_env);
 int							already_exists(t_databus *data, char *env);
-t_fn_built_exec				**get_built_func(void);
+t_fn_built_exec				**get_built_func_arr(void);
 int							is_initialized_to_zero(char *str);
 int							names_are_equal(char *s1, char *s2);
 void						get_env_name(char *name, char *env);
@@ -212,12 +226,10 @@ void						get_env_content(char *content, char *name,
 int							is_llmin(char *str);
 int							names_are_equal(char *s1, char *s2);
 char						*strjoinfree_s1(char *s1, char *s2);
-int							here_doc(int *status, char *delimiter);
-int							*getter_heredoc_fd(void);
+int							*getter_inputs(void);
 void						cd_builtin(t_node *current);
-int							overwrite_env(t_databus *data, char *new_env);
 char						*get_name(char *str);
-int							has_too_many_args(t_databus *data);
+int							has_too_many_args(void);
 
 // TOKENIZER
 char						*expand_dollars(char *line);
@@ -241,11 +253,31 @@ t_split						*split_envp(char *str, char c);
 int							init_redirections(t_node *node);
 t_node						*remove_operators(t_node *cursor);
 int							pre_executor(t_databus *data);
-t_node						*list_get_token(t_node *node, t_tokens token);
+t_node						*next_node_with_this_token(t_node *node,
+								t_tokens token);
 char						*get_cmd_path(char *cmd);
-void						exec_command(t_node *cmd);
-void						one_command(t_node *cmds);
-int							*command_hook(int cmd_count);
-int							*getter_redirections(void);
-int							*getter_fds(void);
+void						exec_command(t_node *cmd, t_node **free_if_invalid);
+t_process_io				*command_hook(int cmd_count);
+int							*getter_outputs(void);
+t_process_io				*getter_stdio(void);
+char						*fmt_s(char *format, char *s1, char *s2, char *s3);
+void						one_command(t_node *cmds, t_node **free_if_invalid);
+char						**getter_buff(void);
+void						sig_handler(int sig);
+int							*getter_pipes(void);
+void						put_end_line(char *buf, int fd);
+void						open_heredoc(t_node *node, t_process_io *fds,
+								int *status);
+int							is_a_command(void);
+t_process_io				*getter_t_process_io(void);
+int							here_doc(int *status, char *delimiter);
+void						open_out_redir(t_node *node, t_process_io *fds,
+								int *status);
+void						open_input_redir(t_node *node, t_process_io *fds,
+								int *status);
+int							init_input(t_node *node);
+int							init_output(t_node *node);
+void						set_ext_code_after_builtin(t_node *current);
+void						set_ext_code_after_export(int valid);
+
 #endif

@@ -65,7 +65,6 @@ t_ull						ft_atoull(char *str);
 // STR
 char						*ft_substr(char const *s, unsigned int start,
 								size_t len);
-char						*ft_interpol(char *pattern, ...);
 char						*ft_strjoin(char const *s1, char const *s2);
 char						*ft_strtrim(char *s1, char *set);
 char						**ft_split(char const *s, char c);

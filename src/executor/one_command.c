@@ -6,41 +6,31 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/07 19:55:50 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/12 20:16:13 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include <readline/history.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <time.h>
-#include <unistd.h>
 
-int	*command_hook(int cmd_count)
+t_process_io	*command_hook(int cmd_count)
 {
-	int	*o_redir;
-	int	*i_redir;
-	int	*re;
+	t_process_io	*fds;
+	t_process_io	*stdio;
 
-	re = getter_fds();
-	i_redir = getter_heredoc_fd();
-	o_redir = getter_redirections();
-	if (i_redir[cmd_count] > 2)
-		re[INPUT] = i_redir[cmd_count];
-	if (o_redir[cmd_count] > 2)
-		re[OUTPUT] = o_redir[cmd_count];
-	return (re);
+	stdio = getter_stdio();
+	fds = getter_t_process_io();
+	if (fds[cmd_count].input > 2)
+		stdio->input = fds[cmd_count].input;
+	if (fds[cmd_count].output > 2)
+		stdio->output = fds[cmd_count].output;
+	return (stdio);
 }
 
-int	*getter_fds(void)
+t_process_io	*getter_stdio(void)
 {
-	static int	fds[2] = {INPUT, OUTPUT};
+	static t_process_io	fds = {STDIN_FILENO, STDOUT_FILENO};
 
-	return (fds);
+	return (&fds);
 }
 
 static void	dup2_and_close(int fd, int clone)
@@ -49,26 +39,26 @@ static void	dup2_and_close(int fd, int clone)
 	close(fd);
 }
 
-static void	fork_and_execute(t_node *cmds)
+static void	fork_and_execute(t_node *cmds, t_node **free_if_invalid)
 {
-	pid_t	pid;
-	int		i;
-	int		*fds;
-	int		cmd_count;
+	pid_t			pid;
+	int				i;
+	t_process_io	*fds;
+	int				cmd_count;
 
-	cmd_count = getter_data()->cmds->cmd_count;
+	cmd_count = getter_data()->cmds->idx;
 	pid = fork();
 	if (pid < 0)
 		printf("sda\n");
 	i = 0;
-	fds = command_hook(cmd_count);
 	if (pid == 0)
 	{
-		if (fds[INPUT] > 2)
-			dup2_and_close(fds[INPUT], STDIN_FILENO);
-		if (fds[OUTPUT] > 2)
-			dup2_and_close(fds[OUTPUT], STDOUT_FILENO);
-		exec_command(cmds);
+		fds = command_hook(cmd_count);
+		if (fds->input > 2)
+			dup2_and_close(fds->input, STDIN_FILENO);
+		if (fds->output > 2)
+			dup2_and_close(fds->output, STDOUT_FILENO);
+		exec_command(cmds, free_if_invalid);
 		exit(1);
 	}
 	else
@@ -76,15 +66,15 @@ static void	fork_and_execute(t_node *cmds)
 	getter_data()->exit_status = WEXITSTATUS(i);
 }
 
-void	one_command(t_node *cmds)
+void	one_command(t_node *cmds, t_node **free_if_invalid)
 {
 	t_tokens		builtin_idx;
 	t_fn_built_exec	**exec;
 
-	exec = get_built_func();
+	exec = get_built_func_arr();
 	builtin_idx = is_builtin(cmds->str);
 	if (builtin_idx != -1)
 		exec[builtin_idx](cmds);
 	else
-		fork_and_execute(cmds);
+		fork_and_execute(cmds, free_if_invalid);
 }

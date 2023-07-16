@@ -14,17 +14,19 @@
 
 static void		walk_on_the_list(t_node **lst);
 static char		*join_many_strs(t_node **lst);
-static t_node	*apply_join_many_strs(t_databus *data);
+static t_node	*create_new_linked_list(t_databus *data);
 
+// make each node receive a concatenation of all neighboring T_WORD nodes
 void	retokenize(void)
 {
 	t_databus	*data;
 
 	data = getter_data();
-	data->cmds->head = apply_join_many_strs(data);
+	data->cmds->head = create_new_linked_list(data);
 }
 
-static t_node	*apply_join_many_strs(t_databus *data)
+// create a new, retokenized linked list of cmds
+static t_node	*create_new_linked_list(t_databus *data)
 {
 	t_node	*new_cmds;
 	t_node	*new_node;
@@ -46,6 +48,7 @@ static t_node	*apply_join_many_strs(t_databus *data)
 	return (new_cmds);
 }
 
+// join nodes' strings if not separated by a non T_WORD node.
 static char	*join_many_strs(t_node **lst)
 {
 	char	*result;

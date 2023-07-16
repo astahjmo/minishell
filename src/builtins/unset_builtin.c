@@ -13,6 +13,7 @@
 #include "minishell.h"
 
 static int	getindex_of_env_to_unset(t_databus *data, char *env);
+static int	index_is_invalid(int i);
 
 void	unset_builtin(t_node *current)
 {
@@ -28,17 +29,16 @@ void	unset_builtin(t_node *current)
 	current = current->next;
 	while (current->next)
 	{
-		current = current->next;
-		if (current->token != T_WORD)
-			current = current->next;
+		current = next_node_with_this_token(current->next, T_WORD);
 		new_env = current->str;
 		i = getindex_of_env_to_unset(data, new_env) - 1;
-		if (is_being_initialized(new_env) || (T_INVALID == i + 1))
+		if (is_being_initialized(new_env) || index_is_invalid(i))
 			continue ;
 		while (++i < nb)
 			ft_memmove(&data->env[i], &data->env[i + 1], STR_LIMIT);
 		data->number_of_envs--;
 	}
+	getter_data()->exit_status = 0;
 }
 
 static int	getindex_of_env_to_unset(t_databus *data, char *to_unset)
@@ -61,7 +61,7 @@ static int	getindex_of_env_to_unset(t_databus *data, char *to_unset)
 		}
 	}
 	if (i == nb)
-		return (-1);
+		return (T_INVALID);
 	return (i);
 }
 
@@ -71,4 +71,11 @@ int	whole_prefix_matched(int i, int len)
 
 	data = getter_data();
 	return (data->env[i][len] == '=' || data->env[i][len] == '\0');
+}
+
+int	index_is_invalid(int i)
+{
+	if (T_INVALID == i + 1)
+		return (TRUE);
+	return (FALSE);
 }

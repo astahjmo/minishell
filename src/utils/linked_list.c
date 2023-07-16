@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 05:41:48 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/04 13:22:47 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:54:55 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ void	list_addfront(t_node *old, t_node *new)
 	old->next = new;
 }
 
-t_node	*list_get_token(t_node *node, t_tokens token)
+t_node	*next_node_with_this_token(t_node *node, t_tokens token)
 {
 	if (!node)
 		return (NULL);
-	while (node->token != token)
+	while (node && node->token != token)
 		node = node->next;
 	return (node);
 }
