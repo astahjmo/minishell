@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/14 15:40:49 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/16 14:58:09 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,15 @@ static char	**create_args(t_node *cmds)
 	cursor = cmds;
 	cmds_pars = malloc((i + 1) * sizeof(char *));
 	i = 0;
-	while (cursor)
+	while (cursor && cursor->token != T_PIPE)
 	{
 		if (cursor && cursor->token == T_SPACE)
 		{
 			cursor = cursor->next;
 			continue ;
 		}
-		cmds_pars[i] = cursor->str;
+		if (cursor->token != T_SPACE)
+			cmds_pars[i] = cursor->str;
 		cursor = cursor->next;
 		i++;
 	}
@@ -67,7 +68,7 @@ char	**create_envs(void)
 	return (envps);
 }
 
-void	exec_command(t_node *cmd, t_node **free_if_invalid)
+void	exec_command(t_node *cmd)
 {
 	char	*path;
 	char	**args;
@@ -82,7 +83,7 @@ void	exec_command(t_node *cmd, t_node **free_if_invalid)
 	if (!path)
 	{
 		printf("minishell: %s: comando não encontrado\n", cmd->str);
-		free(free_if_invalid);
+		free(getter_data()->cmds->arr_cmds);
 		free_cmds(&ar);
 		free_all(getter_data());
 		free(path);
