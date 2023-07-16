@@ -27,10 +27,12 @@ static inline void	if_stream_not_null(t_databus *data)
 {
 	if (*data->stream == '\0')
 		return ;
+	add_history(data->stream);
+	if (has_unclosed_quotes(data->stream))
+		return ;
 	if (data->stream)
 	{
 		tokenizer();
-		add_history(data->stream);
 		if (is_valid_syntax(data->cmds->head))
 		{
 			handle_expansions();

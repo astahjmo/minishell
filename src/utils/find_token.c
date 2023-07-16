@@ -37,8 +37,8 @@ static t_tokens	get_token_from_arr(char *to_find, int arr_size, char **arr)
 
 t_tokens	get_token(char *line)
 {
-	t_ushort	arr_size;
-	char		**operators_lexemes_arr;
+	t_bool	arr_size;
+	char	**operators_lexemes_arr;
 
 	arr_size = 8;
 	operators_lexemes_arr = get_operators_lexemes();
@@ -47,8 +47,8 @@ t_tokens	get_token(char *line)
 
 t_tokens	is_builtin(char *cmd)
 {
-	t_ushort	arr_size;
-	char		**builtins_arr;
+	t_bool	arr_size;
+	char	**builtins_arr;
 
 	arr_size = 7;
 	builtins_arr = get_builtins_arr();

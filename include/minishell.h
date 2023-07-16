@@ -58,7 +58,6 @@ typedef struct s_node		t_node;
 typedef struct s_data		t_databus;
 typedef t_node				*t_fn_node_apply(char *);
 typedef void				t_fn_built_exec(t_node *current);
-typedef short int			t_bool;
 typedef struct s_env		t_env;
 typedef enum e_tokens		t_tokens;
 typedef int					t_recipes(t_tokens);
@@ -68,7 +67,7 @@ typedef void				*t_genfunc_apply(void *);
 typedef long long int		t_lli;
 typedef unsigned long long	t_ull;
 typedef t_databus			t_dt;
-typedef unsigned short		t_ushort;
+typedef unsigned short		t_bool;
 
 typedef enum e_tokens
 {
@@ -165,7 +164,7 @@ extern void					init_signal(void);
 t_fn_node_apply				**init_parser(void);
 t_recipes					**init_recipes(void);
 extern void					bscanner(t_databus data);
-extern int					check_unclosed_quotes(char *line, char *delimiter);
+t_bool						has_unclosed_quotes(char *line);
 extern void					scanner(t_databus data);
 extern t_tokens				get_word_recipe(t_tokens state);
 char						*handler_quotes(char *line);
@@ -238,7 +237,7 @@ char						*trimfree(char *s1, char *set);
 int							getindex_of_env(char *to_unset);
 char						*trim(char *s, char reject);
 void						print_tokens(void);
-int							is_quotes(char cmp);
+t_bool						is_quotes(char cmp);
 void						print_data(int env);
 void						lstadd_back(t_node **lst, t_node *nw);
 void						lstfree(t_node **list);
