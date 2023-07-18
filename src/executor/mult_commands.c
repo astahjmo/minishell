@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include <sys/types.h>
-#include <unistd.h>
 
 void	close_pipe_fds(int *fds)
 {
@@ -38,21 +35,22 @@ static void	main_routine(pid_t pid, int *bkp_fd, int *count, int *pipes_fds)
 	(*count)++;
 	*bkp_fd = dup(pipes_fds[0]);
 	close_pipe_fds(pipes_fds);
+	getter_data()->exit_status = WEXITSTATUS(status);
 }
 
 void	child_routine(t_node *cmds, int count)
 {
-	t_process_io	*fds;
+	t_io			*cmd;
 	t_fn_built_exec	**exec;
 	t_tokens		builtin_idx;
 
-	fds = command_hook(count);
+	cmd = command_hook(count);
 	exec = get_built_func_arr();
 	builtin_idx = is_builtin(cmds->str);
-	if (fds->input > 2)
-		fds->input = dup2_and_close(fds->input, STDIN_FILENO);
-	if (fds->output > 2)
-		fds->output = dup2_and_close(fds->output, STDOUT_FILENO);
+	if (cmd->input > 2)
+		cmd->input = dup2_and_close(cmd->input, STDIN_FILENO);
+	if (cmd->output > 2)
+		cmd->output = dup2_and_close(cmd->output, STDOUT_FILENO);
 	if (builtin_idx != T_INVALID)
 		exec[builtin_idx](cmds);
 	else
@@ -66,7 +64,9 @@ void	mult_command(t_node **cmds)
 	int		bkp_fd;
 	int		cmd_count;
 	pid_t	pid;
+	t_io	*stdio;
 
+	stdio = getter_stdio();
 	cmd_count = 0;
 	bkp_fd = STDIN_FILENO;
 	while (cmds[cmd_count])
@@ -76,10 +76,10 @@ void	mult_command(t_node **cmds)
 		if (pid == CHILD_PROCESS)
 		{
 			if (bkp_fd != 0)
-				getter_stdio()->input = dup2_and_close(bkp_fd, STDIN_FILENO);
+				stdio->input = dup2_and_close(bkp_fd, STDIN_FILENO);
 			close(fds[0]);
 			if (cmd_count != getter_data()->cmds->idx)
-				getter_stdio()->output = dup2_and_close(fds[1], STDOUT_FILENO);
+				stdio->output = dup2_and_close(fds[1], STDOUT_FILENO);
 			child_routine(cmds[cmd_count], cmd_count);
 		}
 		main_routine(pid, &bkp_fd, &cmd_count, fds);

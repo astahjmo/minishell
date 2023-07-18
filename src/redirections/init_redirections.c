@@ -30,21 +30,21 @@ int	*getter_inputs(void)
 
 int	init_output(t_node *node)
 {
-	t_process_io	*redirections;
-	int				status;
+	t_io	*redirections;
+	int		status;
 
 	status = 0;
-	redirections = getter_t_process_io();
+	redirections = getter_t_ios();
 	open_out_redir(node, redirections, &status);
 	return (status);
 }
 
 int	init_input(t_node *node)
 {
-	t_process_io	*heredoc_fd;
-	int				status;
+	t_io	*heredoc_fd;
+	int		status;
 
-	heredoc_fd = getter_t_process_io();
+	heredoc_fd = getter_t_ios();
 	status = 0;
 	ft_bzero(heredoc_fd, MAX_FD);
 	open_input_redir(node, heredoc_fd, &status);

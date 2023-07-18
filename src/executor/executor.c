@@ -21,14 +21,13 @@ t_node	*dup_node(t_node *target)
 	node->token = target->token;
 	node->next = NULL;
 	return (node);
-
 }
 
 void	create_commnd_list(t_databus *data, t_node **arr)
 {
 	t_node	*head;
 	t_node	*cursor;
-	int			i;
+	int		i;
 
 	i = 0;
 	cursor = data->cmds->head;
@@ -64,7 +63,6 @@ t_node	**prepare_commands(t_databus *data, int *i)
 	create_commnd_list(data, cmds);
 	return (cmds);
 }
-
 
 void	executor(t_databus *data)
 {
