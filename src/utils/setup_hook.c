@@ -19,4 +19,5 @@ void	main_setup_hook(t_databus *data)
 	data->cmds = malloc(sizeof(t_cmds));
 	data->cmds->head = NULL;
 	data->cmds->exit_code = 0;
+	data->cmds->arr_cmds = NULL;
 }

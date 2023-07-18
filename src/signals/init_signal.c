@@ -20,6 +20,7 @@ void	define_handle(int sig)
 		rl_on_new_line();
 		rl_replace_line ("", 0);
 		rl_redisplay();
+		getter_data()->exit_status = 130;
 	}
 }
 
