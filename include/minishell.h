@@ -51,6 +51,7 @@
 # define ENV_NAME_SZ 1024
 # define HEAP_OVERFLOW_PROTECTION 100000
 # define IN_FD 0
+# define CHILD_PROCESS 0
 # define OUT_FD 1
 # define CMD_NOT_FOUND 127
 
