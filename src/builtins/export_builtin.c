@@ -25,7 +25,7 @@ void	export_builtin(t_node *current)
 	if (!is_valid_syntax(current))
 		return ;
 	if (!next_node_with_this_token(current->next, T_WORD))
-		no_arguments_export_builtin(current);
+		return (no_arguments_export_builtin(current));
 	while (current && current->next)
 	{
 		current = next_node_with_this_token(current->next, T_WORD);
