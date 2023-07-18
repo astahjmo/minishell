@@ -90,7 +90,7 @@ typedef struct s_io
 {
 	int						input;
 	int						output;
-}							t_process_io;
+}							t_io;
 
 enum						e_inputii
 {
@@ -157,7 +157,7 @@ typedef struct b_bus
 }							t_bus;
 
 t_databus					*getter_data(void);
-int							repl(t_databus *data);
+int							read_evaluate_print_loop(t_databus *data);
 extern char					*get_prompt(void);
 extern void					clear_bimatrix(char **arr);
 extern void					line_analysis(char *line);
@@ -257,23 +257,22 @@ t_node						*next_node_with_this_token(t_node *node,
 								t_tokens token);
 char						*get_cmd_path(char *cmd);
 void						exec_command(t_node *cmd);
-t_process_io				*command_hook(int cmd_count);
+t_io						*command_hook(int cmd_count);
 int							*getter_outputs(void);
-t_process_io				*getter_stdio(void);
+t_io						*getter_stdio(void);
 char						*fmt_s(char *format, char *s1, char *s2, char *s3);
 void						one_command(t_node *cmds);
 char						**getter_buff(void);
 void						sig_handler(int sig);
 int							*getter_pipes(void);
 void						put_end_line(char *buf, int fd);
-void						open_heredoc(t_node *node, t_process_io *fds,
-								int *status);
+void						open_heredoc(t_node *node, t_io *fds, int *status);
 int							is_a_command(void);
-t_process_io				*getter_t_process_io(void);
+t_io						*getter_t_ios(void);
 int							here_doc(int *status, char *delimiter);
-void						open_out_redir(t_node *node, t_process_io *fds,
+void						open_out_redir(t_node *node, t_io *fds,
 								int *status);
-void						open_input_redir(t_node *node, t_process_io *fds,
+void						open_input_redir(t_node *node, t_io *fds,
 								int *status);
 int							init_input(t_node *node);
 int							init_output(t_node *node);

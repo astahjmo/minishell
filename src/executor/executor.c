@@ -66,12 +66,12 @@ static void	reset_stdin_and_out(void)
 
 void	after_execution(void)
 {
-	int				idx;
-	t_process_io	*process_ios;
+	int		idx;
+	t_io	*process_ios;
 
 	idx = 0;
 	reset_stdin_and_out();
-	process_ios = getter_t_process_io();
+	process_ios = getter_t_ios();
 	while (idx <= getter_data()->cmds->idx)
 	{
 		if (process_ios[idx].input > 2)
