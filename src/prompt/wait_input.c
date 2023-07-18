@@ -44,7 +44,7 @@ static inline void	if_stream_not_null(t_databus *data)
 	}
 }
 
-int	repl(t_databus *data)
+int	read_evaluate_print_loop(t_databus *data)
 {
 	char	*prompt;
 

@@ -30,6 +30,6 @@ int	main(int argc, char *argv[], char *envp[])
 	init_signal();
 	main_setup_hook(data);
 	init_env(data);
-	repl(data);
+	read_evaluate_print_loop(data);
 	return (data->exit_status);
 }
