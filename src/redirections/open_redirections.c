@@ -27,7 +27,7 @@ static int	setup_out_redir(t_node *node, t_tokens token)
 	return (fd);
 }
 
-void	open_out_redir(t_node *node, t_process_io *fds, int *status)
+void	open_out_redir(t_node *node, t_io *fds, int *status)
 {
 	int	aux;
 
@@ -62,7 +62,7 @@ static int	setup_input_redir(int *status, t_node *node, t_tokens token)
 	return (fd);
 }
 
-void	open_input_redir(t_node *node, t_process_io *fds, int *status)
+void	open_input_redir(t_node *node, t_io *fds, int *status)
 {
 	int	aux;
 
