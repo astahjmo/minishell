@@ -22,8 +22,8 @@ void	free_all(t_databus *data)
 
 void	free_cmds_arr(t_node **cmds)
 {
+	int		i;
 	t_node	*cursor;
-	int			i;
 	t_node	*tmp;
 
 	if (!cmds)

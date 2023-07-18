@@ -21,7 +21,7 @@ static void	reset_stdin_and_out(void)
 void	after_execution(void)
 {
 	int				idx;
-	t_process_io	*process_ios;
+	t_io			*process_ios;
 
 	idx = 0;
 	reset_stdin_and_out();

@@ -49,8 +49,7 @@ static int	get_next_state(t_tokens state, t_node *next)
 	else
 		next_state = 0;
 	status = recipes[is_operator(state)](next_state);
-	if (state == T_PIPE && next_token != T_WORD
-		&& status != T_SPACE)
+	if (state == T_PIPE && next_token != T_WORD && status != T_SPACE)
 		status = is_valid(next_token);
 	return (status);
 }
@@ -60,6 +59,7 @@ int	is_valid_syntax(t_node *head)
 	t_tokens	state;
 	int			progress;
 	t_node		*cursor;
+	char		*s;
 
 	state = T_INITIAL;
 	cursor = head;
@@ -74,6 +74,10 @@ int	is_valid_syntax(t_node *head)
 	}
 	if (progress != T_INVALID)
 		return (TRUE);
-	ft_printf("Error: %s\n", get_token_string(state));
+	s = fmt_s(" syntax error near"
+			" unexpected token: %s", get_token_string(state), 0, 0);
+	getter_data()->exit_status = 2;
+	ft_putstr_fd("minishell:", 1);
+	ft_putendl_fd(s, STDERR_FILENO);
 	return (FALSE);
 }

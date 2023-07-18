@@ -14,13 +14,13 @@
 #include <stdio.h>
 #include <unistd.h>
 
-t_process_io	*command_hook(int cmd_count)
+t_io	*command_hook(int cmd_count)
 {
-	t_process_io	*fds;
-	t_process_io	*stdio;
+	t_io	*fds;
+	t_io	*stdio;
 
 	stdio = getter_stdio();
-	fds = getter_t_process_io();
+	fds = getter_t_ios();
 	if (fds[cmd_count].input > 2)
 		stdio->input = fds[cmd_count].input;
 	if (fds[cmd_count].output > 2)
@@ -28,9 +28,9 @@ t_process_io	*command_hook(int cmd_count)
 	return (stdio);
 }
 
-t_process_io	*getter_stdio(void)
+t_io	*getter_stdio(void)
 {
-	static t_process_io	fds = {STDIN_FILENO, STDOUT_FILENO};
+	static t_io	fds = {STDIN_FILENO, STDOUT_FILENO};
 
 	return (&fds);
 }
@@ -43,10 +43,10 @@ static void	dup2_and_close(int fd, int clone)
 
 static void	fork_and_execute(t_node *cmds)
 {
-	pid_t			pid;
-	int				i;
-	t_process_io	*fds;
-	int				cmd_count;
+	pid_t	pid;
+	int		i;
+	t_io	*cmd;
+	int		cmd_count;
 
 	cmd_count = getter_data()->cmds->idx;
 	pid = fork();
@@ -55,11 +55,11 @@ static void	fork_and_execute(t_node *cmds)
 	i = 0;
 	if (pid == 0)
 	{
-		fds = command_hook(cmd_count);
-		if (fds->input > 2)
-			dup2_and_close(fds->input, STDIN_FILENO);
-		if (fds->output > 2)
-			dup2_and_close(fds->output, STDOUT_FILENO);
+		cmd = command_hook(cmd_count);
+		if (cmd->input > 2)
+			dup2_and_close(cmd->input, STDIN_FILENO);
+		if (cmd->output > 2)
+			dup2_and_close(cmd->output, STDOUT_FILENO);
 		exec_command(cmds);
 		exit(1);
 	}
