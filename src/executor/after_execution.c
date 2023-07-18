@@ -25,7 +25,7 @@ void	after_execution(void)
 
 	idx = 0;
 	reset_stdin_and_out();
-	process_ios = getter_t_process_io();
+	process_ios = getter_t_ios();
 	free_cmds_arr(getter_data()->cmds->arr_cmds);
 	while (idx <= getter_data()->cmds->idx)
 	{

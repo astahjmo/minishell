@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 20:14:51 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/16 15:02:53 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/18 20:51:09 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,11 @@ static int	dup2_and_close(int fd, int clone)
 	return (a);
 }
 
-static void	main_routine(pid_t pid, int *bkp_fd, int *count, int *pipes_fds)
+static void	main_routine(int *bkp_fd, int *count, int *pipes_fds)
 {
-	int	status;
-
-	waitpid(pid, &status, 0);
 	(*count)++;
 	*bkp_fd = dup(pipes_fds[0]);
 	close_pipe_fds(pipes_fds);
-	getter_data()->exit_status = WEXITSTATUS(status);
 }
 
 void	child_routine(t_node *cmds, int count)
@@ -55,6 +51,9 @@ void	child_routine(t_node *cmds, int count)
 		exec[builtin_idx](cmds);
 	else
 		exec_command(cmds);
+	free_cmds_arr(getter_data()->cmds->arr_cmds);
+	free_cmds(getter_data()->cmds);
+	free_all(getter_data());
 	exit(0);
 }
 
@@ -82,7 +81,7 @@ void	mult_command(t_node **cmds)
 				stdio->output = dup2_and_close(fds[1], STDOUT_FILENO);
 			child_routine(cmds[cmd_count], cmd_count);
 		}
-		main_routine(pid, &bkp_fd, &cmd_count, fds);
+		main_routine(&bkp_fd, &cmd_count, fds);
 	}
-	close(bkp_fd);
+	wait_all_child(bkp_fd);
 }
