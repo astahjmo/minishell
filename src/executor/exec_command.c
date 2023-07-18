@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 
 static int	count_nodes(t_node *cmds)
 {
@@ -68,12 +65,21 @@ char	**create_envs(void)
 	return (envps);
 }
 
+static void	exec_command_frees(char **path, char **args, char **envs, char **s)
+{
+	free(*path);
+	free(args);
+	free(envs);
+	free(*s);
+}
+
 void	exec_command(t_node *cmd)
 {
 	char	*path;
 	char	**args;
 	char	**envs;
 	t_cmds	ar;
+	char	*s;
 
 	signal(SIGINT, SIG_DFL);
 	path = get_cmd_path(cmd->str);
@@ -82,13 +88,12 @@ void	exec_command(t_node *cmd)
 	envs = create_envs();
 	if (!path)
 	{
-		printf("minishell: %s: comando não encontrado\n", cmd->str);
+		s = fmt_s("minishell: %s: comando não encontrado\n", cmd->str, 0, 0);
+		ft_putendl_fd(s, STDERR_FILENO);
 		free(getter_data()->cmds->arr_cmds);
 		free_cmds(&ar);
 		free_all(getter_data());
-		free(path);
-		free(args);
-		free(envs);
+		exec_command_frees(&path, args, envs, &s);
 		exit(127);
 	}
 	if (path)
