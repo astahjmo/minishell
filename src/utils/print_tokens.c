@@ -32,3 +32,23 @@ void	print_tokens(void)
 	free_all(getter_data());
 	exit(2);
 }
+
+
+void	print_tokens_in_arr(t_node **cmds)
+{
+	t_node	*cursor;
+	int			i;
+
+	i = 0;
+	while (cmds[i])
+	{
+		cursor = cmds[i];
+		printf("Command arr: %d\n", i);
+		while (cursor)
+		{
+			printf("[%s]:\n",cursor->str);
+			cursor = cursor->next;
+		}
+		i++;
+	}
+}

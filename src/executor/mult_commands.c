@@ -69,7 +69,7 @@ void	mult_command(t_node **cmds)
 
 	cmd_count = 0;
 	bkp_fd = STDIN_FILENO;
-	while (cmd_count <= getter_data()->cmds->idx)
+	while (cmds[cmd_count])
 	{
 		pipe(fds);
 		pid = fork();

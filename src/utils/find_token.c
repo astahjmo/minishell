@@ -18,7 +18,7 @@ static t_tokens	get_token_from_arr(char *to_find, int arr_size, char **arr)
 	int	idx;
 
 	idx = 0;
-	while (idx < arr_size && arr[idx] != NULL)
+	while (*to_find && arr[idx] && (idx < arr_size))
 	{
 		if (arr == get_operators_lexemes())
 		{

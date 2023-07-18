@@ -82,9 +82,10 @@ void	exec_command(t_node *cmd)
 	envs = create_envs();
 	if (!path)
 	{
-		printf("minishell: %s: comando não encontrado\n", cmd->str);
-		free(getter_data()->cmds->arr_cmds);
-		free_cmds(&ar);
+		if (*cmd->str)
+			printf("minishell: %s: comando não encontrado\n", cmd->str);
+		free_cmds_arr(getter_data()->cmds->arr_cmds);
+		free_cmds(getter_data()->cmds);
 		free_all(getter_data());
 		free(path);
 		free(args);
