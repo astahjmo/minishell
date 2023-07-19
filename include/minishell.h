@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/19 15:06:10 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:18:31 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@
 # define CHILD_PROCESS 0
 # define IN_FD 0
 # define OUT_FD 1
-# define WRTE_SIDE 0
-# define READ_SIDE 1
+# define WRTE 0
+# define READ 1
 # define CMD_NOT_FOUND 127
 
 typedef struct s_node		t_node;
