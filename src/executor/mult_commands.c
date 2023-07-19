@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 20:14:51 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/18 20:51:09 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:05:44 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,5 @@ void	mult_command(t_node **cmds)
 		}
 		bkp_fd = main_routine(bkp_fd, &cmd_count, pipe_fds);
 	}
-	wait_all_child(bkp_fd);
+	wait_all_child(bkp_fd, pid);
 }

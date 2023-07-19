@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/18 20:51:21 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:06:10 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # define RED "\033[0;31m"
 # define CYAN "\033[0;36m"
 # define RESET "\033[0m"
-# define STR_LIMIT 1024
+# define STR_LIMIT 4027
 # define ENVS_LIMIT 8512
 # define SIZEMAX 9223372036854775807
 # define ENV_CONTENT_SZ 32367
@@ -284,5 +284,5 @@ void						mult_command(t_node **cmds);
 void						print_tokens_in_arr(t_node **cmds);
 void						after_execution(void);
 void						free_cmds_arr(t_node **cmds);
-void						wait_all_child(int bkp_fd);
+void						wait_all_child(int bkp_fd, pid_t pid);
 #endif
