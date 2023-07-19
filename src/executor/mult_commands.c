@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 20:14:51 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/19 15:05:44 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:13:19 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	dup2_and_close(int fd, int clone)
 	return (a);
 }
 
-static int main_routine(int bkp_fd, int *count, int *pipe_fds)
+static int	main_routine(int bkp_fd, int *count, int *pipe_fds)
 {
 	(*count)++;
 	bkp_fd = dup(pipe_fds[0]);
@@ -79,7 +79,8 @@ void	mult_command(t_node **cmds)
 				stdio->input = dup2_and_close(bkp_fd, STDIN_FILENO);
 			close(pipe_fds[WRTE_SIDE]);
 			if (cmd_count != getter_data()->cmds->idx)
-				stdio->output = dup2_and_close(pipe_fds[READ_SIDE], STDOUT_FILENO);
+				stdio->output = dup2_and_close(pipe_fds[READ_SIDE],
+					STDOUT_FILENO);
 			child_routine(cmds[cmd_count], cmd_count);
 		}
 		bkp_fd = main_routine(bkp_fd, &cmd_count, pipe_fds);
