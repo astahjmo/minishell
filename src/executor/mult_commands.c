@@ -14,8 +14,8 @@
 
 void	close_pipe_fds(int *fds)
 {
-	close(fds[0]);
-	close(fds[1]);
+	close(fds[WRTE_SIDE]);
+	close(fds[READ_SIDE]);
 }
 
 static int	dup2_and_close(int fd, int clone)
@@ -27,18 +27,19 @@ static int	dup2_and_close(int fd, int clone)
 	return (a);
 }
 
-static void	main_routine(int *bkp_fd, int *count, int *pipes_fds)
+static int main_routine(int bkp_fd, int *count, int *pipe_fds)
 {
 	(*count)++;
-	*bkp_fd = dup(pipes_fds[0]);
-	close_pipe_fds(pipes_fds);
+	bkp_fd = dup(pipe_fds[0]);
+	close_pipe_fds(pipe_fds);
+	return (bkp_fd);
 }
 
 void	child_routine(t_node *cmds, int count)
 {
 	t_io			*cmd;
-	t_fn_built_exec	**exec;
 	t_tokens		builtin_idx;
+	t_fn_built_exec	**exec;
 
 	cmd = command_hook(count);
 	exec = get_built_func_arr();
@@ -59,7 +60,7 @@ void	child_routine(t_node *cmds, int count)
 
 void	mult_command(t_node **cmds)
 {
-	int		fds[2];
+	int		pipe_fds[2];
 	int		bkp_fd;
 	int		cmd_count;
 	pid_t	pid;
@@ -70,18 +71,18 @@ void	mult_command(t_node **cmds)
 	bkp_fd = STDIN_FILENO;
 	while (cmds[cmd_count])
 	{
-		pipe(fds);
+		pipe(pipe_fds);
 		pid = fork();
 		if (pid == CHILD_PROCESS)
 		{
 			if (bkp_fd != 0)
 				stdio->input = dup2_and_close(bkp_fd, STDIN_FILENO);
-			close(fds[0]);
+			close(pipe_fds[WRTE_SIDE]);
 			if (cmd_count != getter_data()->cmds->idx)
-				stdio->output = dup2_and_close(fds[1], STDOUT_FILENO);
+				stdio->output = dup2_and_close(pipe_fds[READ_SIDE], STDOUT_FILENO);
 			child_routine(cmds[cmd_count], cmd_count);
 		}
-		main_routine(&bkp_fd, &cmd_count, fds);
+		bkp_fd = main_routine(bkp_fd, &cmd_count, pipe_fds);
 	}
 	wait_all_child(bkp_fd);
 }
