@@ -56,7 +56,6 @@ static void	child_execute(int fd[], char *delimiter)
 			break ;
 		}
 	}
-	write(fd[1], *buf, ft_strlen(*buf));
 	close(fd[1]);
 	free_and_exit(0);
 }
