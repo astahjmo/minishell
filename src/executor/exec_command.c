@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/16 14:58:09 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/18 21:04:57 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,10 @@ void	exec_command(t_node *cmd)
 	envs = create_envs();
 	if (!path)
 	{
-		s = fmt_s("minishell: %s: comando não encontrado\n", cmd->str, 0, 0);
+		s = fmt_s("minishell: %s: comando não encontrado", cmd->str, 0, 0);
 		ft_putendl_fd(s, STDERR_FILENO);
-		free(getter_data()->cmds->arr_cmds);
-		free_cmds(&ar);
+		free_cmds_arr(getter_data()->cmds->arr_cmds);
+		free_cmds(getter_data()->cmds);
 		free_all(getter_data());
 		exec_command_frees(&path, args, envs, &s);
 		exit(127);

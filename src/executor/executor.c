@@ -6,39 +6,45 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/16 14:57:23 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:08:33 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+t_node	*dup_node(t_node *target)
+{
+	t_node	*node;
+
+	node = list_node_new();
+	node->str = ft_strdup(target->str);
+	node->token = target->token;
+	node->next = NULL;
+	return (node);
+}
+
 void	create_commnd_list(t_databus *data, t_node **arr)
 {
+	t_node	*head;
 	t_node	*cursor;
 	int		i;
-	t_node	*head;
-	t_node	*tmp;
 
 	i = 0;
 	cursor = data->cmds->head;
 	while (cursor)
 	{
-		head = cursor;
+		head = dup_node(cursor);
+		cursor = cursor->next;
 		while (cursor && cursor->token != T_PIPE)
 		{
+			list_add_back(list_last_node(head), dup_node(cursor));
 			cursor = cursor->next;
-			continue ;
-		}
-		if (cursor)
-		{
-			tmp = cursor->next;
-			cursor->next = NULL;
-			cursor = tmp;
 		}
 		arr[i] = head;
 		i++;
 		cursor = next_node_with_this_token(cursor, T_WORD);
 	}
+	arr[i] = NULL;
 }
 
 t_node	**prepare_commands(t_databus *data, int *i)
@@ -53,34 +59,9 @@ t_node	**prepare_commands(t_databus *data, int *i)
 			(*i)++;
 		cursor = cursor->next;
 	}
-	cmds = ft_calloc(*i, sizeof(t_node *));
+	cmds = ft_calloc(*i + 1, sizeof(t_node *));
 	create_commnd_list(data, cmds);
 	return (cmds);
-}
-
-static void	reset_stdin_and_out(void)
-{
-	getter_stdio()->input = STDIN_FILENO;
-	getter_stdio()->output = STDOUT_FILENO;
-}
-
-void	after_execution(void)
-{
-	int		idx;
-	t_io	*process_ios;
-
-	idx = 0;
-	reset_stdin_and_out();
-	process_ios = getter_t_ios();
-	while (idx <= getter_data()->cmds->idx)
-	{
-		if (process_ios[idx].input > 2)
-			close(process_ios[idx].input);
-		if (process_ios[idx].output > 2)
-			close(process_ios[idx].output);
-		ft_bzero(&process_ios[idx], sizeof(int) * 2);
-		idx++;
-	}
 }
 
 void	executor(t_databus *data)
@@ -97,5 +78,4 @@ void	executor(t_databus *data)
 	else
 		mult_command(cmds);
 	after_execution();
-	free(cmds);
 }

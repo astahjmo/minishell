@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/16 14:58:35 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:18:31 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,17 @@
 # define RED "\033[0;31m"
 # define CYAN "\033[0;36m"
 # define RESET "\033[0m"
-# define STR_LIMIT 1024
+# define STR_LIMIT 4027
 # define ENVS_LIMIT 8512
 # define SIZEMAX 9223372036854775807
 # define ENV_CONTENT_SZ 32367
 # define ENV_NAME_SZ 1024
 # define HEAP_OVERFLOW_PROTECTION 100000
-# define IN_FD 0
 # define CHILD_PROCESS 0
+# define IN_FD 0
 # define OUT_FD 1
+# define WRTE 0
+# define READ 1
 # define CMD_NOT_FOUND 127
 
 typedef struct s_node		t_node;
@@ -279,4 +281,8 @@ int							init_output(t_node *node);
 void						set_ext_code_after_builtin(t_node *current);
 void						set_ext_code_after_export(int valid);
 void						mult_command(t_node **cmds);
+void						print_tokens_in_arr(t_node **cmds);
+void						after_execution(void);
+void						free_cmds_arr(t_node **cmds);
+void						wait_all_child(int bkp_fd, pid_t pid);
 #endif
