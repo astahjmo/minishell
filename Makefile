@@ -23,7 +23,7 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  expansion_utils.c print_tokens.c heredoc.c\
 		  utils_executor.c one_command.c exec_command.c get_cmd_path.c \
 		  split_envp.c command_setuphook.c pre_executor.c is_a_command.c \
-		  mult_commands.c
+		  mult_commands.c after_execution.c wait_utils.c
 
 LIB_SRCS = ft_strlen.c ft_strdup.c ft_substr.c ft_itoa.c \
 				 ft_split.c ft_strlcpy.c ft_isalpha.c \
