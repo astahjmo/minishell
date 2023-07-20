@@ -94,6 +94,6 @@ void	exec_command(t_node *cmd)
 		exec_command_frees(&path, args, envs, &s);
 		exit(getter_data()->exit_status);
 	}
-	if (path)	
+	if (path)
 		execve(path, args, envs);
 }

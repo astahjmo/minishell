@@ -45,12 +45,12 @@ static t_bool	is_dir(char *path)
 
 static t_bool	is_permission_denied(char *cmd)
 {
-	struct stat	statRes;
+	struct stat	stat_res;
 	mode_t		bits;
 
-	if (stat(cmd, &statRes) >= 0)
+	if (stat(cmd, &stat_res) >= 0)
 	{
-		bits = statRes.st_mode;
+		bits = stat_res.st_mode;
 		if ((bits & S_IRUSR) == 0)
 		{
 			getter_data()->exit_status = 126;
