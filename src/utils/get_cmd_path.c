@@ -6,14 +6,13 @@
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 10:52:28 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/01 11:13:47 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/20 20:17:32 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	free_t_split(t_split *split, char *path_str);
-static char	*test_directory(char *cmd);
 static char	*conditional_return(int i, t_get_cmd_path *get);
 static int	there_is_no_path(char *path);
 
@@ -27,7 +26,7 @@ char	*get_cmd_path(char *cmd)
 	i = -1;
 	get.slash_address = ft_strchr(cmd, '/');
 	if (get.slash_address)
-		return (test_directory(cmd));
+		return (ft_strdup(cmd));
 	get.full_possible_size = ft_strlen(cmd) + STR_LIMIT + 1;
 	get.full_possible_name = malloc(sizeof(char) * get.full_possible_size);
 	get.path_str = get_content_from_name_alone("PATH");
@@ -77,18 +76,4 @@ static char	*conditional_return(int i, t_get_cmd_path *get)
 		return (NULL);
 	}
 	return (get->full_possible_name);
-}
-
-// use fstat or lstat or stat to see if the direcotry exists
-static char	*test_directory(char *cmd)
-{
-	struct stat	buf;
-
-	if (stat(cmd, &buf) == -1)
-		getter_data()->exit_status = 127;
-	else if (buf.st_mode & S_IFDIR)
-		getter_data()->exit_status = 126;
-	else if (access(cmd, F_OK | X_OK) == 0)
-		return (cmd);
-	return (NULL);
 }
