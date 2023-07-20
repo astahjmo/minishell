@@ -20,7 +20,7 @@ SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  unset_builtin.c utils_builtins_01.c utils_builtins_02.c utils_builtins_03.c \
 		  init_env.c init_statics.c is_llmin.c heredoc_utils.c pwd_builtin.c \
 		  init_t_file_io.c init_redirections.c open_redirections.c \
-		  expansion_utils.c print_tokens.c heredoc.c\
+		  expansion_utils.c print_tokens.c heredoc.c test_directory.c \
 		  utils_executor.c one_command.c exec_command.c get_cmd_path.c \
 		  split_envp.c command_setuphook.c pre_executor.c is_a_command.c \
 		  mult_commands.c after_execution.c wait_utils.c
