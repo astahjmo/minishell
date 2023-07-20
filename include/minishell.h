@@ -285,4 +285,5 @@ void						print_tokens_in_arr(t_node **cmds);
 void						after_execution(void);
 void						free_cmds_arr(t_node **cmds);
 void						wait_all_child(int bkp_fd, pid_t pid);
+char						*test_directory(char *cmd);
 #endif
