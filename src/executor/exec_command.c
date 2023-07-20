@@ -67,6 +67,9 @@ char	**create_envs(void)
 
 static void	exec_command_frees(char **path, char **args, char **envs, char **s)
 {
+	free_cmds_arr(getter_data()->cmds->arr_cmds);
+	free_cmds(getter_data()->cmds);
+	free_all(getter_data());
 	free(*path);
 	free(args);
 	free(envs);
@@ -78,24 +81,19 @@ void	exec_command(t_node *cmd)
 	char	*path;
 	char	**args;
 	char	**envs;
-	t_cmds	ar;
 	char	*s;
 
 	signal(SIGINT, SIG_DFL);
 	path = get_cmd_path(cmd->str);
-	ar.head = cmd;
 	args = create_args(cmd);
 	envs = create_envs();
-	if (!path)
+	if (!test_directory(path))
 	{
 		s = fmt_s("minishell: %s: comando não encontrado", cmd->str, 0, 0);
 		ft_putendl_fd(s, STDERR_FILENO);
-		free_cmds_arr(getter_data()->cmds->arr_cmds);
-		free_cmds(getter_data()->cmds);
-		free_all(getter_data());
 		exec_command_frees(&path, args, envs, &s);
-		exit(127);
+		exit(getter_data()->exit_status);
 	}
-	if (path)
+	if (path)	
 		execve(path, args, envs);
 }
