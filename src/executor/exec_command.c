@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 
 static int	count_nodes(t_node *cmds)
@@ -67,9 +68,6 @@ char	**create_envs(void)
 
 static void	exec_command_frees(char **path, char **args, char **envs, char **s)
 {
-	free_cmds_arr(getter_data()->cmds->arr_cmds);
-	free_cmds(getter_data()->cmds);
-	free_all(getter_data());
 	free(*path);
 	free(args);
 	free(envs);
@@ -92,7 +90,7 @@ void	exec_command(t_node *cmd)
 		s = fmt_s("minishell: %s: comando não encontrado", cmd->str, 0, 0);
 		ft_putendl_fd(s, STDERR_FILENO);
 		exec_command_frees(&path, args, envs, &s);
-		exit(getter_data()->exit_status);
+		return ;
 	}
 	if (path)
 		execve(path, args, envs);

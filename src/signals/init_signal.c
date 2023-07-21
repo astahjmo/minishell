@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <signal.h>
 
 void	define_handle(int sig)
 {
@@ -29,6 +30,7 @@ void	init_signal(void)
 	struct sigaction	sa_sigint;
 	struct sigaction	sa_sigquit;
 
+	signal(SIGPIPE, SIG_IGN);
 	sa_sigquit.sa_handler = SIG_IGN;
 	sa_sigquit.sa_flags = SA_RESTART;
 	sigemptyset(&sa_sigquit.sa_mask);
