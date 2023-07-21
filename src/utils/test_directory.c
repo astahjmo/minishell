@@ -19,7 +19,7 @@ char	*test_directory(char *cmd)
 {
 	struct stat	buf;
 
-	if (stat(cmd, &buf) == -1)
+	if (cmd && stat(cmd, &buf) == -1)
 		getter_data()->exit_status = 127;
 	if (is_dir(cmd))
 		return (NULL);
@@ -27,6 +27,7 @@ char	*test_directory(char *cmd)
 		return (NULL);
 	if (cmd && access(cmd, F_OK | X_OK) == 0)
 		return (cmd);
+	getter_data()->exit_status = 127;
 	return (NULL);
 }
 
@@ -48,7 +49,7 @@ static t_bool	is_permission_denied(char *cmd)
 	struct stat	stat_res;
 	mode_t		bits;
 
-	if (stat(cmd, &stat_res) >= 0)
+	if (cmd && stat(cmd, &stat_res) >= 0)
 	{
 		bits = stat_res.st_mode;
 		if ((bits & S_IRUSR) == 0)

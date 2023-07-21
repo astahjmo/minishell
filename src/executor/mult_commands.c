@@ -14,21 +14,42 @@
 
 static void	handle_pipe_fds(int bkp_fd, int pipe_fds[2], int cmd_count);
 
+static void	post_child_routine(int *pipes)
+{
+	int	status;
+
+	status = getter_data()->exit_status;
+	close_pipe_fds(pipes);
+	close(getter_stdio()->input);
+	close(getter_stdio()->output);
+	free_cmds_arr(getter_data()->cmds->arr_cmds);
+	free_cmds(getter_data()->cmds);
+	free_all(getter_data());
+	exit(status);
+}
+
 static int	main_routine(int bkp_fd, int *count, int *pipe_fds)
 {
 	(*count)++;
+	if (bkp_fd != 0)
+		close(bkp_fd);
 	bkp_fd = dup(pipe_fds[0]);
 	close_pipe_fds(pipe_fds);
 	return (bkp_fd);
 }
 
-void	child_routine(t_node *cmds, int count)
+void	child_routine(t_node *cmds, int count, int *pipes)
 {
 	t_io			*cmd;
 	t_tokens		builtin_idx;
 	t_fn_built_exec	**exec;
 
 	cmd = command_hook(count);
+	if (!cmd)
+	{
+		getter_data()->exit_status = 1;
+		return (post_child_routine(pipes));
+	}
 	exec = get_built_func_arr();
 	builtin_idx = is_builtin(cmds->str);
 	if (cmd->input > 2)
@@ -39,10 +60,7 @@ void	child_routine(t_node *cmds, int count)
 		exec[builtin_idx](cmds);
 	else
 		exec_command(cmds);
-	free_cmds_arr(getter_data()->cmds->arr_cmds);
-	free_cmds(getter_data()->cmds);
-	free_all(getter_data());
-	exit(0);
+	post_child_routine(pipes);
 }
 
 void	mult_command(t_node **cmds)
@@ -63,7 +81,7 @@ void	mult_command(t_node **cmds)
 		if (pid == CHILD_PROCESS)
 		{
 			handle_pipe_fds(bkp_fd, pipe_fds, cmd_count);
-			child_routine(cmds[cmd_count], cmd_count);
+			child_routine(cmds[cmd_count], cmd_count, pipe_fds);
 		}
 		bkp_fd = main_routine(bkp_fd, &cmd_count, pipe_fds);
 	}

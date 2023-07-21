@@ -21,6 +21,8 @@ t_io	*command_hook(int cmd_count)
 
 	stdio = getter_stdio();
 	fds = getter_t_ios();
+	if (fds[cmd_count].input < 0 || fds[cmd_count].output < 0)
+		return (NULL);
 	if (fds[cmd_count].input > 2)
 		stdio->input = fds[cmd_count].input;
 	if (fds[cmd_count].output > 2)
@@ -33,6 +35,21 @@ t_io	*getter_stdio(void)
 	static t_io	fds = {STDIN_FILENO, STDOUT_FILENO};
 
 	return (&fds);
+}
+
+static void	post_child_routine(void)
+{
+	int	status;
+
+	status = getter_data()->exit_status;
+	if (getter_stdio()->input > 2)
+		close(getter_stdio()->input);
+	if (getter_stdio()->output > 2)
+		close(getter_stdio()->output);
+	free_cmds_arr(getter_data()->cmds->arr_cmds);
+	free_cmds(getter_data()->cmds);
+	free_all(getter_data());
+	exit(status);
 }
 
 static void	fork_and_execute(t_node *cmds)
@@ -55,7 +72,8 @@ static void	fork_and_execute(t_node *cmds)
 		if (cmd->output > 2)
 			dup2_and_close(cmd->output, STDOUT_FILENO);
 		exec_command(cmds);
-		exit(1);
+		post_child_routine();
+		exit(getter_data()->exit_status);
 	}
 	else
 		waitpid(pid, &i, 0);
