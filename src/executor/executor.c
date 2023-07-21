@@ -33,6 +33,11 @@ void	create_commnd_list(t_databus *data, t_node **arr)
 	cursor = data->cmds->head;
 	while (cursor)
 	{
+		while (cursor && ((cursor->token != T_PIPE && *cursor->str == 0)
+				|| cursor->token == T_SPACE))
+			cursor = cursor->next;
+		if (!cursor)
+			return ;
 		head = dup_node(cursor);
 		cursor = cursor->next;
 		while (cursor && cursor->token != T_PIPE)

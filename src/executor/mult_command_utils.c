@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	wait_all_child(int bkp_fd, pid_t pid)
+void	wait_all_children(int bkp_fd, pid_t pid)
 {
 	int	count;
 	int	status;
@@ -27,4 +27,29 @@ void	wait_all_child(int bkp_fd, pid_t pid)
 	waitpid(pid, &status, 0);
 	getter_data()->exit_status = WEXITSTATUS(status);
 	close(bkp_fd);
+}
+
+t_bool	handle_empty_string(t_node **cmds, int cmd_count)
+{
+	if (*cmds[cmd_count]->str == 0)
+	{
+		cmd_count++;
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
+void	close_pipe_fds(int *fds)
+{
+	close(fds[WRTE]);
+	close(fds[READ]);
+}
+
+int	dup2_and_close(int fd, int clone)
+{
+	int	a;
+
+	a = dup2(fd, clone);
+	close(fd);
+	return (a);
 }

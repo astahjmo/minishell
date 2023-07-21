@@ -284,6 +284,9 @@ void						mult_command(t_node **cmds);
 void						print_tokens_in_arr(t_node **cmds);
 void						after_execution(void);
 void						free_cmds_arr(t_node **cmds);
-void						wait_all_child(int bkp_fd, pid_t pid);
+void						wait_all_children(int bkp_fd, pid_t pid);
 char						*test_directory(char *cmd);
+void						close_pipe_fds(int *fds);
+int							dup2_and_close(int fd, int clone);
+t_bool						handle_empty_string(t_node **cmds, int cmd_count);
 #endif

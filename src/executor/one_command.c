@@ -35,12 +35,6 @@ t_io	*getter_stdio(void)
 	return (&fds);
 }
 
-static void	dup2_and_close(int fd, int clone)
-{
-	dup2(fd, clone);
-	close(fd);
-}
-
 static void	fork_and_execute(t_node *cmds)
 {
 	pid_t	pid;
@@ -73,7 +67,7 @@ void	one_command(t_node *cmds)
 	t_tokens		builtin_idx;
 	t_fn_built_exec	**exec;
 
-	if (!cmds)
+	if (!cmds || *cmds->str == 0)
 		return ;
 	exec = get_built_func_arr();
 	builtin_idx = is_builtin(cmds->str);
