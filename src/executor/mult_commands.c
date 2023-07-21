@@ -12,20 +12,7 @@
 
 #include "minishell.h"
 
-void	close_pipe_fds(int *fds)
-{
-	close(fds[WRTE]);
-	close(fds[READ]);
-}
-
-static int	dup2_and_close(int fd, int clone)
-{
-	int	a;
-
-	a = dup2(fd, clone);
-	close(fd);
-	return (a);
-}
+static void	handle_pipe_fds(int bkp_fd, int pipe_fds[2], int cmd_count);
 
 static int	main_routine(int bkp_fd, int *count, int *pipe_fds)
 {
@@ -64,25 +51,33 @@ void	mult_command(t_node **cmds)
 	int		bkp_fd;
 	int		cmd_count;
 	pid_t	pid;
-	t_io	*stdio;
 
-	stdio = getter_stdio();
 	cmd_count = 0;
 	bkp_fd = STDIN_FILENO;
 	while (cmds[cmd_count])
 	{
+		if (handle_empty_string(cmds, cmd_count))
+			continue ;
 		pipe(pipe_fds);
 		pid = fork();
 		if (pid == CHILD_PROCESS)
 		{
-			if (bkp_fd != 0)
-				stdio->input = dup2_and_close(bkp_fd, STDIN_FILENO);
-			close(pipe_fds[WRTE]);
-			if (cmd_count != getter_data()->cmds->idx)
-				stdio->output = dup2_and_close(pipe_fds[READ], STDOUT_FILENO);
+			handle_pipe_fds(bkp_fd, pipe_fds, cmd_count);
 			child_routine(cmds[cmd_count], cmd_count);
 		}
 		bkp_fd = main_routine(bkp_fd, &cmd_count, pipe_fds);
 	}
-	wait_all_child(bkp_fd, pid);
+	wait_all_children(bkp_fd, pid);
+}
+
+static void	handle_pipe_fds(int bkp_fd, int pipe_fds[2], int cmd_count)
+{
+	t_io	*stdio;
+
+	stdio = getter_stdio();
+	if (bkp_fd != 0)
+		stdio->input = dup2_and_close(bkp_fd, STDIN_FILENO);
+	close(pipe_fds[WRTE]);
+	if (cmd_count != getter_data()->cmds->idx)
+		stdio->output = dup2_and_close(pipe_fds[READ], STDOUT_FILENO);
 }
