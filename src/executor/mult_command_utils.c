@@ -12,20 +12,18 @@
 
 #include "minishell.h"
 
-void	wait_all_children(int bkp_fd, pid_t pid)
+void	wait_all_children(int bkp_fd, int *pids)
 {
 	int	count;
 	int	status;
 
 	count = 0;
-	while (count != getter_data()->cmds->idx)
+	while (count <= getter_data()->cmds->idx)
 	{
-		wait(&status);
+		waitpid(pids[count], &status, 0);
 		getter_data()->exit_status = WEXITSTATUS(status);
 		count++;
 	}
-	waitpid(pid, &status, 0);
-	getter_data()->exit_status = WEXITSTATUS(status);
 	close(bkp_fd);
 }
 
@@ -52,4 +50,12 @@ int	dup2_and_close(int fd, int clone)
 	a = dup2(fd, clone);
 	close(fd);
 	return (a);
+}
+
+pid_t	*arr_of_pid(int total_commands)
+{
+	pid_t	*arr;
+
+	arr = ft_calloc(sizeof(pid_t), total_commands);
+	return (arr);
 }

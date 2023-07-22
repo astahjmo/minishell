@@ -68,24 +68,27 @@ void	mult_command(t_node **cmds)
 	int		pipe_fds[2];
 	int		bkp_fd;
 	int		cmd_count;
-	pid_t	pid;
+	pid_t	*pids;
 
 	cmd_count = 0;
 	bkp_fd = STDIN_FILENO;
+	pids = arr_of_pid(getter_data()->cmds->idx + 1);
 	while (cmds[cmd_count])
 	{
 		if (handle_empty_string(cmds, cmd_count))
 			continue ;
 		pipe(pipe_fds);
-		pid = fork();
-		if (pid == CHILD_PROCESS)
+		pids[cmd_count] = fork();
+		if (pids[cmd_count] == CHILD_PROCESS)
 		{
+			free(pids);
 			handle_pipe_fds(bkp_fd, pipe_fds, cmd_count);
 			child_routine(cmds[cmd_count], cmd_count, pipe_fds);
 		}
 		bkp_fd = main_routine(bkp_fd, &cmd_count, pipe_fds);
 	}
-	wait_all_children(bkp_fd, pid);
+	wait_all_children(bkp_fd, pids);
+	free(pids);
 }
 
 static void	handle_pipe_fds(int bkp_fd, int pipe_fds[2], int cmd_count)
