@@ -49,7 +49,7 @@ static char	*format_prompt(char *name, char *path)
 	char	*prompt;
 
 	path = format_path(path);
-	prompt = fmt_s("[%s] - [%s]-> ", name, path, NULL);
+	prompt = fmt_s(CYAN"[%s] - [%s]-> "RESET, name, path, NULL);
 	free(path);
 	return (prompt);
 }
