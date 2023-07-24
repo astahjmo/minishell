@@ -79,5 +79,6 @@ int	is_valid_syntax(t_node *head)
 	getter_data()->exit_status = 2;
 	ft_putstr_fd("minishell:", 1);
 	ft_putendl_fd(s, STDERR_FILENO);
+	free(s);
 	return (FALSE);
 }
