@@ -29,8 +29,6 @@ void	print_tokens(void)
 			ft_printf("[%s]\n", get_token_string(cursor->token));
 		cursor = cursor->next;
 	}
-	free_all(getter_data());
-	exit(2);
 }
 
 void	print_tokens_in_arr(t_node **cmds)

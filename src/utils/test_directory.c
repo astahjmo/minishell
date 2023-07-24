@@ -12,9 +12,6 @@
 
 #include "minishell.h"
 
-static t_bool	is_dir(char *path);
-static t_bool	is_permission_denied(char *cmd);
-
 char	*test_directory(char *cmd)
 {
 	struct stat	buf;
@@ -31,7 +28,7 @@ char	*test_directory(char *cmd)
 	return (NULL);
 }
 
-static t_bool	is_dir(char *path)
+t_bool	is_dir(char *path)
 {
 	struct stat	file_stat;
 
@@ -44,7 +41,7 @@ static t_bool	is_dir(char *path)
 	return (S_ISDIR(file_stat.st_mode));
 }
 
-static t_bool	is_permission_denied(char *cmd)
+t_bool	is_permission_denied(char *cmd)
 {
 	struct stat	stat_res;
 	mode_t		bits;
