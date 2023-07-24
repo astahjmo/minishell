@@ -67,7 +67,7 @@ all: $(LIB)
 
 $(LIB): $(OBJS)
 	@printf "\n";
-	@ar -rcs $@ $(OBJS)
+	@ar -rcs $@ $?
 	@printf "$(MSGBUILD) (libft): ok\n"
 
 $(BUILDDIR)%.o: %.c
@@ -78,7 +78,7 @@ $(BUILDDIR)%.o: %.c
 minishell: $(MINISHELL_LIB)
 
 $(MINISHELL_LIB): $(MINISHELL_OBJS)
-	@ar -rcs $@ $(MINISHELL_OBJS)
+	ar -rcs $@ $?
 	@printf "\n";
 	@printf "$(ALTMSGBUILD) (libft): ok                              "
 

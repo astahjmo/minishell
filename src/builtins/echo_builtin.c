@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+
 void	echo_builtin(t_node *current)
 {
 	int	n_flag;
