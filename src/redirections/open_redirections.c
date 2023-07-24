@@ -10,7 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
+
+static void	apply_error_and_return(char *str)
+{
+	char	*s;
+
+	if (*str == 0)
+		s = fmt_s("minishell: %s: ambiguous redirects!", NULL, NULL, NULL);
+	if (is_permission_denied(str))
+		s = fmt_s("minishell: %s: permission denied!", NULL, NULL, NULL);
+	else
+		s = fmt_s("minishell: %s: Arquivo ou diretorio não encontrado!",
+				NULL,
+				NULL,
+				NULL);
+	getter_data()->exit_status = 1;
+	ft_putstr_fd(s, 2);
+}
 
 static int	setup_out_redir(t_node *node, t_tokens token)
 {
@@ -59,6 +77,8 @@ static int	setup_input_redir(int *status, t_node *node, t_tokens token)
 	else
 		fd = here_doc(status,
 				next_node_with_this_token(node, T_WORD)->str);
+	if (fd < 0)
+		apply_error_and_return(node->str);
 	return (fd);
 }
 
