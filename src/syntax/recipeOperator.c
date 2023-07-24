@@ -14,7 +14,7 @@
 
 int	get_operator_recipe(t_tokens token)
 {
-	static int	transiction[3] = {1, -1, -1};
+	static int	transition[3] = {1, -1, -1};
 
-	return (transiction[token]);
+	return (transition[token]);
 }
