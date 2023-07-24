@@ -78,7 +78,7 @@ $(BUILDDIR)%.o: %.c
 minishell: $(MINISHELL_LIB)
 
 $(MINISHELL_LIB): $(MINISHELL_OBJS)
-	ar -rcs $@ $?
+	@ar -rcs $@ $?
 	@printf "\n";
 	@printf "$(ALTMSGBUILD) (libft): ok                              "
 
