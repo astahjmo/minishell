@@ -24,6 +24,7 @@ int	main(int argc, char *argv[], char *envp[])
 	t_databus	*data;
 
 	data = getter_data();
+	data->exit_status = 0;
 	(void)argc;
 	(void)argv;
 	data->envp = envp;
