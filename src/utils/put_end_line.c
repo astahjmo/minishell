@@ -15,5 +15,9 @@
 void	put_end_line(char *buf, int fd)
 {
 	if (buf)
+	{
+		buf = expand_dollars(buf);
 		ft_putendl_fd(buf, fd);
+		free(buf);
+	}
 }
