@@ -67,12 +67,13 @@ static void	fork_and_execute(t_node *cmds)
 	if (pid == 0)
 	{
 		cmd = command_hook(cmd_count);
+		if (!cmd)
+			return (post_child_routine());
 		if (cmd->input > 2)
 			dup2_and_close(cmd->input, STDIN_FILENO);
 		if (cmd->output > 2)
 			dup2_and_close(cmd->output, STDOUT_FILENO);
 		exec_command(cmds);
-		post_child_routine();
 		exit(getter_data()->exit_status);
 	}
 	else
@@ -84,9 +85,16 @@ void	one_command(t_node *cmds)
 {
 	t_tokens		builtin_idx;
 	t_fn_built_exec	**exec;
+	t_io			*cmd;
 
 	if (!cmds || *cmds->str == 0)
 		return ;
+	cmd = command_hook(0);
+	if (!cmd)
+		return ;
+	cmd = command_hook(0);
+	if (!cmd)
+		return (post_child_routine());
 	exec = get_built_func_arr();
 	builtin_idx = is_builtin(cmds->str);
 	if (builtin_idx != -1)
