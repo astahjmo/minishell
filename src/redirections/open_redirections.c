@@ -41,9 +41,9 @@ static int	setup_out_redir(int *status, t_node *node, t_tokens token)
 		node = node->next;
 	path = node->str;
 	if (token == T_OUT_REDIR)
-		fd = open(path, O_RDWR | O_TRUNC | O_CREAT, 0666);
+		fd = open(path, O_RDWR | O_TRUNC | O_CREAT, 0644);
 	else
-		fd = open(path, O_RDWR | O_CREAT | O_APPEND, 0666);
+		fd = open(path, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (fd < 0)
 		apply_error_and_return(node->str);
 	*status = fd;
