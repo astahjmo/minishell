@@ -48,7 +48,6 @@ int	dup2_and_close(int fd, int clone)
 	int	a;
 
 	a = dup2(fd, clone);
-	close(fd);
 	return (a);
 }
 
