@@ -46,7 +46,6 @@ static void	child_execute(int fd[], char *delimiter)
 	while (*buf && state == FALSE)
 	{
 		put_end_line(*buf, fd[1]);
-		free(*buf);
 		*buf = readline("> ");
 		state = input_is_delimiter(*buf, delimiter);
 		if (state == TRUE || !*buf)
