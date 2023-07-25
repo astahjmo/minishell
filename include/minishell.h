@@ -106,6 +106,7 @@ typedef struct s_cmds
 	int						exit_code;
 	int						idx;
 	t_node					*head;
+	int						total_cmds;
 	t_node					**arr_cmds;
 }							t_cmds;
 
@@ -291,5 +292,6 @@ t_bool						handle_empty_string(t_node **cmds, int cmd_count);
 void						wait_all_children(int bkp_fd, int *pids);
 pid_t						*arr_of_pid(int total_commands);
 t_bool						is_dir(char *path);
+void						open_redir_io(t_node *node, t_io *fds, int *status);
 t_bool						is_permission_denied(char *cmd);
 #endif
