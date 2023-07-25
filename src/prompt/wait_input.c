@@ -34,9 +34,9 @@ static inline void	if_stream_not_null(t_databus *data)
 	{
 		tokenizer();
 		handle_expansions();
+		retokenize();
 		if (is_valid_syntax(data->cmds->head))
 		{
-			retokenize();
 			pre_executor(data);
 			executor(data);
 		}
