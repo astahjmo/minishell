@@ -74,7 +74,7 @@ static void	fork_and_execute(t_node *cmds)
 		if (cmd->output > 2)
 			dup2_and_close(cmd->output, STDOUT_FILENO);
 		exec_command(cmds);
-		exit(getter_data()->exit_status);
+		post_child_routine();
 	}
 	else
 		waitpid(pid, &i, 0);
