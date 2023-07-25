@@ -13,6 +13,7 @@
 #include "minishell.h"
 
 static int	getindex_of_env_to_unset(t_databus *data, char *env);
+static int	is_valid_env_name_for_unset(char *env);
 static int	index_is_invalid(int i);
 
 void	unset_builtin(t_node *current)
@@ -31,6 +32,8 @@ void	unset_builtin(t_node *current)
 	{
 		current = next_node_with_this_token(current->next, T_WORD);
 		new_env = current->str;
+		if (!is_valid_env_name_for_unset(new_env))
+			return ;
 		i = getindex_of_env_to_unset(data, new_env) - 1;
 		if (is_being_initialized(new_env) || index_is_invalid(i))
 			continue ;
@@ -63,6 +66,30 @@ static int	getindex_of_env_to_unset(t_databus *data, char *to_unset)
 	if (i == nb)
 		return (T_INVALID);
 	return (i);
+}
+
+static int	is_valid_env_name_for_unset(char *env)
+{
+	if (!env || (!ft_isalpha(*env) && *env != '_'))
+	{
+		ft_putstr_fd("minishell: unset:", 1);
+		ft_putstr_fd(" not a valid identifier\n", 2);
+		getter_data()->exit_status = 1;
+		return (FALSE);
+	}
+	env++;
+	while (*env != '\0')
+	{
+		if (!ft_isalnum(*env) && *env != '_')
+		{
+			ft_putstr_fd("minishell: unset:", 1);
+			ft_putstr_fd(" not a valid identifier\n", 2);
+			getter_data()->exit_status = 1;
+			return (FALSE);
+		}
+		env++;
+	}
+	return (TRUE);
 }
 
 int	whole_prefix_matched(int i, int len)
