@@ -38,6 +38,13 @@ static t_node	*create_new_linked_list(t_databus *data)
 	while (aux)
 	{
 		token = aux->token;
+		if ((token == T_SPACE) && !aux->next)
+			break ;
+		else if (token == T_SPACE && aux->next->token != T_WORD)
+		{
+			aux = aux->next;
+			continue ;
+		}
 		new_node = create_new_node(join_many_strs(&aux), token);
 		lstadd_back(&new_cmds, new_node);
 		if (!aux)

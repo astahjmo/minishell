@@ -18,7 +18,7 @@ void	wait_all_children(int bkp_fd, int *pids)
 	int	status;
 
 	count = 0;
-	while (count <= getter_data()->cmds->idx)
+	while (count <= getter_data()->cmds->total_cmds)
 	{
 		waitpid(pids[count], &status, 0);
 		getter_data()->exit_status = WEXITSTATUS(status);
@@ -35,21 +35,6 @@ t_bool	handle_empty_string(t_node **cmds, int cmd_count)
 		return (TRUE);
 	}
 	return (FALSE);
-}
-
-void	close_pipe_fds(int *fds)
-{
-	close(fds[WRTE]);
-	close(fds[READ]);
-}
-
-int	dup2_and_close(int fd, int clone)
-{
-	int	a;
-
-	a = dup2(fd, clone);
-	close(fd);
-	return (a);
 }
 
 pid_t	*arr_of_pid(int total_commands)

@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/16 14:59:03 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/26 10:26:40 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,14 @@ static void	fork_and_execute(t_node *cmds)
 	if (pid == 0)
 	{
 		cmd = command_hook(cmd_count);
+		if (!cmd)
+			return (post_child_routine());
 		if (cmd->input > 2)
-			dup2_and_close(cmd->input, STDIN_FILENO);
+			duplicate_stdin(cmd->input);
 		if (cmd->output > 2)
-			dup2_and_close(cmd->output, STDOUT_FILENO);
+			duplicate_stdout(cmd->output);
 		exec_command(cmds);
 		post_child_routine();
-		exit(getter_data()->exit_status);
 	}
 	else
 		waitpid(pid, &i, 0);
@@ -84,9 +85,16 @@ void	one_command(t_node *cmds)
 {
 	t_tokens		builtin_idx;
 	t_fn_built_exec	**exec;
+	t_io			*cmd;
 
 	if (!cmds || *cmds->str == 0)
 		return ;
+	cmd = command_hook(0);
+	if (!cmd)
+		return ;
+	cmd = command_hook(0);
+	if (!cmd)
+		return (post_child_routine());
 	exec = get_built_func_arr();
 	builtin_idx = is_builtin(cmds->str);
 	if (builtin_idx != -1)

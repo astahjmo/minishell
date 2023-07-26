@@ -76,11 +76,12 @@ void	executor(t_databus *data)
 
 	i = 1;
 	cmds = prepare_commands(data, &i);
-	getter_data()->cmds->idx = i - 1;
+	getter_data()->cmds->idx = 0;
+	getter_data()->cmds->total_cmds = i - 1;
 	getter_data()->cmds->arr_cmds = cmds;
 	if (i == 1)
 		one_command(cmds[getter_data()->cmds->idx]);
 	else
-		mult_command(cmds);
+		mult_commands(cmds);
 	after_execution();
 }

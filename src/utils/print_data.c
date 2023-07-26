@@ -31,7 +31,7 @@ void	print_data(int env)
 	{
 		ft_printf(RED "    cmds->head:" RESET " %p\n", tmp);
 		ft_printf(RED "    cmds->head->token:" RESET " %d\n", tmp->token);
-		if (*tmp->str == ' ')
+		if (tmp && tmp->str && *tmp->str == ' ')
 			ft_printf(RED "    cmds->head->str:" RESET " \"%s\"\n", "<space>");
 		else
 			ft_printf(RED "    cmds->head->str:" RESET " \"%s\"\n", tmp->str);
