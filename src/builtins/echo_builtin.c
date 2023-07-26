@@ -21,12 +21,12 @@ void	echo_builtin(t_node *current)
 	cmd_io = getter_data()->cmds->idx;
 	if (current->next)
 		current = current->next;
-	while (current->next && !ft_strcmp("-n", current->next->str))
+	while (current && current->next && !ft_strcmp("-n", current->next->str))
 	{
 		n_flag = 1;
-		current = current->next;
+		current = current->next->next;
 	}
-	while (current->next)
+	while (current && current->next)
 	{
 		current = current->next;
 		if (current->str)
