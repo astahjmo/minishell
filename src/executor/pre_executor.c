@@ -12,25 +12,18 @@
 
 #include "minishell.h"
 
-static int	init_redir(void)
-{
-	int	status;
-
-	status = init_input(getter_data()->cmds->head);
-	if (WEXITSTATUS(status) == 129)
-		return (status);
-	status = init_output(getter_data()->cmds->head);
-	return (status);
-}
-
 int	pre_executor(t_databus *data)
 {
-	t_node			*head;
-	unsigned int	status;
+	t_node	*head;
+	int		status;
 
-	status = init_redir();
+	status = 0;
+	open_redir_io(getter_data()->cmds->head, getter_t_ios(), &status);
 	if (WEXITSTATUS(status) == 129)
+	{
+		after_execution();
 		return (status);
+	}
 	head = remove_operators(data->cmds->head);
 	free_cmds(data->cmds);
 	data->cmds->head = head;

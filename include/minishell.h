@@ -106,6 +106,7 @@ typedef struct s_cmds
 	int						exit_code;
 	int						idx;
 	t_node					*head;
+	int						total_cmds;
 	t_node					**arr_cmds;
 }							t_cmds;
 
@@ -280,14 +281,18 @@ int							init_input(t_node *node);
 int							init_output(t_node *node);
 void						set_ext_code_after_builtin(t_node *current);
 void						set_ext_code_after_export(int valid);
-void						mult_command(t_node **cmds);
+void						mult_commands(t_node **cmds);
 void						print_tokens_in_arr(t_node **cmds);
 void						after_execution(void);
 void						free_cmds_arr(t_node **cmds);
 char						*test_directory(char *cmd);
 void						close_pipe_fds(int *fds);
-int							dup2_and_close(int fd, int clone);
+int							duplicate_stdin(int fd);
+int							duplicate_stdout(int fd);
 t_bool						handle_empty_string(t_node **cmds, int cmd_count);
 void						wait_all_children(int bkp_fd, int *pids);
 pid_t						*arr_of_pid(int total_commands);
+t_bool						is_dir(char *path);
+void						open_redir_io(t_node *node, t_io *fds, int *status);
+t_bool						is_permission_denied(char *cmd);
 #endif
