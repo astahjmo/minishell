@@ -82,16 +82,19 @@ void	exec_command(t_node *cmd)
 	char	*s;
 
 	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	path = get_cmd_path(cmd->str);
 	args = create_args(cmd);
 	envs = create_envs();
+	s = fmt_s("minishell: %s: comando não encontrado", cmd->str, 0, 0);
 	if (!test_directory(path))
 	{
-		s = fmt_s("minishell: %s: comando não encontrado", cmd->str, 0, 0);
 		ft_putendl_fd(s, STDERR_FILENO);
 		exec_command_frees(&path, args, envs, &s);
 		return ;
 	}
 	if (path)
 		execve(path, args, envs);
+	exec_command_frees(&path, args, envs, &s);
+	execve_error(cmd);
 }
