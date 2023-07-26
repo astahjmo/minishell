@@ -295,4 +295,5 @@ pid_t						*arr_of_pid(int total_commands);
 t_bool						is_dir(char *path);
 void						open_redir_io(t_node *node, t_io *fds, int *status);
 t_bool						is_permission_denied(char *cmd);
+void						execve_error(t_node *cmd);
 #endif
