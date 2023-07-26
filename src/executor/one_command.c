@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/16 14:59:03 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/26 10:26:40 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ static void	fork_and_execute(t_node *cmds)
 		if (!cmd)
 			return (post_child_routine());
 		if (cmd->input > 2)
-			dup2_and_close(cmd->input, STDIN_FILENO);
+			duplicate_stdin(cmd->input);
 		if (cmd->output > 2)
-			dup2_and_close(cmd->output, STDOUT_FILENO);
+			duplicate_stdout(cmd->output);
 		exec_command(cmds);
 		post_child_routine();
 	}
