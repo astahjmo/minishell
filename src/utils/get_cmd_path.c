@@ -21,7 +21,7 @@ char	*get_cmd_path(char *cmd)
 	t_get_cmd_path	get;
 	int				i;
 
-	if (!cmd || !*cmd || there_is_no_path("PATH"))
+	if (!cmd || !*cmd || (there_is_no_path("PATH") && !ft_strchr(cmd, '/')))
 		return (NULL);
 	i = -1;
 	get.slash_address = ft_strchr(cmd, '/');
