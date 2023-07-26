@@ -106,7 +106,7 @@ typedef struct s_cmds
 	int						exit_code;
 	int						idx;
 	t_node					*head;
-	int						total_cmds;
+	int						last_cmd_idx;
 	t_node					**arr_cmds;
 }							t_cmds;
 
