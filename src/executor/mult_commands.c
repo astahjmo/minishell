@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 20:14:51 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/19 15:19:02 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/26 10:26:20 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	child_routine(t_node *cmds, int count, int *pipes)
 	exec = get_built_func_arr();
 	builtin_idx = is_builtin(cmds->str);
 	if (cmd->input > 2)
-		getter_stdio()->input = dup2_and_close(cmd->input, STDIN_FILENO);
+		getter_stdio()->input = duplicate_stdin(cmd->input);
 	if (cmd->output > 2)
-		getter_stdio()->output = dup2_and_close(cmd->output, STDOUT_FILENO);
+		getter_stdio()->output = duplicate_stdout(cmd->output);
 	if (builtin_idx != T_INVALID)
 		exec[builtin_idx](cmds);
 	else
@@ -63,7 +63,7 @@ void	child_routine(t_node *cmds, int count, int *pipes)
 	post_child_routine(pipes);
 }
 
-void	mult_command(t_node **cmds)
+void	mult_commands(t_node **cmds)
 {
 	int		pipe_fds[2];
 	int		bkp_fd;
@@ -98,8 +98,8 @@ static void	handle_pipe_fds(int bkp_fd, int pipe_fds[2], int cmd_count)
 
 	stdio = getter_stdio();
 	if (bkp_fd != 0)
-		stdio->input = dup2_and_close(bkp_fd, STDIN_FILENO);
+		stdio->input = duplicate_stdin(bkp_fd);
 	close(pipe_fds[WRTE]);
 	if (cmd_count != getter_data()->cmds->total_cmds)
-		stdio->output = dup2_and_close(pipe_fds[READ], STDOUT_FILENO);
+		stdio->output = duplicate_stdout(pipe_fds[READ]);
 }

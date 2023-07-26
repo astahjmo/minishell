@@ -37,20 +37,6 @@ t_bool	handle_empty_string(t_node **cmds, int cmd_count)
 	return (FALSE);
 }
 
-void	close_pipe_fds(int *fds)
-{
-	close(fds[WRTE]);
-	close(fds[READ]);
-}
-
-int	dup2_and_close(int fd, int clone)
-{
-	int	a;
-
-	a = dup2(fd, clone);
-	return (a);
-}
-
 pid_t	*arr_of_pid(int total_commands)
 {
 	pid_t	*arr;

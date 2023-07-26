@@ -82,6 +82,6 @@ void	executor(t_databus *data)
 	if (i == 1)
 		one_command(cmds[getter_data()->cmds->idx]);
 	else
-		mult_command(cmds);
+		mult_commands(cmds);
 	after_execution();
 }
