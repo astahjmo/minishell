@@ -72,7 +72,7 @@ void	mult_commands(t_node **cmds)
 
 	cmd_count = 0;
 	bkp_fd = STDIN_FILENO;
-	pids = arr_of_pid(getter_data()->cmds->total_cmds + 1);
+	pids = arr_of_pid(getter_data()->cmds->last_cmd_idx + 1);
 	while (cmds[cmd_count])
 	{
 		if (handle_empty_string(cmds, cmd_count))
@@ -100,6 +100,6 @@ static void	handle_pipe_fds(int bkp_fd, int pipe_fds[2], int cmd_count)
 	if (bkp_fd != 0)
 		stdio->input = duplicate_stdin(bkp_fd);
 	close(pipe_fds[WRTE]);
-	if (cmd_count != getter_data()->cmds->total_cmds)
+	if (cmd_count != getter_data()->cmds->last_cmd_idx)
 		stdio->output = duplicate_stdout(pipe_fds[READ]);
 }
