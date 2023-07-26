@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static int	path_is_invalid(int chdir_return);
+static int	path_is_invalid(char **path_address);
 static void	update_pwd_and_oldpwd(char *cwd);
 static int	cd_has_too_many_args(void);
 
@@ -30,7 +30,7 @@ void	cd_builtin(t_node *current)
 	}
 	if (cd_has_too_many_args())
 		return ;
-	if (path_is_invalid(chdir(*path_address)))
+	if (path_is_invalid(path_address))
 		return ;
 	getcwd(cwd, STR_LIMIT);
 	update_pwd_and_oldpwd(cwd);
@@ -50,8 +50,19 @@ static int	cd_has_too_many_args(void)
 	return (FALSE);
 }
 
-static int	path_is_invalid(int chdir_return)
+static int	path_is_invalid(char **path_address)
 {
+	int	chdir_return;
+
+	if (**path_address == '\0')
+	{
+		ft_putstr_fd("minishell: cd:", 1);
+		ft_putstr_fd(" HOME not set\n", 2);
+		getter_data()->exit_status = 1;
+		ft_safe_free(path_address);
+		return (TRUE);
+	}
+	chdir_return = chdir(*path_address);
 	if (chdir_return == -1)
 	{
 		ft_putstr_fd("minishell: cd:", 1);
