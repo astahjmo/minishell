@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
 static void	handle_pipe_fds(int bkp_fd, int pipe_fds[2], int cmd_count);
 
@@ -83,6 +84,8 @@ void	mult_commands(t_node **cmds)
 		{
 			free(pids);
 			handle_pipe_fds(bkp_fd, pipe_fds, cmd_count);
+			if (bkp_fd != 0)
+				close(bkp_fd);
 			child_routine(cmds[cmd_count], cmd_count, pipe_fds);
 		}
 		bkp_fd = main_routine(bkp_fd, &cmd_count, pipe_fds);
