@@ -82,10 +82,7 @@ void	mult_commands(t_node **cmds)
 		pids[cmd_count] = fork();
 		if (pids[cmd_count] == CHILD_PROCESS)
 		{
-			free(pids);
 			handle_pipe_fds(bkp_fd, pipe_fds, cmd_count);
-			if (bkp_fd != 0)
-				close(bkp_fd);
 			child_routine(cmds[cmd_count], cmd_count, pipe_fds);
 		}
 		bkp_fd = main_routine(bkp_fd, &cmd_count, pipe_fds);
@@ -101,8 +98,12 @@ static void	handle_pipe_fds(int bkp_fd, int pipe_fds[2], int cmd_count)
 
 	stdio = getter_stdio();
 	if (bkp_fd != 0)
+	{
 		stdio->input = duplicate_stdin(bkp_fd);
+		close(bkp_fd);
+	}
 	close(pipe_fds[WRTE]);
 	if (cmd_count != getter_data()->cmds->last_cmd_idx)
 		stdio->output = duplicate_stdout(pipe_fds[READ]);
+	close(pipe_fds[READ]);
 }
