@@ -12,8 +12,9 @@
 
 #include "minishell.h"
 
-static int	path_is_valid(int chdir_return);
+static int	path_is_invalid(int chdir_return);
 static void	update_pwd_and_oldpwd(char *cwd);
+static int	cd_has_too_many_args(void);
 
 void	cd_builtin(t_node *current)
 {
@@ -27,7 +28,9 @@ void	cd_builtin(t_node *current)
 		home = get_content_from_name_alone("HOME");
 		path_address = &home;
 	}
-	if (T_INVALID == path_is_valid(chdir(*path_address)))
+	if (cd_has_too_many_args())
+		return ;
+	if (path_is_invalid(chdir(*path_address)))
 		return ;
 	getcwd(cwd, STR_LIMIT);
 	update_pwd_and_oldpwd(cwd);
@@ -35,22 +38,28 @@ void	cd_builtin(t_node *current)
 	getter_data()->exit_status = 0;
 }
 
-static int	path_is_valid(int chdir_return)
+static int	cd_has_too_many_args(void)
+{
+	if (has_too_many_args())
+	{
+		ft_putstr_fd("minishell: cd:", 1);
+		ft_putstr_fd(" too many arguments\n", 2);
+		getter_data()->exit_status = 1;
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
+static int	path_is_invalid(int chdir_return)
 {
 	if (chdir_return == -1)
 	{
 		ft_putstr_fd("minishell: cd:", 1);
 		ft_putstr_fd(" No such file or directory\n", 2);
 		getter_data()->exit_status = 1;
+		return (TRUE);
 	}
-	else if (has_too_many_args())
-	{
-		ft_putstr_fd("minishell: cd:", 1);
-		ft_putstr_fd(" too many arguments\n", 2);
-		getter_data()->exit_status = 1;
-		return (T_INVALID);
-	}
-	return (chdir_return);
+	return (FALSE);
 }
 
 static void	update_pwd_and_oldpwd(char *cwd)
