@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/19 15:18:31 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/26 20:07:46 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 # define STR_LIMIT 4027
 # define ENVS_LIMIT 8512
 # define SIZEMAX 9223372036854775807
+# define SINGLE_QUOTE 39
+# define DOUBLE_QUOTE 34
 # define ENV_CONTENT_SZ 32367
 # define ENV_NAME_SZ 1024
 # define HEAP_OVERFLOW_PROTECTION 100000
@@ -168,7 +170,7 @@ extern void					init_signal(void);
 t_fn_node_apply				**init_parser(void);
 t_recipes					**init_recipes(void);
 extern void					bscanner(t_databus data);
-t_bool						has_unclosed_quotes(char *line);
+t_bool						has_unclosed_quotes(char *string);
 extern void					scanner(t_databus data);
 extern t_tokens				get_word_recipe(t_tokens state);
 char						*handler_quotes(char *line);
