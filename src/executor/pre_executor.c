@@ -18,8 +18,9 @@ int	pre_executor(t_databus *data)
 	int		status;
 
 	status = 0;
+	getter_data()->cmds->arr_cmds = 0;
 	open_redir_io(getter_data()->cmds->head, getter_t_ios(), &status);
-	if (WEXITSTATUS(status) == 129)
+	if (WEXITSTATUS(status) == 130)
 	{
 		after_execution();
 		return (status);

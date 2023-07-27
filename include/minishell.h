@@ -298,4 +298,7 @@ t_bool						is_dir(char *path);
 void						open_redir_io(t_node *node, t_io *fds, int *status);
 t_bool						is_permission_denied(char *cmd);
 void						execve_error(t_node *cmd);
+void						setup_heredoc(int *status, t_node *node);
+int							*getter_heredoc_tmp(void);
+void						close_heredocs(void);
 #endif

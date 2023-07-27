@@ -18,3 +18,10 @@ t_io	*getter_t_ios(void)
 
 	return (io);
 }
+
+int	*getter_heredoc_tmp(void)
+{
+	static int	heredoc[MAX_FD] = {0};
+
+	return (heredoc);
+}

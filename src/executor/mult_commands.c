@@ -23,6 +23,7 @@ static void	post_child_routine(int *pipes, pid_t *pids)
 	close_pipe_fds(pipes);
 	close(getter_stdio()->input);
 	close(getter_stdio()->output);
+	close_heredocs();
 	free(pids);
 	free_cmds_arr(getter_data()->cmds->arr_cmds);
 	free_cmds(getter_data()->cmds);

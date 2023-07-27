@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include <unistd.h>
 
 static void	apply_error_and_return(char *str)
 {
@@ -50,7 +48,8 @@ static int	setup_out_redir(int *status, t_node *node, t_tokens token)
 	return (fd);
 }
 
-static int	setup_input_redir(int *status, t_node *node, t_tokens token)
+static int	setup_input_redir(int *status, t_node *node,
+		t_tokens token, int aux)
 {
 	int		fd;
 	char	*path;
@@ -61,10 +60,10 @@ static int	setup_input_redir(int *status, t_node *node, t_tokens token)
 	if (token == T_INPUT_REDIR)
 		fd = open(path, O_RDONLY);
 	else
-		fd = here_doc(status,
-				next_node_with_this_token(node, T_WORD)->str);
+		fd = getter_heredoc_tmp()[aux];
 	if (fd < 0)
 		apply_error_and_return(node->str);
+	*status = fd;
 	return (fd);
 }
 
@@ -75,11 +74,11 @@ static void	setup_redir(int	*status, t_node *node, int aux, t_bool io)
 	fds = getter_t_ios();
 	if (io)
 	{
-		if (fds[aux].input)
+		if (fds[aux].input && node->token != T_HERE_DOC)
 			close(fds[aux].input);
-		fds[aux].input = setup_input_redir(status, node, node->token);
+		fds[aux].input = setup_input_redir(status, node, node->token, aux);
 	}
-	else 
+	else
 	{
 		if (fds[aux].output)
 			close(fds[aux].output);
@@ -89,21 +88,24 @@ static void	setup_redir(int	*status, t_node *node, int aux, t_bool io)
 
 void	open_redir_io(t_node *node, t_io *fds, int *status)
 {
-	int	aux;
+	int		aux;
 
 	aux = 0;
-	while (node != NULL && *status != 2)
+	setup_heredoc(status, node);
+	if (WEXITSTATUS(*status) == 130)
+		return ;
+	while (node != NULL && *status != 130)
 	{
 		if (node->token == T_PIPE)
 			aux++;
-		if (node->token == T_HERE_DOC || node-> token == T_INPUT_REDIR)
-			setup_redir(status, node, aux, READ);
+		if (node->token == T_INPUT_REDIR || node->token == T_HERE_DOC)
+			setup_redir(status, node, aux, TRUE);
 		if (node->token == T_OUT_REDIR || node->token == T_O_OUT_REDIR)
-			setup_redir(status, node, aux, WRTE);
-		if (WEXITSTATUS(*status) == 129)
-			break ;
+			setup_redir(status, node, aux, FALSE);
 		if (fds[aux].output < 0 || fds[aux].input < 0)
 		{
+			if (getter_heredoc_tmp()[aux] > 2)
+				close(getter_heredoc_tmp()[aux]);
 			while (node && node->token != T_PIPE)
 				node = node->next;
 			continue ;

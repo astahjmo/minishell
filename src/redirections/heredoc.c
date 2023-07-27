@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
+#include <stdio.h>
 
 static void	child_execute(int fd[], char *delimiter);
 static void	print_warning(char *delimiter);
@@ -21,16 +23,19 @@ int	here_doc(int *status, char *delimiter)
 {
 	pid_t	pid;
 	int		*fd;
+	int		nfd;
 
 	fd = getter_pipes();
 	if (pipe(fd) < 0)
-		return (0);
+		return (-1);
 	pid = fork();
 	if (pid == 0)
 		child_execute(fd, delimiter);
+	nfd = dup(fd[0]);
 	close(fd[1]);
+	close(fd[0]);
 	waitpid(pid, status, 0);
-	return (fd[0]);
+	return (nfd);
 }
 
 static void	child_execute(int fd[], char *delimiter)
@@ -78,8 +83,9 @@ static void	print_warning(char *delimiter)
 
 static void	free_and_exit(int ext)
 {
+	close_heredocs();
 	free_cmds(getter_data()->cmds);
 	free_all(getter_data());
-	rl_clear_history();
+	ft_putstr_fd("\n", 1);
 	exit(ext);
 }
