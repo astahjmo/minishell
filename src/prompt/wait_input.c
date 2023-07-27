@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:17:45 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/18 14:08:33 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/26 20:05:11 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ static inline void	if_stream_not_null(t_databus *data)
 		return ;
 	add_history(data->stream);
 	if (has_unclosed_quotes(data->stream))
+	{
+		ft_printf("Error: Unclosed quotes in the string.\n");
 		return ;
+	}
 	if (data->stream)
 	{
 		tokenizer();
