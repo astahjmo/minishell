@@ -87,6 +87,5 @@ static void	free_and_exit(int ext)
 	close_heredocs();
 	free_cmds(getter_data()->cmds);
 	free_all(getter_data());
-	ft_putstr_fd("\n", 1);
 	exit(ext);
 }
