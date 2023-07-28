@@ -49,29 +49,6 @@ void	sig_handler(int sig)
 	exit(130);
 }
 
-void	setup_heredoc(int *status, t_node *node)
-{
-	int		*here_fds;
-	int		aux;
-
-	here_fds = getter_heredoc_tmp();
-	aux = 0;
-	while (node != NULL && WEXITSTATUS(*status) != 130)
-	{
-		if (node->token == T_PIPE)
-			aux++;
-		if (node->token == T_HERE_DOC)
-		{
-			if (here_fds[aux] > 0)
-				close(here_fds[aux]);
-			here_fds[aux] = here_doc(status,
-					next_node_with_this_token(node, T_WORD)->str);
-		}
-		node = node->next;
-	}
-	getter_data()->exit_status = WEXITSTATUS(*status);
-}
-
 void	close_heredocs(void)
 {
 	int	*tmp;

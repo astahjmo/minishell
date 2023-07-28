@@ -295,10 +295,19 @@ t_bool						handle_empty_string(t_node **cmds, int cmd_count);
 void						wait_all_children(int bkp_fd, int *pids);
 pid_t						*arr_of_pid(int total_commands);
 t_bool						is_dir(char *path);
-void						open_redir_io(t_node *node, t_io *fds, int *status);
 t_bool						is_permission_denied(char *cmd);
+void						open_redir_io(t_node *node, int *status);
 void						execve_error(t_node *cmd);
 void						setup_heredoc(int *status, t_node *node);
 int							*getter_heredoc_tmp(void);
 void						close_heredocs(void);
+int							setup_out_redir(int *status, t_node *node,
+								t_tokens token, int aux);
+int							setup_input_redir(int *status, t_node *node,
+								t_tokens token, int aux);
+int							*getter_output(void);
+void						setup_output(int *status, t_node *node);
+void						setup_input(int *status, t_node *node);
+int							*getter_input(void);
+void						close_redirs(int aux);
 #endif
