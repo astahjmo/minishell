@@ -75,6 +75,8 @@ void	executor(t_databus *data)
 	int		i;
 
 	i = 1;
+	if (getter_data()->exit_status == 130)
+		return ;
 	cmds = prepare_commands(data, &i);
 	getter_data()->cmds->idx = 0;
 	getter_data()->cmds->last_cmd_idx = i - 1;

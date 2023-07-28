@@ -18,3 +18,24 @@ t_io	*getter_t_ios(void)
 
 	return (io);
 }
+
+int	*getter_heredoc_tmp(void)
+{
+	static int	heredoc[MAX_FD] = {0};
+
+	return (heredoc);
+}
+
+int	*getter_input(void)
+{
+	static int	input_r[MAX_FD] = {0};
+
+	return (input_r);
+}
+
+int	*getter_output(void)
+{
+	static int	output_r[MAX_FD] = {0};
+
+	return (output_r);
+}
