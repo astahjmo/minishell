@@ -234,7 +234,6 @@ char						*strjoinfree_s1(char *s1, char *s2);
 int							*getter_inputs(void);
 void						cd_builtin(t_node *current);
 char						*get_name(char *str);
-int							has_too_many_args(void);
 
 // TOKENIZER
 char						*expand_dollars(char *line);
@@ -311,4 +310,6 @@ void						setup_input(int *status, t_node *node);
 int							*getter_input(void);
 void						close_redirs(int aux);
 void						close_all_unused_fd(void);
+int							has_too_many_args(t_node *head);
+
 #endif

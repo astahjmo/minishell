@@ -14,7 +14,7 @@
 
 static int	path_is_invalid(char **path_address);
 static void	update_pwd_and_oldpwd(char *cwd);
-static int	cd_has_too_many_args(void);
+static int	cd_has_too_many_args(t_node *current);
 
 void	cd_builtin(t_node *current)
 {
@@ -28,7 +28,7 @@ void	cd_builtin(t_node *current)
 		home = get_content_from_name_alone("HOME");
 		path_address = &home;
 	}
-	if (cd_has_too_many_args())
+	if (cd_has_too_many_args(current))
 		return ;
 	if (path_is_invalid(path_address))
 		return ;
@@ -38,9 +38,9 @@ void	cd_builtin(t_node *current)
 	getter_data()->exit_status = 0;
 }
 
-static int	cd_has_too_many_args(void)
+static int	cd_has_too_many_args(t_node *current)
 {
-	if (has_too_many_args())
+	if (has_too_many_args(current))
 	{
 		ft_putstr_fd("minishell: cd:", 1);
 		ft_putstr_fd(" too many arguments\n", 2);
