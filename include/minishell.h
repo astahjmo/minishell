@@ -311,5 +311,5 @@ int							*getter_input(void);
 void						close_redirs(int aux);
 void						close_all_unused_fd(void);
 int							has_too_many_args(t_node *head);
-
+void						close_all_fds(void);
 #endif
