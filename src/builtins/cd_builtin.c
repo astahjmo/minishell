@@ -68,6 +68,7 @@ static int	path_is_invalid(char **path_address)
 		ft_putstr_fd("minishell: cd:", 1);
 		ft_putstr_fd(" No such file or directory\n", 2);
 		getter_data()->exit_status = 1;
+		ft_safe_free(path_address);
 		return (TRUE);
 	}
 	return (FALSE);
