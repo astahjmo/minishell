@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdlib.h>
-#include <unistd.h>
 
 static void	apply_error_and_return(char *str)
 {
@@ -92,9 +90,7 @@ static void	setup_redir(t_node *node, int aux, t_bool io, int *status)
 void	open_redir_io(t_node *node, int *status)
 {
 	int		x;
-	t_io	*fds;
 
-	fds = getter_t_ios();
 	setup_heredoc(status, node);
 	if (WEXITSTATUS(*status) == 130)
 		return ;
@@ -107,7 +103,7 @@ void	open_redir_io(t_node *node, int *status)
 			setup_redir(node, x, TRUE, status);
 		if (node->token == T_OUT_REDIR || node->token == T_O_OUT_REDIR)
 			setup_redir(node, x, FALSE, status);
-		if (fds[x].input < 0 || fds[x].output < 0)
+		if (getter_t_ios()[x].input < 0 || getter_t_ios()[x].output < 0)
 		{
 			if (getter_heredoc_tmp()[x] > 2)
 				close(getter_heredoc_tmp()[x]);
