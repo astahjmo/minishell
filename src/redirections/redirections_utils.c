@@ -54,3 +54,17 @@ void	close_all_unused_fd(void)
 		aux++;
 	}
 }
+
+void	close_all_fds(void)
+{
+	int	b;
+
+	b = 0;
+	while (b < MAX_FD)
+	{
+		close(getter_input()[b]);
+		close(getter_output()[b]);
+		close(getter_heredoc_tmp()[b]);
+		b++;
+	}
+}

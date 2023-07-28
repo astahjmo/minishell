@@ -11,10 +11,12 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
 static int	has_non_numeric_char(char *str);
 static void	free_and_exit(t_databus *data, char *failure_message);
-static void	handle_exit_argument(t_databus *data, char *exit_argument);
+static void	handle_exit_argument(t_databus *data, char *exit_argument,
+				t_node *current);
 
 void	exit_builtin(t_node *current)
 {
@@ -29,10 +31,11 @@ void	exit_builtin(t_node *current)
 	data->exit_status = 0;
 	if (!exit_argument)
 		free_and_exit(data, NULL);
-	handle_exit_argument(data, exit_argument);
+	handle_exit_argument(data, exit_argument, current);
 }
 
-static void	handle_exit_argument(t_databus *data, char *exit_argument)
+static void	handle_exit_argument(t_databus *data, char *exit_argument,
+		t_node *current)
 {
 	if (is_llmin(exit_argument))
 		data->exit_status = 0;
@@ -41,7 +44,7 @@ static void	handle_exit_argument(t_databus *data, char *exit_argument)
 		data->exit_status = 2;
 		free_and_exit(data, "minishell: exit: numeric argument required\n");
 	}
-	else if (has_too_many_args())
+	else if (has_too_many_args(current))
 	{
 		data->exit_status = 1;
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
@@ -60,6 +63,8 @@ static void	free_and_exit(t_databus *data, char *failure_message)
 		ft_putstr_fd("exit\n", 1);
 	free_cmds_arr(data->cmds->arr_cmds);
 	free_cmds(data->cmds);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
 	free_all(data);
 	exit(data->exit_status);
 }
@@ -76,15 +81,13 @@ static int	has_non_numeric_char(char *str)
 	return (FALSE);
 }
 
-int	has_too_many_args(void)
+int	has_too_many_args(t_node *current)
 {
 	t_node	*arg1;
 	t_node	*arg2;
-	t_node	*cmd;
 
 	arg2 = NULL;
-	cmd = getter_data()->cmds->head;
-	arg1 = next_node_with_this_token(cmd->next, T_WORD);
+	arg1 = next_node_with_this_token(current->next, T_WORD);
 	if (arg1)
 		arg2 = next_node_with_this_token(arg1->next, T_WORD);
 	if (arg2)

@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/26 20:07:46 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/07/28 18:05:03 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# define SYNTAX_ERR_MSG "syntax error near unexpected token: %s"
 # define JOINED 1
 # define NOT_JOINED 0
 # define WITH_ENV 1
@@ -234,7 +235,6 @@ char						*strjoinfree_s1(char *s1, char *s2);
 int							*getter_inputs(void);
 void						cd_builtin(t_node *current);
 char						*get_name(char *str);
-int							has_too_many_args(void);
 
 // TOKENIZER
 char						*expand_dollars(char *line);
@@ -311,4 +311,7 @@ void						setup_input(int *status, t_node *node);
 int							*getter_input(void);
 void						close_redirs(int aux);
 void						close_all_unused_fd(void);
+int							has_too_many_args(t_node *head);
+void						invalid_syntax_err_msg(char *s);
+void						close_all_fds(void);
 #endif

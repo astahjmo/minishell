@@ -6,11 +6,18 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:10:41 by astaroth          #+#    #+#             */
-/*   Updated: 2023/06/28 15:54:45 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/28 18:04:51 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	invalid_syntax_err_msg(char *s)
+{
+	getter_data()->exit_status = 2;
+	ft_putstr_fd("minishell:", 1);
+	ft_putendl_fd(s, STDERR_FILENO);
+}
 
 static int	is_valid(t_tokens next)
 {
@@ -74,11 +81,8 @@ int	is_valid_syntax(t_node *head)
 	}
 	if (progress != T_INVALID)
 		return (TRUE);
-	s = fmt_s(" syntax error near"
-			" unexpected token: %s", get_token_string(state), 0, 0);
-	getter_data()->exit_status = 2;
-	ft_putstr_fd("minishell:", 1);
-	ft_putendl_fd(s, STDERR_FILENO);
+	s = fmt_s(SYNTAX_ERR_MSG, get_token_string(state), 0, 0);
+	invalid_syntax_err_msg(s);
 	free(s);
 	return (FALSE);
 }
