@@ -15,7 +15,8 @@
 
 static int	has_non_numeric_char(char *str);
 static void	free_and_exit(t_databus *data, char *failure_message);
-static void	handle_exit_argument(t_databus *data, char *exit_argument, t_node *current);
+static void	handle_exit_argument(t_databus *data, char *exit_argument,
+				t_node *current);
 
 void	exit_builtin(t_node *current)
 {
@@ -33,7 +34,8 @@ void	exit_builtin(t_node *current)
 	handle_exit_argument(data, exit_argument, current);
 }
 
-static void	handle_exit_argument(t_databus *data, char *exit_argument, t_node *current)
+static void	handle_exit_argument(t_databus *data, char *exit_argument,
+		t_node *current)
 {
 	if (is_llmin(exit_argument))
 		data->exit_status = 0;
