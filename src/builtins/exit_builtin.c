@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
 static int	has_non_numeric_char(char *str);
 static void	free_and_exit(t_databus *data, char *failure_message);
@@ -60,6 +61,8 @@ static void	free_and_exit(t_databus *data, char *failure_message)
 		ft_putstr_fd("exit\n", 1);
 	free_cmds_arr(data->cmds->arr_cmds);
 	free_cmds(data->cmds);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
 	free_all(data);
 	exit(data->exit_status);
 }

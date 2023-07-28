@@ -15,7 +15,7 @@
 
 static void	handle_pipe_fds(int bkp_fd, int pipe_fds[2], int cmd_count);
 
-static void	post_child_routine(int *pipes, pid_t *pids)
+static void	post_child_routine(int *pipes)
 {
 	int	status;
 
@@ -24,7 +24,6 @@ static void	post_child_routine(int *pipes, pid_t *pids)
 	close(getter_stdio()->input);
 	close(getter_stdio()->output);
 	close_heredocs();
-	free(pids);
 	free_cmds_arr(getter_data()->cmds->arr_cmds);
 	free_cmds(getter_data()->cmds);
 	free_all(getter_data());
@@ -51,8 +50,9 @@ void	child_routine(t_node *cmds, int count, int *pipes, pid_t *pids)
 	if (!cmd)
 	{
 		getter_data()->exit_status = 1;
-		return (post_child_routine(pipes, pids));
+		return (post_child_routine(pipes));
 	}
+	free(pids);
 	exec = get_built_func_arr();
 	builtin_idx = is_builtin(cmds->str);
 	if (cmd->input > 2)
@@ -63,7 +63,7 @@ void	child_routine(t_node *cmds, int count, int *pipes, pid_t *pids)
 		exec[builtin_idx](cmds);
 	else
 		exec_command(cmds);
-	post_child_routine(pipes, pids);
+	post_child_routine(pipes);
 }
 
 void	mult_commands(t_node **cmds)
