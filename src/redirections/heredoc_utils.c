@@ -58,7 +58,7 @@ void	close_heredocs(void)
 	aux = 0;
 	while (aux < MAX_FD)
 	{
-		if (tmp[aux] > 0)
+		if (tmp[aux] > 2)
 			close(tmp[aux]);
 		aux++;
 	}

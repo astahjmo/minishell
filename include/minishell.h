@@ -310,4 +310,5 @@ void						setup_output(int *status, t_node *node);
 void						setup_input(int *status, t_node *node);
 int							*getter_input(void);
 void						close_redirs(int aux);
+void						close_all_unused_fd(void);
 #endif

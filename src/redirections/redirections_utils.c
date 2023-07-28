@@ -34,3 +34,23 @@ void	setup_heredoc(int *status, t_node *node)
 	}
 	getter_data()->exit_status = WEXITSTATUS(*status);
 }
+
+void	close_all_unused_fd(void)
+{
+	int	aux;
+
+	aux = 0;
+	while (aux < MAX_FD)
+	{
+		if (getter_input()[aux] != getter_t_ios()[aux].input
+					&& getter_input()[aux] > 2)
+			close(getter_input()[aux]);
+		if (getter_output()[aux] != getter_t_ios()[aux].output
+					&& getter_output()[aux] > 2)
+			close(getter_output()[aux]);
+		if (getter_heredoc_tmp()[aux] != getter_t_ios()[aux].input
+					&& getter_heredoc_tmp()[aux] > 2)
+			close(getter_heredoc_tmp()[aux]);
+		aux++;
+	}
+}

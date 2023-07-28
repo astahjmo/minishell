@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
 static void	apply_error_and_return(char *str)
 {
@@ -111,6 +112,7 @@ void	open_redir_io(t_node *node, int *status)
 				node = node->next;
 			continue ;
 		}
+		close_all_unused_fd();
 		node = node->next;
 	}
 }
