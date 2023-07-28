@@ -93,7 +93,7 @@ void	open_redir_io(t_node *node, int *status)
 
 	setup_heredoc(status, node);
 	if (WEXITSTATUS(*status) == 130)
-		return ;
+		return (close_heredocs());
 	x = 0;
 	while (node)
 	{
