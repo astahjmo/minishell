@@ -114,5 +114,4 @@ void	open_redir_io(t_node *node, int *status)
 		}
 		node = node->next;
 	}
-	close_all_unused_fd();
 }
