@@ -20,4 +20,5 @@ void	main_setup_hook(t_databus *data)
 	data->cmds->head = NULL;
 	data->cmds->exit_code = 0;
 	data->cmds->arr_cmds = NULL;
+	data->cmds->idx = 0;
 }
