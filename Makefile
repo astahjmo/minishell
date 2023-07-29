@@ -7,7 +7,7 @@ VPATH = ./src \
  		./src/syntax ./src/env ./src \
 		./src/builtins ./src/executor ./src/redirections ./src/utils
 
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g3 -Wall -Wextra -Werror
 SOURCES = main.c wait_input.c tokenizer.c setup_hook.c\
 		  has_unclosed_quotes.c display.c ft_linked_list.c \
 	  	  init_signal.c clear_bimatrix.c retokenize.c handle_expansions.c \

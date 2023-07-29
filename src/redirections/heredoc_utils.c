@@ -38,14 +38,8 @@ void	sig_handler(int sig)
 	free(*getter_buff());
 	free_cmds(getter_data()->cmds);
 	free_all(getter_data());
-	ft_putstr_fd("\n", 1);
-	rl_on_new_line();
 	rl_replace_line("", 0);
-	rl_redisplay();
-	rl_on_new_line();
-	rl_replace_line ("", 0);
-	rl_redisplay();
-	rl_clear_history();
+	rl_replace_line("", 0);
 	exit(130);
 }
 
