@@ -22,3 +22,8 @@ jobs:
       run: pip install norminette
     - name: check norminette
       run: norminette
+    - name: Minishell Tester
+      run: |
+        git clone https://github.com/LucasKuhn/minishell_tester/
+        cd minishell_tester 
+        ./tester
