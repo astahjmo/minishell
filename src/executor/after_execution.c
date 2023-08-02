@@ -29,6 +29,9 @@ void	after_execution(void)
 	free_cmds_arr(getter_data()->cmds->arr_cmds);
 	while (idx <= getter_data()->cmds->idx)
 	{
+		getter_input()[idx] = 0;
+		getter_output()[idx] = 0;
+		getter_heredoc_tmp()[idx] = 0;
 		if (process_ios[idx].input > 2)
 			close(process_ios[idx].input);
 		if (process_ios[idx].output > 2)

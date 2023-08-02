@@ -19,7 +19,7 @@ static void	apply_error_and_return(char *str)
 
 	if (*str == 0)
 		s = fmt_s("minishell: %s: Ambiguous redirects!\n", str, NULL, NULL);
-	if (is_permission_denied(str))
+	else if (is_permission_denied(str))
 		s = fmt_s("minishell: %s: Permission denied\n", str, NULL, NULL);
 	else
 		s = fmt_s("minishell: %s: No such file or directory\n",
@@ -114,5 +114,4 @@ void	open_redir_io(t_node *node, int *status)
 		}
 		node = node->next;
 	}
-	close_all_unused_fd();
 }

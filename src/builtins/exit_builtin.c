@@ -66,6 +66,7 @@ static void	free_and_exit(t_databus *data, char *failure_message)
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	free_all(data);
+	close_all_fds();
 	exit(data->exit_status);
 }
 

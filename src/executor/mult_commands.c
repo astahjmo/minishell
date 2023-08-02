@@ -18,9 +18,7 @@ static void	handle_pipe_fds(int bkp_fd, int pipe_fds[2], int cmd_count);
 static void	post_child_routine(int *pipes)
 {
 	int	status;
-	int	b;
 
-	b = 0;
 	status = getter_data()->exit_status;
 	close_pipe_fds(pipes);
 	close(getter_stdio()->input);
@@ -28,13 +26,7 @@ static void	post_child_routine(int *pipes)
 	close_heredocs();
 	free_cmds_arr(getter_data()->cmds->arr_cmds);
 	free_cmds(getter_data()->cmds);
-	while (b < MAX_FD)
-	{
-		close(getter_input()[b]);
-		close(getter_output()[b]);
-		close(getter_heredoc_tmp()[b]);
-		b++;
-	}
+	close_all_fds();
 	free_all(getter_data());
 	exit(status);
 }
