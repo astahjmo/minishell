@@ -21,7 +21,6 @@ void	print_data(int env)
 
 	data = getter_data();
 	ft_printf(RED "number_of_envs:" RESET " %d\n", data->number_of_envs);
-	ft_printf(RED "type_stream:" RESET " %d\n", data->type_stream);
 	ft_printf(RED "exit_status:" RESET " %d\n", data->exit_status);
 	ft_printf(RED "prompt:" RESET " %s\n", data->prompt);
 	ft_printf(RED "stream:" RESET " %s\n", data->stream);

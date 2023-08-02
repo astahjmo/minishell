@@ -15,6 +15,7 @@
 #include <stdlib.h>
 
 int	*getter_pipes(void)
+
 {
 	static int	pipes[2];
 

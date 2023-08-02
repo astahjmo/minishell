@@ -15,7 +15,6 @@
 void	main_setup_hook(t_databus *data)
 {
 	data->stream = NULL;
-	data->type_stream = 0;
 	data->cmds = malloc(sizeof(t_cmds));
 	data->cmds->head = NULL;
 	data->cmds->exit_code = 0;

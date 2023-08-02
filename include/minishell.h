@@ -28,18 +28,8 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # define SYNTAX_ERR_MSG "syntax error near unexpected token: %s"
-# define JOINED 1
-# define NOT_JOINED 0
-# define WITH_ENV 1
-# define WITHOUT_ENV 0
-# define PREFIX_LEN 30
-# define BUILTINS "echo cd pwd export unset env exit"
 # define TRUE 1
 # define FALSE 0
-# define PRIME 373
-# define DOLLAR "$"
-# define SQUOTE "\'"
-# define DQUOTE "\""
 # define WHITE "\033[0;37m"
 # define GREEN "\033[0;32m"
 # define RED "\033[0;31m"
@@ -52,27 +42,18 @@
 # define DOUBLE_QUOTE 34
 # define ENV_CONTENT_SZ 32367
 # define ENV_NAME_SZ 1024
-# define HEAP_OVERFLOW_PROTECTION 100000
 # define CHILD_PROCESS 0
-# define IN_FD 0
-# define OUT_FD 1
 # define WRTE 0
 # define READ 1
-# define CMD_NOT_FOUND 127
 
 typedef struct s_node		t_node;
 typedef struct s_data		t_databus;
 typedef t_node				*t_fn_node_apply(char *);
 typedef void				t_fn_built_exec(t_node *current);
-typedef struct s_env		t_env;
 typedef enum e_tokens		t_tokens;
 typedef int					t_recipes(t_tokens);
-typedef void				*t_genfunc_apply(void *);
 
 // aliases to longer types
-typedef long long int		t_lli;
-typedef unsigned long long	t_ull;
-typedef t_databus			t_dt;
 typedef unsigned short		t_bool;
 
 typedef enum e_tokens
@@ -97,13 +78,6 @@ typedef struct s_io
 	int						output;
 }							t_io;
 
-enum						e_inputii
-{
-	I_COMMAND_LINE,
-	I_HERE_DOC,
-	I_IOFILE
-};
-
 typedef struct s_cmds
 {
 	int						exit_code;
@@ -117,7 +91,6 @@ typedef struct s_data
 {
 	int						exit_status;
 	int						number_of_envs;
-	enum e_inputii			type_stream;
 	char					*stream;
 	char					env[ENVS_LIMIT][STR_LIMIT];
 	t_cmds					*cmds;
@@ -158,7 +131,6 @@ typedef struct s_node
 
 typedef struct b_bus
 {
-	enum e_inputii			input_state;
 	void					*stream;
 }							t_bus;
 
@@ -166,17 +138,12 @@ t_databus					*getter_data(void);
 int							read_evaluate_print_loop(t_databus *data);
 extern char					*get_prompt(void);
 extern void					clear_bimatrix(char **arr);
-extern void					line_analysis(char *line);
 extern void					init_signal(void);
 t_fn_node_apply				**init_parser(void);
 t_recipes					**init_recipes(void);
-extern void					bscanner(t_databus data);
 t_bool						has_unclosed_quotes(char *string);
-extern void					scanner(t_databus data);
 extern t_tokens				get_word_recipe(t_tokens state);
-char						*handler_quotes(char *line);
 void						tokenizer(void);
-char						*single_quotes_handler(char *line, int *acc);
 void						string_eat_all(char **word, char hungry);
 void						string_eat_until(char **word, char *until);
 int							input_is_delimiter(char *s1, char *s2);
@@ -195,16 +162,11 @@ int							get_operator_recipe(t_tokens token);
 char						*get_token_string(t_tokens token);
 int							is_valid_syntax(t_node *head);
 void						string_eat_at(char **word, char at);
-t_tokens					get_expansion(char *line);
-char						*trim_key(char *key);
-char						*expand_dolar(char *line);
-char						*strjoin_free(char *s1, char *s2);
 void						executor(t_databus *data);
 char						**get_operators_lexemes(void);
 char						**get_builtins_arr(void);
 char						**get_expansion_lexemes(void);
 void						init_env(t_databus *data);
-void						free_env(t_databus *data);
 void						free_all(t_databus *data);
 
 // 							BUILTINS
@@ -239,9 +201,7 @@ char						*get_name(char *str);
 // TOKENIZER
 char						*expand_dollars(char *line);
 void						handle_expansions(void);
-char						*trimfree(char *s1, char *set);
 int							getindex_of_env(char *to_unset);
-char						*trim(char *s, char reject);
 void						print_tokens(void);
 t_bool						is_quotes(char cmp);
 void						print_data(int env);
@@ -263,7 +223,6 @@ t_node						*next_node_with_this_token(t_node *node,
 char						*get_cmd_path(char *cmd);
 void						exec_command(t_node *cmd);
 t_io						*command_hook(int cmd_count);
-int							*getter_outputs(void);
 t_io						*getter_stdio(void);
 char						*fmt_s(char *format, char *s1, char *s2, char *s3);
 void						one_command(t_node *cmds);
@@ -271,16 +230,9 @@ char						**getter_buff(void);
 void						sig_handler(int sig);
 int							*getter_pipes(void);
 void						put_end_line(char *buf, int fd);
-void						open_heredoc(t_node *node, t_io *fds, int *status);
 int							is_a_command(void);
 t_io						*getter_t_ios(void);
 int							here_doc(int *status, char *delimiter);
-void						open_out_redir(t_node *node, t_io *fds,
-								int *status);
-void						open_input_redir(t_node *node, t_io *fds,
-								int *status);
-int							init_input(t_node *node);
-int							init_output(t_node *node);
 void						set_ext_code_after_builtin(t_node *current);
 void						set_ext_code_after_export(int valid);
 void						mult_commands(t_node **cmds);
@@ -306,10 +258,7 @@ int							setup_out_redir(int *status, t_node *node,
 int							setup_input_redir(int *status, t_node *node,
 								t_tokens token, int aux);
 int							*getter_output(void);
-void						setup_output(int *status, t_node *node);
-void						setup_input(int *status, t_node *node);
 int							*getter_input(void);
-void						close_redirs(int aux);
 void						close_all_unused_fd(void);
 int							has_too_many_args(t_node *head);
 void						invalid_syntax_err_msg(char *s);
