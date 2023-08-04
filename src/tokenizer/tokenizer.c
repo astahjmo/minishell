@@ -57,6 +57,8 @@ void	tokenizer(void)
 			string_eat_all(&cursor, ' ');
 		if (*cursor == '#')
 			string_eat_all(&cursor, '\n');
+		if (*cursor == '\t')
+			string_eat_all(&cursor, '\t');
 		if (*cursor == '\0')
 			return ;
 		node = create_token(cursor);
