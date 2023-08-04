@@ -41,7 +41,7 @@ static t_node	*handler_word(char *cursor, char *line)
 	if (!cursor)
 		return (NULL);
 	while (*cursor != '\0' && get_token(cursor) == -1
-		&& *cursor != ' ' && *cursor != '\'' && *cursor != '"')
+		&& !is_whitespace(*cursor) && *cursor != '\'' && *cursor != '"')
 		cursor++;
 	str = ft_substr(line, 0, cursor - line);
 	node = init_node(str);

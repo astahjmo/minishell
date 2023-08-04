@@ -263,4 +263,5 @@ void						close_all_unused_fd(void);
 int							has_too_many_args(t_node *head);
 void						invalid_syntax_err_msg(char *s);
 void						close_all_fds(void);
+int							is_whitespace(char c);
 #endif
