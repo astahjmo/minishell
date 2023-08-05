@@ -86,7 +86,7 @@ void	exec_command(t_node *cmd)
 	path = get_cmd_path(cmd->str);
 	args = create_args(cmd);
 	envs = create_envs();
-	s = fmt_s("minishell: %s: comando não encontrado", cmd->str, 0, 0);
+	s = fmt_s("minishell: %s: comando não encontrado\n", cmd->str, 0, 0);
 	if (!test_directory(path))
 	{
 		ft_putendl_fd(s, STDERR_FILENO);

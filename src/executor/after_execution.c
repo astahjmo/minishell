@@ -45,7 +45,7 @@ void	execve_error(t_node *cmd)
 {
 	char	*s;
 
-	s = fmt_s("minishell: %s: Algum acabou de acontecer!", cmd->str, 0, 0);
+	s = fmt_s("minishell: %s: Algum acabou de acontecer\n!", cmd->str, 0, 0);
 	ft_putendl_fd(s, STDERR_FILENO);
 	getter_data()->exit_status = 126;
 	free(s);
