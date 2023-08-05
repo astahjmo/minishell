@@ -14,9 +14,12 @@
 
 void	invalid_syntax_err_msg(char *s)
 {
+	char	*str;
+
+	str = fmt_s("minishell: %s\n", s, 0, 0);
 	getter_data()->exit_status = 2;
-	ft_putstr_fd("minishell:", 1);
-	ft_putendl_fd(s, STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	free(str);
 }
 
 static int	is_valid(t_tokens next)
