@@ -16,7 +16,6 @@ static void		walk_on_the_list(t_node **lst);
 static char		*join_many_strs(t_node **lst);
 static t_node	*create_new_linked_list(t_databus *data);
 
-// make each node receive a concatenation of all neighboring T_WORD nodes
 void	retokenize(void)
 {
 	t_databus	*data;
@@ -25,7 +24,6 @@ void	retokenize(void)
 	data->cmds->head = create_new_linked_list(data);
 }
 
-// create a new, retokenized linked list of cmds
 static t_node	*create_new_linked_list(t_databus *data)
 {
 	t_node	*new_cmds;
@@ -55,7 +53,6 @@ static t_node	*create_new_linked_list(t_databus *data)
 	return (new_cmds);
 }
 
-// join nodes' strings if not separated by a non T_WORD node.
 static char	*join_many_strs(t_node **lst)
 {
 	char	*result;
@@ -80,7 +77,6 @@ static char	*join_many_strs(t_node **lst)
 	return (result);
 }
 
-// if (joined) we have to walk two times, else only once
 static void	walk_on_the_list(t_node **lst)
 {
 	if ((*lst)->next)
