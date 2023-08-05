@@ -89,7 +89,7 @@ void	exec_command(t_node *cmd)
 	s = fmt_s("minishell: %s: comando não encontrado\n", cmd->str, 0, 0);
 	if (!test_directory(path))
 	{
-		ft_putendl_fd(s, STDERR_FILENO);
+		ft_putstr_fd(s, STDERR_FILENO);
 		exec_command_frees(&path, args, envs, &s);
 		return ;
 	}
