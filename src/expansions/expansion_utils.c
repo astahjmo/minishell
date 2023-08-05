@@ -86,11 +86,9 @@ static void	copy_str(char *list_str, char *new_str)
 char	*remove_quotes(char *list_str)
 {
 	int		len;
-	int		count;
 	char	*new_str;
 
-	count = count_quotes(list_str);
-	len = ft_strlen(list_str) - count;
+	len = ft_strlen(list_str) - 2;
 	new_str = ft_calloc(sizeof(char), (len + 1));
 	copy_str(list_str, new_str);
 	free(list_str);
