@@ -243,7 +243,7 @@ char						*test_directory(char *cmd);
 void						close_pipe_fds(int *fds);
 int							duplicate_stdin(int fd);
 int							duplicate_stdout(int fd);
-t_bool						handle_empty_string(t_node **cmds, int cmd_count);
+t_bool						handle_empty_string(t_node **cmds, int *cmd_count);
 void						wait_all_children(int bkp_fd, int *pids);
 pid_t						*arr_of_pid(int total_commands);
 t_bool						is_dir(char *path);

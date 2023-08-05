@@ -24,14 +24,15 @@ void	wait_all_children(int bkp_fd, int *pids)
 		getter_data()->exit_status = WEXITSTATUS(status);
 		count++;
 	}
-	close(bkp_fd);
+	if (bkp_fd > 2)
+		close(bkp_fd);
 }
 
-t_bool	handle_empty_string(t_node **cmds, int cmd_count)
+t_bool	handle_empty_string(t_node **cmds, int *cmd_count)
 {
-	if (*cmds[cmd_count]->str == 0)
+	if (*cmds[*cmd_count]->str == 0)
 	{
-		cmd_count++;
+		(*cmd_count)++;
 		return (TRUE);
 	}
 	return (FALSE);

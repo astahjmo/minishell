@@ -79,7 +79,7 @@ void	mult_commands(t_node **cmds)
 	pids = arr_of_pid(getter_data()->cmds->last_cmd_idx + 1);
 	while (cmds[cmd_count])
 	{
-		if (handle_empty_string(cmds, cmd_count))
+		if (handle_empty_string(cmds, &cmd_count))
 			continue ;
 		pipe(pipe_fds);
 		pids[cmd_count] = fork();

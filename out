@@ -1,0 +1,21 @@
+total 256
+drwxr-xr-x 11 johmatos candidate   4096 Aug  5 13:53 .
+drwxrwxrwt 38 root     root       12288 Aug  5 13:53 ..
+drwxr-x---  3 johmatos candidate   4096 Aug  5 13:44 .cache
+drwxr-xr-x  5 johmatos candidate   4096 Aug  5 13:43 caralhada_de_testes_pra_rodar_na_mao_comparar_output_exit_code_e_valgrind_antes_de_submeter
+-rw-r--r--  1 johmatos candidate  17699 Aug  5 13:52 compile_commands.json
+-rw-r--r--  1 johmatos candidate     26 Aug  5 13:43 echo
+-rw-r--r--  1 johmatos candidate      0 Aug  5 13:43 file
+drwxr-xr-x  8 johmatos candidate   4096 Aug  5 13:43 .git
+drwxr-xr-x  3 johmatos candidate   4096 Aug  5 13:43 .github
+-rw-r--r--  1 johmatos candidate    169 Aug  5 13:43 .gitignore
+drwxr-xr-x  2 johmatos candidate   4096 Aug  5 13:43 include
+drwxr-xr-x  5 johmatos candidate   4096 Aug  5 13:44 lib
+-rw-r--r--  1 johmatos candidate   3847 Aug  5 13:43 Makefile
+-rwxr-xr-x  1 johmatos candidate 167896 Aug  5 13:52 minishell
+drwxr-xr-x  5 johmatos candidate   4096 Aug  5 13:46 minishell_tester
+drwxr-xr-x  2 johmatos candidate   4096 Aug  5 13:52 objs
+-rw-r--r--  1 johmatos candidate      0 Aug  5 13:53 out
+-rw-r--r--  1 johmatos candidate    624 Aug  5 13:52 readline.supp
+-rw-r--r--  1 johmatos candidate   3121 Aug  5 13:43 README.md
+drwxr-xr-x 11 johmatos candidate   4096 Aug  5 13:43 src

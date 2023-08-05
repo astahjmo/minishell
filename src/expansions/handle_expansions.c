@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
+#include <stddef.h>
 
 static char	*expand_dollar_question(char *tmp, int i, int *have_to_expand);
 static char	*expand_dollar_env(char *tmp, char *env_name, int i, int *expand);
@@ -36,7 +38,7 @@ void	handle_expansions(void)
 
 char	*expand_dollars(char *line)
 {
-	int		i;
+	size_t	i;
 	char	*tmp;
 	char	*env_name;
 	char	*new_line;
@@ -45,7 +47,7 @@ char	*expand_dollars(char *line)
 	i = -1;
 	have_to_expand = 0;
 	tmp = ft_strdup(line);
-	while (*tmp && tmp[++i])
+	while (++i < ft_strlen(tmp) + 1)
 	{
 		if (tmp[i] == '$')
 		{
