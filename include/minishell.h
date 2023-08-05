@@ -264,4 +264,5 @@ int							has_too_many_args(t_node *head);
 void						invalid_syntax_err_msg(char *s);
 void						close_all_fds(void);
 int							is_whitespace(char c);
+t_node						*next_node_skip_space(t_node *node);
 #endif

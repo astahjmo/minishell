@@ -44,9 +44,6 @@ static int	get_next_state(t_tokens state, t_node *next)
 	recipes = init_recipes();
 	status = -1;
 	next_token = -1;
-	if (state == T_INITIAL && is_operator(next->token)
-		&& is_valid(next->token) == -1)
-		return (-1);
 	if (next == NULL && is_operator(state))
 		return (-1);
 	if (next)
@@ -70,11 +67,14 @@ int	is_valid_syntax(t_node *head)
 
 	state = T_INITIAL;
 	cursor = head;
-	progress = get_next_state(state, cursor);
+	if (is_operator(cursor->token) && cursor->next == NULL)
+		progress = -1;
+	else
+		progress = get_next_state(state, next_node_skip_space(cursor));
 	while (cursor && progress != -1)
 	{
 		state = cursor->token;
-		progress = get_next_state(state, cursor->next);
+		progress = get_next_state(state, next_node_skip_space(cursor));
 		if (progress == T_INVALID)
 			break ;
 		cursor = cursor->next;

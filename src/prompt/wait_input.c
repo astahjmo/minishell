@@ -41,14 +41,16 @@ static t_bool	has_empty_pipe(t_node *head)
 	is_empty = FALSE;
 	while (tmp)
 	{
-		if (tmp->token == T_PIPE && (tmp->next && tmp->next->token == T_SPACE))
+		if (tmp->token == T_PIPE
+			&& (tmp->next && tmp->next->token == T_SPACE))
 		{
 			if (tmp->next->next && tmp->next->next->token == T_PIPE)
 				is_empty = TRUE;
 			else if (!tmp->next->next)
 				is_empty = TRUE;
 		}
-		else if (tmp->token == T_OR_LOGIC)
+		else if (tmp->token == T_OR_LOGIC || tmp->token == T_FOREGROUND
+			|| tmp->token == T_AND_LOGIC)
 			is_empty = TRUE;
 		if (is_empty)
 			break ;

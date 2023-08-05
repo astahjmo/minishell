@@ -56,3 +56,11 @@ void	lstadd_back(t_node **lst, t_node *nw)
 	temp->next = nw;
 	nw->next = NULL;
 }
+
+t_node	*next_node_skip_space(t_node *node)
+{
+	node = node->next;
+	while (node && node->token == T_SPACE)
+		node = node->next;
+	return (node);
+}
