@@ -59,8 +59,20 @@ void	lstadd_back(t_node **lst, t_node *nw)
 
 t_node	*next_node_skip_space(t_node *node)
 {
-	node = node->next;
+	if (!node)
+		return (node);
+	if (node->next)
+		node = node->next;
 	while (node && node->token == T_SPACE)
+		node = node->next;
+	return (node);
+}
+
+t_node	*skip_if_is_space(t_node *node)
+{
+	if (!node)
+		return (node);
+	if (node->token == T_SPACE)
 		node = node->next;
 	return (node);
 }
