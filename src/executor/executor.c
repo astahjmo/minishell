@@ -12,6 +12,15 @@
 
 #include "minishell.h"
 
+t_bool	skip_at_pipe_or_word(void)
+{
+	t_cmds	*c;
+
+	c = getter_data()->cmds;
+	return (c->cursor && ((c->cursor->token != T_PIPE && *c->cursor->str == 0)
+			|| c->cursor->token == T_SPACE));
+}
+
 t_node	*dup_node(t_node *target)
 {
 	t_node	*node;
@@ -23,38 +32,32 @@ t_node	*dup_node(t_node *target)
 	return (node);
 }
 
-void	create_commnd_list(t_databus *data, t_node **arr)
+void	create_arr_cmds(t_databus *data, t_node **arr)
 {
-	t_node	*head;
-	t_node	*cursor;
-	int		i;
+	t_cmds	*c;
 
-	i = 0;
-	cursor = data->cmds->head;
-	while (cursor)
+	c = data->cmds;
+	while (c->cursor)
 	{
-		while (cursor && ((cursor->token != T_PIPE && *cursor->str == 0)
-				|| cursor->token == T_SPACE))
-			cursor = cursor->next;
-		if (!cursor)
+		while (skip_at_pipe_or_word())
+			c->cursor = c->cursor->next;
+		if (!c->cursor)
 			return ;
-		if (cursor->token == T_PIPE)
+		if (c->cursor->token == T_PIPE)
 		{
-			arr[i] = NULL;
-			cursor = cursor->next;
-			i++;
+			arr[c->tmp_idx++] = NULL;
+			c->cursor = c->cursor->next;
 			continue ;
 		}
-		head = dup_node(cursor);
-		cursor = cursor->next;
-		while (cursor && cursor->token != T_PIPE)
+		c->tmp_head = dup_node(c->cursor);
+		c->cursor = c->cursor->next;
+		while (c->cursor && c->cursor->token != T_PIPE)
 		{
-			list_add_back(list_last_node(head), dup_node(cursor));
-			cursor = cursor->next;
+			list_add_back(list_last_node(c->tmp_head), dup_node(c->cursor));
+			c->cursor = c->cursor->next;
 		}
-		arr[i] = head;
-		i++;
-		cursor = next_node_with_this_token(cursor, T_WORD);
+		arr[c->tmp_idx++] = c->head;
+		c->cursor = next_node_with_this_token(c->cursor, T_WORD);
 	}
 }
 
@@ -64,6 +67,8 @@ t_node	**prepare_commands(t_databus *data, int *i)
 	t_node	**cmds;
 
 	cursor = data->cmds->head;
+	data->cmds->tmp_idx = 0;
+	data->cmds->cursor = data->cmds->head;
 	while (cursor)
 	{
 		if (cursor->token == T_PIPE)
@@ -71,7 +76,7 @@ t_node	**prepare_commands(t_databus *data, int *i)
 		cursor = cursor->next;
 	}
 	cmds = ft_calloc(*i + 1, sizeof(t_node *));
-	create_commnd_list(data, cmds);
+	create_arr_cmds(data, cmds);
 	return (cmds);
 }
 

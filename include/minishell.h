@@ -82,9 +82,13 @@ typedef struct s_cmds
 {
 	int						exit_code;
 	int						idx;
+	int						tmp_idx;
 	t_node					*head;
+	t_node					*cursor;
+	t_node					*tmp_head;
 	int						last_cmd_idx;
 	t_node					**arr_cmds;
+
 }							t_cmds;
 
 typedef struct s_data
