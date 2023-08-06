@@ -75,9 +75,8 @@ void	string_eat_at_next_token(char **word)
 		if (*line == '\'' || *line == '"')
 			string_eat_at(&temp, *line);
 		else
-			while (*temp != '\0' && !is_whitespace(*temp) 
-				&& get_token(temp) == -1
-				&& !is_quotes(*temp))
+			while (*temp != '\0' && !is_whitespace(*temp) && get_token(temp)
+				== -1 && !is_quotes(*temp))
 				temp++;
 		*word = temp;
 	}
