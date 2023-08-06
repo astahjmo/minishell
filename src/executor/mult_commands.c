@@ -77,7 +77,7 @@ void	mult_commands(t_node **cmds)
 	cmd_count = 0;
 	bkp_fd = STDIN_FILENO;
 	pids = arr_of_pid(getter_data()->cmds->last_cmd_idx + 1);
-	while (cmds[cmd_count])
+	while (cmds[cmd_count] || cmd_count < getter_data()->cmds->last_cmd_idx)
 	{
 		if (handle_empty_string(cmds, &cmd_count))
 			continue ;
