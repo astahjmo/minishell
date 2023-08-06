@@ -81,7 +81,7 @@ static char	*expand_dollar_env(char *tmp, char *env_name, int *i,
 	free(tmp);
 	free(env_name);
 	(*to_expand) = 1;
-	(*i) = 0;
+	(*i) = -1;
 	return (new_line);
 }
 
