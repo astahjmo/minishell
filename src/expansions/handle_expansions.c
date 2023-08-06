@@ -15,7 +15,7 @@
 #include <stddef.h>
 
 static char	*expand_dollar_question(char *tmp, int i, int *have_to_expand);
-static char	*expand_dollar_env(char *tmp, char *env_name, int i, int *expand);
+static char	*expand_dollar_env(char *tmp, char *env_name, int *i, int *expand);
 
 void	handle_expansions(void)
 {
@@ -38,7 +38,7 @@ void	handle_expansions(void)
 
 char	*expand_dollars(char *line)
 {
-	size_t	i;
+	int		i;
 	char	*tmp;
 	char	*env_name;
 	char	*new_line;
@@ -47,13 +47,13 @@ char	*expand_dollars(char *line)
 	i = -1;
 	have_to_expand = 0;
 	tmp = ft_strdup(line);
-	while (++i < ft_strlen(tmp) + 1)
+	while (tmp[++i])
 	{
 		if (tmp[i] == '$')
 		{
 			env_name = get_name(&tmp[i]);
 			if (env_name)
-				tmp = expand_dollar_env(tmp, env_name, i, &have_to_expand);
+				tmp = expand_dollar_env(tmp, env_name, &i, &have_to_expand);
 			else if (tmp[i + 1] == '?')
 				tmp = expand_dollar_question(tmp, i, &have_to_expand);
 		}
@@ -62,7 +62,8 @@ char	*expand_dollars(char *line)
 	return (handle_frees(tmp, new_line, line, have_to_expand));
 }
 
-static char	*expand_dollar_env(char *tmp, char *env_name, int i, int *to_expand)
+static char	*expand_dollar_env(char *tmp, char *env_name, int *i,
+		int *to_expand)
 {
 	char	*until_dollar;
 	char	*env_content;
@@ -70,16 +71,17 @@ static char	*expand_dollar_env(char *tmp, char *env_name, int i, int *to_expand)
 	char	*after_content;
 	char	*new_line;
 
-	(*to_expand) = 1;
-	until_dollar = ft_substr(tmp, 0, i);
+	until_dollar = ft_substr(tmp, 0, *i);
 	env_content = get_content_from_name_alone(env_name);
 	until_env_content_end = strjoinfree_s1(until_dollar, env_content);
-	after_content = ft_strdup(&tmp[i + ft_strlen(env_name) + 1]);
+	after_content = ft_strdup(&tmp[*i + ft_strlen(env_name) + 1]);
 	new_line = strjoinfree_s1(until_env_content_end, after_content);
 	free(env_content);
 	free(after_content);
 	free(tmp);
 	free(env_name);
+	(*to_expand) = 1;
+	(*i) = 0;
 	return (new_line);
 }
 
@@ -91,7 +93,6 @@ static char	*expand_dollar_question(char *tmp, int i, int *to_expand)
 	char	*after_question_mark;
 	char	*new_line;
 
-	(*to_expand) = 1;
 	until_dollar = ft_substr(tmp, 0, i);
 	exit_status = ft_itoa(getter_data()->exit_status);
 	until_exit_status_end = strjoinfree_s1(until_dollar, exit_status);
@@ -100,5 +101,6 @@ static char	*expand_dollar_question(char *tmp, int i, int *to_expand)
 	free(exit_status);
 	free(after_question_mark);
 	free(tmp);
+	(*to_expand) = 1;
 	return (new_line);
 }

@@ -15,9 +15,9 @@
 int	is_whitespace(char c)
 {
 	return (
-		c == '\n' 
-		|| c == '\t' 
-		|| c == '\r' 
+		c == '\n'
+		|| c == '\t'
+		|| c == '\r'
 		|| c == '\v'
 		|| c == ' '
 	);

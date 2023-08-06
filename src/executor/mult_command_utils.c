@@ -18,6 +18,7 @@ void	wait_all_children(int bkp_fd, int *pids)
 	int	status;
 
 	count = 0;
+	status = 0;
 	while (count <= getter_data()->cmds->last_cmd_idx)
 	{
 		waitpid(pids[count], &status, 0);
