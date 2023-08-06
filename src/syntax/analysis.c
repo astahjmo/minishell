@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
 
 void	invalid_syntax_err_msg(char *s)
 {
@@ -69,8 +70,8 @@ int	is_valid_syntax(t_node *head)
 	char		*s;
 
 	state = T_INITIAL;
-	cursor = head;
-	if (is_operator(cursor->token) && cursor->next == NULL)
+	cursor = skip_if_is_space(head);
+	if (cursor && cursor->token == T_PIPE)
 		progress = -1;
 	else
 		progress = get_next_state(state, next_node_skip_space(cursor));
