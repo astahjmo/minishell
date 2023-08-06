@@ -29,7 +29,7 @@ void	free_cmds_arr(t_node **cmds)
 	if (!cmds)
 		return ;
 	i = 0;
-	while (cmds[i])
+	while (i < getter_data()->cmds->last_cmd_idx + 1)
 	{
 		cursor = cmds[i];
 		while (cursor)

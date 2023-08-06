@@ -38,6 +38,13 @@ void	create_commnd_list(t_databus *data, t_node **arr)
 			cursor = cursor->next;
 		if (!cursor)
 			return ;
+		if (cursor->token == T_PIPE)
+		{
+			arr[i] = NULL;
+			cursor = cursor->next;
+			i++;
+			continue ;
+		}
 		head = dup_node(cursor);
 		cursor = cursor->next;
 		while (cursor && cursor->token != T_PIPE)
@@ -49,7 +56,6 @@ void	create_commnd_list(t_databus *data, t_node **arr)
 		i++;
 		cursor = next_node_with_this_token(cursor, T_WORD);
 	}
-	arr[i] = NULL;
 }
 
 t_node	**prepare_commands(t_databus *data, int *i)

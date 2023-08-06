@@ -31,7 +31,7 @@ void	wait_all_children(int bkp_fd, int *pids)
 
 t_bool	handle_empty_string(t_node **cmds, int *cmd_count)
 {
-	if (*cmds[*cmd_count]->str == 0)
+	if (cmds[*cmd_count] == NULL)
 	{
 		(*cmd_count)++;
 		return (TRUE);
