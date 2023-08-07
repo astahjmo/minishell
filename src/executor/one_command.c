@@ -49,6 +49,7 @@ static void	post_child_routine(void)
 	free_cmds_arr(getter_data()->cmds->arr_cmds);
 	free_cmds(getter_data()->cmds);
 	free_all(getter_data());
+	close_all_fds();
 	exit(status);
 }
 
