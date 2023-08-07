@@ -23,6 +23,20 @@ t_node	*dup_node(t_node *target)
 	return (node);
 }
 
+t_node	*inset_at_arr(t_node *cursor, t_node **arr, t_node *head, int *i)
+{
+	head = dup_node(cursor);
+	cursor = cursor->next;
+	while (cursor && cursor->token != T_PIPE)
+	{
+		list_add_back(list_last_node(head), dup_node(cursor));
+		cursor = cursor->next;
+	}
+	arr[*i] = head;
+	(*i)++;
+	return (cursor);
+}
+
 void	create_commnd_list(t_databus *data, t_node **arr)
 {
 	t_node	*head;
@@ -30,6 +44,7 @@ void	create_commnd_list(t_databus *data, t_node **arr)
 	int		i;
 
 	i = 0;
+	head = NULL;
 	cursor = data->cmds->head;
 	while (cursor)
 	{
@@ -45,15 +60,7 @@ void	create_commnd_list(t_databus *data, t_node **arr)
 			i++;
 			continue ;
 		}
-		head = dup_node(cursor);
-		cursor = cursor->next;
-		while (cursor && cursor->token != T_PIPE)
-		{
-			list_add_back(list_last_node(head), dup_node(cursor));
-			cursor = cursor->next;
-		}
-		arr[i] = head;
-		i++;
+		cursor = inset_at_arr(cursor, arr, head, &i);
 		cursor = next_node_with_this_token(cursor, T_WORD);
 	}
 }

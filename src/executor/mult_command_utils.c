@@ -34,6 +34,7 @@ t_bool	handle_empty_string(t_node **cmds, int *cmd_count)
 	if (cmds[*cmd_count] == NULL)
 	{
 		(*cmd_count)++;
+		getter_data()->cmds->idx++;
 		return (TRUE);
 	}
 	return (FALSE);
