@@ -54,20 +54,21 @@ int	count_quotes(char *list_str)
 	count = 0;
 	while (list_str[i])
 	{
-		if (list_str[i] == '"')
+		if (list_str[i] == DOUBLE_QUOTE)
 			count++;
-		i++;
+		else if (list_str[i] == SINGLE_QUOTE)
+			i++;
 	}
 	return (count);
 }
 
 static void	copy_str(char *list_str, char *new_str)
 {
-	if (*list_str == '\'')
+	if (*list_str == SINGLE_QUOTE)
 	{
 		while (*list_str)
 		{
-			if (*list_str != '\'')
+			if (*list_str != SINGLE_QUOTE)
 				*new_str++ = *list_str;
 			list_str++;
 		}
@@ -76,7 +77,7 @@ static void	copy_str(char *list_str, char *new_str)
 	{
 		while (*list_str)
 		{
-			if (*list_str != '"')
+			if (*list_str != DOUBLE_QUOTE)
 				*new_str++ = *list_str;
 			list_str++;
 		}
@@ -88,7 +89,13 @@ char	*remove_quotes(char *list_str)
 	int		len;
 	char	*new_str;
 
-	len = ft_strlen(list_str) - 2;
+	if (*list_str == 0)
+		len = 1;
+	else if ((*list_str == SINGLE_QUOTE || *list_str == DOUBLE_QUOTE)
+		&& list_str[1] == 0)
+		len = 2;
+	else
+		len = ft_strlen(list_str) - 2;
 	new_str = ft_calloc(sizeof(char), (len + 1));
 	copy_str(list_str, new_str);
 	free(list_str);

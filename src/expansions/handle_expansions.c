@@ -26,9 +26,10 @@ void	handle_expansions(void)
 	list = data->cmds->head;
 	while (list)
 	{
-		if (list->str && *list->str != '\'')
+		if (list->str && *list->str != SINGLE_QUOTE)
 			list->str = expand_dollars(list->str);
-		if (list->str && (*list->str == '"' || *list->str == '\''))
+		if (list->str && (*list->str == DOUBLE_QUOTE
+				|| *list->str == SINGLE_QUOTE))
 			list->str = remove_quotes(list->str);
 		if (list && list->token == T_HERE_DOC)
 			list = next_node_with_this_token(list, T_WORD);
