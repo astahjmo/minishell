@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 17:44:31 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/25 09:07:24 by vcedraz-         ###   ########.fr       */
+/*   Created: 2023/08/08 18:51:28 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/08/08 18:51:30 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	export_builtin(t_node *current)
 		if (!check_strlen(current->str))
 			return ;
 		ft_strlcpy(getter_data()->env[getter_data()->number_of_envs - 1],
-			current->str, ft_strlen(current->str) + 1);
+			current->str,
+			ft_strlen(current->str) + 1);
 	}
 	set_ext_code_after_export(valid);
 }
@@ -108,8 +109,7 @@ static int	overwrite_env(char *new_env)
 	data = getter_data();
 	while (i < data->number_of_envs)
 	{
-		if (names_are_equal(data->env[i], new_env)
-			&& is_being_initialized(new_env))
+		if (names_are_equal(data->env[i], new_env))
 			return (ft_strlcpy(data->env[i], new_env, ft_strlen(new_env) + 1));
 		i++;
 	}
