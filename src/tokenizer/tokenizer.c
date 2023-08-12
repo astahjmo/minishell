@@ -52,13 +52,11 @@ void	tokenizer(void)
 	cursor = data->stream;
 	while (cursor && *data->stream != '\0')
 	{
-		if (list_last_node(data->cmds->head)
+		if (is_whitespace(*cursor) && list_last_node(data->cmds->head)
 			&& list_last_node(data->cmds->head)->token == T_SPACE)
-			string_eat_all(&cursor, ' ');
+			string_eat_all(&cursor, *cursor);
 		if (*cursor == '#')
 			string_eat_all(&cursor, '\n');
-		if (*cursor == '\t')
-			string_eat_all(&cursor, '\t');
 		if (*cursor == '\0')
 			return ;
 		node = create_token(cursor);
