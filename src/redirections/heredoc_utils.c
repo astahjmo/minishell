@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 14:23:39 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/14 14:23:50 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/08/12 19:12:32 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ void	sig_handler(int sig)
 {
 	if (sig != SIGINT)
 		return ;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
 	close(getter_pipes()[0]);
 	close(getter_pipes()[1]);
 	free(*getter_buff());
 	free_cmds(getter_data()->cmds);
 	free_all(getter_data());
-	rl_replace_line("", 0);
-	rl_replace_line("", 0);
 	exit(130);
 }
 

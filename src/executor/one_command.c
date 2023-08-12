@@ -6,10 +6,11 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/26 10:26:40 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/08/12 19:03:28 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 #include <stdio.h>
 #include <unistd.h>
@@ -79,7 +80,7 @@ static void	fork_and_execute(t_node *cmds)
 	}
 	else
 		waitpid(pid, &i, 0);
-	getter_data()->exit_status = WEXITSTATUS(i);
+	set_exit_code(i);
 }
 
 void	one_command(t_node *cmds)
@@ -98,6 +99,7 @@ void	one_command(t_node *cmds)
 		return (post_child_routine());
 	exec = get_built_func_arr();
 	builtin_idx = is_builtin(cmds->str);
+	signal(SIGINT, handle_sigint);
 	if (builtin_idx != -1)
 		exec[builtin_idx](cmds);
 	else

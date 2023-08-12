@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:25:36 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/13 17:36:31 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/08/12 20:53:01 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	*format_prompt(char *name, char *path)
 	char	*prompt;
 
 	path = format_path(path);
-	prompt = fmt_s(CYAN"[%s] - [%s]-> "RESET, name, path, NULL);
+	prompt = fmt_s(CYAN"[%s] - [%s]-> "RESET RESET, name, path, NULL);
 	free(path);
 	return (prompt);
 }

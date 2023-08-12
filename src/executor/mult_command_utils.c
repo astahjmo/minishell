@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wait_utils.c                                       :+:      :+:    :+:   */
+/*   mult_command_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:46:31 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/19 15:03:59 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/08/12 18:42:32 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	wait_all_children(int bkp_fd, int *pids)
 	while (count <= getter_data()->cmds->last_cmd_idx)
 	{
 		waitpid(pids[count], &status, 0);
-		getter_data()->exit_status = WEXITSTATUS(status);
+		set_exit_code(status);
 		count++;
 	}
 	if (bkp_fd > 2)

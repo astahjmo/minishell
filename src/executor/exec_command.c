@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:41:22 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/18 21:04:57 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/08/12 19:05:37 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ void	exec_command(t_node *cmd)
 	char	**envs;
 	char	*s;
 
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, handle_sigint);
 	path = get_cmd_path(cmd->str);
 	args = create_args(cmd);
 	envs = create_envs();

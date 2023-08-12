@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 22:06:59 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/06/30 22:59:46 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/08/12 19:19:06 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*handle_frees(char *tmp, char *new_line, char *line, int has_dollar)
 		free(new_line);
 		return (line);
 	}
-	getter_data()->exit_status = 0;
+	//getter_data()->exit_status = 0;
 	free(line);
 	return (new_line);
 }

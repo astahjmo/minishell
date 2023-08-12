@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   after_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 14:00:01 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/18 14:08:33 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/08/12 19:04:48 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <signal.h>
+#include <stdlib.h>
 
 static void	reset_stdin_and_out(void)
 {
@@ -27,6 +29,7 @@ void	after_execution(void)
 	reset_stdin_and_out();
 	process_ios = getter_t_ios();
 	free_cmds_arr(getter_data()->cmds->arr_cmds);
+	signal(SIGINT, define_handle);
 	while (idx <= getter_data()->cmds->idx)
 	{
 		getter_input()[idx] = 0;
@@ -49,4 +52,12 @@ void	execve_error(t_node *cmd)
 	ft_putstr_fd(s, STDERR_FILENO);
 	getter_data()->exit_status = 126;
 	free(s);
+}
+
+void	set_exit_code(int status)
+{
+	if (WIFEXITED(status) == 0)
+		getter_data()->exit_status = 128 + status;
+	else
+		getter_data()->exit_status = WEXITSTATUS(status);
 }

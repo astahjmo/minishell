@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 23:22:23 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/07/28 18:05:03 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/08/12 20:50:34 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@
 # define CHILD_PROCESS 0
 # define WRTE 0
 # define READ 1
+# define C_RED "\001\033[0;31m\002"
+# define C_BOLD_RED "\001\033[1;31m\002"
+# define C_YELLOW "\001\033[0;33m\002"
+# define C_BOLD_YELLOW "\001\033[1;33m\002"
+# define C_RESET_COLOR "\001\033[0m\002"
 
 typedef struct s_node		t_node;
 typedef struct s_data		t_databus;
@@ -266,4 +271,7 @@ void						close_all_fds(void);
 int							is_whitespace(char c);
 t_node						*next_node_skip_space(t_node *node);
 t_node						*skip_if_is_space(t_node *node);
+void						set_exit_code(int status);
+void						handle_sigint(int sig);
+void						define_handle(int sig);
 #endif

@@ -6,11 +6,12 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 20:14:51 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/26 10:26:20 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/08/12 19:04:17 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <signal.h>
 #include <unistd.h>
 
 static void	handle_pipe_fds(int bkp_fd, int pipe_fds[2], int cmd_count);

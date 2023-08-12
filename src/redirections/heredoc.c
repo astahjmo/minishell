@@ -6,12 +6,13 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 05:31:29 by johmatos          #+#    #+#             */
-/*   Updated: 2023/07/14 14:59:41 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/08/12 19:12:32 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
+#include <signal.h>
 #include <stdio.h>
 
 static void	child_execute(int fd[], char *delimiter);
@@ -28,11 +29,13 @@ int	here_doc(int *status, char *delimiter)
 	fd = getter_pipes();
 	if (pipe(fd) < 0)
 		return (-1);
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == 0)
 		child_execute(fd, delimiter);
 	waitpid(pid, status, 0);
 	nfd = dup(fd[0]);
+	signal(SIGINT, define_handle);
 	close(fd[1]);
 	close(fd[0]);
 	return (nfd);
@@ -44,8 +47,8 @@ static void	child_execute(int fd[], char *delimiter)
 	int		state;
 
 	buf = getter_buff();
-	signal(SIGINT, sig_handler);
 	close(fd[0]);
+	signal(SIGINT, sig_handler);
 	readline_wrapper(buf, delimiter, fd);
 	state = input_is_delimiter(*buf, delimiter);
 	while (*buf && state == FALSE)
@@ -87,7 +90,6 @@ static void	print_warning(char *delimiter)
 
 static void	free_and_exit(int ext)
 {
-	close_heredocs();
 	free_cmds(getter_data()->cmds);
 	free_all(getter_data());
 	exit(ext);
