@@ -77,9 +77,12 @@ static void	readline_wrapper(char **buf, char *delimiter, int fd[])
 
 static void	print_warning(char *delimiter)
 {
-	ft_printf("minishell: warning: here-document at line 1 delimited by "
-		"end-of-file (wanted %s)\n",
-		delimiter);
+	char	*s;
+
+	s = fmt_s("minishell: warning: here-document delimited by \
+\"end-of-file (wanted %s)\"\n", delimiter, 0, 0);
+	ft_putstr_fd(s, STDERR_FILENO);
+	free(s);
 }
 
 static void	free_and_exit(int ext)
