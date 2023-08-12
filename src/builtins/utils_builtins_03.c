@@ -1,17 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   select_handler.c                                   :+:      :+:    :+:   */
+/*   utils_builtins_03.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/18 20:00:32 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/18 20:47:56 by johmatos         ###   ########.fr       */
+/*   Created: 2023/07/14 09:22:59 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/07/14 09:23:11 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*handler_quotes(char *line)
+void	set_ext_code_after_builtin(t_node *current)
 {
+	(void)current;
+	getter_data()->exit_status = 0;
+}
+
+void	set_ext_code_after_export(int valid)
+{
+	getter_data()->exit_status = 0;
+	if (FALSE == valid)
+		getter_data()->exit_status = 1;
 }

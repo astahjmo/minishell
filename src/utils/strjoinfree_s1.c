@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   double_quotes_handler.c                            :+:      :+:    :+:   */
+/*   ft_strjoin_free_s1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/18 20:00:37 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/18 20:05:59 by johmatos         ###   ########.fr       */
+/*   Created: 2023/06/22 16:43:00 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/22 16:43:54 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
 
-char	*double_quotes_handler(char *line)
+char	*strjoinfree_s1(char *s1, char *s2)
 {
+	char	*str;
 
+	str = ft_strjoin(s1, s2);
+	free(s1);
+	return (str);
 }

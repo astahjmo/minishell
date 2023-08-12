@@ -3,78 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   find_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:53:05 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/20 06:06:04 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:31:31 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 
-static char	**get_lexemes(void)
+static t_tokens	get_token_from_arr(char *to_find, int arr_size, char **arr)
 {
-	static char	*lexems[9] = {
-		"<<",
-		">>",
-		"||",
-		"&&",
-		"|",
-		"&",
-		"<",
-		">",
-	};
-
-	return (lexems);
-}
-static char	**get_expansion_lexes(void)
-{
-	static char	*expansions[3] = {
-		"$",
-		"~",
-		"."
-	};
-
-	return (expansions);
-}
-
-t_tokens	get_expansion(char *line)
-{
-	int			idx;
-	int			total_expansions;
-	t_tokens	expansion;
-	char		**expansions;
+	int	idx;
 
 	idx = 0;
-	expansion = T_INVALID;
-	expansions = get_expansion_lexes();
-	total_expansions = 3;
-	while (idx < total_expansions && expansion == T_INVALID)
+	while (*to_find && arr[idx] && (idx < arr_size))
 	{
-		if (ft_strncmp(line, expansions[idx], ft_strlen(expansions[idx])) == 0)
-			expansion = idx + 1;
+		if (arr == get_operators_lexemes())
+		{
+			if (FALSE == ft_strncmp(to_find, arr[idx], ft_strlen(arr[idx])))
+				return (idx + 1);
+		}
+		else if (arr == get_builtins_arr())
+		{
+			if (FALSE == ft_strcmp(to_find, arr[idx]))
+				return (idx);
+		}
 		idx++;
 	}
-	return (expansion);
+	return (T_INVALID);
 }
 
 t_tokens	get_token(char *line)
 {
-	int			idx;
-	int			total_lexems;
-	t_tokens	lexem;
-	char		**lexems;
+	t_bool	arr_size;
+	char	**operators_lexemes_arr;
 
-	idx = 0;
-	lexem = T_INVALID;
-	lexems = get_lexemes();
-	total_lexems = 8;
-	while (idx < total_lexems && lexem == T_INVALID)
-	{
-		if (ft_strncmp(line, lexems[idx], ft_strlen(lexems[idx])) == 0)
-			lexem = idx + 1;
-		idx++;
-	}
-	return (lexem);
+	arr_size = 8;
+	operators_lexemes_arr = get_operators_lexemes();
+	return (get_token_from_arr(line, arr_size, operators_lexemes_arr));
+}
+
+t_tokens	is_builtin(char *cmd)
+{
+	t_bool	arr_size;
+	char	**builtins_arr;
+
+	arr_size = 7;
+	builtins_arr = get_builtins_arr();
+	return (get_token_from_arr(cmd, arr_size, builtins_arr));
 }

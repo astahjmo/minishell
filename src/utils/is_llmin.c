@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_utils.c                                        :+:      :+:    :+:   */
+/*   is_llmin.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 17:39:48 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/20 06:33:32 by johmatos         ###   ########.fr       */
+/*   Created: 2023/06/21 17:27:58 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/06/21 17:29:06 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_env(char *env)
+int	is_llmin(char *str)
 {
-	t_env			**bucket;
-	long long int	pos;
-	char			*value;
-	t_env			*environ;
+	char	*llmin;
 
-	bucket = get_bucket();
-	pos = hash_map(env);
-	environ = bucket[pos];
-	value = environ->value;
-	string_eat_at(&value, '=');
-	return (value++);
+	llmin = "-9223372036854775808";
+	while (*str)
+	{
+		if (*str != *llmin)
+			return (0);
+		str++;
+		llmin++;
+	}
+	return (1);
 }

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 05:41:48 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/15 17:49:28 by astaroth         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:54:55 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdlib.h>
 
-void	ft_add_back(t_node *old_node, t_node *new)
+void	list_add_back(t_node *old_node, t_node *new)
 {
 	t_node	*temp;
 
@@ -22,33 +22,33 @@ void	ft_add_back(t_node *old_node, t_node *new)
 	temp = old_node->next;
 	new->next = temp;
 	old_node->next = new;
-	new->back = old_node;
 	return ;
 }
 
-t_node	*ft_node_new(void)
+t_node	*list_node_new(void)
 {
 	t_node	*node;
 
 	node = malloc(sizeof(t_node));
-	node->back = NULL;
-	node->data = NULL;
+	node->str = NULL;
 	node->next = NULL;
 	node->token = -1;
 	return (node);
 }
 
-t_node	*ft_last_node(t_node *head)
+t_node	*list_last_node(t_node *head)
 {
 	t_node	*cursor;
 
+	if (!head)
+		return (NULL);
 	cursor = head;
 	while (cursor->next != NULL)
 		cursor = cursor->next;
 	return (cursor);
 }
 
-void	ft_addfront(t_node *old, t_node *new)
+void	list_addfront(t_node *old, t_node *new)
 {
 	t_node	temp;
 
@@ -58,6 +58,13 @@ void	ft_addfront(t_node *old, t_node *new)
 	*old = *new;
 	*new = temp;
 	old->next = new;
-	old->back = new->back;
-	new->back = old;
+}
+
+t_node	*next_node_with_this_token(t_node *node, t_tokens token)
+{
+	if (!node)
+		return (NULL);
+	while (node && node->token != token)
+		node = node->next;
+	return (node);
 }

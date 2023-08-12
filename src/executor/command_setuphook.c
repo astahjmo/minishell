@@ -1,29 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansions_utils.c                                 :+:      :+:    :+:   */
+/*   command_setuphook.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/20 06:51:53 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/20 07:17:38 by johmatos         ###   ########.fr       */
+/*   Created: 2023/07/09 20:14:41 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/07/09 20:14:44 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*trim_key(char *key)
-{
-	int		acc;
-	char	*env;
-
-	acc = 0;
-	while(key[acc] != ' ' && key[acc] != '\0')
-		acc++;
-	env = ft_substr(key, 0 , acc);
-	return (env);
-}
-
-// start -> $PATH
-//				  ^
-//				 end
+#include <unistd.h>

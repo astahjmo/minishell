@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   single_quotes_handler.c                            :+:      :+:    :+:   */
+/*   ft_strjoinfree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/19 20:03:27 by lfilipe-          #+#    #+#             */
-/*   Updated: 2023/05/18 20:54:35 by johmatos         ###   ########.fr       */
+/*   Created: 2023/05/29 17:05:07 by johmatos          #+#    #+#             */
+/*   Updated: 2023/06/22 16:43:27 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minishell.h"
 
-char	*single_quotes_handler(char *line,int *acc)
+char	*strjoin_free(char *s1, char *s2)
 {
 	char	*str;
-	int		idx;
-	char	*cursor;
 
-	idx = 0;
-	cursor = ++line;
-	while (cursor[idx] != '\'')
-		idx++;
-	str = ft_substr(line, 0, cursor - line);
-	*acc += idx;
+	str = ft_strjoin(s1, s2);
+	free(s1);
+	free(s2);
 	return (str);
 }

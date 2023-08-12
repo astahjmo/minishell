@@ -1,16 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   global.h                                           :+:      :+:    :+:   */
+/*   put_end_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/17 22:05:39 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/13 19:08:40 by johmatos         ###   ########.fr       */
+/*   Created: 2023/07/12 14:33:16 by vcedraz-          #+#    #+#             */
+/*   Updated: 2023/07/12 14:34:19 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GLOBAL_H
-# define GLOBAL_H
+#include "minishell.h"
 
-#endif // !GLOBAL_H
+void	put_end_line(char *buf, int fd)
+{
+	if (buf)
+	{
+		buf = expand_dollars(buf);
+		ft_putendl_fd(buf, fd);
+		free(buf);
+	}
+}

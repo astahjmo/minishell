@@ -3,28 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:03:44 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/16 18:16:52 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:45:46 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+t_databus	*getter_data(void)
+{
+	static t_databus	data;
+
+	return (&data);
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
-	t_databus	data;
+	t_databus	*data;
 
+	data = getter_data();
+	data->exit_status = 0;
+	(void)argc;
+	(void)argv;
+	data->envp = envp;
 	init_signal();
-	main_setup_hook(&data);
-	init_environ(envp, data.env);
-	//ft_print_env(data.env);
-	//free_env(data.env);
-	//free(data.env);
-	//free(data.cmds);
-	wait_input(data);
-	return (0);
-	argc = (int)argc;
-	argv = (char **)argv;
+	main_setup_hook(data);
+	init_env(data);
+	read_evaluate_print_loop(data);
+	return (data->exit_status);
 }

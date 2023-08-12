@@ -32,6 +32,11 @@ static char	*format_path(char *pwd)
 	len = 0;
 	while (arr[len] != NULL)
 		len++;
+	if (len == 0)
+	{
+		free(arr);
+		return (ft_strdup("/"));
+	}
 	folder = ft_strdup(arr[len - 1]);
 	while (len != -1)
 		free(arr[len--]);
@@ -44,7 +49,7 @@ static char	*format_prompt(char *name, char *path)
 	char	*prompt;
 
 	path = format_path(path);
-	prompt = ft_interpol("[%s] - [%s]-> ", name, path);
+	prompt = fmt_s(CYAN"[%s] - [%s]-> "RESET, name, path, NULL);
 	free(path);
 	return (prompt);
 }

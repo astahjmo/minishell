@@ -12,14 +12,13 @@
 
 #include <minishell.h>
 
-void	clear_bimatrix(char **arr)
+int	is_whitespace(char c)
 {
-	int	len;
-
-	len = 0;
-	while (arr[len] != NULL)
-		len++;
-	while (len != -1)
-		free(arr[len--]);
-	free(arr);
+	return (
+		c == '\n'
+		|| c == '\t'
+		|| c == '\r'
+		|| c == '\v'
+		|| c == ' '
+	);
 }

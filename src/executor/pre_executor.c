@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_unclosed.c                                   :+:      :+:    :+:   */
+/*   pre_executor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 21:38:21 by johmatos          #+#    #+#             */
-/*   Updated: 2023/05/13 17:36:06 by johmatos         ###   ########.fr       */
+/*   Created: 2023/07/07 20:10:54 by johmatos          #+#    #+#             */
+/*   Updated: 2023/07/14 14:09:14 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_unclosed_quotes(char *line, char *delimiter)
+int	pre_executor(t_databus *data)
 {
-	int		credit;
-	char	*cursor;
+	t_node	*head;
+	int		status;
 
-	credit = 0;
-	cursor = ft_strnstr(line, delimiter, ft_strlen(line));
-	if (cursor != NULL)
+	status = 0;
+	getter_data()->cmds->arr_cmds = 0;
+	open_redir_io(getter_data()->cmds->head, &status);
+	if (WEXITSTATUS(status) == 130)
 	{
-		credit++;
-		cursor++;
-		while (*cursor != '\0' || cursor != NULL)
-		{
-			cursor = ft_strnstr(cursor, delimiter, ft_strlen(cursor));
-			if (cursor == NULL)
-				break ;
-			cursor++;
-			credit++;
-		}
+		after_execution();
+		return (status);
 	}
-	if (credit % 2 != 0)
-		return (1);
-	return (0);
+	head = remove_operators(data->cmds->head);
+	free_cmds(data->cmds);
+	data->cmds->head = head;
+	return (status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_strings.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astaroth <astaroth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 15:04:31 by astaroth          #+#    #+#             */
-/*   Updated: 2023/05/15 15:11:31 by astaroth         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:44:43 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 char	*get_token_string(t_tokens token)
 {
-	static char	*strings[10] = {
+	static char	*strings[11] = {
 		"invalid",
-		"<<", ">>",
+		"<<",
+		">>",
 		"||",
 		"&&",
 		"|",
 		"&",
 		"<",
 		">",
-		"$"
+		"<word>",
+		"<space>"
 	};
 
 	return (strings[token]);

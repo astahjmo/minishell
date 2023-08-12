@@ -12,10 +12,9 @@
 
 #include "minishell.h"
 
-int	get_word_recipe(t_tokens state)
-
+t_tokens	get_word_recipe(t_tokens state)
 {
-	static int	transictions[3] = {1, 1, -1};
+	static int	transitions[3] = {1, 1, -1};
 
-	return (transictions[state]);
+	return (transitions[state]);
 }
