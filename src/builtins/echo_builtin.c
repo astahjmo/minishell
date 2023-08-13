@@ -12,16 +12,18 @@
 
 #include "minishell.h"
 
+static int	is_dash_n(char *str);
+
 void	echo_builtin(t_node *current)
 {
-	int	n_flag;
-	int	cmd_io;
+	t_bool	n_flag;
+	int		cmd_io;
 
 	n_flag = 0;
 	cmd_io = getter_data()->cmds->idx;
 	if (current->next)
 		current = current->next;
-	while (current && current->next && !ft_strcmp("-n", current->next->str))
+	while (current && current->next && is_dash_n(current->next->str))
 	{
 		n_flag = 1;
 		current = current->next->next;
@@ -35,4 +37,24 @@ void	echo_builtin(t_node *current)
 	if (!n_flag)
 		ft_putstr_fd("\n", command_hook(cmd_io)->output);
 	getter_data()->exit_status = 0;
+}
+
+static int	is_dash_n(char *str)
+{
+	t_bool	dash_n;
+	int		len;
+	int		i;
+
+	len = ft_strlen(str);
+	dash_n = FALSE;
+	i = 0;
+	if (str[i] == '-' && str[++i] == 'n')
+		dash_n = TRUE;
+	while (i < len)
+	{
+		if (str[i] != 'n')
+			return (FALSE);
+		i++;
+	}
+	return (dash_n);
 }
