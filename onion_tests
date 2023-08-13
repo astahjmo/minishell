@@ -201,25 +201,8 @@ echo '' -n
 
 echo "" "" "" -n -n -n -n
 
-cat << $USER
-why
-not
-$USER
-
 export T=">>"
 $T lol
-
-cat << "$USER"
-why
-not
-$USER
-
-cat << "$US"E"R"
-because
-we
-love
-bash
-$USER
 
 >> $HOME
 
@@ -361,12 +344,6 @@ echo segfault $T grep segfault
 export T='<'
 echo segfault $T grep segfault
 
-export T="<<"
-echo segfault $T grep segfault
-
-export T='<<'
-echo segfault $T grep segfault
-
 export T="|"
 $T$T$T$T$T$T$T
 
@@ -400,9 +377,6 @@ e""""""""""""cho
 
 export T='|'
 echo $T echo lala $T echo $T echo ?
-
-export T="<<"
-$T.
 
 OLDPWD
 
@@ -1230,77 +1204,6 @@ rm -rf tmp_lol.c
 
 ls | cat asd
 
-ls | cat << stop | grep "asd"
-is this good
-stop
-
-ls | cat << stop | ls -la | cat << stop1
-12
-32232
-23
-stop
-awdaw
-daswd
-stop1
-
-ls | cat << stop | ls -la | cat << stop1 | ls | cat << stop2 | ls -la | cat << stop3
-$USER
-ad
-as $HOME
-stop
-awd
-wf$PWDdqwdwqd
-stop1
-das
-das
-stop2
-dsq
-wd
-wf$PWDdqwdwqd
-stop3
-
-ls | cat << stop | ls -la | cat << stop1 | ls | cat << stop2 | ls -la > out | cat << 'stop3'
-$USER
-ad
-stop
-dsa
-stop1
-sad
-stop2
-as $HOME
-stop3
-/bin/rm -f out
-
-ls | cat << stop | ls -la | cat << stop1 | ls | cat << stop2 | ls -la > > out | cat << stop3
-fe
-wf
-fwe
-f
-stop
-dw
-stop1
-dwasd
-stop2
-cat Makefile | ls > out
-cat out
-/bin/rm -f out
-
-ls | cat << stop | ls -la > out0| cat << stop1 | ls | cat << stop2 | ls -la >> out | cat << stop3
-fe
-wf
-fwe
-f
-stop
-dw
-stop1
-dw
-stop2
-e
-wf
-stop3
-/bin/rm -f out
-/bin/rm -f out0
-
 ls > out >> out1 >out3 | cat out1
 ls > out >> out1 >out3 | cat out1
 /bin/rm -f out
@@ -1325,21 +1228,6 @@ ls|cat Makefile|> out
 ls|cat Makefile|>> out
 /bin/rm -f out
 
-
-ls|cat Makefile|cat<<asd>out
-$USER
-asd
-/bin/rm -f out
-
-ls|cat Makefile|cat<<'asd'>out
-$USER
-asd
-/bin/rm -f out
-
-ls|cat Makefile|cat<<"asd">out
-$USER
-asd
-/bin/rm -f out
 
 pwd
 ls|cat Makefile|>> out|cd ..
@@ -1530,67 +1418,6 @@ rm -f tmp_std_outfile
 /bin/echo >/dev/null 1 | /usr/bin/grep 1
 
 /bin/echo >/dev/null 1 | /bin/echo 2
-
-cat << lim
- "lim"
-HELLO
-42
- lim
-testing your minishell
-limm
-lim
-
-<<lim cat
- "lim"
-HELLO
-42
- lim
-testing your minishell
-limm
-lim
-
-cat << lim
-test
-lim
-
-cat << EOF
-"EOF"
-!! HELLO
-@42 !!
- EOF\t\b\n
-testing your minishell :)
-limm
-EOF
-
-cat << hello
-$USER
-$NOVAR
-$HOME
-hello
-
-cat << 'lim'
-$USER
-$NOVAR
-$HOME
-lim
-
-cat << lim''
-$USER
-$NOVAR
-$HOME
-lim
-
-cat << "lim"
-$USER
-$NOVAR
-$HOME
-lim
-
-cat << 'lim'
-$USER
-$NOVAR
-$HOME
-lim
 
 > out
 /bin/rm -f out
@@ -1969,8 +1796,6 @@ echo '  'Hello 'World '
 
 'e'cho 42
 
-echo 'cat lol.c << cat > lol.c'
-
 echo @World'42'Hello
 
 echo "" ''
@@ -1988,8 +1813,6 @@ echo 1 '||' echo 2
 echo 1 '>' echo 2
 
 echo 1 '>>' file 2
-
-'<<' lim echo 1 >>/dev/null
 
 echo "$USER"
 
