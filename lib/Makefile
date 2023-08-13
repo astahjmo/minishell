@@ -71,7 +71,7 @@ $(LIB): $(OBJS)
 	@printf "$(MSGBUILD) (libft): ok\n"
 
 $(BUILDDIR)%.o: %.c
-	@printf "$(MSGBUILD) (libft): building $@                        \r"
+	@printf "\r$(MSGBUILD) (libft): building $@                        "
 	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
 	@$(CC) $(CFLAGS) -I./include -c $< -o $@
 
@@ -79,11 +79,10 @@ minishell: $(MINISHELL_LIB)
 
 $(MINISHELL_LIB): $(MINISHELL_OBJS)
 	@ar -rcs $@ $?
-	@printf "\n";
-	@printf "$(ALTMSGBUILD) (libft): ok                              "
+	@printf "\n$(ALTMSGBUILD) (libft): ok                              "
 
 $(MINISHELLDIR)%.o: %.c
-	@printf "$(MSGBUILD) (libft): building $@                        \r"
+	@printf "\r$(MSGBUILD) (libft): building $@                        "
 	@test -d $(MINISHELLDIR) || mkdir $(MINISHELLDIR)
 	@$(CC) $(CFLAGS) -I./include -c $< -o $@
 

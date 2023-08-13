@@ -62,17 +62,18 @@ ifdef ACTIONS
 endif
 
 makelib:
+	@printf "\n$(MSGBUILD) $(NAME): ok!\n"
 	@make minishell -C lib --no-print-directory
 
 $(NAME): $(OBJS) makelib
 	@make --no-print-directory supp
+	@printf "\n$(ALT_MSGBUILD) $@: Link process !         "
 	@$(CC) $(CFLAGS) -I$(INCLUDE) $(OBJS) $(MINILIB) -lreadline -o $@
-	@printf "\n$(ALT_MSGBUILD) $@: Program has been created!         \n"
+	@printf "\n$(ALT_MSGBUILD) $@: Program has been created!         "
 
 $(BUILDDIR)%.o: %.c
-	@printf "$(MSGBUILD) $(NAME): building $@                                                                   \r"
+	@printf "\r$(MSGBUILD) $(NAME): building $@                      "
 	@test -d $(BUILDDIR) || mkdir $(BUILDDIR)
-	@printf "$(MSGBUILD) $(NAME): building $@                        \n"
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -I$(LINCLUDE) -c $< -o $@
 
 supp:
