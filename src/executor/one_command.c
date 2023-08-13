@@ -63,8 +63,8 @@ static void	fork_and_execute(t_node *cmds)
 
 	cmd_count = getter_data()->cmds->idx;
 	pid = fork();
-	if (pid < 0)
-		printf("sda\n");
+	if (is_fork_error(pid))
+		return ;
 	i = 0;
 	if (pid == 0)
 	{

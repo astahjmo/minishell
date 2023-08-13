@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 #include <signal.h>
 #include <stdlib.h>
@@ -60,4 +61,15 @@ void	set_exit_code(int status)
 		getter_data()->exit_status = 128 + status;
 	else
 		getter_data()->exit_status = WEXITSTATUS(status);
+}
+
+int	is_fork_error(int status)
+{
+	if (status < 0)
+	{
+		ft_putstr_fd("Minishell: a error in fork!", STDERR_FILENO);
+		getter_data()->exit_status = -1;
+		return (TRUE);
+	}
+	return (FALSE);
 }

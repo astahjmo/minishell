@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 #include <unistd.h>
 
@@ -72,6 +73,14 @@ static void	free_and_exit(t_databus *data, char *failure_message)
 
 static int	has_non_numeric_char(char *str)
 {
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			str++;
+		if (!ft_isdigit(*str))
+			return (TRUE);
+		str++;
+	}
 	while (*str)
 	{
 		if ((!ft_isdigit(*str) && *str != '+' && *str != '-')

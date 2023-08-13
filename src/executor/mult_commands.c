@@ -39,6 +39,7 @@ static int	main_routine(int bkp_fd, int *count, int *pipe_fds)
 		close(bkp_fd);
 	bkp_fd = dup(pipe_fds[0]);
 	close_pipe_fds(pipe_fds);
+	getter_data()->cmds->idx++;
 	return (bkp_fd);
 }
 
@@ -85,16 +86,16 @@ void	mult_commands(t_node **cmds)
 		signal(SIGINT, handle_sigint);
 		pipe(pipe_fds);
 		pids[cmd_count] = fork();
+		if (is_fork_error(pids[cmd_count]))
+			return ;
 		if (pids[cmd_count] == CHILD_PROCESS)
 		{
 			handle_pipe_fds(bkp_fd, pipe_fds, cmd_count);
 			child_routine(cmds[cmd_count], cmd_count, pipe_fds, pids);
 		}
 		bkp_fd = main_routine(bkp_fd, &cmd_count, pipe_fds);
-		getter_data()->cmds->idx++;
 	}
 	wait_all_children(bkp_fd, pids);
-	free(pids);
 }
 
 static void	handle_pipe_fds(int bkp_fd, int pipe_fds[2], int cmd_count)

@@ -274,4 +274,5 @@ t_node						*skip_if_is_space(t_node *node);
 void						set_exit_code(int status);
 void						handle_sigint(int sig);
 void						define_handle(int sig);
+int							is_fork_error(int status);
 #endif

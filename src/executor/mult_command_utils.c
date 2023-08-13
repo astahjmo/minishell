@@ -29,6 +29,7 @@ void	wait_all_children(int bkp_fd, int *pids)
 	signal(SIGINT, define_handle);
 	if (bkp_fd > 2)
 		close(bkp_fd);
+	free(pids);
 }
 
 t_bool	handle_empty_string(t_node **cmds, int *cmd_count)

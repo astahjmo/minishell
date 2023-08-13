@@ -40,7 +40,6 @@ char	*handle_frees(char *tmp, char *new_line, char *line, int has_dollar)
 		free(new_line);
 		return (line);
 	}
-	//getter_data()->exit_status = 0;
 	free(line);
 	return (new_line);
 }

@@ -34,8 +34,15 @@ void	handle_sigint(int sig)
 	(void)sig;
 }
 
+void	handle_pipe(int sig)
+{
+	(void)sig;
+	close(2);
+}
+
 void	init_signal(void)
 {
+	signal(SIGPIPE, handle_pipe);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, define_handle);
 }
