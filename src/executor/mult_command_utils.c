@@ -6,11 +6,12 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:46:31 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/08/12 18:42:32 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/08/12 21:05:43 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <signal.h>
 
 void	wait_all_children(int bkp_fd, int *pids)
 {
@@ -25,6 +26,7 @@ void	wait_all_children(int bkp_fd, int *pids)
 		set_exit_code(status);
 		count++;
 	}
+	signal(SIGINT, define_handle);
 	if (bkp_fd > 2)
 		close(bkp_fd);
 }

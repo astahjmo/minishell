@@ -6,7 +6,7 @@
 /*   By: johmatos <johmatos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 20:14:51 by johmatos          #+#    #+#             */
-/*   Updated: 2023/08/12 19:04:17 by johmatos         ###   ########.fr       */
+/*   Updated: 2023/08/12 21:05:43 by johmatos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	mult_commands(t_node **cmds)
 	{
 		if (handle_empty_string(cmds, &cmd_count))
 			continue ;
+		signal(SIGINT, handle_sigint);
 		pipe(pipe_fds);
 		pids[cmd_count] = fork();
 		if (pids[cmd_count] == CHILD_PROCESS)
