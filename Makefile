@@ -61,15 +61,13 @@ ifdef ACTIONS
     CC = clang-12
 endif
 
-makelib:
-	@printf "\n$(MSGBUILD) $(NAME): ok!\n"
-	@make minishell -C lib --no-print-directory
-
-$(NAME): $(OBJS) makelib
+$(NAME): $(OBJS)
+	@printf "\n"
 	@make --no-print-directory supp
+	@make minishell -C lib --no-print-directory
 	@printf "\n$(ALT_MSGBUILD) $@: Link process !         "
 	@$(CC) $(CFLAGS) -I$(INCLUDE) $(OBJS) $(MINILIB) -lreadline -o $@
-	@printf "\n$(ALT_MSGBUILD) $@: Program has been created!         "
+	@printf "\n$(ALT_MSGBUILD) $@: Program has been created!         \n"
 
 $(BUILDDIR)%.o: %.c
 	@printf "\r$(MSGBUILD) $(NAME): building $@                      "
