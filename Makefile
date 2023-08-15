@@ -49,7 +49,6 @@ Blu='\033[0;34m'
 Pur='\033[0;35m'
 Cya='\033[0;36m'
 Whi='\033[0;37m'
-cleanline='\033[2K'
 
 MSGBUILD="[$(Gre)+$(RCol)]"
 ALT_MSGBUILD="[$(Cya)+$(RCol)]"
@@ -65,9 +64,9 @@ $(NAME): $(OBJS)
 	@printf "\n"
 	@make --no-print-directory supp
 	@make minishell -C lib --no-print-directory
-	@printf "\n$(ALT_MSGBUILD) $@: Link process !         "
+	@printf $(Red)"\n$@ : Linking objects into the executable...         "
 	@$(CC) $(CFLAGS) -I$(INCLUDE) $(OBJS) $(MINILIB) -lreadline -o $@
-	@printf "\n$(ALT_MSGBUILD) $@: Program has been created!         \n"
+	@printf $(Cya)"\n$@: Program has been created!         			\n"
 
 $(BUILDDIR)%.o: %.c
 	@printf "\r$(MSGBUILD) $(NAME): building $@                      "
