@@ -20,7 +20,7 @@ jobs:
       run: make ACTIONS=yes
     - name: install norminette
       run: pip install norminette
-    - name: check norminette
+    - name: check norminetteee
       run: norminette
     - name: Minishell Tester
       run: |
